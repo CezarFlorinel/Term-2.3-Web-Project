@@ -24,6 +24,13 @@ PHPMyAdmin is accessible on localhost:8080
 
 If you want to stop the containers, press Ctrl+C. 
 Or run:
+blalalblabla
 ```bash
+
+
 docker-compose down
+
+
+
+
 ```
