@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use PDO;
+use PDOException; // Make sure to include this for handling PDO exceptions
 
 class Repository
 {
@@ -12,7 +13,9 @@ class Repository
         require __DIR__ . '/../config/dbconfig.php';
 
         try {
-            $this->connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
+            // For SQL Server, the DSN format is "sqlsrv:Server=hostname;Database=database"
+            $dsn = "$type:Server=$servername;Database=$database";
+            $this->connection = new PDO($dsn, $username, $password);
             // set the PDO error mode to exception
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
