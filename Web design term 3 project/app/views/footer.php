@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>footer</title>
     <link rel="stylesheet" href="CSS_files/footer.css">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:500|Zen+Antique|Allerta+Stencil&display=swap"
-        rel="stylesheet">
 </head>
 
 <body>
@@ -13,7 +11,7 @@
         <div class="background-footer1">
 
             <div class="footer-item1">
-                <a href="/"><img src="assets/images/Logos/Logo-W.png" alt="logo" class="footer-logo"></a>
+                <a href="/"><img src="assets/images/Logos/Logo-Festival.png" alt="logo" class="footer-logo"></a>
                 <a class="nav-type-1-footer" href="/">Do you have any questions?</a>
                 <a class="nav-type-1-footer" href="/">Contact us</a>
             </div>
@@ -46,10 +44,10 @@
                 </div>
 
                 <div class="footer-item6">
-                    <a href="/"><img src="assets/images/Logos/Facebook-W.png" alt="logo" class="footer-social-link"></a>
-                    <a href="/"><img src="assets/images/Logos/Instagram-W.png" alt="logo"
+                    <a href="/"><img src="assets/images/Logos/Facebook-Grey.png" alt="logo" class="footer-social-link"></a>
+                    <a href="/"><img src="assets/images/Logos/Instagram-Grey.png" alt="logo"
                             class="footer-social-link"></a>
-                    <a href="/"><img src="assets/images/Logos/Linkdin-W.png" alt="logo" class="footer-social-link"></a>
+                    <a href="/"><img src="assets/images/Logos/Linkdin-Grey.png" alt="logo" class="footer-social-link"></a>
                 </div>
             </div>
 
