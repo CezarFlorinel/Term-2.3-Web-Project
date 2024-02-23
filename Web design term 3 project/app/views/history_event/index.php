@@ -11,6 +11,7 @@ include __DIR__ . '/../header.php';
         href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="CSS_files/history_event.css">
 </head>
 
@@ -130,33 +131,283 @@ include __DIR__ . '/../header.php';
     </div>
 
     <div class="ticket-price-container">
+
         <div class="ticket-price-info">
             <img class="ticket-price-image" src="assets/images/history_event/8.webp" alt="History Event">
-            <div class = "ticket-price-info-text">
-                <h1 class="ticket-price-header">Student</h1>
-                <p class="ticket-price-text">Price: 12.50 €</p>
+            <div class="ticket-price-info-text">
+                <h1 class="ticket-price-header">Regular Participant</h1>
+                <p class="ticket-price-text">Price: 17.50 €</p>
                 <p class="ticket-price-text">1 x Drink</p>
 
                 <button type="button" class="btn2">Buy Now</button>
             </div>
         </div>
 
+        <div class="ticket-price-info-2">
+            <div class="ticket-price-info-text-2">
+                <h1 class="ticket-price-header-2">Family Ticket</h1>
+                <p class="ticket-price-text-2">Price: 60.00 €</p>
+                <p class="ticket-price-text-2">4 x Drinks (1 per member)</p>
+                <p class="ticket-price-text-2">Maximum 4 members</p>
+
+                <button type="button" class="btn2">Buy Now</button>
+            </div>
+            <img class="ticket-price-image-2" src="assets/images/history_event/family.png" alt="History Event">
+        </div>
     </div>
 
+    <!-- ------------------------------- -->
+
+    <div class="event-info-container">
+        <h1 class="event-info-header">Tour Departures Timetable</h1>
+    </div>
+
+    <div class="timetables-grid-container">
+
+        <div class="timetable-day">
+            <h1 class="timetable-day-header">25</h1>
+            <p class="timetable-day-text1">Jul</p>
+            <p class="timetable-day-text2">Thursday</p>
+        </div>
+        <div class="timetable-day">
+            <h1 class="timetable-day-header">25</h1>
+            <p class="timetable-day-text1">Jul</p>
+            <p class="timetable-day-text2">Thursday</p>
+        </div>
+        <div class="timetable-day">
+            <h1 class="timetable-day-header">25</h1>
+            <p class="timetable-day-text1">Jul</p>
+            <p class="timetable-day-text2">Thursday</p>
+        </div>
+        <div class="timetable-day">
+            <h1 class="timetable-day-header">25</h1>
+            <p class="timetable-day-text1">Jul</p>
+            <p class="timetable-day-text2">Thursday</p>
+        </div>
 
 
 
-    <p>
-        Haarlem stands as a venerable city steeped in an enthralling history, adorned with a tapestry of captivating
-        tales and brimming with an array of magnificent landmarks to explore. Naturally, our desire is to extend a
-        heartfelt invitation, beckoning individuals to immerse themselves in the allure of Haarlem. Here, amidst the
-        intertwining threads of antiquity and modernity, lies a treasure trove awaiting discovery—an opportunity for
-        visitors to indulge in the breath taking splendor that seamlessly weaves together the timeless charm of the past
-        with the vibrant pulse of the present.
-    </p>
+        <div class="timetable-booking-item">
+            <p class="timetable-booking-text">Time: 10:00</p>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">English Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Dutch Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Chinese Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <button type="button" class="btn3">Book</button>
 
+        </div>
 
+        <div class="timetable-booking-item">
+            <p class="timetable-booking-text">Time: 10:00</p>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">English Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Dutch Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Chinese Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <button type="button" class="btn3">Book</button>
 
+        </div>
+
+        <div class="timetable-booking-item">
+            <p class="timetable-booking-text">Time: 10:00</p>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">English Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Dutch Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Chinese Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <button type="button" class="btn3">Book</button>
+
+        </div>
+
+        <div class="timetable-booking-item">
+            <p class="timetable-booking-text">Time: 10:00</p>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">English Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Dutch Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Chinese Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <button type="button" class="btn3">Book</button>
+
+        </div>
+
+        <div class="timetable-booking-item">
+            <p class="timetable-booking-text">Time: 10:00</p>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">English Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Dutch Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Chinese Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <button type="button" class="btn3">Book</button>
+
+        </div>
+
+        <div class="timetable-booking-item">
+            <p class="timetable-booking-text">Time: 10:00</p>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">English Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Dutch Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Chinese Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <button type="button" class="btn3">Book</button>
+
+        </div>
+
+        <div class="timetable-booking-item">
+            <p class="timetable-booking-text">Time: 10:00</p>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">English Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Dutch Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Chinese Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <button type="button" class="btn3">Book</button>
+
+        </div>
+
+        <div class="timetable-booking-item">
+            <p class="timetable-booking-text">Time: 10:00</p>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">English Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Dutch Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Chinese Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <button type="button" class="btn3">Book</button>
+
+        </div>
+
+        <div class="timetable-booking-item">
+            <p class="timetable-booking-text">Time: 10:00</p>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">English Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Dutch Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Chinese Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <button type="button" class="btn3">Book</button>
+
+        </div>
+
+        <div class="timetable-booking-item">
+            <p class="timetable-booking-text">Time: 10:00</p>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">English Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Dutch Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Chinese Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <button type="button" class="btn3">Book</button>
+
+        </div>
+
+        <div class="timetable-booking-item">
+            <p class="timetable-booking-text">Time: 10:00</p>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">English Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Dutch Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Chinese Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <button type="button" class="btn3">Book</button>
+
+        </div>
+
+        <div class="timetable-booking-item">
+            <p class="timetable-booking-text">Time: 10:00</p>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">English Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Dutch Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <div class="booking-item-flagAndText">
+                <p class="timetable-booking-text">Chinese Tours</p>
+                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+            </div>
+            <button type="button" class="btn3">Book</button>
+
+        </div>
+    </div>
+
+    <!-- ------------------------------- -->
+    <div class="event-info-container">
+        <h1 class="event-info-header">Tour Departures Timetable</h1>
+    </div>
 
 
 

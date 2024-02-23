@@ -152,7 +152,7 @@
     border-radius: 14px;
     padding: 5px 10px;
     margin-right: 12px;
-    border: crimson;
+    border: crimson solid 1px;
     transition: background-color 0.3s, color 0.3s; 
 }
 
@@ -160,4 +160,241 @@
     background-color: white; /* Background becomes white */
     color: crimson; /* Text becomes crimson */
 }
+
+/* Ticket Prices --------------------------------------------------------------------------- */
+
+.ticket-price-container{
+    display: flex;
+    margin-left: 30px;
+    margin-right: 30px;
+    color: black;
+}
+
+.ticket-price-info{
+    display: flex;
+    background-color: #D0D5D8;
+    border-radius: 20px;
+    flex: 1;
+}
+
+.ticket-price-image{
+    width: 40%;
+    height: auto;
+    border: black 1px solid;
+    border-radius: 20px;
+    margin-right: 20px;
+    object-fit: cover; /* This will cover the area of the box without stretching */
+    display: block; /* Ensures the image is a block-level element */
+}
+
+.ticket-price-header{
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+}
+
+.ticket-price-text{
+    font-family: 'Imprima', sans-serif;
+    font-size: 20px;
+    margin-top: -10px;
+}
+
+.ticket-price-info-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn2{
+    font-family: 'Bubblegum Sans', sans-serif;
+    font-size: 25px;
+    background-color: crimson;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 15px;
+    margin-right: 12px;
+    border: crimson solid 1px;
+    transition: background-color 0.3s, color 0.3s; 
+    margin-bottom: 5px;
+    width: 250px;
+    align-self: center;
+    margin-top: auto;
+}
+
+.btn2:hover {
+    background-color: white; /* Background becomes white */
+    color: crimson; /* Text becomes crimson */
+}
+
+/* second ticket option ------*/
+
+.ticket-price-info-2{
+    display: flex;
+    margin-left: 20px;
+    background-color: #8FADC6;
+    border-radius: 20px;
+    flex: 1;
+}
+
+.ticket-price-image-2{
+    width: 40%;
+    height: auto;
+    border: black 1px solid;
+    border-radius: 20px;    
+    margin-left: auto;
+    object-fit: cover; /* This will cover the area of the box without stretching */
+    display: block; /* Ensures the image is a block-level element */
+}
+
+.ticket-price-header-2{
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+}
+
+.ticket-price-text-2{
+    font-family: 'Imprima', sans-serif;
+    font-size: 18px;
+    margin-top: -15px;
+}
+
+.ticket-price-info-text-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+}
+
+/* Tour Departure Timetable --------------------------------------------------------------------------- */
+
+.timetables-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns of equal width */
+    grid-auto-rows: minmax(100px, auto); /* Minimum row height of 100px, but can grow */
+    gap: 30px; /* Adjust the gap between items as needed */
+    margin-left: 40px;
+    margin-right: 40px;
+    justify-items: center; /* Center grid items horizontally */
+
+
+  }
+
+/* Dates--- */
+
+.timetable-days-container {
+    display: contents; /* This will make the container not to produce an extra grid layer */
+  }
+
+.timetable-day{
+    display: flex;
+    color: white;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    grid-row: 1;
+}
+
+.timetable-day-header{
+    font-family: Impact, sans-serif;
+    font-size: 70px;
+    letter-spacing: 7px;
+}
+
+.timetable-day-text1{
+    font-family: 'Imprima', sans-serif;
+    font-size: 35px;
+    margin-top: -40px;
+}
+
+.timetable-day-text2{
+    font-family: 'Imprima', sans-serif;
+    font-size: 20px;
+    margin-top: -20px;
+}
+
+/* Bookings--- */
+.timetable-booking-item{
+    display: flex;
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    flex-direction: column;
+    align-items: left;
+    font-family: 'Imprima', sans-serif;
+    border-radius: 20px;
+    padding-bottom: 20px; /* Add padding to the bottom */
+    overflow: visible; /* Ensure the button is not clipped */
+    margin-bottom: 40px;
+    max-width: 300px;
+    min-width: 200px;
+}
+
+.booking-item-flagAndText
+{
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+}
+
+.timetable-booking-image{
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.timetable-booking-text{
+    margin-left: 20px;
+}
+
+.btn3
+{
+    font-family: 'Bubblegum Sans', sans-serif;
+    font-size: 25px;
+    background-color: crimson;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 15px;
+    border: 1px crimson solid;
+    transition: background-color 0.3s, color 0.3s; 
+    width: 150px;
+    align-self: center;
+    position: relative; /* Allow the button to be positioned relative to its container */
+    bottom: -20px; /* Push the button out of the container */
+    margin-top: auto; /* Ensure the button sticks to the bottom */
+    margin-bottom: -20px; /* Negative margin to pull the button outside the container */
+}
+
+.btn3:hover {
+    background-color: white; /* Background becomes white */
+    color: crimson; /* Text becomes crimson */
+    
+}
+
+/* Skip the first 4 items (first row) and start coloring from the second row */
+/* Second row buttons (items 5 to 8) */
+.timetables-grid-container > :nth-child(n+5):nth-child(-n+8) .btn3 {
+    background-color: #E8B700; /* Color for second row */
+    border: 1px #E8B700 solid;
+  }
+  
+  /* Third row buttons (items 9 to 12) */
+  .timetables-grid-container > :nth-child(n+9):nth-child(-n+12) .btn3 {
+    background-color: #355C7D; /* Color for third row */
+    border: 1px #355C7D solid;
+  }
+
+  /* Hover styles for second row buttons (items 5 to 8) */
+.timetables-grid-container > :nth-child(n+5):nth-child(-n+8) .btn3:hover {
+    background-color: white; /* Background becomes white */
+    color: #E8B700; /* Text color changes to the original background color */
+  }
+  
+  /* Hover styles for third row buttons (items 9 to 12) */
+  .timetables-grid-container > :nth-child(n+9):nth-child(-n+12) .btn3:hover {
+    background-color: white; /* Background becomes white */
+    color: #355C7D; /* Text color changes to the original background color */
+  }
+
+ 
+  
+
+
 
