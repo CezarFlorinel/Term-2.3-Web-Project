@@ -1,0 +1,163 @@
+/* The top image section --------------------------------------------------------------------------- */
+.start-image-container {
+    background-image: url('../assets/images/history_event/Amsterdamse_Poort.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.start-image-text {
+    align-self: flex-start;
+    padding-left: 10%; /* Adjust the percentage as needed for your design */
+}
+
+.text-1-h, .text-2-h, .text-3-h {
+    font-size: 50px;
+    color: white; 
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+}
+
+.text-2-h {
+    font-weight: 400; 
+}
+
+.text-3-h {
+    font-weight: 900; 
+}
+
+.arrows-images-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 10%; /* This padding will ensure arrows are not touching the edge */
+}
+
+.start-image-arrow-left {
+    margin-bottom: 10px;
+}
+
+.start-image-arrow-right {
+    margin-bottom: 10px;
+}
+
+/* Event info section - text part --------------------------------------------------------------------------- */
+
+.Image{
+    margin-top: -60px;
+    background-image: url('../assets/images/elements/Union.png');
+    background-size: 1200px 200px; 
+    background-repeat: no-repeat; 
+    background-position: center; /* Keeps the image centered */
+    height: 300px; /* Adjust the height as needed */
+    width: 100%; /* Adjust the width as needed */
+}
+.event-info-text-container {
+    display: flex;
+    width: auto;
+    height: 100px;
+    margin-left: 110px;
+    margin-right: 110px;
+    align-items: center;
+    justify-content: center;
+   
+}
+.event-info-h{
+    color: black;
+    font-family: 'Imprima', sans-serif;
+    margin-top: 200px;
+    text-align: center;
+    font-size: 20px;
+}
+
+/*The header part -----------------------*/
+.event-info-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.event-info-header {
+    font-size: 50px;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+}
+
+.sound-icon{
+    margin-left: 70px;
+    height: 70px;
+}
+
+/*The route part -----------------------*/
+
+.container-route{
+    display: flex;
+    background-color: white;
+    margin-left: 40px;
+    margin-right: 40px;
+    color: black;
+    border-radius: 20px;
+}
+
+.route-image{
+    padding: 20px;
+    width: 50%;
+    height: auto;
+}
+
+.route-text-sign-arrow{
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+}
+
+.route-text-sign-wheelchair{
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+}
+
+.route-info-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.route-text-info{
+    display: flex;
+    align-items: center;
+    font-family: 'Imprima', sans-serif;
+    font-size: 20px;
+    margin-top: -20px;
+}
+
+.route-info-header{
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+}
+
+.The-button{
+    margin: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn1{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    background-color: crimson;
+    color: white;
+    border-radius: 14px;
+    padding: 5px 10px;
+    margin-right: 12px;
+    border: crimson;
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.btn1:hover {
+    background-color: white; /* Background becomes white */
+    color: crimson; /* Text becomes crimson */
+}
+
