@@ -406,8 +406,50 @@ include __DIR__ . '/../header.php';
 
     <!-- ------------------------------- -->
     <div class="event-info-container">
-        <h1 class="event-info-header">Tour Departures Timetable</h1>
+        <h1 class="event-info-header">Starting Point Of The Tour</h1>
     </div>
+
+    <div class="map-container">
+        <img class="starting-point-image" src="assets/images/history_event/location-starting-point.png"
+            alt="History Event">
+        <div class="map-info-container">
+            <p class="map-info-text">The tour begins in close proximity to the Church of Saint Bavo, easily identified
+                by a prominent flag marking the location. Your guide will be awaiting your arrival here. The tour will
+                start once all participants have assembled or at the scheduled time.</p>
+            <img class="map-info-image" src="assets/images/history_event/map-starting-point.png" alt="History Event">
+        </div>
+    </div>
+
+
+    <!-- ------------------------------- -->
+    <div class="event-info-container">
+        <h1 class="event-info-header">Practical Information</h1>
+    </div>
+
+    <div class="practical-info-container">
+        <div class="practical-info-item">
+            <img class="practical-info-sign" src="assets/images/elements/+ sign.png" alt="History Event">
+            <p class="practical-info-text">What is the duration of each tour?</p>
+        </div>
+        <div class="practical-info-item">
+            <img class="practical-info-sign" src="assets/images/elements/+ sign.png" alt="History Event">
+            <p class="practical-info-text">What is the duration of each tour?</p>
+        </div>
+    </div>
+
+    <!-- ------------------------------- -->
+    <div class="event-info-container">
+        <h1 class="event-info-header">Do you want to re-live the moments spent during the tour, you can do it in our
+            immersive audio page</h1>
+    </div>
+
+    <div class="Audio-page-button-container">
+        <button type="button" class="btn4">Check Out Our Webpage</button>
+    </div>
+
+
+
+
 
 
 
