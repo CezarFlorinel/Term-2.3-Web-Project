@@ -11,29 +11,33 @@
 
 .start-image-text {
     align-self: flex-start;
-    padding-left: 10%; /* Adjust the percentage as needed for your design */
+    padding-left: 10%;
+    /* Adjust the percentage as needed for your design */
 }
 
-.text-1-h, .text-2-h, .text-3-h {
+.text-1-h,
+.text-2-h,
+.text-3-h {
     font-size: 50px;
-    color: white; 
+    color: white;
     font-family: 'Playfair Display', serif;
     font-weight: 500;
 }
 
 .text-2-h {
-    font-weight: 400; 
+    font-weight: 400;
 }
 
 .text-3-h {
-    font-weight: 900; 
+    font-weight: 900;
 }
 
 .arrows-images-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 0 10%; /* This padding will ensure arrows are not touching the edge */
+    padding: 0 10%;
+    /* This padding will ensure arrows are not touching the edge */
 }
 
 .start-image-arrow-left {
@@ -46,15 +50,19 @@
 
 /* Event info section - text part --------------------------------------------------------------------------- */
 
-.Image{
+.Image {
     margin-top: -60px;
     background-image: url('../assets/images/elements/Union.png');
-    background-size: 1200px 200px; 
-    background-repeat: no-repeat; 
-    background-position: center; /* Keeps the image centered */
-    height: 300px; /* Adjust the height as needed */
-    width: 100%; /* Adjust the width as needed */
+    background-size: 1200px 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Keeps the image centered */
+    height: 300px;
+    /* Adjust the height as needed */
+    width: 100%;
+    /* Adjust the width as needed */
 }
+
 .event-info-text-container {
     display: flex;
     width: auto;
@@ -63,9 +71,10 @@
     margin-right: 110px;
     align-items: center;
     justify-content: center;
-   
+
 }
-.event-info-h{
+
+.event-info-h {
     color: black;
     font-family: 'Imprima', sans-serif;
     margin-top: 200px;
@@ -74,11 +83,12 @@
 }
 
 /*The header part -----------------------*/
-.event-info-container{
+.event-info-container {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .event-info-header {
     font-size: 50px;
     color: white;
@@ -86,14 +96,14 @@
     font-weight: 500;
 }
 
-.sound-icon{
+.sound-icon {
     margin-left: 70px;
     height: 70px;
 }
 
 /*The route part -----------------------*/
 
-.container-route{
+.container-route {
     display: flex;
     background-color: white;
     margin-left: 40px;
@@ -102,30 +112,30 @@
     border-radius: 20px;
 }
 
-.route-image{
+.route-image {
     padding: 20px;
     width: 50%;
     height: auto;
 }
 
-.route-text-sign-arrow{
+.route-text-sign-arrow {
     width: 20px;
     height: 20px;
     margin-right: 20px;
 }
 
-.route-text-sign-wheelchair{
+.route-text-sign-wheelchair {
     width: 30px;
     height: 30px;
     margin-left: auto;
 }
 
-.route-info-container{
+.route-info-container {
     display: flex;
     flex-direction: column;
 }
 
-.route-text-info{
+.route-text-info {
     display: flex;
     align-items: center;
     font-family: 'Imprima', sans-serif;
@@ -133,18 +143,18 @@
     margin-top: -20px;
 }
 
-.route-info-header{
+.route-info-header {
     font-family: "Playfair Display", serif;
     font-weight: 500;
 }
 
-.The-button{
+.The-button {
     margin: 20px;
     display: flex;
     justify-content: flex-end;
 }
 
-.btn1{
+.btn1 {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 20px;
     background-color: crimson;
@@ -152,12 +162,378 @@
     border-radius: 14px;
     padding: 5px 10px;
     margin-right: 12px;
-    border: crimson;
-    transition: background-color 0.3s, color 0.3s; 
+    border: crimson solid 1px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .btn1:hover {
-    background-color: white; /* Background becomes white */
-    color: crimson; /* Text becomes crimson */
+    background-color: white;
+    /* Background becomes white */
+    color: crimson;
+    /* Text becomes crimson */
+}
+
+/* Ticket Prices --------------------------------------------------------------------------- */
+
+.ticket-price-container {
+    display: flex;
+    margin-left: 30px;
+    margin-right: 30px;
+    color: black;
+}
+
+.ticket-price-info {
+    display: flex;
+    background-color: #D0D5D8;
+    border-radius: 20px;
+    flex: 1;
+}
+
+.ticket-price-image {
+    width: 40%;
+    height: auto;
+    border: black 1px solid;
+    border-radius: 20px;
+    margin-right: 20px;
+    object-fit: cover;
+    /* This will cover the area of the box without stretching */
+    display: block;
+    /* Ensures the image is a block-level element */
+}
+
+.ticket-price-header {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+}
+
+.ticket-price-text {
+    font-family: 'Imprima', sans-serif;
+    font-size: 20px;
+    margin-top: -10px;
+}
+
+.ticket-price-info-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn2 {
+    font-family: 'Bubblegum Sans', sans-serif;
+    font-size: 25px;
+    background-color: crimson;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 15px;
+    margin-right: 12px;
+    border: crimson solid 1px;
+    transition: background-color 0.3s, color 0.3s;
+    margin-bottom: 5px;
+    width: 250px;
+    align-self: center;
+    margin-top: auto;
+}
+
+.btn2:hover {
+    background-color: white;
+    /* Background becomes white */
+    color: crimson;
+    /* Text becomes crimson */
+}
+
+/* second ticket option ------*/
+
+.ticket-price-info-2 {
+    display: flex;
+    margin-left: 20px;
+    background-color: #8FADC6;
+    border-radius: 20px;
+    flex: 1;
+}
+
+.ticket-price-image-2 {
+    width: 40%;
+    height: auto;
+    border: black 1px solid;
+    border-radius: 20px;
+    margin-left: auto;
+    object-fit: cover;
+    /* This will cover the area of the box without stretching */
+    display: block;
+    /* Ensures the image is a block-level element */
+}
+
+.ticket-price-header-2 {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+}
+
+.ticket-price-text-2 {
+    font-family: 'Imprima', sans-serif;
+    font-size: 18px;
+    margin-top: -15px;
+}
+
+.ticket-price-info-text-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+}
+
+/* Tour Departure Timetable --------------------------------------------------------------------------- */
+
+.timetables-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 columns of equal width */
+    grid-auto-rows: minmax(100px, auto);
+    /* Minimum row height of 100px, but can grow */
+    gap: 30px;
+    /* Adjust the gap between items as needed */
+    margin-left: 40px;
+    margin-right: 40px;
+    justify-items: center;
+    /* Center grid items horizontally */
+
+
+}
+
+/* Dates--- */
+
+.timetable-days-container {
+    display: contents;
+    /* This will make the container not to produce an extra grid layer */
+}
+
+.timetable-day {
+    display: flex;
+    color: white;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    grid-row: 1;
+}
+
+.timetable-day-header {
+    font-family: Impact, sans-serif;
+    font-size: 70px;
+    letter-spacing: 7px;
+}
+
+.timetable-day-text1 {
+    font-family: 'Imprima', sans-serif;
+    font-size: 35px;
+    margin-top: -40px;
+}
+
+.timetable-day-text2 {
+    font-family: 'Imprima', sans-serif;
+    font-size: 20px;
+    margin-top: -20px;
+}
+
+/* Bookings--- */
+.timetable-booking-item {
+    display: flex;
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    flex-direction: column;
+    align-items: left;
+    font-family: 'Imprima', sans-serif;
+    border-radius: 20px;
+    padding-bottom: 20px;
+    /* Add padding to the bottom */
+    overflow: visible;
+    /* Ensure the button is not clipped */
+    margin-bottom: 40px;
+    max-width: 300px;
+    min-width: 200px;
+}
+
+.booking-item-flagAndText {
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+}
+
+.timetable-booking-image {
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.timetable-booking-text {
+    margin-left: 20px;
+}
+
+.btn3 {
+    font-family: 'Bubblegum Sans', sans-serif;
+    font-size: 25px;
+    background-color: crimson;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 15px;
+    border: 1px crimson solid;
+    transition: background-color 0.3s, color 0.3s;
+    width: 150px;
+    align-self: center;
+    position: relative;
+    /* Allow the button to be positioned relative to its container */
+    bottom: -20px;
+    /* Push the button out of the container */
+    margin-top: auto;
+    /* Ensure the button sticks to the bottom */
+    margin-bottom: -20px;
+    /* Negative margin to pull the button outside the container */
+}
+
+.btn3:hover {
+    background-color: white;
+    /* Background becomes white */
+    color: crimson;
+    /* Text becomes crimson */
+
+}
+
+/* Skip the first 4 items (first row) and start coloring from the second row */
+/* Second row buttons (items 5 to 8) */
+.timetables-grid-container> :nth-child(n+5):nth-child(-n+8) .btn3 {
+    background-color: #E8B700;
+    /* Color for second row */
+    border: 1px #E8B700 solid;
+}
+
+/* Third row buttons (items 9 to 12) */
+.timetables-grid-container> :nth-child(n+9):nth-child(-n+12) .btn3 {
+    background-color: #355C7D;
+    /* Color for third row */
+    border: 1px #355C7D solid;
+}
+
+/* Hover styles for second row buttons (items 5 to 8) */
+.timetables-grid-container> :nth-child(n+5):nth-child(-n+8) .btn3:hover {
+    background-color: white;
+    /* Background becomes white */
+    color: #E8B700;
+    /* Text color changes to the original background color */
+}
+
+/* Hover styles for third row buttons (items 9 to 12) */
+.timetables-grid-container> :nth-child(n+9):nth-child(-n+12) .btn3:hover {
+    background-color: white;
+    /* Background becomes white */
+    color: #355C7D;
+    /* Text color changes to the original background color */
+}
+
+/* Starting Point Of The Tour --------------------------------------------------------------------------- */
+
+.map-container {
+    display: flex;
+    margin-left: 40px;
+    margin-right: 40px;
+    background-color: #FDF7D9;
+    border-radius: 20px;
+    color: black;
+    font-family: "Imprima", sans-serif;
+}
+
+.starting-point-image {
+    width: 50%;
+    height: 50%;
+    border-radius: 20px;
+    margin-right: 20px;
+    object-fit: cover;
+    /* This will cover the area of the box without stretching */
+    display: block;
+    /* Ensures the image is a block-level element */
+    padding: 20px;
+}
+
+.map-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+}
+
+.map-info-image {
+    width: 500px;
+    height: 370px;
+    margin-bottom: 20px;
+    object-fit: cover;
+    /* This will cover the area of the box without stretching */
+    display: block;
+    /* Ensures the image is a block-level element */
+    border-radius: 20px;
+}
+
+/* Starting Point Of The Tour --------------------------------------------------------------------------- */
+
+
+.practical-info-container {
+    display: flex;
+    margin-left: 40px;
+    margin-right: 40px;
+    border-radius: 20px;
+    color: white;
+    font-family: "Imprima", sans-serif;
+    border: #ffffff 3px solid;
+    background-color: black;
+    flex-direction: column;
+}
+
+.practical-info-item {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    border-bottom: 3px solid white; /* Adds a white line below each item */
+}
+
+.practical-info-sign {
+    margin-right: 30px;
+    width: 5%;
+    height: 5%;
+}
+
+/* Remove the border from the last item */
+.practical-info-item:last-child {
+    border-bottom: none;
+  }
+
+  /* Audio moments section --------------------------------------------------------------------------- */
+
+  .event-info-header:last-child{
+    font-size: 40px;
+    text-align: center;
+    margin-right: 50px;
+    margin-left: 50px;
+  }
+
+  .btn4 {
+    font-family: 'Bubblegum Sans', sans-serif;
+    font-size: 25px;
+    background-color: #355C7D;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 15px;
+    border: 2px #355C7D solid;
+    transition: background-color 0.3s, color 0.3s;
+    align-self: center;
+    width: 40%;
+}
+
+.btn4:hover {
+    background-color: white;
+    color: #355C7D;
+}
+
+.Audio-page-button-container{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
 }
 
