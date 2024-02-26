@@ -18,7 +18,7 @@
                 <a href="/" class="nav-link">ITZHaarlem</a>
                 <a href="#" class="nav-link">Home</a>
                 <a href="#" class="nav-link">Yummy</a>
-                <a href="#" class="nav-link">Dance!</a>
+                <a href="/danceevent" class="nav-link">Dance!</a>
                 <a href="/historyevent" class="nav-link">History Tour</a>
                 <a href="/">
                 <img class="icon0" src="assets/images/elements/Shopping cart.png" alt="Logo">
