@@ -34,7 +34,7 @@ $users = $repository->getUsers();
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         .event-bg {margin-left: 50px; margin-right: 50px;}
-        body { background-color: #000; }
+         body { background-color: #000; }
         .fest-bg { background-color: #333; }
         .section-bg { background-color: #000; }
         .schedule-bg { background-color: #222; }
@@ -64,7 +64,7 @@ $users = $repository->getUsers();
             
         <!-- Dance -->
             <div class="event-bg rounded-lg p-6">
-                <img src="https://placehold.co/300x200" 
+                <img src="C:\Users\baezd\Desktop\App V2\Term-2.3-Web-Project\Web design term 3 project\app\public\assets\images\Home_page_Images\436def29c559d9fac8ec2e0ded26f75d.jpg" 
                 alt="A vibrant dance event with people enjoying music and performances" 
                 class="rounded-lg">
                 <h3 class="text-gold text-2xl font-bold mt-4">Dance!</h3>
@@ -276,7 +276,7 @@ $users = $repository->getUsers();
         .event-section {
             background-color: #fff;
             text-align: center;
-            padding: 20px;
+            padding: 10px;
             font-family: 'Arial', sans-serif;}
 
         .event-title {
