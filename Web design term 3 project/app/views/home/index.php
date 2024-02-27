@@ -1,26 +1,3 @@
-<?php include __DIR__ . '/../header.php';
-
-// Initialize the repository
-$repository = new App\Repositories\userRepository();
-
-// Fetch users
-$users = $repository->getUsers();
-?>
-
-<h1>Welcome to the MVC Blog!</h1>
-
-<h2>Our Users</h2>
-<?php if (!empty($users)): ?>
-    <ul>
-        <?php foreach ($users as $user): ?>
-            <li><?= htmlspecialchars($user['Username']) ?> - <?= htmlspecialchars($user['Email']) ?></li>
-        <?php endforeach; ?>
-    </ul>
-<?php else: ?>
-    <p>No users found.</p>
-<?php endif; ?>
-===================
-
 <!-- What is there to do? -->
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +22,14 @@ $users = $repository->getUsers();
 </head>
 
 <body class="antialiased font-'Open Sans'">
+<?php include __DIR__ . '/../header.php';
+
+// Initialize the repository
+$repository = new App\Repositories\userRepository();
+
+// Fetch users
+$users = $repository->getUsers();
+?>
     <main>
     <section class="section-bg py-10 px-4">
         <h2 class="text-4xl font-bold text-center mb-8 text-white">WHAT IS THERE TO DO?</h2>
@@ -64,7 +49,7 @@ $users = $repository->getUsers();
             
         <!-- Dance -->
             <div class="event-bg rounded-lg p-6">
-                <img src="C:\Users\baezd\Desktop\App V2\Term-2.3-Web-Project\Web design term 3 project\app\public\assets\images\Home_page_Images\436def29c559d9fac8ec2e0ded26f75d.jpg" 
+                <img src="https://placehold.co/300x200" 
                 alt="A vibrant dance event with people enjoying music and performances" 
                 class="rounded-lg">
                 <h3 class="text-gold text-2xl font-bold mt-4">Dance!</h3>
@@ -310,9 +295,11 @@ $users = $repository->getUsers();
         the activity app—just scan the QR code to begin the adventure.
     </div>
 </div>
+
+===================
+===================
+===================
+
+<?php include __DIR__ . '/../footer.php';?>
 </body>
 </html>
-===================
-===================
-===================
-<?php include __DIR__ . '/../footer.php';?>
