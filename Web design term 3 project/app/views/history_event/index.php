@@ -447,12 +447,6 @@ include __DIR__ . '/../header.php';
         <button type="button" class="btn4">Check Out Our Webpage</button>
     </div>
 
-
-
-
-
-
-
 </body>
 
 </html>
