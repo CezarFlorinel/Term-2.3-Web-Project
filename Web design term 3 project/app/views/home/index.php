@@ -35,7 +35,7 @@ $users = $repository->getUsers();
         <h2 class="text-4xl font-bold text-center mb-8 text-white">WHAT IS THERE TO DO?</h2>
 
         <div class="bg-yellow-500 text-black text-center py-4 px-6">
-            <p>Indulge in Harlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills, 
+            <p>Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills, 
                 savor the city's culinary delights, and let kids revel in a mobile event tied to the Taylers Museum. 
                 For the night owls, "Dance" beckons with lively hotspots. Discover history, flavors, family fun, 
                 and nightlife in this captivating city—a blend of past, present, and endless possibilities.</p>
