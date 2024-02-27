@@ -143,7 +143,7 @@ $users = $repository->getUsers();
     width: 100%;
     margin: 40px 0;}
 
-  .btn {
+  .btn{
     display: inline-block;
     padding: 10px 20px;
     margin-top: 20px;
@@ -167,8 +167,8 @@ $users = $repository->getUsers();
   </div>
 
   <div><iframe src="https://placehold.co/300x200"></iframe></div>
-
-</div>
+  
+  </div>
 </body>
 </html>
 
@@ -264,6 +264,7 @@ $users = $repository->getUsers();
 ===================
 ===================
 ===================
+
 <!-- Teylor Museum -->
 <html lang="en">
 <head>
@@ -271,30 +272,27 @@ $users = $repository->getUsers();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Section</title>
     <style>
+
         .event-section {
             background-color: #fff;
             text-align: center;
             padding: 20px;
-            font-family: 'Arial', sans-serif;
-        }
+            font-family: 'Arial', sans-serif;}
 
         .event-title {
             color: red;
             font-size: 48px;
-            margin-bottom: 10px;
-        }
+            margin-bottom: 10px;}
 
         .mobile-event {
             color: red;
             font-size: 30px;
-            margin-bottom: 20px;
-        }
+            margin-bottom: 20px;}
 
         .event-description {
             color: black;
             font-size: 20px;
-            margin-bottom: 20px;
-        }
+            margin-bottom: 20px;}
     </style>
 
 </head>
