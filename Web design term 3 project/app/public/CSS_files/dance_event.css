@@ -1,7 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Imprima&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Imprima&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap");
 
-.header{
-    color: black;
+.header {
+  color: black;
+}
+
+#start-image-section {
+  background-image: url("../assets/images/dance_event/artists/homepage_dance/image\ 5.png");
+  background-size: cover;
+  background-position: center;
+  max-width: 100%;
+  height: auto;
+  color: white; /* Text color on top of the image */
+  text-align: center;
+  padding: 50px; /* Adjust the padding as needed */
+}
+
+.text-1-h,
+.text-2-h,
+.text-3-h {
+    font-size: 50px;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    letter-spacing: 19.20px;
+    text-align: left;
+}
+
+.text-2-h {
+    font-weight: 400;
+}
+
+.text-3-h {
+    font-weight: 900;
 }
