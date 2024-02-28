@@ -17,6 +17,12 @@
   padding: 50px; /* Adjust the padding as needed */
 }
 
+.start-image-text {
+    align-self: flex-start;
+    padding-left: 10%;
+    /* Adjust the percentage as needed for your design */
+}
+
 .text-1-h,
 .text-2-h,
 .text-3-h {
