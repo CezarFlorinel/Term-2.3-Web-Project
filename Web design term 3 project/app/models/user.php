@@ -8,7 +8,8 @@ class User {
     public string $password;
     public string $role; //do we need enum?
     public string $name;
-    //public ?? $profilePicture
+    public ?string $profilePicture;
 
-    // public  $posted_at;  datetime? 
+    public \DateTime $registrationDate;
 }
+
