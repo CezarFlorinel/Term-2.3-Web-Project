@@ -1,4 +1,12 @@
 <?php
+use App\Services\HistoryService;
+
+$historyService = new HistoryService();
+$historyTopPart = $historyService->getHistoryTopParts();
+
+?>
+
+<?php
 include __DIR__ . '/../header.php';
 ?>
 
@@ -6,7 +14,7 @@ include __DIR__ . '/../header.php';
 
 <head>
     <title>History Event</title>
-
+    <!-- move some of this in the header -->
     <link
         href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
         rel="stylesheet">
@@ -29,31 +37,30 @@ include __DIR__ . '/../header.php';
         </div>
     </div>
 
-    <div class="event-info-container">
-        <h1 class="event-info-header">Learn about the New and Old Haarlem</h1>
-        <img class="sound-icon" src="assets/images/elements/Vector.png" alt="History Event">
-
-    </div>
-
-    <div class="Image">
-        <div class="event-info-text-container">
-            <p class="event-info-h">Haarlem stands as a venerable city steeped in an enthralling history, adorned with a
-                tapestry of captivating tales and brimming with an array of magnificent landmarks to explore. Naturally,
-                our
-                desire is to extend a heartfelt invitation, beckoning individuals to immerse themselves in the allure of
-                Haarlem. Here, amidst the intertwining threads of antiquity and modernity, lies a treasure trove
-                awaiting
-                discovery—an opportunity for visitors to indulge in the breath taking splendor that seamlessly weaves
-                together the timeless charm of the past with the vibrant pulse of the present.
-            </p>
+    <?php
+    if ($historyTopPart !== null): ?>
+        <div class="event-info-container">
+            <h1 class="event-info-header">
+                <?php echo $historyTopPart->subheader; ?>
+            </h1>
+            <img class="sound-icon" src="assets/images/elements/Vector.png" alt="History Event">
         </div>
-    </div>
 
+        <div class="Image">
+            <div class="event-info-text-container">
+                <p class="event-info-h">
+                    <?php echo $historyTopPart->description; ?>
+                </p>
+            </div>
+        </div>
+    <?php endif; ?>
+
+
+
+    <!-- ------------------------------- -->
     <div class="event-info-container">
         <h1 class="event-info-header">Route</h1>
     </div>
-
-    <!-- ------------------------------- -->
 
     <div class="container-route">
         <img class="route-image" src="assets/images/history_event/Group 39596.png" alt="History Event">
