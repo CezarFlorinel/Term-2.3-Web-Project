@@ -490,7 +490,8 @@
     display: flex;
     align-items: center;
     justify-content: left;
-    border-bottom: 3px solid white; /* Adds a white line below each item */
+    border-bottom: 3px solid white;
+    /* Adds a white line below each item */
 }
 
 .practical-info-sign {
@@ -502,18 +503,18 @@
 /* Remove the border from the last item */
 .practical-info-item:last-child {
     border-bottom: none;
-  }
+}
 
-  /* Audio moments section --------------------------------------------------------------------------- */
+/* Audio moments section --------------------------------------------------------------------------- */
 
-  .event-info-header:last-child{
+.event-info-header:last-child {
     font-size: 40px;
     text-align: center;
     margin-right: 50px;
     margin-left: 50px;
-  }
+}
 
-  .btn4 {
+.btn4 {
     font-family: 'Bubblegum Sans', sans-serif;
     font-size: 25px;
     background-color: #355C7D;
@@ -531,9 +532,8 @@
     color: #355C7D;
 }
 
-.Audio-page-button-container{
+.Audio-page-button-container {
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
 }
-
