@@ -14,6 +14,8 @@ $historyTourDeparturesTimetables = $historyService->getHistoryTourDeparturesTime
 $historyTours = $historyService->getHistoryTours();
 $historyPracticalInformation = $historyService->getHistoryPracticalInformation();
 
+$arrayWithImagePathsCarousel = $historyService->returnImagePathsForCarousel();
+
 ?>
 
 <?php
@@ -51,7 +53,7 @@ include __DIR__ . '/../header.php';
     if ($historyTopPart !== null): ?>
         <div class="event-info-container">
             <h1 class="event-info-header">
-                <?php echo $historyTopPart->subheader; ?>
+                <?php echo htmlspecialchars($historyTopPart->subheader); ?>
             </h1>
             <img class="sound-icon" src="assets/images/elements/Vector.png" alt="History Event">
         </div>
@@ -59,7 +61,7 @@ include __DIR__ . '/../header.php';
         <div class="Image">
             <div class="event-info-text-container">
                 <p class="event-info-h">
-                    <?php echo $historyTopPart->description; ?>
+                    <?php echo htmlspecialchars($historyTopPart->description); ?>
                 </p>
             </div>
         </div>
@@ -249,10 +251,14 @@ include __DIR__ . '/../header.php';
     <div class="practical-info-container">
         <?php foreach ($historyPracticalInformation as $practicalInformation): ?>
             <div class="practical-info-item">
-                <img class="practical-info-sign" src="assets/images/elements/+ sign.png" alt="History Event">
+                <img class="practical-info-sign toggle-sign" src="assets/images/elements/+ sign.png" alt="Toggle Answer"
+                    data-toggle="closed">
                 <p class="practical-info-text">
-                    <?php echo htmlspecialchars($practicalInformation->question) ?>
+                    <?php echo htmlspecialchars($practicalInformation->question); ?>
                 </p>
+            </div>
+            <div class="practical-info-answer" style="display:none;">
+                <?php echo htmlspecialchars($practicalInformation->answer); ?>
             </div>
         <?php endforeach; ?>
     </div>
@@ -266,6 +272,26 @@ include __DIR__ . '/../header.php';
     <div class="Audio-page-button-container">
         <button type="button" class="btn4">Check Out Our Webpage</button>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('.toggle-sign').forEach(item => {
+                item.addEventListener('click', function () {
+                    // Toggle the answer display. The answer is now the next sibling of the parent element.
+                    const answer = this.parentElement.nextElementSibling;
+                    if (answer.style.display === 'none' || answer.style.display === '') {
+                        answer.style.display = 'block';
+                        this.src = 'assets/images/elements/- sign.png'; // Change to your actual '-' image path
+                        this.setAttribute('data-toggle', 'open');
+                    } else {
+                        answer.style.display = 'none';
+                        this.src = 'assets/images/elements/+ sign.png'; // Change to your actual '+' image path
+                        this.setAttribute('data-toggle', 'closed');
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 

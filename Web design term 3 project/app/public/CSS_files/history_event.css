@@ -507,6 +507,14 @@
     border-bottom: none;
 }
 
+.practical-info-answer {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+
+}
+
 /* Audio moments section --------------------------------------------------------------------------- */
 
 .event-info-header:last-child {
