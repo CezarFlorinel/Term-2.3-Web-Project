@@ -13,17 +13,18 @@ use App\Models\History_event\HistoryTicketPrices;
 
 class HistoryRepository extends Repository     // methods for all history related queries
 {
-    public function getHistoryPracticalInformation() { 
-    $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_PRACTICAL_INFORMATION]');
-    $stmt->execute();
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function getHistoryPracticalInformation()
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_PRACTICAL_INFORMATION]');
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Check if there are any results
         if (!empty($results)) {
             // Return the first item as a HistoryPracticalInformation object
             $firstItem = $results[0]; // Get the first item from the results
             return new HistoryPracticalInformation(
-                $firstItem['InformationID'], 
+                $firstItem['InformationID'],
                 $firstItem['ParentPage'],
                 $firstItem['Question'],
                 $firstItem['Answer']
@@ -32,29 +33,31 @@ class HistoryRepository extends Repository     // methods for all history relate
         return null;
     }
 
-    public function getHistoryTopParts() {
-    $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOP_PART]');
-    $stmt->execute();
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function getHistoryTopParts()
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOP_PART]');
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (!empty($results)) {
             $firstItem = $results[0];
             return new HistoryTopPart(
                 $firstItem['InformationID'],
                 $firstItem['ParentPage'],
-                $firstItem['ImagePath'], 
+                $firstItem['ImagePath'],
                 $firstItem['Subheader'],
                 $firstItem['Description']
             );
         }
-    return null;
+        return null;
     }
 
 
-    public function getHistoryRoutes(): array {
+    public function getHistoryRoutes(): array
+    {
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_ROUTE]');
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return array_map(function($item) {
+        return array_map(function ($item) {
             return new HistoryRoute(
                 $item['InformationID'],
                 $item['ParentPage'],
@@ -67,11 +70,12 @@ class HistoryRepository extends Repository     // methods for all history relate
         }, $results);
     }
 
-    public function getHistoryTicketPrices(): array {
+    public function getHistoryTicketPrices(): array
+    {
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TICKET_PRICES]');
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return array_map(function($item) {
+        return array_map(function ($item) {
             return new HistoryTicketPrices(
                 $item['InformationID'],
                 $item['ParentPage'],
@@ -83,10 +87,11 @@ class HistoryRepository extends Repository     // methods for all history relate
         }, $results);
     }
 
-    public function getHistoryTourStartingPoints() {
-    $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOUR_STARTING_POINT]');
-    $stmt->execute();
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function getHistoryTourStartingPoints()
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOUR_STARTING_POINT]');
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (!empty($results)) {
             $firstItem = $results[0];
             return new HistoryTourStartingPoint(
@@ -97,15 +102,16 @@ class HistoryRepository extends Repository     // methods for all history relate
                 $firstItem['Description']
             );
         }
-    return null;
+        return null;
     }
 
 
-    public function getHistoryTourDeparturesTimetables(): array {
+    public function getHistoryTourDeparturesTimetables(): array
+    {
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOUR_DEPARTURES_TIMETABLES]');
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return array_map(function($item) {
+        return array_map(function ($item) {
             return new HistoryTourDeparturesTimetables(
                 $item['InformationID'],
                 $item['ParentPage'],
@@ -114,11 +120,12 @@ class HistoryRepository extends Repository     // methods for all history relate
         }, $results);
     }
 
-    public function getHistoryTours(): array {
+    public function getHistoryTours(): array
+    {
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOURS]');
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return array_map(function($item) {
+        return array_map(function ($item) {
             return new HistoryTours(
                 $item['InformationID'],
                 $item['ParentPage'],
@@ -126,11 +133,11 @@ class HistoryRepository extends Repository     // methods for all history relate
                 $item['StartTime'],
                 $item['EnglishTour'],
                 $item['DutchTour'],
-                $item['ChineseTour']
+                $item['ChinesTour']
             );
         }, $results);
     }
 
-   
+
 
 }
