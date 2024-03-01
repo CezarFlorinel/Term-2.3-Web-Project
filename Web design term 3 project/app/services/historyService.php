@@ -6,7 +6,7 @@ use App\Repositories\HistoryRepository;
 
 class HistoryService // manages all the history service
 {
-    public function getHistoryPracticalInformation()
+    public function getHistoryPracticalInformation(): array
     {
         $repository = new HistoryRepository();
         return $repository->getHistoryPracticalInformation();
