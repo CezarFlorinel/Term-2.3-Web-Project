@@ -13,24 +13,20 @@ use App\Models\History_event\HistoryTicketPrices;
 
 class HistoryRepository extends Repository     // methods for all history related queries
 {
-    public function getHistoryPracticalInformation()
+    public function getHistoryPracticalInformation(): array
     {
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_PRACTICAL_INFORMATION]');
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Check if there are any results
-        if (!empty($results)) {
-            // Return the first item as a HistoryPracticalInformation object
-            $firstItem = $results[0]; // Get the first item from the results
+        return array_map(function ($item) {
             return new HistoryPracticalInformation(
-                $firstItem['InformationID'],
-                $firstItem['ParentPage'],
-                $firstItem['Question'],
-                $firstItem['Answer']
+                $item['InformationID'],
+                $item['ParentPage'],
+                $item['Question'],
+                $item['Answer']
             );
-        }
-        return null;
+        }, $results);
+
     }
 
     public function getHistoryTopParts()
@@ -63,7 +59,7 @@ class HistoryRepository extends Repository     // methods for all history relate
                 $item['ParentPage'],
                 $item['MainImagePath'],
                 $item['LocationName'],
-                $item['LocationDescription'],
+                $item['LocationDespcription'],
                 $item['LocationImagePath'],
                 $item['WheelchairSupport']
             );
@@ -104,8 +100,6 @@ class HistoryRepository extends Repository     // methods for all history relate
         }
         return null;
     }
-
-
     public function getHistoryTourDeparturesTimetables(): array
     {
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOUR_DEPARTURES_TIMETABLES]');
