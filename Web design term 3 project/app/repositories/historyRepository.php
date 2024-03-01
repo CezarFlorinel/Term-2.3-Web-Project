@@ -13,11 +13,14 @@ use App\Models\History_event\HistoryTicketPrices;
 
 class HistoryRepository extends Repository     // methods for all history related queries
 {
+
     public function getHistoryPracticalInformation(): array
+
     {
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_PRACTICAL_INFORMATION]');
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         return array_map(function ($item) {
             return new HistoryPracticalInformation(
                 $item['InformationID'],
@@ -100,6 +103,7 @@ class HistoryRepository extends Repository     // methods for all history relate
         }
         return null;
     }
+
     public function getHistoryTourDeparturesTimetables(): array
     {
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOUR_DEPARTURES_TIMETABLES]');
