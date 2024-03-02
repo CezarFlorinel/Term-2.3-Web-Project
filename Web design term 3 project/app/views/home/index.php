@@ -30,11 +30,30 @@ $repository = new App\Repositories\userRepository();
 // Fetch users
 $users = $repository->getUsers();
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haarlem Festival</title>
+</head>
+<body style="background-color: black; color: white">
+    <div style="padding-top: 50px; margin-left: 250px; margin-right: 70px">
+        <div>H<br>A<br>A<br>R<br>L<br>E<br>M</div>
+        <div style="color: purple;">F<br>E<br>S<br>T<br>I<br>V<br>A<br>L</div>
+        <div style="position: absolute; right: 10%; top: 50%; transform: translate(0, -50%) rotate(12deg); background-color: red; color: white; padding: 8px 32px;">
+        Let The Fun Begin
+    </div>
+    </div>
+</body>
+</html>
+
     <main>
     <section class="section-bg py-10 px-4">
         <h2 class="text-4xl font-bold text-center mb-8 text-white">WHAT IS THERE TO DO?</h2>
 
-        <div class="bg-yellow-500 text-black text-center py-4 px-6">
+        <div class="bg-yellow-500 text-black text-center py-4 px-6" style="margin-left: 50px; margin-right: 50px">
             <p>Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills, 
                 savor the city's culinary delights, and let kids revel in a mobile event tied to the Taylers Museum. 
                 For the night owls, "Dance" beckons with lively hotspots. Discover history, flavors, family fun, 

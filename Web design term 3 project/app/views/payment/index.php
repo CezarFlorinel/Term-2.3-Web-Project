@@ -1,10 +1,9 @@
-<?php
-include __DIR__ . '/../header.php';
-?>
-
 
 <!DOCTYPE html>
 <html lang="en">
+<?php
+include __DIR__ . '/../header.php';
+?>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,12 +101,12 @@ include __DIR__ . '/../header.php';
           <input type="text" class="w-full px-3 py-2 border rounded-lg" required>
         </div>
       </div>
-
       <div class="mb-4">
 
-      ===================
-      ===================
-      ===================
+      <div style="height: 20px;"></div>
+
 <?php
 include __DIR__ . '/../footer.php';
 ?>
+</body>
+</html>
