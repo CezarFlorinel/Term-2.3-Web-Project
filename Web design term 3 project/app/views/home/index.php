@@ -49,7 +49,7 @@ $users = $repository->getUsers();
             
         <!-- Dance -->
             <div class="event-bg rounded-lg p-6">
-                <img src="https://placehold.co/300x200" 
+                <img src="C:\Users\baezd\Desktop\App V2\Term-2.3-Web-Project\Web design term 3 project\app\public\assets\images\Home_page_Images\Dance_Image_Homepage.jpg" 
                 alt="A vibrant dance event with people enjoying music and performances" 
                 class="rounded-lg">
                 <h3 class="text-gold text-2xl font-bold mt-4">Dance!</h3>
@@ -62,7 +62,7 @@ $users = $repository->getUsers();
 
             <!-- Food -->
             <div class="event-bg rounded-lg p-6">
-                <img src="https://placehold.co/300x200" 
+                <img src="C:\Users\baezd\Desktop\App V2\Term-2.3-Web-Project\Web design term 3 project\app\public\assets\images\Home_page_Images\Dance_Image_Homepage.jpg" 
                 alt="Delicious food offerings from various Harlem restaurants" 
                 class="rounded-lg">
                 <h3 class="text-gold text-2xl font-bold mt-4">Yummy!</h3>
@@ -90,9 +90,7 @@ $users = $repository->getUsers();
 </main>
 </body>
 
-===================
-===================
-===================
+<div style="height: 20px;"></div>
 
 <!-- Festival Location -->
 </html>
@@ -104,13 +102,15 @@ $users = $repository->getUsers();
 <title>Festival Location</title>
 
 <style>
+
+.event-bg {margin-left: 50px; margin-right: 50px;}
+
   .festival-location-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #fff;
-  }
+    background-color: #fff;}
 
   .info-box {
     width: 45%;
@@ -141,8 +141,8 @@ $users = $repository->getUsers();
 </style>
 </head>
 <body>
-<div class="festival-location-section" style="margin-left: 30px; margin-right: 30px;">
-  <div class="info-box">
+<div class="festival-location-section rounded-lg p-6" style="margin-left: 50px; margin-right: 50px;">
+  <div class="info-box rounded-lg">
     <h2>WHERE IS THE FESTIVAL?</h2>
     <p>Discover the magic of The Festival in the vibrant city of Haarlem, 
         nestled to the west of Amsterdam and north of The Hague. 
@@ -157,9 +157,7 @@ $users = $repository->getUsers();
 </body>
 </html>
 
-===================
-===================
-===================
+<div style="height: 20px;"></div>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -202,7 +200,7 @@ $users = $repository->getUsers();
   <div class="space-y-10 px-20">
     <!-- Historical Tour -->
     <div class="border-t border-gray-400 pt-8">
-      <div class="text-2xl mb-4">A Stroll Through History</div>
+      <div class="text-4xl font-bold mb-4 text-white bg-black py-4">A Stroll Through History</div>
       <div class="grid grid-cols-3 gap-4">
         <div class="col-span-1">
           <img src="https://placehold.co/300x200" alt="Historical Tour" class="w-full h-auto">
@@ -216,7 +214,7 @@ $users = $repository->getUsers();
     
     <!-- Food Festival -->
     <div class="border-t border-gray-400 pt-8">
-      <div class="text-2xl mb-4">Yummy!</div>
+      <div class="text-4xl font-bold mb-4 text-white bg-black py-4">Yummy!</div>
       <div class="grid grid-cols-3 gap-4">
         <div class="col-span-1">
           <img src="https://placehold.co/300x200" alt="Food Festival" class="w-full h-auto">
@@ -230,7 +228,7 @@ $users = $repository->getUsers();
     
     <!-- Dance Event -->
     <div class="border-t border-gray-400 pt-8">
-      <div class="text-2xl mb-4">Dance!</div>
+      <div class="text-4xl font-bold mb-4 text-white bg-black py-4">Dance!</div>
       <div class="grid grid-cols-3 gap-4">
         <div class="col-span-1">
           <img src="https://placehold.co/300x200" alt="Dance Event" class="w-full h-auto">
@@ -245,10 +243,6 @@ $users = $repository->getUsers();
 </div>
 </body>
 </html>
-
-===================
-===================
-===================
 
 <!-- Teylor Museum -->
 <html lang="en">
@@ -296,9 +290,8 @@ $users = $repository->getUsers();
     </div>
 </div>
 
-===================
-===================
-===================
+<div style="height: 20px;"></div>
+<div style="height: 20px;"></div>
 
 <?php include __DIR__ . '/../footer.php';?>
 </body>
