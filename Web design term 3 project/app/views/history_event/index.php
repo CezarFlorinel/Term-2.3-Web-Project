@@ -13,7 +13,6 @@ $secondHistoryTicket = $historyTickets[1];
 $historyTourDeparturesTimetables = $historyService->getHistoryTourDeparturesTimetables();
 $historyTours = $historyService->getHistoryTours();
 $historyPracticalInformation = $historyService->getHistoryPracticalInformation();
-
 $arrayWithImagePathsCarousel = $historyService->returnImagePathsForCarousel();
 
 ?>
@@ -37,17 +36,17 @@ include __DIR__ . '/../header.php';
 
 <body>
 
-    <div class="start-image-container">
+    <div class="start-image-container" id="carousel">
         <div class="start-image-text">
             <h1 class="text-1-h">HAARLEM</h1>
             <h1 class="text-2-h">Festival</h1>
             <h1 class="text-3-h">A Stroll Through History</h1>
         </div>
         <div class="arrows-images-container">
-            <img class="start-image-arrow" src="assets/images/elements/arrow-left 1.png" alt="History Event">
-            <img class="start-image-arrow" src="assets/images/elements/arrow-right 1.png" alt="History Event">
+            <img class="start-image-arrow" id="arrow-left" src="assets/images/elements/arrow-left 1.png" alt="Previous">
+            <img class="start-image-arrow" id="arrow-right" src="assets/images/elements/arrow-right 1.png" alt="Next">
         </div>
-    </div> <!-- also do this -->
+    </div>
 
     <?php
     if ($historyTopPart !== null): ?>
@@ -272,6 +271,38 @@ include __DIR__ . '/../header.php';
     <div class="Audio-page-button-container">
         <button type="button" class="btn4">Check Out Our Webpage</button>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const images = [
+                <?php foreach ($arrayWithImagePathsCarousel as $imagePath): ?>
+                                '<?php echo htmlspecialchars($imagePath); ?>',
+                <?php endforeach; ?>
+            ];
+
+            let currentImageIndex = 0;
+            const carousel = document.getElementById('carousel');
+            const updateImage = (index) => {
+                carousel.style.backgroundImage = `url('${images[index]}')`;
+            };
+
+            const nextImage = () => {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                updateImage(currentImageIndex);
+            };
+
+            const prevImage = () => {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                updateImage(currentImageIndex);
+            };
+
+            document.getElementById('arrow-right').addEventListener('click', nextImage);
+            document.getElementById('arrow-left').addEventListener('click', prevImage);
+
+            // Change image every 5 seconds
+            setInterval(nextImage, 5000);
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
