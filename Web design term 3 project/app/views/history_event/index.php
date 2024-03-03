@@ -2,7 +2,17 @@
 use App\Services\HistoryService;
 
 $historyService = new HistoryService();
+
 $historyTopPart = $historyService->getHistoryTopParts();
+$historyRoutes = $historyService->getHistoryRoutes();
+$historyTourStartingPoints = $historyService->getHistoryTourStartingPoints();
+$firstHistoryRoute = $historyRoutes[0];
+$historyTickets = $historyService->getHistoryTicketPrices();
+$firstHistoryTicket = $historyTickets[0];
+$secondHistoryTicket = $historyTickets[1];
+$historyTourDeparturesTimetables = $historyService->getHistoryTourDeparturesTimetables();
+$historyTours = $historyService->getHistoryTours();
+$historyPracticalInformation = $historyService->getHistoryPracticalInformation();
 
 ?>
 
@@ -35,7 +45,7 @@ include __DIR__ . '/../header.php';
             <img class="start-image-arrow" src="assets/images/elements/arrow-left 1.png" alt="History Event">
             <img class="start-image-arrow" src="assets/images/elements/arrow-right 1.png" alt="History Event">
         </div>
-    </div>
+    </div> <!-- also do this -->
 
     <?php
     if ($historyTopPart !== null): ?>
@@ -62,66 +72,26 @@ include __DIR__ . '/../header.php';
         <h1 class="event-info-header">Route</h1>
     </div>
 
+
     <div class="container-route">
-        <img class="route-image" src="assets/images/history_event/Group 39596.png" alt="History Event">
+        <img class="route-image" src="<?php echo htmlspecialchars($firstHistoryRoute->mainImagePath); ?>"
+            alt="History Event">
 
         <div class="route-info-container">
             <h1 class="route-info-header">LOCATIONS WE ARE EXPLORING:</h1>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">1. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png"
-                    alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">2. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png"
-                    alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">3. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png"
-                    alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">4. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png"
-                    alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">5. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png"
-                    alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">6. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png"
-                    alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">7. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png"
-                    alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">8. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png"
-                    alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">9. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png"
-                    alt="History Event">
-            </div>
 
+            <?php foreach ($historyRoutes as $historyRoute): ?>
+                <div class="route-text-info">
+                    <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
+                    <p class="route-text">
+                        <?php echo htmlspecialchars($historyRoute->locationName); ?>
+                    </p>
+                    <?php if ($historyRoute->wheelchairSupport): ?>
+                        <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png"
+                            alt="History Event">
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
 
         </div>
 
@@ -140,11 +110,18 @@ include __DIR__ . '/../header.php';
     <div class="ticket-price-container">
 
         <div class="ticket-price-info">
-            <img class="ticket-price-image" src="assets/images/history_event/8.webp" alt="History Event">
+            <img class="ticket-price-image" src="<?php echo htmlspecialchars($firstHistoryTicket->imagePath); ?>"
+                alt="History Event">
             <div class="ticket-price-info-text">
-                <h1 class="ticket-price-header">Regular Participant</h1>
-                <p class="ticket-price-text">Price: 17.50 €</p>
-                <p class="ticket-price-text">1 x Drink</p>
+                <h1 class="ticket-price-header">
+                    <?php echo htmlspecialchars($firstHistoryTicket->ticketType); ?>
+                </h1>
+                <p class="ticket-price-text">
+                    <?php echo htmlspecialchars(number_format($firstHistoryTicket->price, 2, '.', '')) . ' €'; ?>
+                </p>
+                <p class="ticket-price-text">
+                    <?php echo htmlspecialchars($firstHistoryTicket->description); ?>
+                </p>
 
                 <button type="button" class="btn2">Buy Now</button>
             </div>
@@ -152,14 +129,20 @@ include __DIR__ . '/../header.php';
 
         <div class="ticket-price-info-2">
             <div class="ticket-price-info-text-2">
-                <h1 class="ticket-price-header-2">Family Ticket</h1>
-                <p class="ticket-price-text-2">Price: 60.00 €</p>
-                <p class="ticket-price-text-2">4 x Drinks (1 per member)</p>
-                <p class="ticket-price-text-2">Maximum 4 members</p>
+                <h1 class="ticket-price-header-2">
+                    <?php echo htmlspecialchars($secondHistoryTicket->ticketType); ?>
+                </h1>
+                <p class="ticket-price-text-2">
+                    <?php echo htmlspecialchars(number_format($secondHistoryTicket->price, 2, '.', '')) . ' €'; ?>
+                </p>
+                <p class="ticket-price-text-2">
+                    <?php echo htmlspecialchars($secondHistoryTicket->description); ?>
+                </p>
 
                 <button type="button" class="btn2">Buy Now</button>
             </div>
-            <img class="ticket-price-image-2" src="assets/images/history_event/family.png" alt="History Event">
+            <img class="ticket-price-image-2" src="<?php echo htmlspecialchars($secondHistoryTicket->imagePath); ?>"
+                alt="History Event">
         </div>
     </div>
 
@@ -171,244 +154,72 @@ include __DIR__ . '/../header.php';
 
     <div class="timetables-grid-container">
 
-        <div class="timetable-day">
-            <h1 class="timetable-day-header">25</h1>
-            <p class="timetable-day-text1">Jul</p>
-            <p class="timetable-day-text2">Thursday</p>
-        </div>
-        <div class="timetable-day">
-            <h1 class="timetable-day-header">25</h1>
-            <p class="timetable-day-text1">Jul</p>
-            <p class="timetable-day-text2">Thursday</p>
-        </div>
-        <div class="timetable-day">
-            <h1 class="timetable-day-header">25</h1>
-            <p class="timetable-day-text1">Jul</p>
-            <p class="timetable-day-text2">Thursday</p>
-        </div>
-        <div class="timetable-day">
-            <h1 class="timetable-day-header">25</h1>
-            <p class="timetable-day-text1">Jul</p>
-            <p class="timetable-day-text2">Thursday</p>
-        </div>
+        <?php foreach ($historyTourDeparturesTimetables as $timetable): ?>
+            <?php
+            // Convert string date to PHP DateTime object
+            $dateObject = new DateTime($timetable->date);
+
+            $day = $dateObject->format('d'); // Day of the month
+            $month = $dateObject->format('M'); // Month as three letters
+            $dayOfWeek = $dateObject->format('l'); // Full name of the day of the week
+            ?>
+            <div class="timetable-day">
+                <h1 class="timetable-day-header">
+                    <?php echo htmlspecialchars($day); ?>
+                </h1>
+                <p class="timetable-day-text1">
+                    <?php echo htmlspecialchars($month); ?>
+                </p>
+                <p class="timetable-day-text2">
+                    <?php echo htmlspecialchars($dayOfWeek); ?>
+                </p>
+            </div>
+        <?php endforeach; ?>
 
 
 
-        <div class="timetable-booking-item">
-            <p class="timetable-booking-text">Time: 10:00</p>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">English Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Dutch Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Chinese Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <button type="button" class="btn3">Book</button>
+        <?php foreach ($historyTours as $tour): ?>
+            <div class="timetable-booking-item">
+                <?php
+                // Parse and format the start time
+                $time = new DateTime($tour->startTime);
+                $formattedTime = $time->format('H:i'); // Formats to hour:minute
+                ?>
+                <p class="timetable-booking-text">Time:
+                    <?php echo htmlspecialchars($formattedTime); ?>
+                </p>
 
-        </div>
+                <?php if ($tour->englishTour > 0): ?>
+                    <div class="booking-item-flagAndText">
+                        <p class="timetable-booking-text">English Tours</p>
+                        <?php for ($i = 0; $i < $tour->englishTour; $i++): ?>
+                            <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="English Tour">
+                        <?php endfor; ?>
 
-        <div class="timetable-booking-item">
-            <p class="timetable-booking-text">Time: 10:00</p>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">English Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Dutch Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Chinese Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <button type="button" class="btn3">Book</button>
+                    </div>
+                <?php endif; ?>
 
-        </div>
+                <?php if ($tour->dutchTour > 0): ?>
+                    <div class="booking-item-flagAndText">
+                        <p class="timetable-booking-text">Dutch Tours</p>
+                        <?php for ($i = 0; $i < $tour->dutchTour; $i++): ?>
+                            <img class="timetable-booking-image" src="assets/images/elements/download 3.png" alt="Dutch Tour">
+                        <?php endfor; ?>
+                    </div>
+                <?php endif; ?>
 
-        <div class="timetable-booking-item">
-            <p class="timetable-booking-text">Time: 10:00</p>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">English Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Dutch Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Chinese Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <button type="button" class="btn3">Book</button>
+                <?php if ($tour->chineseTour > 0): ?>
+                    <div class="booking-item-flagAndText">
+                        <p class="timetable-booking-text">Chinese Tours</p>
+                        <?php for ($i = 0; $i < $tour->chineseTour; $i++): ?>
+                            <img class="timetable-booking-image" src="assets/images/elements/download 5.png" alt="Chinese Tour">
+                        <?php endfor; ?>
+                    </div>
+                <?php endif; ?>
 
-        </div>
-
-        <div class="timetable-booking-item">
-            <p class="timetable-booking-text">Time: 10:00</p>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">English Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
+                <button type="button" class="btn3">Book</button>
             </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Dutch Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Chinese Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <button type="button" class="btn3">Book</button>
-
-        </div>
-
-        <div class="timetable-booking-item">
-            <p class="timetable-booking-text">Time: 10:00</p>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">English Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Dutch Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Chinese Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <button type="button" class="btn3">Book</button>
-
-        </div>
-
-        <div class="timetable-booking-item">
-            <p class="timetable-booking-text">Time: 10:00</p>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">English Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Dutch Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Chinese Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <button type="button" class="btn3">Book</button>
-
-        </div>
-
-        <div class="timetable-booking-item">
-            <p class="timetable-booking-text">Time: 10:00</p>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">English Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Dutch Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Chinese Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <button type="button" class="btn3">Book</button>
-
-        </div>
-
-        <div class="timetable-booking-item">
-            <p class="timetable-booking-text">Time: 10:00</p>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">English Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Dutch Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Chinese Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <button type="button" class="btn3">Book</button>
-
-        </div>
-
-        <div class="timetable-booking-item">
-            <p class="timetable-booking-text">Time: 10:00</p>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">English Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Dutch Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Chinese Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <button type="button" class="btn3">Book</button>
-
-        </div>
-
-        <div class="timetable-booking-item">
-            <p class="timetable-booking-text">Time: 10:00</p>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">English Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Dutch Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Chinese Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <button type="button" class="btn3">Book</button>
-
-        </div>
-
-        <div class="timetable-booking-item">
-            <p class="timetable-booking-text">Time: 10:00</p>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">English Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Dutch Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Chinese Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <button type="button" class="btn3">Book</button>
-
-        </div>
-
-        <div class="timetable-booking-item">
-            <p class="timetable-booking-text">Time: 10:00</p>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">English Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Dutch Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <div class="booking-item-flagAndText">
-                <p class="timetable-booking-text">Chinese Tours</p>
-                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png" alt="History Event">
-            </div>
-            <button type="button" class="btn3">Book</button>
-
-        </div>
+        <?php endforeach; ?>
     </div>
 
     <!-- ------------------------------- -->
@@ -417,13 +228,15 @@ include __DIR__ . '/../header.php';
     </div>
 
     <div class="map-container">
-        <img class="starting-point-image" src="assets/images/history_event/location-starting-point.png"
-            alt="History Event">
+        <img class="starting-point-image"
+            src="<?php echo htmlspecialchars($historyTourStartingPoints->mainImagePath); ?>" alt="History Event">
         <div class="map-info-container">
-            <p class="map-info-text">The tour begins in close proximity to the Church of Saint Bavo, easily identified
-                by a prominent flag marking the location. Your guide will be awaiting your arrival here. The tour will
-                start once all participants have assembled or at the scheduled time.</p>
-            <img class="map-info-image" src="assets/images/history_event/map-starting-point.png" alt="History Event">
+            <p class="map-info-text">
+                <?php echo htmlspecialchars($historyTourStartingPoints->description); ?>
+            </p>
+            <img class="map-info-image"
+                src="<?php echo htmlspecialchars($historyTourStartingPoints->secondaryImagePath); ?>"
+                alt="History Event">
         </div>
     </div>
 
@@ -434,14 +247,14 @@ include __DIR__ . '/../header.php';
     </div>
 
     <div class="practical-info-container">
-        <div class="practical-info-item">
-            <img class="practical-info-sign" src="assets/images/elements/+ sign.png" alt="History Event">
-            <p class="practical-info-text">What is the duration of each tour?</p>
-        </div>
-        <div class="practical-info-item">
-            <img class="practical-info-sign" src="assets/images/elements/+ sign.png" alt="History Event">
-            <p class="practical-info-text">What is the duration of each tour?</p>
-        </div>
+        <?php foreach ($historyPracticalInformation as $practicalInformation): ?>
+            <div class="practical-info-item">
+                <img class="practical-info-sign" src="assets/images/elements/+ sign.png" alt="History Event">
+                <p class="practical-info-text">
+                    <?php echo htmlspecialchars($practicalInformation->question) ?>
+                </p>
+            </div>
+        <?php endforeach; ?>
     </div>
 
     <!-- ------------------------------- -->
