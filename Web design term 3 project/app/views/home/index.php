@@ -50,64 +50,78 @@ $users = $repository->getUsers();
 </html>
 
     <main>
-    <section class="section-bg py-10 px-4">
-        <h2 class="text-4xl font-bold text-center mb-8 text-white">WHAT IS THERE TO DO?</h2>
-
-        <div class="bg-yellow-500 text-black text-center py-4 px-6" style="margin-left: 50px; margin-right: 50px">
-            <p>Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills, 
+    <section class="section-bg py-10 px-10">
+    <div class="text-center mb-8 text-white">
+        <h2 class="text-4xl font-bold">WHAT IS THERE TO DO?</h2>
+        <div class="flex items-center justify-center" style="background: url('assets/images/elements/Union.png') no-repeat center center; background-size: contain; margin-left: 50px; margin-right: 50px; min-height: 500px;">
+            <p style="font-size: 1.4em; font-weight: normal; color: black; border-radius: 10px;">
+                Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills, 
                 savor the city's culinary delights, and let kids revel in a mobile event tied to the Taylers Museum. 
                 For the night owls, "Dance" beckons with lively hotspots. Discover history, flavors, family fun, 
                 and nightlife in this captivating city—a blend of past, present, and endless possibilities.</p>
         </div>
-
-        <div class="container mx-auto grid grid-cols-1 gap-4"></div>
-
-    </section>
+    </div>
+    <div class="container mx-auto grid grid-cols-1 gap-4"></div>
+</section>
+</main>
 
         <div class="container mx-auto grid grid-cols-1 gap-4">
             
-        <!-- Dance -->
-            <div class="event-bg rounded-lg p-6">
-                <img src="C:\Users\baezd\Desktop\App V2\Term-2.3-Web-Project\Web design term 3 project\app\public\assets\images\Home_page_Images\Dance_Image_Homepage.jpg" 
-                alt="A vibrant dance event with people enjoying music and performances" 
-                class="rounded-lg">
-                <h3 class="text-gold text-2xl font-bold mt-4">Dance!</h3>
-                <p class="text-gray-600 mt-2">If you are a music enthusiast, Haarlem is THE PLACE for YOU!
-                With lots of bars and music venues, you can find any kind of music you might like: from the 
-                best techno parties to live bands playing jazz and songwriter’s concerts.
-                Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
-                <a href="#" class="bg-yellow-500 text-white py-2 px-4 rounded mt-4 inline-block">Learn More</a>
-            </div>
+   <!-- Dance -->
+        <div class="event-bg rounded-lg p-6 flex items-center justify-between" style="background-color: white; padding: 30px;">
+    <div style="flex: 1; max-width: 50%;">
+        <img src="assets/images/Home_page_Images/Dance_Image_Homepage.png" 
+             alt="A vibrant dance event with people enjoying music and performances" 
+             class="rounded-lg" 
+             style="width: 100%; height: auto; max-width: 50%; margin-left: 100px;">
+    </div>
+    <div style="flex: 1; padding: 20px; margin-right: 100px;">
+        <h3 class="text-gold text-2xl font-bold mt-4">Dance!</h3>
+        <p class="text-gray-600 mt-2">If you are a music enthusiast, Haarlem is THE PLACE for YOU!
+        With lots of bars and music venues, you can find any kind of music you might like: from the 
+        best techno parties to live bands playing jazz and songwriter’s concerts.
+        Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
+        <a href="#" class="bg-red-500 text-white py-2 px-20 rounded" style="display: block; width: 100%; text-align: center;">Learn More</a>
+    </div>
+</div>
 
-            <!-- Food -->
-            <div class="event-bg rounded-lg p-6">
-                <img src="C:\Users\baezd\Desktop\App V2\Term-2.3-Web-Project\Web design term 3 project\app\public\assets\images\Home_page_Images\Dance_Image_Homepage.jpg" 
-                alt="Delicious food offerings from various Harlem restaurants" 
-                class="rounded-lg">
-                <h3 class="text-gold text-2xl font-bold mt-4">Yummy!</h3>
-                <p class="text-gray-600 mt-2">Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses. 
+   <!-- Food -->
+            <div class="event-bg rounded-lg p-6 flex items-center justify-between" style="background-color: white; padding: 30px;">
+    <div style="flex: 1; max-width: 50%;">
+        <img src="assets\images\Home_page_Images\Yummy_Image_Homepage.png" 
+             alt="A vibrant dance event with people enjoying music and performances" 
+             class="rounded-lg" 
+             style="width: 100%; height: auto; max-width: 50%; margin-left: 100px;">
+    </div>
+    <div style="flex: 1; padding: 20px; margin-right: 100px;">
+        <h3 class="text-gold text-2xl font-bold mt-4">Yummy!</h3>
+        <p class="text-gray-600 mt-2">
+                    Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses. 
                     While Haarlem may not be a global culinary icon, our city is home to a diverse array of restaurants that are sure to captivate 
                     your taste buds. Dive into a world of gastronomic delights, where each bite tells a unique story.</p>
-                <a href="#" class="bg-blue-500 text-white py-2 px-4 rounded mt-4 inline-block">Learn More</a>
-            </div>
+                    <a href="#" class="bg-blue-500 text-white py-2 px-20 rounded" style="display: block; width: 100%; text-align: center;">Learn More</a>
+    </div>
+</div>
 
-            <!-- History -->
-            <div class="event-bg rounded-lg p-6">
-                <img src="https://placehold.co/300x200" 
-                alt="Historical sites and museums offering a walk through Harlem's history" 
-                class="rounded-lg">
-                <h3 class="text-gold text-2xl font-bold mt-4">A Stroll Through History</h3>
-                <p class="text-gray-600 mt-2">Haarlem, a city rich in history and adorned with captivating tales, 
+  <!-- History -->
+<div class="event-bg rounded-lg p-6 flex items-center justify-between" style="background-color: white; padding: 30px;">
+    <div style="flex: 1; max-width: 50%;">
+        <img src="assets\images\Home_page_Images\History_Image_Homepage.png" 
+             alt="A vibrant dance event with people enjoying music and performances" 
+             class="rounded-lg" 
+             style="width: 100%; height: auto; max-width: 50%; margin-left: 100px;">
+    </div>
+    <div style="flex: 1; padding: 20px; margin-right: 100px;">
+        <h3 class="text-gold text-2xl font-bold mt-4">History!</h3>
+        <p class="text-gray-600 mt-2">
+                    Haarlem, a city rich in history and adorned with captivating tales, 
                     offering a treasure trove of landmarks waiting to be explored. 
                     We invite you to immerse yourself in this enchanting blend of antiquity and modernity, 
                     where the past's timeless charm meets the vibrant pulse of the present—a perfect opportunity 
-                    to discover and indulge in the city's breath-taking splendor."</p>
-                <a href="#" class="bg-red-500 text-white py-2 px-4 rounded mt-4 inline-block">Learn More</a>
-            </div>
-        </div>
-    </section>
-</main>
-</body>
+                    to discover and indulge in the city's breath-taking splendor.</p>
+                    <a href="#" class="bg-yellow-500 text-white py-2 px-20 rounded" style="display: block; width: 100%; text-align: center;">Learn More</a>
+    </div>
+</div>
 
 <div style="height: 20px;"></div>
 
@@ -170,7 +184,7 @@ $users = $repository->getUsers();
     <a href="#" class="btn">Check festival schedule</a>
   </div>
 
-  <div><iframe src="https://placehold.co/300x200"></iframe></div>
+  <div><iframe src="assets\images\Home_page_Images\Map_Image_Homepage.png"></iframe></div>
   
   </div>
 </body>
@@ -222,9 +236,9 @@ $users = $repository->getUsers();
       <div class="text-4xl font-bold mb-4 text-white bg-black py-4">A Stroll Through History</div>
       <div class="grid grid-cols-3 gap-4">
         <div class="col-span-1">
-          <img src="https://placehold.co/300x200" alt="Historical Tour" class="w-full h-auto">
+          <img src="assets\images\Home_page_Images\HistoryEvent_Image_Homepage.png" alt="Historical Tour" class="w-full h-auto">
         </div>
-        <div class="col-span-2 text-base">
+        <div class="col-span-2 text-base flex items-center justify-center" style="font-size: 1.4em; margin-right: 250px;">
           The event takes place every day, the hours when the tours start are always 10:00, 13:00, 16:00. 
           The tours are available in multiple languages.
         </div>
@@ -236,9 +250,9 @@ $users = $repository->getUsers();
       <div class="text-4xl font-bold mb-4 text-white bg-black py-4">Yummy!</div>
       <div class="grid grid-cols-3 gap-4">
         <div class="col-span-1">
-          <img src="https://placehold.co/300x200" alt="Food Festival" class="w-full h-auto">
+          <img src="assets\images\Home_page_Images\YummyEvent_Image_Homepage.png" alt="Food Festival" class="w-full h-auto">
         </div>
-        <div class="col-span-2 text-base">
+        <div class="col-span-2 text-base flex items-center justify-center" style="font-size: 1.4em; margin-right: 250px;">
           Reservations can be made during the period of the festival at various restaurants 
           across Haarlem at various hours depending on the restaurant.
         </div>
@@ -250,9 +264,9 @@ $users = $repository->getUsers();
       <div class="text-4xl font-bold mb-4 text-white bg-black py-4">Dance!</div>
       <div class="grid grid-cols-3 gap-4">
         <div class="col-span-1">
-          <img src="https://placehold.co/300x200" alt="Dance Event" class="w-full h-auto">
+          <img src="assets\images\Home_page_Images\DanceEvent_Image_Homepage.jpg" alt="Dance Event" class="w-full h-auto">
         </div>
-        <div class="col-span-2 text-base">
+        <div class="col-span-2 text-base flex items-center justify-center" style="font-size: 1.4em; margin-right: 250px;">
           The event takes place on the dates of 26, 27 and 28. Multiple artists will play 
           their music at different places across Haarlem. Most of the concerts will take place in the evening and during the night.
         </div>
