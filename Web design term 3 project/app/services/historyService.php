@@ -6,6 +6,17 @@ use App\Repositories\HistoryRepository;
 
 class HistoryService // manages all the history service
 {
+    public function returnImagePathsForCarousel(): array
+    {
+
+        $repository = new HistoryRepository();
+        $item = $repository->getHistoryTopParts();
+        $unprocessedPaths = $item->imagePath;
+        $paths = explode(" ; ", $unprocessedPaths);
+
+        return $paths;
+    }
+
     public function getHistoryPracticalInformation(): array
     {
         $repository = new HistoryRepository();
