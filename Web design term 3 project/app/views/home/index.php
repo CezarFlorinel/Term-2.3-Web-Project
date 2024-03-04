@@ -70,7 +70,7 @@ $users = $repository->getUsers();
    <!-- Dance -->
         <div class="event-bg rounded-lg p-6 flex items-center justify-between" style="background-color: white; padding: 30px;">
     <div style="flex: 1; max-width: 50%;">
-        <img src="assets/images/Home_page_Images/Dance_Image_Homepage.png" 
+        <img class = "image-round" src="assets/images/Home_page_Images/Dance_Image_Homepage.png" 
              alt="A vibrant dance event with people enjoying music and performances" 
              class="rounded-lg" 
              style="width: 100%; height: auto; max-width: 50%; margin-left: 100px;">
@@ -144,6 +144,10 @@ $users = $repository->getUsers();
     align-items: center;
     padding: 20px;
     background-color: #fff;}
+
+    .image-round{
+      border: 1px red solid;
+    }
 
   .info-box {
     width: 45%;
