@@ -52,7 +52,7 @@ $users = $repository->getUsers();
     <main>
     <section class="section-bg py-10 px-10">
     <div class="text-center mb-8 text-white">
-        <h2 class="text-4xl font-bold">WHAT IS THERE TO DO?</h2>
+        <h2 class="text-6xl font-bold">WHAT IS THERE TO DO?</h2>
         <div class="flex items-center justify-center" style="background: url('assets/images/elements/Union.png') no-repeat center center; background-size: contain; margin-left: 50px; margin-right: 50px; min-height: 500px;">
             <p style="font-size: 1.4em; font-weight: normal; color: black; border-radius: 10px;">
                 Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills, 
@@ -66,52 +66,115 @@ $users = $repository->getUsers();
 </main>
 
         <div class="container mx-auto grid grid-cols-1 gap-4">
-            
+       
+<style>
+  .event-bg {
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
+    max-width: 1300px;
+    margin: 20px auto; /* Added space for the tilt effect */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: rotate(-3deg); /* Tilts the section */
+    overflow: hidden; /* Ensures nothing spills outside the border */
+  }
+
+  .image-container {
+    flex: 1;
+    max-width: 50%;
+    margin-left: 150px;
+  }
+
+  .image-round {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .content-container {
+    flex: 1;
+    padding: 20px;
+  }
+
+  .text-gold {
+    /* your existing styles for text-gold */
+  }
+
+  .text-gray-600 {
+    /* your existing styles for text-gray-600 */
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    margin-top: 15px;
+  }
+
+  .btn-red {
+    background-color: #e53e3e; /* TailwindCSS red-600 */
+  }
+
+  .btn-blue {
+    background-color: #3182ce; /* TailwindCSS blue-500 */
+  }
+
+  .btn-yellow {
+    background-color: #ecc94b; /* TailwindCSS yellow-400 */
+  }
+</style>
+
    <!-- Dance -->
-        <div class="event-bg rounded-lg p-6 flex items-center justify-between" style="background-color: white; padding: 30px;">
+        <div class="event-bg rounded-lg p-6 flex items-center justify-between" style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
     <div style="flex: 1; max-width: 50%;">
         <img class = "image-round" src="assets/images/Home_page_Images/Dance_Image_Homepage.png" 
              alt="A vibrant dance event with people enjoying music and performances" 
              class="rounded-lg" 
-             style="width: 100%; height: auto; max-width: 50%; margin-left: 100px;">
+             style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
     </div>
-    <div style="flex: 1; padding: 20px; margin-right: 100px;">
+    <div style="flex: 1; padding: 20px; margin-right: 325px;">
         <h3 class="text-gold text-2xl font-bold mt-4">Dance!</h3>
         <p class="text-gray-600 mt-2">If you are a music enthusiast, Haarlem is THE PLACE for YOU!
         With lots of bars and music venues, you can find any kind of music you might like: from the 
         best techno parties to live bands playing jazz and songwriter’s concerts.
         Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
-        <a href="#" class="bg-red-500 text-white py-2 px-20 rounded" style="display: block; width: 100%; text-align: center;">Learn More</a>
+        <a href="#" class="bg-red-500 text-white py-2 px-20 rounded" style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
     </div>
 </div>
 
    <!-- Food -->
-            <div class="event-bg rounded-lg p-6 flex items-center justify-between" style="background-color: white; padding: 30px;">
+            <div class="event-bg rounded-lg p-6 flex items-center justify-between" style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
     <div style="flex: 1; max-width: 50%;">
         <img src="assets\images\Home_page_Images\Yummy_Image_Homepage.png" 
              alt="A vibrant dance event with people enjoying music and performances" 
              class="rounded-lg" 
-             style="width: 100%; height: auto; max-width: 50%; margin-left: 100px;">
+             style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
     </div>
-    <div style="flex: 1; padding: 20px; margin-right: 100px;">
+    <div style="flex: 1; padding: 20px; margin-right: 325px;">
         <h3 class="text-gold text-2xl font-bold mt-4">Yummy!</h3>
         <p class="text-gray-600 mt-2">
                     Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses. 
                     While Haarlem may not be a global culinary icon, our city is home to a diverse array of restaurants that are sure to captivate 
                     your taste buds. Dive into a world of gastronomic delights, where each bite tells a unique story.</p>
-                    <a href="#" class="bg-blue-500 text-white py-2 px-20 rounded" style="display: block; width: 100%; text-align: center;">Learn More</a>
+                    <a href="#" class="bg-blue-500 text-white py-2 px-20 rounded" style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
     </div>
 </div>
 
   <!-- History -->
-<div class="event-bg rounded-lg p-6 flex items-center justify-between" style="background-color: white; padding: 30px;">
+<div class="event-bg rounded-lg p-6 flex items-center justify-between" style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
     <div style="flex: 1; max-width: 50%;">
         <img src="assets\images\Home_page_Images\History_Image_Homepage.png" 
              alt="A vibrant dance event with people enjoying music and performances" 
              class="rounded-lg" 
-             style="width: 100%; height: auto; max-width: 50%; margin-left: 100px;">
+             style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
     </div>
-    <div style="flex: 1; padding: 20px; margin-right: 100px;">
+    <div style="flex: 1; padding: 20px; margin-right: 325px;">
         <h3 class="text-gold text-2xl font-bold mt-4">History!</h3>
         <p class="text-gray-600 mt-2">
                     Haarlem, a city rich in history and adorned with captivating tales, 
@@ -124,62 +187,67 @@ $users = $repository->getUsers();
 </div>
 
 <div style="height: 20px;"></div>
+</html>
+
+<div style="height: 20px;"></div>
+<div style="height: 20px;"></div>
 
 <!-- Festival Location -->
-</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Festival Location</title>
-
 <style>
-
-.event-bg {margin-left: 50px; margin-right: 50px;}
-
   .festival-location-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #fff;}
-
-    .image-round{
-      border: 1px red solid;
-    }
-
-  .info-box {
-    width: 45%;
-    padding: 20px;
-    background-color: #FFD700;
-    color: #000;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    font-family: Arial, sans-serif;}
-
-  .section-title {
-    font-size: 36px;
-    color: #444;
-    text-align: center;
-    width: 100%;
-    margin: 40px 0;}
-
-  .btn{
+    padding: 24px;
+    margin-left: 50px;
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+    background-color: black; /* Adjust the background color if needed */
+  }
+  .info-box {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 0; /* Make top right corner flat */
+  border-bottom-right-radius: 0; /* Make bottom right corner flat */
+  padding: 24px;
+  background-color: #cc9900; /* Dark yellow background */
+  flex: 1; /* Takes up remaining space */
+  color: black; /* Text color changed to black */
+  margin-right: -24px; /* Adjust so it touches the image */
+}
+  .info-box h2 {
+    margin-top: 0;
+    color: black; /* Ensuring the heading is also black */
+  }
+  .btn {
     display: inline-block;
-    padding: 10px 20px;
-    margin-top: 20px;
-    background-color: red;
-    color: #fff;
     text-decoration: none;
-    border-radius: 4px;
-    text-align: center;}
-
+    padding: 10px 20px;
+    background-color: red; /* Button color changed to red */
+    color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  .btn:hover {
+    background-color: darkred; /* Darker red on hover */
+  }
+  iframe {
+    border-radius: 8px;
+    width: 600px; /* Fixed width for the image */
+    height: 400px; /* Fixed height for the image */
+    border: none; /* Removes the default border */
+  }
 </style>
 </head>
 <body>
-<div class="festival-location-section rounded-lg p-6" style="margin-left: 50px; margin-right: 50px;">
-  <div class="info-box rounded-lg">
+
+<div class="festival-location-section">
+  <div class="info-box">
     <h2>WHERE IS THE FESTIVAL?</h2>
     <p>Discover the magic of The Festival in the vibrant city of Haarlem, 
         nestled to the west of Amsterdam and north of The Hague. 
@@ -188,9 +256,12 @@ $users = $repository->getUsers();
     <a href="#" class="btn">Check festival schedule</a>
   </div>
 
-  <div><iframe src="assets\images\Home_page_Images\Map_Image_Homepage.png"></iframe></div>
-  
+  <div>
+    <!-- Replace the src attribute's value with the actual path to your image -->
+    <iframe src="assets/images/Home_page_Images/Map_Image_Homepage.png" frameborder="0"></iframe>
   </div>
+</div>
+
 </body>
 </html>
 
@@ -282,50 +353,83 @@ $users = $repository->getUsers();
 </html>
 
 <!-- Teylor Museum -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Section</title>
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Secret of Professor Teyler</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #f3f3f3; /* Light grey background for the whole page */
+  }
 
-        .event-section {
-            background-color: #fff;
-            text-align: center;
-            padding: 10px;
-            font-family: 'Arial', sans-serif;}
+  .event-section {
+    background-color: white; /* White background for the section */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Comic Sans MS', 'Comic Neue', sans-serif; /* This is a playful font that might match the style */
+    padding: 40px; /* Increased padding for more vertical space */
+    margin: 20px; /* Adds margin for some space from the edges of the viewport */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow for depth */
+    border-radius: 10px; /* Optional: rounds the corners of the section */
+  }
 
-        .event-title {
-            color: red;
-            font-size: 48px;
-            margin-bottom: 10px;}
+  .event-title {
+    font-size: 48px;
+    color: red;
+  }
 
-        .mobile-event {
-            color: red;
-            font-size: 30px;
-            margin-bottom: 20px;}
+  .mobile-event {
+    font-size: 32px;
+    color: red;
+    font-style: italic;
+  }
 
-        .event-description {
-            color: black;
-            font-size: 20px;
-            margin-bottom: 20px;}
-    </style>
+  .event-description {
+    font-size: 24px;
+  }
 
+  .event-image, .qr-code {
+    width: 250px; /* Increased size of images */
+    height: auto;
+    margin: 0 20px; /* Adds horizontal spacing around the images */
+  }
+
+  /* Ensure the content is centered */
+  .content {
+    color: black;
+    flex-grow: 2; /* Allows the content to grow and fill the space for better centering */
+    padding: 0 40px; /* Adds padding to the left and right of the content */
+  }
+</style>
 </head>
 <body>
+
 <div class="event-section">
+    <img class="event-image" src="assets/images/Home_page_Images/Dexter_Image_Homepage.png" alt="Image of Dexter">
 
-    <div class="event-title">The Secret of Professor Teyler</div>
-
-    <div class="mobile-event">(mobile event)</div>
-
-    <div class="event-description">
-        Looking for a great way to keep your kids entertained? 
-        Join in on the excitement with The Teyler Museum's 
-        scavenger hunt during the festival! Get started by downloading 
-        the activity app—just scan the QR code to begin the adventure.
+    <div class="content">
+        <div class="event-title">The Secret of Professor Teyler</div>
+        <div class="mobile-event">(mobile event)</div>
+        <div class="event-description">
+            Looking for a great way to keep your kids entertained? 
+            Join in on the excitement with The Teyler Museum's 
+            scavenger hunt during the festival! Get started by downloading 
+            the activity app—just scan the QR code to begin the adventure.
+        </div>
     </div>
+
+    <img class="qr-code" src="assets/images/Home_page_Images/QR_Image_Homepage.png" alt="QR Code">
 </div>
+
+</body>
+</html>
 
 <div style="height: 20px;"></div>
 <div style="height: 20px;"></div>
