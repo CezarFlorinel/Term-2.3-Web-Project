@@ -10,6 +10,7 @@
 
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
 
+        <!-- Practical Information Section ------------------------------------------------------- -->
         <div class="flex-grow p-6">
             <h1 class="text-3xl text-center mb-6">Practical Information Section</h1>
             <div class="bg-white shadow-md rounded-lg p-6">
@@ -57,6 +58,13 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
+
+
     </div>
 
     <script>
