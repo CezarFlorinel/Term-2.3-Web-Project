@@ -43,11 +43,46 @@ class HistoryAdminController
 
     public function createHistoryPracticalInformation()
     {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
 
+            if (isset($input['parentPage'], $input['question'], $input['answer'])) {
+                $parentPage = $input['parentPage'];
+                $question = $input['question'];
+                $answer = $input['answer'];
+
+                // Save new information using your service layer
+                $this->historyService->addHistoryPracticalInformation($parentPage, $question, $answer);
+
+                // Respond back with success message
+                echo json_encode(['message' => 'New information added successfully']);
+            } else {
+                // Respond back with error message
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
+        }
     }
+
     public function deleteHistoryPracticalInformation()
     {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
 
+            if (isset($input['informationID'])) {
+                $id = $input['informationID'];
+
+                // Perform the deletion using your service layer
+                $this->historyService->deleteHistoryPracticalInformation($id);
+
+                // Respond back with success message
+                echo json_encode(['message' => 'Information deleted successfully']);
+            } else {
+                // Respond back with error message
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required field: informationID']);
+            }
+        }
     }
 
 
