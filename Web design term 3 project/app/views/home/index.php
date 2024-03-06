@@ -11,11 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         .event-bg {margin-left: 50px; margin-right: 50px;}
-         body { background-color: #000; }
+         body { background-color: black; }
         .fest-bg { background-color: #333; }
         .section-bg { background-color: #000; }
-        .schedule-bg { background-color: #222; }
-        .event-bg { background-color: #fff; }
+        .schedule-bg { background-color: black; }
+        .event-bg { background-color: black; }
         .text-gold { color: #000; }
         .text-dim-white { color: rgba(255, 255, 255, 0.7); }
     </style>
