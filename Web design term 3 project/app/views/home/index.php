@@ -358,12 +358,36 @@ $users = $repository->getUsers();
 <title>Event Schedule</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet">
-<style> </style>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
+
+.font-sans {
+    font-family: 'Playfair Display', serif;
+    background-color: black;
+    color: white;
+    padding-top: 2.5rem; /* 40px */
+    padding-bottom: 2.5rem; /* 40px */
+}
+
+.text-center {
+    text-align: center;
+    margin-bottom: 2.5rem; /* 40px */
+}
+
+.text-4xl {
+    font-size: 2.5rem; /* Adjusted to 40px */
+    letter-spacing: 0.1em; /* Added spacing between letters */
+}
+</style>
 </head>
 <body>
-<div class="font-sans bg-black text-white py-10" style="background-color: black; color: white; padding-top: 2.5rem; padding-bottom: 2.5rem;">
-  <div class="text-center text-4xl mb-10" style="font-size: 2.5rem; text-align: center; margin-bottom: 2.5rem;">SCHEDULE OF THE EVENTS</div>
-  
+
+<div class="font-sans">
+  <div class="text-center text-5xl">
+    SCHEDULE OF THE EVENTS
+  </div>
+</div>
+
   <!-- Dates -->
   <div class="flex justify-around space-x-10 mb-10" style="display: flex; justify-content: space-around; margin-bottom: 2.5rem;">
     <div class="text-center px-5" style="text-align: center; padding-left: 1.25rem; padding-right: 1.25rem;">
@@ -445,7 +469,7 @@ $users = $repository->getUsers();
 </body>
 </html>
 
-<div style="height: 40px;"></div>
+<div style="height: 60px;"></div>
 
 <!-- Teylor Museum -->
 <!DOCTYPE html>
