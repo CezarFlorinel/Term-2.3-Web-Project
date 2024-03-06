@@ -9,7 +9,6 @@ class HistoryService // manages all the history service
 {
     public function returnImagePathsForCarousel(): array
     {
-
         $repository = new HistoryRepository();
         $item = $repository->getHistoryTopParts();
         $unprocessedPaths = $item->imagePath;
@@ -64,10 +63,10 @@ class HistoryService // manages all the history service
 
     //edit methods for all history related queries
 
-    public function editHistoryPracticalInformation(HistoryPracticalInformation $information)
+    public function editHistoryPracticalInformation($id, $question, $answer)
     {
         $repository = new HistoryRepository();
-        $repository->editHistoryPracticalInformation($information);
+        $repository->editHistoryPracticalInformation($id, $question, $answer);
     }
 
 

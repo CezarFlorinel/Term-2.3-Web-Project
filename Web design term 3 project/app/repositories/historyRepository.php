@@ -136,15 +136,16 @@ class HistoryRepository extends Repository     // methods for all history relate
 
     // edit the information methods
 
-    public function editHistoryPracticalInformation(HistoryPracticalInformation $historyPracticalInformation)
+    public function editHistoryPracticalInformation($id, $question, $answer)
     {
-        $stmt = $this->connection->prepare('UPDATE [HISTORY_PRACTICAL_INFORMATION] SET Question = :question, Answer = :answer WHERE InformationID = :informationID');
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_PRACTICAL_INFORMATION] SET Question = :question, Answer = :answer WHERE InformationID = :id');
         $stmt->execute([
-            'informationID' => $historyPracticalInformation->informationID,
-            'question' => $historyPracticalInformation->question,
-            'answer' => $historyPracticalInformation->answer
+            'id' => $id,
+            'question' => $question,
+            'answer' => $answer
         ]);
     }
+
 
 
 
