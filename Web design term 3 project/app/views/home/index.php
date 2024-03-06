@@ -16,7 +16,7 @@
     }
 
     body {
-      background-color: #000;
+      background-color: black;
     }
 
     .fest-bg {
@@ -28,11 +28,11 @@
     }
 
     .schedule-bg {
-      background-color: #222;
+      background-color: black;
     }
 
     .event-bg {
-      background-color: #fff;
+      background-color: black;
     }
 
     .text-gold {
@@ -151,7 +151,7 @@
       <div class="text-center mb-8 text-white">
         <h2 class="text-6xl font-bold">WHAT IS THERE TO DO?</h2>
         <div class="flex items-center justify-center"
-          style="background: url('assets/images/elements/Union.png') no-repeat center center; background-size: contain; margin-left: 50px; margin-right: 50px; min-height: 500px;">
+          style="background: url('assets/images/elements/Union.png') no-repeat center center; background-size: contain; margin-left: 50px; margin-right: 50px; min-height: 300px;">
           <p style="font-size: 1.4em; font-weight: normal; color: black; border-radius: 10px;">
             Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills,
             savor the city's culinary delights, and let kids revel in a mobile event tied to the Taylers Museum.
@@ -243,74 +243,58 @@
           style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
       </div>
       <div style="flex: 1; padding: 20px; margin-right: 250px;">
-        .btn-yellow {
-        background-color: #ecc94b;
-        /* TailwindCSS yellow-400 */
-        }
-        </style>
-
-        <!-- Dance -->
-        <div class="event-bg rounded-lg p-6 flex items-center justify-between"
-          style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
-          <div style="flex: 1; max-width: 50%;">
-            <img class="image-round" src="assets/images/Home_page_Images/Dance_Image_Homepage.png"
-              alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
-              style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
-          </div>
-          <div style="flex: 1; padding: 20px; margin-right: 325px;">
-            <h3 class="text-gold text-2xl font-bold mt-4">Dance!</h3>
-            <p class="text-gray-600 mt-2">If you are a music enthusiast, Haarlem is THE PLACE for YOU!
-              With lots of bars and music venues, you can find any kind of music you might like: from the
-              best techno parties to live bands playing jazz and songwriter’s concerts.
-              Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
-            <a href="#" class="bg-red-500 text-white py-2 px-20 rounded"
-              style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
-          </div>
-        </div>
-
-        <!-- Food -->
-        <div class="event-bg rounded-lg p-6 flex items-center justify-between"
-          style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
-          <div style="flex: 1; max-width: 50%;">
-            <img src="assets\images\Home_page_Images\Yummy_Image_Homepage.png"
-              alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
-              style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
-          </div>
-          <div style="flex: 1; padding: 20px; margin-right: 325px;">
-            <h3 class="text-gold text-2xl font-bold mt-4">Yummy!</h3>
-            <p class="text-gray-600 mt-2">
-              Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses.
-              While Haarlem may not be a global culinary icon, our city is home to a diverse array of restaurants that
-              are sure to captivate
-              your taste buds. Dive into a world of gastronomic delights, where each bite tells a unique story.</p>
-            <a href="#" class="bg-blue-500 text-white py-2 px-20 rounded"
-              style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
-          </div>
-        </div>
-
-        <!-- History -->
-        <div class="event-bg rounded-lg p-6 flex items-center justify-between"
-          style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
-          <div style="flex: 1; max-width: 50%;">
-            <img src="assets\images\Home_page_Images\History_Image_Homepage.png"
-              alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
-              style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
-          </div>
-          <div style="flex: 1; padding: 20px; margin-right: 325px;">
-            <h3 class="text-gold text-2xl font-bold mt-4">History!</h3>
-            <p class="text-gray-600 mt-2">
-              Haarlem, a city rich in history and adorned with captivating tales,
-              offering a treasure trove of landmarks waiting to be explored.
-              We invite you to immerse yourself in this enchanting blend of antiquity and modernity,
-              where the past's timeless charm meets the vibrant pulse of the present—a perfect opportunity
-              to discover and indulge in the city's breath-taking splendor.</p>
-            <a href="#" class="bg-yellow-500 text-white py-2 px-20 rounded"
-              style="display: block; width: 100%; text-align: center;">Learn More</a>
-          </div>
-        </div>
+        <h3 class="text-gold text-2xl font-bold mt-4">Dance!</h3>
+        <p class="text-gray-600 mt-2">If you are a music enthusiast, Haarlem is THE PLACE for YOU!
+          With lots of bars and music venues, you can find any kind of music you might like: from the
+          best techno parties to live bands playing jazz and songwriter’s concerts.
+          Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
+        <a href="#" class="bg-red-500 text-white py-2 px-20 rounded"
+          style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
       </div>
+    </div>
 
-      <div style="height: 20px;"></div>
+    <!-- Food -->
+    <div class="event-bg rounded-lg p-6 flex items-center justify-between"
+      style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
+      <div style="flex: 1; max-width: 50%;">
+        <img src="assets\images\Home_page_Images\Yummy_Image_Homepage.png"
+          alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
+          style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
+      </div>
+      <div style="flex: 1; padding: 20px; margin-right: 250px;">
+        <h3 class="text-gold text-2xl font-bold mt-4">Yummy!</h3>
+        <p class="text-gray-600 mt-2">
+          Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses.
+          While Haarlem may not be a global culinary icon, our city is home to a diverse array of restaurants that are
+          sure to captivate
+          your taste buds. Dive into a world of gastronomic delights, where each bite tells a unique story.</p>
+        <a href="#" class="bg-blue-500 text-white py-2 px-20 rounded"
+          style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="event-bg rounded-lg p-6 flex items-center justify-between"
+      style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
+      <div style="flex: 1; max-width: 50%;">
+        <img src="assets\images\Home_page_Images\History_Image_Homepage.png"
+          alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
+          style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
+      </div>
+      <div style="flex: 1; padding: 20px; margin-right: 250px;">
+        <h3 class="text-gold text-2xl font-bold mt-4">History!</h3>
+        <p class="text-gray-600 mt-2">
+          Haarlem, a city rich in history and adorned with captivating tales,
+          offering a treasure trove of landmarks waiting to be explored.
+          We invite you to immerse yourself in this enchanting blend of antiquity and modernity,
+          where the past's timeless charm meets the vibrant pulse of the present—a perfect opportunity
+          to discover and indulge in the city's breath-taking splendor.</p>
+        <a href="#" class="bg-yellow-500 text-white py-2 px-20 rounded"
+          style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
+      </div>
+    </div>
+
+    <div style="height: 20px;"></div>
 
   </html>
 
@@ -345,7 +329,7 @@
         border-bottom-right-radius: 0;
         /* Make bottom right corner flat */
         padding: 24px;
-        background-color: #cc9900;
+        background-color: #FDF7D9;
         /* Dark yellow background */
         flex: 1;
         /* Takes up remaining space */
@@ -385,6 +369,28 @@
         /* Fixed height for the image */
         border: none;
         /* Removes the default border */
+      }
+
+      /* ------------------------ */
+      .right-aligned-text {
+        text-align: right;
+        color: white;
+        background-color: black;
+        width: 100%;
+        /* or the width you desire */
+        height: 100px;
+        /* or the height you desire */
+        display: flex;
+        align-items: center;
+        /* This centers the text vertically */
+        justify-content: flex-end;
+        /* This aligns the text to the right */
+        padding-right: 60px;
+        /* Adjust the padding to ensure the text doesn't touch the edges */
+        font-family: 'Playfair Display', serif;
+        /* Specify the font you want to use */
+        font-size: 50px;
+        /* Adjust the font size as needed */
       }
     </style>
   </head>
@@ -571,15 +577,6 @@
     <title>The Secret of Professor Teyler</title>
     <style>
       body,
-      html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        background-color: #f3f3f3;
-        /* Light grey background for the whole page */
-      }
-
-      <style>body,
       html {
         margin: 0;
         padding: 0;
