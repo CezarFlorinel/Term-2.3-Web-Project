@@ -1,6 +1,6 @@
 /* The top image section */
 .start-image-container {
-    background-image: url('../assets/images/dance_event/dance.png');
+    background-image: url('../assets/images/yummy_event/opening.png');
     background-size: cover;
     background-position: center;
     min-height: 100vh;
