@@ -226,9 +226,14 @@ $users = $repository->getUsers();
                     Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses. 
                     While Haarlem may not be a global culinary icon, our city is home to a diverse array of restaurants that are sure to captivate 
                     your taste buds. Dive into a world of gastronomic delights, where each bite tells a unique story.</p>
+<<<<<<< Updated upstream
                     <a href="#" class="bg-blue-500 text-white py-2 px-20 rounded" style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
     </div>
 </div>
+=======
+                <a href="/yummyevent" class="bg-blue-500 text-white py-2 px-4 rounded mt-4 inline-block">Learn More</a>
+            </div>
+>>>>>>> Stashed changes
 
   <!-- History -->
 <div class="event-bg rounded-lg p-6 flex items-center justify-between" style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
