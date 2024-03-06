@@ -14,8 +14,8 @@ use App\Models\History_event\HistoryTicketPrices;
 class HistoryRepository extends Repository     // methods for all history related queries
 {
 
+    // get the information methods
     public function getHistoryPracticalInformation(): array
-
     {
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_PRACTICAL_INFORMATION]');
         $stmt->execute();
@@ -29,7 +29,6 @@ class HistoryRepository extends Repository     // methods for all history relate
                 $item['Answer']
             );
         }, $results);
-
     }
 
     public function getHistoryTopParts()
@@ -49,7 +48,6 @@ class HistoryRepository extends Repository     // methods for all history relate
         }
         return null;
     }
-
 
     public function getHistoryRoutes(): array
     {
@@ -135,6 +133,19 @@ class HistoryRepository extends Repository     // methods for all history relate
             );
         }, $results);
     }
+
+    // edit the information methods
+
+    public function editHistoryPracticalInformation(HistoryPracticalInformation $historyPracticalInformation)
+    {
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_PRACTICAL_INFORMATION] SET Question = :question, Answer = :answer WHERE InformationID = :informationID');
+        $stmt->execute([
+            'informationID' => $historyPracticalInformation->informationID,
+            'question' => $historyPracticalInformation->question,
+            'answer' => $historyPracticalInformation->answer
+        ]);
+    }
+
 
 
 

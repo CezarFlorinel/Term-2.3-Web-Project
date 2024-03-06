@@ -28,16 +28,15 @@ class PatternRouter
         $methodName = $explodedUri[1];
 
         // Controller/method matching the URL not found
-        if(!class_exists($controllerName) || !method_exists($controllerName, $methodName)) {
+        if (!class_exists($controllerName) || !method_exists($controllerName, $methodName)) {
             http_response_code(404);
             return;
         }
 
-        try {            
+        try {
             $controllerObj = new $controllerName();
             $controllerObj->$methodName();
-        } catch(Error $e) {
-            // For some reason the class/method doesn't work
+        } catch (Error $e) {
             http_response_code(500);
         }
     }
