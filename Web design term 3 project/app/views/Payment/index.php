@@ -1,209 +1,96 @@
-<?php
-include __DIR__ . '/../header.php';
-?>
-<head>
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Information</title>
-    <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Payment Method</title>
     <style>
         body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #000; /* Changed to black */
-        }
-        .step-text {
-        display: block;
-        color: white;
-        text-align: center;
-        font-size: 0.75rem; /* Smaller text size */
-        margin-bottom: 4px; /* Space between text and button */
-        }
-      .step-circle {
-        width: 50px; /* Increased size */
-        height: 50px; /* Increased size */
-        border-radius: 50%;
-        background: #4B5563; /* Grayish circle, changed to green when active */
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 16px; /* Adjust space between circles */
-        cursor: pointer; /* Make it clickable */
-        position: relative; /* Needed to position the text correctly */
-        }
-
-        .active-step {
-            background-color: #10B981; /* Tailwind Green-500 */
-        }
-        .step-line {
-        flex-grow: 1;
-        height: 2px;
-        background: #9CA3AF; /* Tailwind Gray-400 */
-        margin: 0 8px; /* Less space around the line */
-        }
-
-        .icon-image {
-        height: 80px; /* Set the height to control the size of the image */
-        width: auto; /* Maintain the aspect ratio */
-        margin-right: 5px; /* Add some space between the image and the title */
-        margin-left: 30px;
-        }
-
-        .form-header {
-            color: white; /* Text color */
-            margin-left: 40px;
-            font-size: 2.5em;
-        }
-        .form-subtitle {
-            color: red; /* Tailwind Blue-500 */
-            margin-left: 180px;
-        }
-        .form-input {
-            background: white; /* Tailwind Gray-900 */
-            color: black; /* Input text color */
-            border: none;
-            width: 60%;
-        }
-        .form-label {
-            color: white; /* Label color */
+            font-family: 'Arial', sans-serif;
+            background-color: #000; /* Set body background to black */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            min-height: 100vh; /* Full height */
+            color: white; /* Set text color to white */
             font-family: 'Playfair Display';
-            font-size: 1.6em;
+            font-size: 2em;
         }
-        .button-back{
-            background: blue; /* Tailwind Gray-800 */
-            color: white;
+        .payment-method-container {
+            flex: 1; /* Fill available space */
+            width: 600px;
+            text-align: center;
+            margin: auto 0; /* Center in the available space */
+        }
+        .payment-method-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .payment-method-header img {
+            height: 50px; /* Adjust size as necessary */
+            margin-right: 10px;
+        }
+        .payment-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border-radius: 20px; /* Rounded edges */
             padding: 10px 20px;
-            border: none;
-            border-radius: 0.375rem; /* Tailwind rounded-md */
-            cursor: pointer;
+            cursor: pointer; /* Make it clickable */
         }
-        .button-next {
-            background: green; /* Tailwind Gray-800 */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 0.375rem; /* Tailwind rounded-md */
-            cursor: pointer;
+        .payment-option img {
+            height: 30px; /* Adjust size as necessary */
         }
-        .button-back:hover, .button-next:hover {
-            background: #374151; /* Tailwind Gray-700 */
+        .payment-option:hover {
+            background-color: #f2f2f2; /* Hover effect */
+        }
+        .next-button {
+            background-color: #ccc;
+            border: none;
+            padding: 10px 80px; /* Slightly longer button */
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 20px; /* Rounded button */
+            font-weight: bold;
+        }
+        .next-button:hover {
+            background-color: #b3b3b3; /* Hover effect */
         }
     </style>
 </head>
 <body>
-    <div class="container mx-auto px-4 text-white">
-        <div class="bg-black p-6 rounded-lg shadow-lg mt-6">
-            <!-- Steps Indicator -->
-            <div class="flex items-center mb-8 justify-center">
-    <span class="step-text">Payment Information</span>
-    <button class="step-circle active-step">1</button>
-    <div class="step-line"></div>
-    <span class="step-text">Payment Method</span>
-    <button class="step-circle">2</button>
-    <div class="step-line"></div>
-    <span class="step-text">Payment Details</span>
-    <button class="step-circle">3</button>
-    <div class="step-line"></div>
-    <span class="step-text">Overview</span>
-    <button class="step-circle">4</button>
-    <div class="step-line"></div>
-    <span class="step-text">Finish</span>
-    <button class="step-circle">5</button>
-</div>
-
-            <!-- Form Title -->
-            <div class="mb-6 flex items-center">
-    <img src="assets/images/Payment_event_images/Payment_info.png" alt="Payment Information" class="icon-image">
-    <h2 class="text-2xl font-semibold form-header ml-4">Payment Information</h2>
-</div>
-
-<p class="text-red-500 form-subtitle">*All fields are mandatory to complete a purchase</p>
-
-            <!-- Form Fields -->
-            <form>
-            <div style="height: 20px;"></div>
-                <!-- Country/Region Input -->
-                <div class="mb-4">
-                    <label class="block form-label">Country/Region:</label>
-                    <input type="text" class="w-full px-3 py-2 rounded-lg form-input" required>
-                </div>
-
-                <div style="height: 20px;"></div>
-
-                <!-- Full Name Input -->
-                <div class="mb-4">
-                    <label class="block form-label">Full Name (First & Last name):</label>
-                    <input type="text" class="w-full px-3 py-2 rounded-lg form-input" required>
-                </div>
-                
-                <div style="height: 20px;"></div>
-
-                <!-- Phone Number Input -->
-                <div class="mb-4">
-    <label class="block form-label">Phone Number:</label>
-    <input type="tel" class="w-full px-3 py-2 rounded-lg form-input" required>
-    <p class="text-xs text-gray-400">We need your phone number to contact you in case something goes wrong</p>
-</div>
-                
-                <div style="height: 20px;"></div>
-
-                <!-- Email Address Input -->
-                <div class="mb-4">
-                    <label class="block form-label">Email Address:</label>
-                    <input type="email" class="w-full px-3 py-2 rounded-lg form-input" required>
-                    <p class="text-xs text-gray-400">We need your email address to send you all information related to the tickets</p>
-                </div>
-
-                <div style="height: 20px;"></div>
-
-                <!-- Street Address Input -->
-                <div class="mb-4">
-                    <label class="block form-label">Street Address:</label>
-                    <input type="text" placeholder="Street Name" class="w-full px-3 py-2 rounded-lg form-input mb-2" required>
-                    <input type="text" placeholder="Extra Information" class="w-full px-3 py-2 rounded-lg form-input" required>
-                </div>
-
-                <div style="height: 20px;"></div>
-                
-                <!-- City and County Input -->
-                <div class="flex mb-4">
-                    <div class="w-1/2 pr-2">
-                        <label class="block form-label">City:</label>
-                        <input type="text" class="w-full px-3 py-2 rounded-lg form-input" required>
-                    </div>
-                    <div class="w-1/2 pl-2" style="margin-left: -250px;">
-                      <label class="block form-label">County:</label>
-                      <input type="text" class="w-full px-3 py-2 rounded-lg form-input" required>
-                  </div>
-                </div>
-
-                <div style="height: 20px;"></div>
-
-                <!-- ZIP Code Input -->
-                <div class="mb-4">
-                    <label class="block form-label">ZIP code:</label>
-                    <input type="text" class="w-full px-3 py-2 rounded-lg form-input" required>
-                </div>
-                
-                <div style="height: 20px;"></div>
-
-                <!-- Navigation Buttons -->
-                <div class="flex justify-between mt-6">
-                    <button type="button" class="button-back">&larr; Back to Shopping Cart</button>
-                    <button type="submit" class="button-next">NEXT STEP &rarr;</button>
-                </div>
-            </form>
+    <div class="payment-method-container">
+        <div class="payment-method-header" style = "color: white ; text-decoration: underline">
+            <img src="assets/images/Payment_event_images/PaymentMethodIcon.png" alt="Payment Method Icon">
+            <h2>Payment Method:</h2>
         </div>
+        <div class="payment-option" onclick="selectPaymentMethod('ideal')">
+            <span>IDeal</span>
+            <img src="assets/images/Payment_event_images/IDEAL_Logo.png" alt="IDEAL Logo">
+        </div>
+        <div class="payment-option" onclick="selectPaymentMethod('paypal')">
+            <span>PayPal</span>
+            <img src="assets/images/Payment_event_images/Paypal-logo.png" alt="PayPal Logo">
+        </div>
+        <div class="payment-option" onclick="selectPaymentMethod('creditcard')">
+            <span>Credit Card</span>
+            <img src="assets/images/Payment_event_images/Group_Credit_Card.png" alt="Credit Card Logos">
+        </div>
+        <button class="next-button">NEXT STEP →</button>
     </div>
+
+    <script>
+        function selectPaymentMethod(method) {
+            // Placeholder function for handling click event on payment options
+            console.log('Selected payment method:', method);
+            // Implement further logic as required
+        }
+    </script>
 </body>
 </html>
-
-<?php
-include __DIR__ . '/../footer.php';
-?>
