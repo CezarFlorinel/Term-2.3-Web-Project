@@ -1,7 +1,8 @@
 <?php
 namespace App\Models\History_event;
 
-class HistoryTours {
+class HistoryTours implements \JsonSerializable
+{
     public int $informationID;
     public int $parentPage;
     public int $departure;
@@ -10,7 +11,8 @@ class HistoryTours {
     public int $dutchTour;
     public int $chineseTour;
 
-    public function __construct(int $informationID, int $parentPage, int $departure, string $startTime, int $englishTour, int $dutchTour, int $chineseTour) {
+    public function __construct(int $informationID, int $parentPage, int $departure, string $startTime, int $englishTour, int $dutchTour, int $chineseTour)
+    {
         $this->informationID = $informationID;
         $this->parentPage = $parentPage;
         $this->departure = $departure;
@@ -19,4 +21,9 @@ class HistoryTours {
         $this->dutchTour = $dutchTour;
         $this->chineseTour = $chineseTour;
     }
+    public function jsonSerialize(): mixed
+    {
+        return get_object_vars($this);
+    }
+
 }

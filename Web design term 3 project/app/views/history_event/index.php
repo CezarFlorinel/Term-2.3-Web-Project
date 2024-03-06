@@ -1,21 +1,4 @@
-<?php
-use App\Services\HistoryService;
-
-$historyService = new HistoryService();
-
-$historyTopPart = $historyService->getHistoryTopParts();
-$historyRoutes = $historyService->getHistoryRoutes();
-$historyTourStartingPoints = $historyService->getHistoryTourStartingPoints();
-$firstHistoryRoute = $historyRoutes[0];
-$historyTickets = $historyService->getHistoryTicketPrices();
-$firstHistoryTicket = $historyTickets[0];
-$secondHistoryTicket = $historyTickets[1];
-$historyTourDeparturesTimetables = $historyService->getHistoryTourDeparturesTimetables();
-$historyTours = $historyService->getHistoryTours();
-$historyPracticalInformation = $historyService->getHistoryPracticalInformation();
-$arrayWithImagePathsCarousel = $historyService->returnImagePathsForCarousel();
-
-?>
+<?php require __DIR__ . '/../../components/general/getHistoryData.php'; ?>
 
 <?php
 include __DIR__ . '/../header.php';
@@ -331,6 +314,8 @@ include __DIR__ . '/../header.php';
         <button type="button" class="btn4">Check Out Our Webpage</button>
     </div>
 
+    <!-- move the scripts in a separate file and folder -->
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const routes = document.querySelectorAll('.route-text-info');
@@ -383,7 +368,7 @@ include __DIR__ . '/../header.php';
         document.addEventListener('DOMContentLoaded', (event) => {
             const images = [
                 <?php foreach ($arrayWithImagePathsCarousel as $imagePath): ?>
-                                                                                                                                                                                                                                                                                            '<?php echo htmlspecialchars($imagePath); ?>',
+                                                                                                                                                                                                                                                                                                        '<?php echo htmlspecialchars($imagePath); ?>',
                 <?php endforeach; ?>
             ];
 
@@ -518,10 +503,6 @@ include __DIR__ . '/../header.php';
             alert("Sorry, your browser doesn't support text to speech!");
         }
     </script>
-
-
-
-
 
 </body>
 

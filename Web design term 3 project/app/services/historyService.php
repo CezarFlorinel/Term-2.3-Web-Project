@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\History_event\HistoryPracticalInformation;
 use App\Repositories\HistoryRepository;
 
 class HistoryService // manages all the history service
 {
     public function returnImagePathsForCarousel(): array
     {
-
         $repository = new HistoryRepository();
         $item = $repository->getHistoryTopParts();
         $unprocessedPaths = $item->imagePath;
@@ -16,6 +16,8 @@ class HistoryService // manages all the history service
 
         return $paths;
     }
+
+    // get methods for all history related queries
 
     public function getHistoryPracticalInformation(): array
     {
@@ -59,4 +61,27 @@ class HistoryService // manages all the history service
         return $repository->getHistoryTicketPrices();
     }
 
+    //edit methods for all history related queries
+
+    public function editHistoryPracticalInformation($id, $question, $answer)
+    {
+        $repository = new HistoryRepository();
+        $repository->editHistoryPracticalInformation($id, $question, $answer);
+    }
+
+    // create methods for all history related queries
+
+    public function addHistoryPracticalInformation($parentPage, $question, $answer)
+    {
+        $repository = new HistoryRepository();
+        $repository->addHistoryPracticalInformation($parentPage, $question, $answer);
+    }
+
+    // delete methods for all history related queries
+
+    public function deleteHistoryPracticalInformation($id)
+    {
+        $repository = new HistoryRepository();
+        $repository->deleteHistoryPracticalInformation($id);
+    }
 }

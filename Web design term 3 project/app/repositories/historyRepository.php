@@ -14,8 +14,8 @@ use App\Models\History_event\HistoryTicketPrices;
 class HistoryRepository extends Repository     // methods for all history related queries
 {
 
+    // get the information methods
     public function getHistoryPracticalInformation(): array
-
     {
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_PRACTICAL_INFORMATION]');
         $stmt->execute();
@@ -29,7 +29,6 @@ class HistoryRepository extends Repository     // methods for all history relate
                 $item['Answer']
             );
         }, $results);
-
     }
 
     public function getHistoryTopParts()
@@ -49,7 +48,6 @@ class HistoryRepository extends Repository     // methods for all history relate
         }
         return null;
     }
-
 
     public function getHistoryRoutes(): array
     {
@@ -135,6 +133,44 @@ class HistoryRepository extends Repository     // methods for all history relate
             );
         }, $results);
     }
+
+    // edit the information methods
+
+    public function editHistoryPracticalInformation($id, $question, $answer)
+    {
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_PRACTICAL_INFORMATION] SET Question = :question, Answer = :answer WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id,
+            'question' => $question,
+            'answer' => $answer
+        ]);
+    }
+
+    // add the information methods
+    public function addHistoryPracticalInformation($parentPage, $question, $answer)
+    {
+        $stmt = $this->connection->prepare('INSERT INTO [HISTORY_PRACTICAL_INFORMATION] (ParentPage, Question, Answer) VALUES (:parentPage, :question, :answer)');
+        $stmt->execute([
+            'parentPage' => $parentPage,
+            'question' => $question,
+            'answer' => $answer
+        ]);
+    }
+
+
+
+
+    // delete the information methods
+
+    public function deleteHistoryPracticalInformation($id)
+    {
+        $stmt = $this->connection->prepare('DELETE FROM [HISTORY_PRACTICAL_INFORMATION] WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id
+        ]);
+    }
+
+
 
 
 
