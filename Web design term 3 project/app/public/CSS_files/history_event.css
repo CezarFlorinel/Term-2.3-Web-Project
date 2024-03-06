@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-top: 10px;
 }
 
 .start-image-text {
@@ -38,6 +39,7 @@
     align-items: flex-end;
     padding: 0 10%;
     /* This padding will ensure arrows are not touching the edge */
+    margin-bottom: 10px;
 }
 
 .start-image-arrow-left {
@@ -50,7 +52,7 @@
 
 /* Event info section - text part --------------------------------------------------------------------------- */
 
-.Image {
+.back-image {
     margin-top: -60px;
     background-image: url('../assets/images/elements/Union.png');
     background-size: 1200px 200px;
@@ -102,7 +104,6 @@
 }
 
 /*The route part -----------------------*/
-
 .container-route {
     display: flex;
     background-color: white;
@@ -110,6 +111,7 @@
     margin-right: 40px;
     color: black;
     border-radius: 20px;
+    position: relative;
 }
 
 .route-image {
@@ -153,6 +155,38 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.overlay-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 270px;
+    height: 415px;
+    margin-left: -300px;
+    margin-right: 30px;
+
+
+}
+
+.detail-image {
+    width: 250px;
+    height: 200px;
+    border-radius: 5px;
+    margin-top: 5px;
+    align-self: center;
+}
+
+.detail-text {
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-family: 'Imprima', sans-serif;
+    text-align: center;
+}
+
 
 .btn1 {
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -288,15 +322,10 @@
     grid-template-columns: repeat(4, 1fr);
     /* 4 columns of equal width */
     grid-auto-rows: minmax(100px, auto);
-    /* Minimum row height of 100px, but can grow */
     gap: 30px;
-    /* Adjust the gap between items as needed */
     margin-left: 40px;
     margin-right: 40px;
     justify-items: center;
-    /* Center grid items horizontally */
-
-
 }
 
 /* Dates--- */
@@ -347,25 +376,27 @@
     overflow: visible;
     /* Ensure the button is not clipped */
     margin-bottom: 40px;
-    max-width: 300px;
-    min-width: 200px;
+    max-width: 400px;
+    min-width: 250px;
+    height: 210px;
 }
 
 .booking-item-flagAndText {
     display: flex;
-    align-items: center;
     margin-top: -10px;
+    align-items: center;
 }
 
 .timetable-booking-image {
     width: 30px;
     height: 30px;
     margin-left: auto;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 .timetable-booking-text {
     margin-left: 20px;
+    width: 100px;
 }
 
 .btn3 {
@@ -394,7 +425,6 @@
     /* Background becomes white */
     color: crimson;
     /* Text becomes crimson */
-
 }
 
 /* Skip the first 4 items (first row) and start coloring from the second row */
@@ -426,6 +456,40 @@
     /* Background becomes white */
     color: #355C7D;
     /* Text color changes to the original background color */
+}
+
+
+.timetable-booking-item-type-2 {
+    background-color: white;
+    display: flex;
+    color: black;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Imprima', sans-serif;
+    border-radius: 20px;
+    padding-bottom: 20px;
+    /* Add padding to the bottom */
+    overflow: visible;
+    /* Ensure the button is not clipped */
+    margin-bottom: 40px;
+    max-width: 400px;
+    min-width: 250px;
+    height: 210px;
+    font-size: 25px;
+}
+
+.booking-item-flags-type-2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.timetable-booking-item-type-2 p.timetable-booking-text-type-2:nth-of-type(2) {
+    margin-top: -10px;
+}
+
+.timetable-booking-item-type-2 button {
+    margin-top: 20px;
 }
 
 /* Starting Point Of The Tour --------------------------------------------------------------------------- */
@@ -490,7 +554,8 @@
     display: flex;
     align-items: center;
     justify-content: left;
-    border-bottom: 3px solid white; /* Adds a white line below each item */
+    border-bottom: 3px solid white;
+    /* Adds a white line below each item */
 }
 
 .practical-info-sign {
@@ -502,18 +567,26 @@
 /* Remove the border from the last item */
 .practical-info-item:last-child {
     border-bottom: none;
-  }
+}
 
-  /* Audio moments section --------------------------------------------------------------------------- */
+.practical-info-answer {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
 
-  .event-info-header:last-child{
+}
+
+/* Audio moments section --------------------------------------------------------------------------- */
+
+.event-info-header:last-child {
     font-size: 40px;
     text-align: center;
     margin-right: 50px;
     margin-left: 50px;
-  }
+}
 
-  .btn4 {
+.btn4 {
     font-family: 'Bubblegum Sans', sans-serif;
     font-size: 25px;
     background-color: #355C7D;
@@ -531,9 +604,8 @@
     color: #355C7D;
 }
 
-.Audio-page-button-container{
+.Audio-page-button-container {
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
 }
-

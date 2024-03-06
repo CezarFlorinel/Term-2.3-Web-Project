@@ -17,11 +17,12 @@
             </a>
 
             <nav class="navigation">
+                <a href="/mainpageadmin" class="nav-link">Admin</a>
                 <a href="/" class="nav-link">Home</a>
                 <a href="#" class="nav-link">Yummy</a>
                 <a href="/danceevent" class="nav-link">Dance!</a>
                 <a href="/historyevent" class="nav-link">History Tour</a>
-                <a href="/">
+                <a href="/payment">
                     <img class="icon0" src="assets/images/elements/Shopping cart.png" alt="Logo">
                 </a>
                 <a href="/">
