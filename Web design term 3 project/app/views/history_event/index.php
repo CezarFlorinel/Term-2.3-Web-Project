@@ -89,6 +89,7 @@ include __DIR__ . '/../header.php';
     </div>
 
     <div class="The-button">
+        
         <button type="button" class="btn1">Check Festival Schedule</button>
     </div>
 
@@ -113,8 +114,9 @@ include __DIR__ . '/../header.php';
                 <p class="ticket-price-text">
                     <?php echo htmlspecialchars($firstHistoryTicket->description); ?>
                 </p>
-
+                <a href ="/tickethistory">
                 <button type="button" class="btn2">Buy Now</button>
+                    </a>
             </div>
         </div>
 
