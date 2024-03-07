@@ -1,12 +1,15 @@
 <?php
+
 namespace App\Models;
+
+require '../models/enums.php';
 
 class User {
     public int $id;
     public string $email;
     public string $username;
     public string $password;
-    public string $role; //do we need enum?
+    public UserRole $role; 
     public string $name;
     public ?string $profilePicture;
 
