@@ -28,7 +28,7 @@
                 <a href="/">
                     <img class="icon1" src="assets/images/elements/Wishlist.png" alt="Logo">
                 </a>
-                <a href="/">
+                <a href="/login">
                     <img class="icon2" src="assets/images/elements/login.png" alt="Logo">
                 </a>
                 <a href="/">
