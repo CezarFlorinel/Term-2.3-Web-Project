@@ -1,7 +1,6 @@
 <?php
 include __DIR__ . '/../header.php';
 ?>
-<head>
 
 <html lang="en">
 <head>
