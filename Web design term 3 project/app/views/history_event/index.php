@@ -8,15 +8,10 @@ include __DIR__ . '/../header.php';
 
 <head>
     <title>History Event</title>
-<<<<<<< Updated upstream
     <!-- move some of this in the header -->
     <link
         href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
         rel="stylesheet">
-=======
-
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap" rel="stylesheet">
->>>>>>> Stashed changes
     <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="CSS_files/history_event.css">
@@ -74,54 +69,6 @@ include __DIR__ . '/../header.php';
 
         <div class="route-info-container">
             <h1 class="route-info-header">LOCATIONS WE ARE EXPLORING:</h1>
-<<<<<<< Updated upstream
-=======
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">1. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png" alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">2. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png" alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">3. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png" alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">4. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png" alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">5. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png" alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">6. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png" alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">7. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png" alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">8. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png" alt="History Event">
-            </div>
-            <div class="route-text-info">
-                <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                <p class="route-text">9. The Grote Markt</p>
-                <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png" alt="History Event">
-            </div>
->>>>>>> Stashed changes
 
             <?php foreach ($historyRoutes as $historyRoute): ?>
                 <div class="route-text-info"
@@ -267,12 +214,8 @@ include __DIR__ . '/../header.php';
     </div>
 
     <div class="map-container">
-<<<<<<< Updated upstream
         <img class="starting-point-image"
             src="<?php echo htmlspecialchars($historyTourStartingPoints->mainImagePath); ?>" alt="History Event">
-=======
-        <img class="starting-point-image" src="assets/images/history_event/location-starting-point.png" alt="History Event">
->>>>>>> Stashed changes
         <div class="map-info-container">
             <p class="map-info-text">
                 <?php echo htmlspecialchars($historyTourStartingPoints->description); ?>
@@ -368,7 +311,7 @@ include __DIR__ . '/../header.php';
         document.addEventListener('DOMContentLoaded', (event) => {
             const images = [
                 <?php foreach ($arrayWithImagePathsCarousel as $imagePath): ?>
-                                                                                                                                                                                                                                                                                                        '<?php echo htmlspecialchars($imagePath); ?>',
+                                                                                                                                                                                                                                                                                                                    '<?php echo htmlspecialchars($imagePath); ?>',
                 <?php endforeach; ?>
             ];
 
