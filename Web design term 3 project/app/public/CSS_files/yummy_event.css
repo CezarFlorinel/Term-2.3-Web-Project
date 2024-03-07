@@ -49,7 +49,6 @@
     margin-right: 110px;
     align-items: center;
     justify-content: center;
-
 }
 
 .event-info-h {
@@ -57,7 +56,50 @@
     font-family: 'Imprima', sans-serif;
     margin-top: 200px;
     text-align: center;
+    font-size: 16px;
+}
+
+/* Participating Restaurants */
+.Union-restaurant {
+    margin-top: -60px;
+    background-image: url('../assets/images/elements/union_restaurant.png');
+    background-size: 450px 60px;
+    background-repeat: no-repeat;
+    background-position: left;
+    margin-left: 25px;
+    height: 150px;
+    width: 100%;
+}
+
+.participating-restaurant{
+    color: white;
+    font-family: 'Playfair Display', serif;
+    /* margin-top: 200px; */
+    text-align: left;
+    margin-left: 100px;
     font-size: 20px;
+    align-items: left;
+    justify-content: left;
+}
+
+.text-container {
+    display: flex;
+    width: auto;
+    height: 100px;
+    margin-left: 100px;
+    margin-right: 110px;
+    align-items: left;
+    justify-content: left;
+}
+
+.info-h {
+    color: white;
+    font-family:'Playfair Display', serif;
+    margin-top: 50px;
+    margin-left: -55px;
+    text-align: left;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 /* The header part */
@@ -68,7 +110,7 @@
 }
 
 .event-info-header {
-    font-size: 50px;
+    font-size: 70px;
     color: white;
     font-family: 'Playfair Display', serif;
     font-weight: 500;
@@ -78,9 +120,8 @@
     background-image: url('../assets/images/yummy_event/ratatouille.png');
     background-size: cover;
     background-position: center;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 400px;
-    width: 100%;
 }

@@ -25,10 +25,9 @@
 </head>
 
 <body>
+    <div class="ratatouille-image-container">
+    </div>
     <main class="container mx-auto px-4 py-8">
-        <div class="ratatouille-image-container">
-        </div>
-
         <div class="event-info-container">
             <h1 class="event-info-header">Ratatouille Food & Wine</h1>
         </div>
@@ -41,35 +40,45 @@
             </div>
         </div>
 
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="space-y-6">
+        <!-- Introductory content with chef's image on the same row -->
+        <section class="md:flex md:items-start md:justify-between gap-8">
+            <!-- First paragraph -->
+            <div class="md:w-1/3 space-y-6">
                 <p class="text-xl">
                     Discover exquisite French cuisine at our charming restaurant on Lange Veerstraat. Let our chefs whisk you away to the streets of France with each delightful dish. Indulge in a culinary journey like no other, right here in the heart of the city.
                 </p>
-                <div class="text-center text-5xl font-bold pt-12 pb-8">
-                    Restaurant Gallery
-                </div>
-                <img src="https://placehold.co/600x400" alt="A dark artistic plate with sophisticated meal arrangement" class="w-full">
             </div>
-            <div class="space-y-6">
+
+            <div class="md:w-1/3 flex justify-center md:justify-start md:px-4">
+                <img src="https://placehold.co/400x300" alt="Chef Josua Jaring" class="rounded-lg">
+            </div>
+
+            <div class="md:w-1/3 space-y-6">
                 <p class="text-xl">
                     Embark on a culinary odyssey with the visionary Chef Josua Jaring, a true artist in the realm of flavors. With a passion that simmers and a creative flair that sizzles, Chef Jaring has carved his niche in the gastronomic world, making each dish a masterpiece.
                 </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-12">
-                    <img src="https://placehold.co/300x200" alt="An elegant dish beautifully presented on a white plate" class="w-full">
-                    <img src="https://placehold.co/300x200" alt="Gourmet food served on a modern plate with garnishing" class="w-full">
-                    <img src="https://placehold.co/300x200" alt="A close-up of a delicious culinary creation" class="w-full">
-                    <img src="https://placehold.co/300x200" alt="Fine dining dish displayed with artistic food styling" class="w-full">
-                </div>
             </div>
         </section>
+
+        <!-- Restaurant Gallery section below the introductory content -->
+        <div class="mt-12">
+            <div class="text-5xl font-bold pt-12 pb-8 text-left">
+                Restaurant Gallery
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <img src="https://placehold.co/300x300" alt="An elegant dish beautifully presented on a white plate" class="w-full">
+                <img src="https://placehold.co/300x300" alt="Gourmet food served on a modern plate with garnishing" class="w-full">
+                <img src="https://placehold.co/300x300" alt="A close-up of a delicious culinary creation" class="w-full">
+                <img src="https://placehold.co/300x300" alt="Fine dining dish displayed with artistic food styling" class="w-full">
+            </div>
+        </div>
+
 
         <!-- Ratings and Reviews -->
         <div class="mt-12">
             <div class="text-center text-5xl font-bold pt-12 pb-8">
                 Ratings & Reviews
             </div>
-            <!-- Centered container for ratings -->
             <div class="flex flex-wrap justify-center gap-8">
                 <div class="flex flex-col items-center space-y-4">
                     <div class="flex">

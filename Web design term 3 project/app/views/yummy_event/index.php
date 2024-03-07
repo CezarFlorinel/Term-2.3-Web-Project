@@ -45,13 +45,18 @@
             </div>
         </div>
         <section id="restaurants" class="py-8">
-            <div class="text-center mb-8">
-                <h2 class="text-4xl font-bold text-600">Participating Restaurants</h2>
+
+            <div class="Union-restaurant">
+                <div class="text-container">
+                    <p class="info-h">Participating Restaurants</p>
+                </div>
             </div>
+
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4">
                 <!-- Restaurant 1 -->
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="https://placehold.co/300x200?text=Cafe+de+Roemer&bg=111111" alt="Placeholder image of Cafe de Roemer">
+                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/roemer.png" alt="Cafe de Roemer">
                     <div class="p-4 flex justify-between items-center">
                         <h3 class="text-xl font-semibold text-black">Cafe de Roemer</h3>
                         <div class="flex items-center">
@@ -69,9 +74,9 @@
                 </div>
                 <!-- Restaurant 2 -->
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="https://placehold.co/300x200?text=Cafe+de+Roemer&bg=111111" alt="Placeholder image of Cafe de Roemer">
+                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/ratat_res.png" alt="Restaurant Ratatouille">
                     <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Cafe de Roemer</h3>
+                        <h3 class="text-xl font-semibold text-black">Restaurant Ratatouille</h3>
                         <div class="flex items-center">
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
@@ -81,21 +86,21 @@
                         </div>
                     </div>
                     <div class="px-4 pb-4">
-                        <p class="text-sm text-black">Seafood<br>Dutch<br>European</p>
+                        <p class="text-sm text-black">Seafood<br>French<br>European</p>
                         <a href="#" class="text-indigo-500 hover:text-indigo-600">More Info</a>
                     </div>
                 </div>
                 <!-- Restaurant 3 -->
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="https://placehold.co/300x200?text=Cafe+de+Roemer&bg=111111" alt="Placeholder image of Cafe de Roemer">
+                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/res_ml.png" alt="Restaurant ML">
                     <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Cafe de Roemer</h3>
+                        <h3 class="text-xl font-semibold text-black">Restaurant ML</h3>
                         <div class="flex items-center">
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
-                            <i class="far fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
                         </div>
                     </div>
                     <div class="px-4 pb-4">
@@ -105,45 +110,45 @@
                 </div>
                 <!-- Restaurant 4 -->
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="https://placehold.co/300x200?text=Cafe+de+Roemer&bg=111111" alt="Placeholder image of Cafe de Roemer">
+                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/fris.png" alt="Restaurant Fris">
                     <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Cafe de Roemer</h3>
+                        <h3 class="text-xl font-semibold text-black">Restaurant Fris</h3>
                         <div class="flex items-center">
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
-                            <i class="far fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
                         </div>
                     </div>
                     <div class="px-4 pb-4">
-                        <p class="text-sm text-black">Seafood<br>Dutch<br>European</p>
+                        <p class="text-sm text-black">French<br>Dutch<br>European</p>
                         <a href="#" class="text-indigo-500 hover:text-indigo-600">More Info</a>
                     </div>
                 </div>
                 <!-- Restaurant 5 -->
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="https://placehold.co/300x200?text=Cafe+de+Roemer&bg=111111" alt="Placeholder image of Cafe de Roemer">
+                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/spektakel.png" alt="Cafe Spektakel">
                     <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Cafe de Roemer</h3>
+                        <h3 class="text-xl font-semibold text-black">Cafe Spektakel</h3>
                         <div class="flex items-center">
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
+                            <i class="far fa-star rating-star"></i>
                             <i class="far fa-star rating-star"></i>
                         </div>
                     </div>
                     <div class="px-4 pb-4">
-                        <p class="text-sm text-black">Seafood<br>Dutch<br>European</p>
+                        <p class="text-sm text-black">International<br>European<br>Asian</p>
                         <a href="#" class="text-indigo-500 hover:text-indigo-600">More Info</a>
                     </div>
                 </div>
                 <!-- Restaurant 6 -->
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="https://placehold.co/300x200?text=Cafe+de+Roemer&bg=111111" alt="Placeholder image of Cafe de Roemer">
+                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/brinkman.png" alt="Grand Cafe Brinkman">
                     <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Cafe de Roemer</h3>
+                        <h3 class="text-xl font-semibold text-black">Grand Cafe Brinkman</h3>
                         <div class="flex items-center">
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
@@ -153,21 +158,21 @@
                         </div>
                     </div>
                     <div class="px-4 pb-4">
-                        <p class="text-sm text-black">Seafood<br>Dutch<br>European</p>
+                        <p class="text-sm text-black">European<br>Dutch<br>Modern</p>
                         <a href="#" class="text-indigo-500 hover:text-indigo-600">More Info</a>
                     </div>
                 </div>
                 <!-- Restaurant 7 -->
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="https://placehold.co/300x200?text=Cafe+de+Roemer&bg=111111" alt="Placeholder image of Cafe de Roemer">
+                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/bistro_tour.png" alt="Urban French Bistro Tours">
                     <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Cafe de Roemer</h3>
+                        <h3 class="text-xl font-semibold text-black">Urban French Bistro Tours</h3>
                         <div class="flex items-center">
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
                             <i class="fas fa-star rating-star"></i>
-                            <i class="far fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
                         </div>
                     </div>
                     <div class="px-4 pb-4">
@@ -247,12 +252,12 @@
                     <div class="relative text-center">
                         <h2 class="text-white text-3xl font-bold mb-4">Location of the Restaurants</h2>
                         <div class="inline-block">
-                            <img class="w-full h-auto rounded-lg shadow-lg" src="https://placehold.co/700x600" alt="Placeholder for restaurant location map">
+                            <img class="w-full h-auto rounded-lg shadow-lg" src="assets/images/yummy_event/map.png" alt="Placeholder for restaurant location map">
                         </div>
                     </div>
                 </div>
             </div>
-            
+
     </main>
 
     <footer>
