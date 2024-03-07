@@ -146,6 +146,30 @@ class HistoryRepository extends Repository     // methods for all history relate
         ]);
     }
 
+    // add the information methods
+    public function addHistoryPracticalInformation($parentPage, $question, $answer)
+    {
+        $stmt = $this->connection->prepare('INSERT INTO [HISTORY_PRACTICAL_INFORMATION] (ParentPage, Question, Answer) VALUES (:parentPage, :question, :answer)');
+        $stmt->execute([
+            'parentPage' => $parentPage,
+            'question' => $question,
+            'answer' => $answer
+        ]);
+    }
+
+
+
+
+    // delete the information methods
+
+    public function deleteHistoryPracticalInformation($id)
+    {
+        $stmt = $this->connection->prepare('DELETE FROM [HISTORY_PRACTICAL_INFORMATION] WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id
+        ]);
+    }
+
 
 
 

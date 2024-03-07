@@ -311,7 +311,7 @@ include __DIR__ . '/../header.php';
         document.addEventListener('DOMContentLoaded', (event) => {
             const images = [
                 <?php foreach ($arrayWithImagePathsCarousel as $imagePath): ?>
-                                                                                                                                                                                                                                                                                                        '<?php echo htmlspecialchars($imagePath); ?>',
+                                                                                                                                                                                                                                                                                                                    '<?php echo htmlspecialchars($imagePath); ?>',
                 <?php endforeach; ?>
             ];
 

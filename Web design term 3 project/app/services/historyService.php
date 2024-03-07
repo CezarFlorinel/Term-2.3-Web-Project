@@ -69,5 +69,19 @@ class HistoryService // manages all the history service
         $repository->editHistoryPracticalInformation($id, $question, $answer);
     }
 
+    // create methods for all history related queries
 
+    public function addHistoryPracticalInformation($parentPage, $question, $answer)
+    {
+        $repository = new HistoryRepository();
+        $repository->addHistoryPracticalInformation($parentPage, $question, $answer);
+    }
+
+    // delete methods for all history related queries
+
+    public function deleteHistoryPracticalInformation($id)
+    {
+        $repository = new HistoryRepository();
+        $repository->deleteHistoryPracticalInformation($id);
+    }
 }

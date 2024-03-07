@@ -273,6 +273,7 @@
       </div>
     </div>
 
+
     <!-- History -->
     <div class="event-bg rounded-lg p-6 flex items-center justify-between"
       style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
