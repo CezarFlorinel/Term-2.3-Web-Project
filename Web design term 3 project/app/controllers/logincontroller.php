@@ -1,10 +1,10 @@
 <?php
 namespace App\Controllers;
 
-class UserController
+class LoginController
 {
     public function index()
     {
-        require __DIR__ . '/../views/login/login.php';
+        require __DIR__ . '/../views/login/index.php';
     }
 }
