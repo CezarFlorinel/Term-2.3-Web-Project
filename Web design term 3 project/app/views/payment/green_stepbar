@@ -1,0 +1,71 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #000; /* Changed to black */
+}
+.step-text {
+display: block;
+color: white;
+text-align: center;
+font-size: 0.75rem; /* Smaller text size */
+margin-bottom: 4px; /* Space between text and button */
+}
+.step-circle {
+width: 50px; /* Increased size */
+height: 50px; /* Increased size */
+border-radius: 50%;
+background: #4B5563; /* Grayish circle, changed to green when active */
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-right: 16px; /* Adjust space between circles */
+cursor: pointer; /* Make it clickable */
+position: relative; /* Needed to position the text correctly */
+}
+
+.active-step {
+    background-color: #10B981; /* Tailwind Green-500 */
+}
+.step-line {
+flex-grow: 1;
+height: 2px;
+background: #9CA3AF; /* Tailwind Gray-400 */
+margin: 0 8px; /* Less space around the line */
+}
+
+.button-back{
+    background: blue; /* Tailwind Gray-800 */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0.375rem; /* Tailwind rounded-md */
+    cursor: pointer;
+}
+.button-next {
+    background: green; /* Tailwind Gray-800 */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0.375rem; /* Tailwind rounded-md */
+    cursor: pointer;
+}
+
+<div class= "container mx-auto px-4 text-white">
+        <div class="bg-black p-6 rounded-lg shadow-lg mt-6">
+            <!-- Steps Indicator -->
+            <div class="flex items-center mb-8 justify-center">
+    <span class="step-text">Payment Information</span>
+    <button class="step-circle active-step">1</button>
+    <div class="step-line"></div>
+    <span class="step-text">Payment Method</span>
+    <button class="step-circle">2</button>
+    <div class="step-line"></div>
+    <span class="step-text">Payment Details</span>
+    <button class="step-circle">3</button>
+    <div class="step-line"></div>
+    <span class="step-text">Overview</span>
+    <button class="step-circle">4</button>
+    <div class="step-line"></div>
+    <span class="step-text">Finish</span>
+    <button class="step-circle">5</button>
+</div>
