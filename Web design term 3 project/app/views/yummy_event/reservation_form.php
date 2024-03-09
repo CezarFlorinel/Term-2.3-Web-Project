@@ -23,17 +23,25 @@
             <form class="space-y-4">
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="name">*Name:</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="First Name">
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2" id="surname" type="text" placeholder="Last Name">
+                    <input
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="name" type="text" placeholder="First Name">
+                    <input
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2"
+                        id="surname" type="text" placeholder="Last Name">
                 </div>
                 <div class="flex gap-4">
                     <div class="w-full">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="email">*Email:</label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="customer@email.com">
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="email" type="email" placeholder="customer@email.com">
                     </div>
                     <div class="w-full">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">Phone Number:</label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="tel" placeholder="### ### ###">
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="phone" type="tel" placeholder="### ### ###">
                     </div>
                 </div>
                 <div class="flex gap-4">
@@ -58,19 +66,28 @@
                 <div class="flex gap-4">
                     <div class="w-full">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="adults">*Adults</label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="adults" type="number" placeholder="−">
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="adults" type="number" placeholder="−">
                     </div>
                     <div class="w-full">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="kids">Kids (12 y/o and under)</label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="kids" type="number" placeholder="−">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="kids">Kids (12 y/o and
+                            under)</label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="kids" type="number" placeholder="−">
                     </div>
                 </div>
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="comment">Comment:</label>
-                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="comment" placeholder=""></textarea>
+                    <textarea
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="comment" placeholder=""></textarea>
                 </div>
                 <div class="flex justify-center">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    <button
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="submit">
                         Submit Reservation
                     </button>
                 </div>
