@@ -264,21 +264,6 @@
       <div style="flex: 1; padding: 20px; margin-right: 250px;">
         <h3 class="text-gold text-2xl font-bold mt-4">Yummy!</h3>
         <p class="text-gray-600 mt-2">
-                    Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses. 
-                    While Haarlem may not be a global culinary icon, our city is home to a diverse array of restaurants that are sure to captivate 
-                    your taste buds. Dive into a world of gastronomic delights, where each bite tells a unique story.</p>
-                    <a href="#" class="bg-blue-500 text-white py-2 px-20 rounded" style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
-    </div>
-    </div>
-
-
-  <!-- History -->
-<div class="event-bg rounded-lg p-6 flex items-center justify-between" style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
-    <div style="flex: 1; max-width: 50%;">
-        <img src="assets\images\Home_page_Images\History_Image_Homepage.png" 
-             alt="A vibrant dance event with people enjoying music and performances" 
-             class="rounded-lg" 
-             style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
           Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses.
           While Haarlem may not be a global culinary icon, our city is home to a diverse array of restaurants that are
           sure to captivate
@@ -286,8 +271,8 @@
         <a href="#" class="bg-blue-500 text-white py-2 px-20 rounded"
           style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
       </div>
-
     </div>
+
 
     <!-- History -->
     <div class="event-bg rounded-lg p-6 flex items-center justify-between"
