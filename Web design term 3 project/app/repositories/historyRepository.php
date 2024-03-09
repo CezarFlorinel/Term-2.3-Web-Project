@@ -134,7 +134,25 @@ class HistoryRepository extends Repository     // methods for all history relate
         }, $results);
     }
 
+    public function getCurrentImagePathTourStartingPoint($id, $columnName)
+    {
+        $stmt = $this->connection->prepare("SELECT $columnName FROM [HISTORY_TOUR_STARTING_POINT] WHERE InformationID = :id");
+        $stmt->execute([
+            'id' => $id
+        ]);
+        return $stmt->fetchColumn();
+    }
+
     // edit the information methods
+
+    public function editImagePathsTourStartingPoint($id, $imagePath, $columnName)
+    {
+        $stmt = $this->connection->prepare("UPDATE [HISTORY_TOUR_STARTING_POINT] SET $columnName = :imagePath WHERE InformationID = :id");
+        return $stmt->execute([
+            'id' => $id,
+            'imagePath' => $imagePath
+        ]);
+    }
 
     public function editHistoryPracticalInformation($id, $question, $answer)
     {
@@ -182,13 +200,11 @@ class HistoryRepository extends Repository     // methods for all history relate
         ]);
     }
 
-    public function editHistoryTourStartingPoint($id, $mainImagePath, $secondaryImagePath, $description)
+    public function editHistoryTourStartingPoint($id, $description)
     {
-        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOUR_STARTING_POINT] SET MainImagePath = :mainImagePath, SecondaryImagePath = :secondaryImagePath, Description = :description WHERE InformationID = :id');
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOUR_STARTING_POINT] SET Description = :description WHERE InformationID = :id');
         $stmt->execute([
             'id' => $id,
-            'mainImagePath' => $mainImagePath,
-            'secondaryImagePath' => $secondaryImagePath,
             'description' => $description
         ]);
     }
