@@ -146,6 +146,75 @@ class HistoryRepository extends Repository     // methods for all history relate
         ]);
     }
 
+    public function editHistoryTopPart($id, $imagePath, $subheader, $description)
+    {
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOP_PART] SET ImagePath = :imagePath, Subheader = :subheader, Description = :description WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id,
+            'imagePath' => $imagePath,
+            'subheader' => $subheader,
+            'description' => $description
+        ]);
+    }
+
+    public function editHistoryRoute($id, $mainImagePath, $locationName, $locationDespcription, $locationImagePath, $wheelchairSupport)
+    {
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_ROUTE] SET MainImagePath = :mainImagePath, LocationName = :locationName, LocationDespcription = :locationDespcription, LocationImagePath = :locationImagePath, WheelchairSupport = :wheelchairSupport WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id,
+            'mainImagePath' => $mainImagePath,
+            'locationName' => $locationName,
+            'locationDespcription' => $locationDespcription,
+            'locationImagePath' => $locationImagePath,
+            'wheelchairSupport' => $wheelchairSupport
+        ]);
+    }
+
+    public function editHistoryTicketPrices($id, $imagePath, $ticketType, $price, $description)
+    {
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TICKET_PRICES] SET ImagePath = :imagePath, TicketType = :ticketType, Price = :price, Description = :description WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id,
+            'imagePath' => $imagePath,
+            'ticketType' => $ticketType,
+            'price' => $price,
+            'description' => $description
+        ]);
+    }
+
+    public function editHistoryTourStartingPoint($id, $mainImagePath, $secondaryImagePath, $description)
+    {
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOUR_STARTING_POINT] SET MainImagePath = :mainImagePath, SecondaryImagePath = :secondaryImagePath, Description = :description WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id,
+            'mainImagePath' => $mainImagePath,
+            'secondaryImagePath' => $secondaryImagePath,
+            'description' => $description
+        ]);
+    }
+
+    public function editHistoryTourDeparturesTimetables($id, $date)
+    {
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOUR_DEPARTURES_TIMETABLES] SET Date = :date WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id,
+            'date' => $date
+        ]);
+    }
+
+    public function editHistoryTours($id, $departure, $startTime, $englishTour, $dutchTour, $chinesTour)
+    {
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOURS] SET Departure = :departure, StartTime = :startTime, EnglishTour = :englishTour, DutchTour = :dutchTour, ChinesTour = :chinesTour WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id,
+            'departure' => $departure,
+            'startTime' => $startTime,
+            'englishTour' => $englishTour,
+            'dutchTour' => $dutchTour,
+            'chinesTour' => $chinesTour
+        ]);
+    }
+
     // add the information methods
     public function addHistoryPracticalInformation($parentPage, $question, $answer)
     {
