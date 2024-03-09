@@ -35,7 +35,7 @@
         <div class="Image">
             <div class="event-info-text-container">
                 <p class="event-info-h">The successful Michelin restaurant in Haarlem of chef Jozua Jaring is - like Ratatouille -
-                    a mix of French cuisine in today's reality with excellent value for money in an accessible environment in Haarlem.
+                    a <br>mix of French cuisine in today's reality with excellent value for money in an accessible environment in Haarlem.
                 </p>
             </div>
         </div>
@@ -63,7 +63,7 @@
         <!-- Restaurant Gallery section below the introductory content -->
         <div class="mt-12">
             <div class="text-5xl font-bold pt-12 pb-8 text-left">
-                Restaurant Gallery
+                <h1 style="font-size: 45px; font-family: 'Playfair Display', serif; text-align: Left; font-weight: bold">Restaurant Gallery</h1>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <img src="https://placehold.co/300x300" alt="An elegant dish beautifully presented on a white plate" class="w-full">
@@ -77,7 +77,7 @@
         <!-- Ratings and Reviews -->
         <div class="mt-12">
             <div class="text-center text-5xl font-bold pt-12 pb-8">
-                Ratings & Reviews
+                <h1 style="font-size: 50px; font-family: 'Playfair Display', serif; text-align: Center; font-weight: bold">Ratings & Reviews</h1>
             </div>
             <div class="flex flex-wrap justify-center gap-8">
                 <div class="flex flex-col items-center space-y-4">
@@ -124,7 +124,7 @@
                         <i class="fas fa-star text-yellow-400"></i>
                         <i class="fas fa-star text-yellow-400"></i>
                         <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-gray-300"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
                     </div>
                     <div class="bg-gray-100 p-3 rounded">
                         <p class="text-lg text-gray-800 font-semibold">“Blends French magic into every dish. A truly unforgettable experience for those seeking an authentic taste”</p>
@@ -145,11 +145,11 @@
             </div>
         </div>
 
-        <section class="container mx-auto px-4 py-8">
-            <h2 class="text-5xl font-bold text-center mb-10">Schedule and Timeslots</h2>
-            <div class="text-center">
-                <p class="text-2xl mb-4">This restaurant has <span class="font-bold underline">3 sessions</span>, each session has a <span class="font-bold underline">duration of 2 hours</span>. Each session has a <span class="font-bold text-yellow-400">price of 45,00€</span>, children <span class="font-bold text-yellow-400">under 12 years old</span> have a price of <span class="font-bold text-yellow-400">22,50€</span>.</p>
-                <div class="bg-white text-black p-6 rounded-lg inline-block">
+        <section class="container mx-auto px-4 py-8 flex flex-col items-center" style="font-family: 'Playfair Display', serif;">
+            <h1 style="font-size: 52px; text-align: Left; font-weight: bold">Schedule and Timeslots</h1>
+            <p class="text-2xl mb-6">This restaurant has <span class="font-bold underline">3 sessions</span>, each session has a <span class="font-bold underline">duration of 2 hours</span>. Each session has a <span class="font-bold text-yellow-400">price of 45,00€</span>, children <span class="font-bold text-yellow-400">under 12 years old</span> have a price of <span class="font-bold text-yellow-400">22,50€</span>.</p>
+            <div class="bg-white text-black p-6 rounded-lg inline-flex justify-between items-center relative" style="width: 400px; min-height: 200px;">
+                <div>
                     <div class="mb-4">
                         <h3 class="font-bold text-xl">Session 1:</h3>
                         <p>17:00 – 19:00</p>
@@ -163,18 +163,20 @@
                         <p>21:00 – 23:00</p>
                     </div>
                 </div>
-                <p class="text-xl mt-4">*There is a reservation fee of <span class="font-bold">10,00€</span> - however this will be deducted from the final check upon visiting the restaurant.</p>
+                <img src="assets/images/elements/clock.png" alt="Clock" class="absolute top-0 right-0 h-32 w-32 mt-2 mr-2">
             </div>
+            <p class="text-xl mt-4">*There is a reservation fee of <span class="font-bold">10,00€</span> - however this will be deducted from the final check upon visiting the restaurant.</p>
         </section>
 
-        <div class="mt-12">
-            <button class="bg-[#B0E3FF] hover:bg-[#a3d2e2] text-black font-bold py-2 px-4 rounded">
-                Make a Reservation
+        <div class="mt-12 flex justify-between">
+            <button class="bg-[#B0E3FF] hover:bg-[#a3d2e2] text-black font-bold py-4 px-8 rounded">
+                Back to homepage
+            </button>
+
+            <button class="bg-[#B0E3FF] hover:bg-[#a3d2e2] text-black font-bold py-4 px-8 rounded">
+                Make a Reservation!
             </button>
         </div>
-
-
-
     </main>
     <footer>
     </footer>

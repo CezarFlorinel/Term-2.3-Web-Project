@@ -56,7 +56,7 @@
     font-family: 'Imprima', sans-serif;
     margin-top: 200px;
     text-align: center;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 /* Participating Restaurants */
@@ -124,4 +124,20 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.info-prices {
+    color: white;
+    font-family:'Playfair Display', serif;
+    margin-top: 50px;
+    text-align: left;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.festival-menus {
+    font-size: large; /* Adjust as needed, or use specific units like px, em, etc. */
+    text-align: center;
+    color: white;
+    font-family: 'Playfair Display', serif;
 }
