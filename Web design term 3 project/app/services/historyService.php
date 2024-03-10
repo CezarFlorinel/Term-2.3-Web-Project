@@ -99,10 +99,16 @@ class HistoryService // manages all the history service
         $repository->editHistoryTopPart($id, $imagePath, $subheader, $description);
     }
 
-    public function editHistoryRoute($id, $mainImagePath, $locationName, $locationDespcription, $locationImagePath, $wheelchairSupport)
+    public function editHistoryRoute($id, $locationName, $locationDespcription, $wheelchairSupport)
     {
         $repository = new HistoryRepository();
-        $repository->editHistoryRoute($id, $mainImagePath, $locationName, $locationDespcription, $locationImagePath, $wheelchairSupport);
+        $repository->editHistoryRoute($id, $locationName, $locationDespcription, $wheelchairSupport);
+    }
+
+    public function editImagePathHistoryRoute($id, $imagePath)
+    {
+        $repository = new HistoryRepository();
+        $repository->editImagePathHistoryRoute($id, $imagePath);
     }
 
     public function editHistoryTicketPrices($id, $ticketType, $price, $description)

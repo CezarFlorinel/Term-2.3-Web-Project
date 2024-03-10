@@ -193,14 +193,13 @@ class HistoryRepository extends Repository     // methods for all history relate
         ]);
     }
 
-    public function editHistoryRoute($id, $locationName, $locationDespcription, $locationImagePath, $wheelchairSupport)
+    public function editHistoryRoute($id, $locationName, $locationDespcription, $wheelchairSupport)
     {
-        $stmt = $this->connection->prepare('UPDATE [HISTORY_ROUTE] SET LocationName = :locationName, LocationDespcription = :locationDespcription, LocationImagePath = :locationImagePath, WheelchairSupport = :wheelchairSupport WHERE InformationID = :id');
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_ROUTE] SET LocationName = :locationName, LocationDespcription = :locationDespcription, WheelchairSupport = :wheelchairSupport WHERE InformationID = :id');
         $stmt->execute([
             'id' => $id,
             'locationName' => $locationName,
             'locationDespcription' => $locationDespcription,
-            'locationImagePath' => $locationImagePath,
             'wheelchairSupport' => $wheelchairSupport
         ]);
     }

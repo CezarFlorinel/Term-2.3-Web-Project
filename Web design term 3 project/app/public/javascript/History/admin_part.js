@@ -21,6 +21,91 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
+    document.querySelectorAll(".edit-tour-place-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const container = this.closest('div[data-id]');
+            const id = container.getAttribute('data-id');
+            const locationNameElement = container.querySelector('.editable[data-type="locationName"]');
+            const locationDescriptionElement = container.querySelector('.editable[data-type="locationDescription"]');
+            const wheelchairSupportCheckbox = container.querySelector('.wheelchair-support-checkbox');
+
+            const isEditing = container.hasAttribute('data-editing');
+
+            if (isEditing) {
+                // Save the data
+                const locationName = locationNameElement.innerText;
+                const locationDescription = locationDescriptionElement.innerText;
+                const wheelchairSupport = wheelchairSupportCheckbox.checked;
+
+                // Send data to server
+                fetch('/api/historyadmin/updateHistoryRouteInformation', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        informationID: id,
+                        locationName: locationName,
+                        locationDescription: locationDescription,
+                        wheelchairSupport: wheelchairSupport
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while updating the route');
+                    });
+
+                // Toggle editing mode off
+                this.textContent = 'Edit';
+                locationNameElement.contentEditable = 'false';
+                locationDescriptionElement.contentEditable = 'false';
+                wheelchairSupportCheckbox.disabled = true;
+                container.removeAttribute('data-editing');
+            } else {
+                // Toggle editing mode on
+                this.textContent = 'Save';
+                locationNameElement.contentEditable = 'true';
+                locationDescriptionElement.contentEditable = 'true';
+                wheelchairSupportCheckbox.disabled = false;
+                container.setAttribute('data-editing', 'true');
+            }
+        });
+    });
+
+
+    document.querySelectorAll("#imageTourPlaceInput").forEach(input => {
+        input.addEventListener("change", function () {
+            if (this.files && this.files[0]) {
+                const formData = new FormData();
+                formData.append('image', this.files[0]); // Assuming 'image' is the field expected by your backend.
+                const id = this.closest('div[data-id]').getAttribute('data-id');
+                formData.append('id', id);
+
+                fetch("/api/historyadmin/updateHistoryToursImages", {
+                    method: "POST",
+                    body: formData, // No headers needed, FormData sets correct multipart headers.
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById("imageTourPlace").src = data.imageUrl;
+                            alert("Image updated successfully.");
+                        } else {
+                            alert("Image upload failed: " + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("There was an error uploading the image");
+                    });
+            }
+        });
+    });
+
     // Tour Starting Point Edit button 
     document.querySelectorAll('.edit-tour-starting-btn').forEach(btn => {
         btn.addEventListener('click', function () {
@@ -28,20 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    document
-        .getElementById("image1Input")
-        .addEventListener("change", function () {
-            if (this.files && this.files[0]) {
-                // Retrieve the tour ID from the data attribute
-                const divElement = document.getElementById('getTheIdForTourStart');
-                const dataId = divElement.getAttribute('data-id');
-                uploadAndUpdateImage(
-                    this.files[0],
-                    "image1",
-                    dataId
-                );
-            }
-        });
 
     document.querySelectorAll("#imageTicketPriceInput").forEach(input => {
         input.addEventListener("change", function () {
@@ -71,6 +142,22 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    document
+        .getElementById("image1Input")
+        .addEventListener("change", function () {
+            if (this.files && this.files[0]) {
+                // Retrieve the tour ID from the data attribute
+                const divElement = document.getElementById('getTheIdForTourStart');
+                const dataId = divElement.getAttribute('data-id');
+                uploadAndUpdateImage(
+                    this.files[0],
+                    "image1",
+                    dataId
+                );
+            }
+        });
+
 
     document
         .getElementById("image2Input")
@@ -352,6 +439,8 @@ function handleEditableFields(button, updateFunction) {
         container.setAttribute("data-editing", "true");
     }
 }
+
+
 
 function uploadAndUpdateImage(file, imageId, tourId) {
     const formData = new FormData();

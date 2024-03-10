@@ -13,7 +13,65 @@ class HistoryAdminController
         $this->historyService = new HistoryService();
     }
 
+    public function updateHistoryToursImages()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
+            $image = $_FILES['image'];
+            $id = $_POST['id'];
 
+            $projectRoot = realpath(__DIR__ . '/../../..');
+            $uploadsDir = $projectRoot . '/app/public/assets/images/history_event/Route';
+            if (!file_exists($uploadsDir)) {
+                mkdir($uploadsDir, 0777, true);
+            }
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+
+            if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
+                $currentImage = $this->historyService->getCurrentImagePathRoute($id);
+                $tmpName = $image['tmp_name'];
+                $name = uniqid() . '-' . basename($image['name']);
+                $destination = $uploadsDir . '/' . $name;
+
+                if (move_uploaded_file($tmpName, $destination)) {
+                    $imageUrl = "/assets/images/history_event/Route/$name";
+                    $this->historyService->editImagePathHistoryRoute($id, $imageUrl);
+
+                    if ($currentImage && $currentImage != $imageUrl) {
+                        @unlink($projectRoot . '/app/public/' . $currentImage);
+                    }
+                    echo json_encode(['success' => true, 'imageUrl' => $imageUrl]);
+                } else {
+                    echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
+        }
+    }
+
+
+    public function updateHistoryRouteInformation()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            if (isset($input['informationID'], $input['locationName'], $input['locationDescription'], $input['wheelchairSupport'])) {
+                $id = $input['informationID'];
+                $locationName = $input['locationName'];
+                $locationDescription = $input['locationDescription'];
+                $wheelchairSupport = $input['wheelchairSupport'];
+
+                $this->historyService->editHistoryRoute($id, $locationName, $locationDescription, $wheelchairSupport);
+
+                echo json_encode(['message' => 'Route updated successfully']);
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
+        }
+    }
 
     public function updateHistoryTicketPricesInformation()
     {
