@@ -67,6 +67,18 @@ class HistoryService // manages all the history service
         return $repository->getCurrentImagePathTourStartingPoint($id, $columnName);
     }
 
+    public function getCurrentImagePathTicketPrices($id)
+    {
+        $repository = new HistoryRepository();
+        return $repository->getCurrentImagePathTicketPrices($id);
+    }
+
+    public function getCurrentImagePathRoute($id)
+    {
+        $repository = new HistoryRepository();
+        return $repository->getCurrentImagePathRoute($id);
+    }
+
     //edit methods for all history related queries -------------------------------
 
     public function editImagePathsTourStartingPoint($id, $imagePath, $columnName)
@@ -93,10 +105,16 @@ class HistoryService // manages all the history service
         $repository->editHistoryRoute($id, $mainImagePath, $locationName, $locationDespcription, $locationImagePath, $wheelchairSupport);
     }
 
-    public function editHistoryTicketPrices($id, $imagePath, $ticketType, $price, $description)
+    public function editHistoryTicketPrices($id, $ticketType, $price, $description)
     {
         $repository = new HistoryRepository();
-        $repository->editHistoryTicketPrices($id, $imagePath, $ticketType, $price, $description);
+        $repository->editHistoryTicketPrices($id, $ticketType, $price, $description);
+    }
+
+    public function editImagePathHistoryTicketPrices($id, $imagePath)
+    {
+        $repository = new HistoryRepository();
+        $repository->editImagePathHistoryTicketPrices($id, $imagePath);
     }
 
     public function editHistoryTourStartingPoint($id, $description)
@@ -111,10 +129,10 @@ class HistoryService // manages all the history service
         $repository->editHistoryTourDeparturesTimetables($id, $date);
     }
 
-    public function editHistoryTours($id, $departure, $startTime, $englishTour, $dutchTour, $chinesTour)
+    public function editHistoryTours($id, $startTime, $englishTour, $dutchTour, $chinesTour)
     {
         $repository = new HistoryRepository();
-        $repository->editHistoryTours($id, $departure, $startTime, $englishTour, $dutchTour, $chinesTour);
+        $repository->editHistoryTours($id, $startTime, $englishTour, $dutchTour, $chinesTour);
     }
 
 

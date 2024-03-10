@@ -17,13 +17,88 @@
         <div class="flex-grow p-6">
             <!-- Top Part Section ------------------------------------------------------- -->
             <h1 class="text-3xl text-center mb-6">Top Part</h1>
+
             <!-- Route Section ------------------------------------------------------- -->
             <h1 class="text-3xl text-center mb-6">Route</h1>
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <?php foreach ($historyRoutes as $route): ?>
+                    <div id="getTheIdForRoutes" class="p-4 border-b border-gray-200 flex justify-between items-start"
+                        data-id="<?php echo htmlspecialchars($route->informationID); ?>">
+                        <div>
+                            <p class="text-3xl text-blue-500">Location Name:</p>
+                            <p class="text-lg font-semibold editable" contenteditable="false">
+                                <?php echo htmlspecialchars($route->locationName); ?>
+                            <p class="text-3xl text-blue-500">Location Description:</p>
+                            <p class="text-lg font-semibold editable" contenteditable="false">
+                                <?php echo htmlspecialchars($route->locationDescription); ?>
+                            </p>
+
+                            <p class="text-3xl text-blue-500">Wheelchair Support:</p>
+                            <div class="wheelchair-support-display">
+                                <?php if ($route->wheelchairSupport): ?>
+                                    <span class="checkmark text-4xl">&#10003;</span> <!-- Checkmark for true -->
+                                <?php else: ?>
+                                    <span class="checkmark text-4xl">&#10060;</span> <!-- Cross for false -->
+                                <?php endif; ?>
+                            </div>
+                            <!-- Hidden checkbox for editing -->
+                            <div class="wheelchair-support-edit hidden">
+                                <input type="checkbox" class="wheelchair-support-checkbox" <?php echo $route->wheelchairSupport ? 'checked' : ''; ?>>
+                            </div>
+
+                            <div>
+                                <img id="imageTourPlace" src="<?php echo htmlspecialchars($route->locationImagePath); ?>"
+                                    alt="Image 1" class="mt-2" style="width: 200px; height: auto;">
+                                <input type="file" id="imageTourPlaceInput" class="hidden" accept="image/*">
+                                <button onclick="document.getElementById('imageTourPlaceInput').click();"
+                                    class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-700 transition duration-150 mt-2">Change
+                                    Image</button>
+                            </div>
+                        </div>
+                        <button
+                            class="edit-tour-place-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Edit</button>
+                    </div>
+                <?php endforeach; ?>
+
+            </div>
+
             <!-- Ticket Prices Section ------------------------------------------------------- -->
             <h1 class="text-3xl text-center mb-6">Ticket Prices</h1>
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <?php foreach ($historyTickets as $ticket): ?>
+                    <div id="getTheIdForTicketPrice" class="p-4 border-b border-gray-200 flex justify-between items-start"
+                        data-id="<?php echo htmlspecialchars($ticket->informationID); ?>">
+                        <div>
+                            <p>Title:</p>
+                            <p class="text-lg font-semibold editable" contenteditable="false">
+                                <?php echo htmlspecialchars($ticket->ticketType); ?>
+                            <p>Prices:</p>
+                            <input type="number" step="0.01" name="price"
+                                value="<?php echo htmlspecialchars($ticket->price); ?>"
+                                class="text-lg font-semibold editable-price" contenteditable="false" readonly
+                                style="width: 100%;">
+                            <p>Description:</p>
+                            <p class="text-lg font-semibold editable" contenteditable="false">
+                                <?php echo htmlspecialchars($ticket->description); ?>
+                            </p>
+                            <div>
+                                <img id="imageTicketPrice" src="<?php echo htmlspecialchars($ticket->imagePath); ?>"
+                                    alt="Image 1" class="mt-2" style="width: 200px; height: auto;">
+                                <input type="file" id="imageTicketPriceInput" class="hidden" accept="image/*">
+                                <button onclick="document.getElementById('imageTicketPriceInput').click();"
+                                    class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-700 transition duration-150 mt-2">Change
+                                    Image</button>
+                            </div>
+                        </div>
+                        <button
+                            class="edit-ticket-prices-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Edit</button>
+                    </div>
+                <?php endforeach; ?>
+
+            </div>
 
             <!-- Tour Departures Timetable Section -->
-            <h1 class="text-3xl text-center mb-6">Tour Departures Timetable</h1>
+            <h1 class=" text-3xl text-center mb-6">Tour Departures Timetable</h1>
             <div class="bg-white shadow-md rounded-lg p-6">
                 <?php foreach ($historyTourDeparturesTimetables as $timetable): ?>
                     <div class="p-4 border-b border-gray-200"
@@ -43,9 +118,11 @@
                                 <div class="tour-info tour-details p-4"
                                     data-id="<?php echo htmlspecialchars($tour->informationID); ?>">
                                     <div class="time-details">
-                                        <p>Start Time: <span class="editable" contenteditable="false">
-                                                <?php echo htmlspecialchars($tour->startTime); ?>
-                                            </span></p>
+                                        <p>Start Time:
+                                            <input type="time" name="startTime"
+                                                value="<?php echo htmlspecialchars(date('H:i', strtotime($tour->startTime))); ?>"
+                                                class="editable-time" readonly>
+                                        </p>
                                     </div>
                                     <div class="language-tours">
                                         <p>English: <input type="number" name="englishTour" min="1" max="3"
@@ -71,7 +148,7 @@
             <h1 class="text-3xl text-center mb-6">Starting Point Of The Tour</h1>
 
             <div class="bg-white shadow-md rounded-lg p-6">
-                <div class="p-4 border-b border-gray-200 flex justify-between items-start"
+                <div id="getTheIdForTourStart" class="p-4 border-b border-gray-200 flex justify-between items-start"
                     data-id="<?php echo htmlspecialchars($historyTourStartingPoints->informationID); ?>">
                     <div>
                         <p>Description:</p>

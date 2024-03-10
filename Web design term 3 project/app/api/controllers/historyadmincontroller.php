@@ -13,6 +13,67 @@ class HistoryAdminController
         $this->historyService = new HistoryService();
     }
 
+
+
+    public function updateHistoryTicketPricesInformation()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            if (isset($input['informationID'], $input['type'], $input['price'], $input['description'])) {
+                $id = $input['informationID'];
+                $ticketType = $input['type'];
+                $price = $input['price'];
+                $description = $input['description'];
+
+                $this->historyService->editHistoryTicketPrices($id, $ticketType, $price, $description);
+
+                echo json_encode(['message' => 'Ticket price updated successfully']);
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
+        }
+    }
+
+    public function updateHistoryTicketPricesImages()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
+            $image = $_FILES['image'];
+            $id = $_POST['id'];
+
+            $projectRoot = realpath(__DIR__ . '/../../..');
+            $uploadsDir = $projectRoot . '/app/public/assets/images/history_event/tickets_types';
+            if (!file_exists($uploadsDir)) {
+                mkdir($uploadsDir, 0777, true);
+            }
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+
+            if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
+                $currentImage = $this->historyService->getCurrentImagePathTicketPrices($id);
+                $tmpName = $image['tmp_name'];
+                $name = uniqid() . '-' . basename($image['name']);
+                $destination = $uploadsDir . '/' . $name;
+
+                if (move_uploaded_file($tmpName, $destination)) {
+                    $imageUrl = "/assets/images/history_event/tickets_types/$name";
+                    $this->historyService->editImagePathHistoryTicketPrices($id, $imageUrl);
+
+                    if ($currentImage && $currentImage != $imageUrl) {
+                        @unlink($projectRoot . '/app/public/' . $currentImage);
+                    }
+                    echo json_encode(['success' => true, 'imageUrl' => $imageUrl]);
+                } else {
+                    echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
+        }
+    }
+
     public function updateHistoryTourDeparturesTimetable()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -37,15 +98,14 @@ class HistoryAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset($input['informationID'], $input['departure'], $input['startTime'], $input['englishTour'], $input['dutchTour'], $input['chineseTour'])) {
+            if (isset($input['informationID'], $input['startTime'], $input['englishTour'], $input['dutchTour'], $input['chineseTour'])) {
                 $id = $input['informationID'];
-                $departure = $input['departure'];
                 $startTime = $input['startTime'];
                 $englishTour = $input['englishTour'];
                 $dutchTour = $input['dutchTour'];
                 $chineseTour = $input['chineseTour'];
 
-                $this->historyService->editHistoryTours($id, $departure, $startTime, $englishTour, $dutchTour, $chineseTour);
+                $this->historyService->editHistoryTours($id, $startTime, $englishTour, $dutchTour, $chineseTour);
 
                 echo json_encode(['message' => 'Tour updated successfully']);
             } else {

@@ -143,6 +143,24 @@ class HistoryRepository extends Repository     // methods for all history relate
         return $stmt->fetchColumn();
     }
 
+    public function getCurrentImagePathTicketPrices($id)
+    {
+        $stmt = $this->connection->prepare('SELECT ImagePath FROM [HISTORY_TICKET_PRICES] WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id
+        ]);
+        return $stmt->fetchColumn();
+    }
+
+    public function getCurrentImagePathRoute($id)
+    {
+        $stmt = $this->connection->prepare('SELECT LocationImagePath FROM [HISTORY_ROUTE] WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id
+        ]);
+        return $stmt->fetchColumn();
+    }
+
     // edit the information methods
 
     public function editImagePathsTourStartingPoint($id, $imagePath, $columnName)
@@ -175,12 +193,11 @@ class HistoryRepository extends Repository     // methods for all history relate
         ]);
     }
 
-    public function editHistoryRoute($id, $mainImagePath, $locationName, $locationDespcription, $locationImagePath, $wheelchairSupport)
+    public function editHistoryRoute($id, $locationName, $locationDespcription, $locationImagePath, $wheelchairSupport)
     {
-        $stmt = $this->connection->prepare('UPDATE [HISTORY_ROUTE] SET MainImagePath = :mainImagePath, LocationName = :locationName, LocationDespcription = :locationDespcription, LocationImagePath = :locationImagePath, WheelchairSupport = :wheelchairSupport WHERE InformationID = :id');
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_ROUTE] SET LocationName = :locationName, LocationDespcription = :locationDespcription, LocationImagePath = :locationImagePath, WheelchairSupport = :wheelchairSupport WHERE InformationID = :id');
         $stmt->execute([
             'id' => $id,
-            'mainImagePath' => $mainImagePath,
             'locationName' => $locationName,
             'locationDespcription' => $locationDespcription,
             'locationImagePath' => $locationImagePath,
@@ -188,15 +205,33 @@ class HistoryRepository extends Repository     // methods for all history relate
         ]);
     }
 
-    public function editHistoryTicketPrices($id, $imagePath, $ticketType, $price, $description)
+    public function editImagePathHistoryRoute($id, $imagePath)
     {
-        $stmt = $this->connection->prepare('UPDATE [HISTORY_TICKET_PRICES] SET ImagePath = :imagePath, TicketType = :ticketType, Price = :price, Description = :description WHERE InformationID = :id');
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_ROUTE] SET LocationImagePath = :imagePath WHERE InformationID = :id');
         $stmt->execute([
             'id' => $id,
-            'imagePath' => $imagePath,
+            'imagePath' => $imagePath
+        ]);
+    }
+
+
+    public function editHistoryTicketPrices($id, $ticketType, $price, $description)
+    {
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TICKET_PRICES] SET TicketType = :ticketType, Price = :price, Description = :description WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id,
             'ticketType' => $ticketType,
             'price' => $price,
             'description' => $description
+        ]);
+    }
+
+    public function editImagePathHistoryTicketPrices($id, $imagePath)
+    {
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TICKET_PRICES] SET ImagePath = :imagePath WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id,
+            'imagePath' => $imagePath
         ]);
     }
 
@@ -218,12 +253,11 @@ class HistoryRepository extends Repository     // methods for all history relate
         ]);
     }
 
-    public function editHistoryTours($id, $departure, $startTime, $englishTour, $dutchTour, $chinesTour)
+    public function editHistoryTours($id, $startTime, $englishTour, $dutchTour, $chinesTour)
     {
-        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOURS] SET Departure = :departure, StartTime = :startTime, EnglishTour = :englishTour, DutchTour = :dutchTour, ChinesTour = :chinesTour WHERE InformationID = :id');
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOURS] SET StartTime = :startTime, EnglishTour = :englishTour, DutchTour = :dutchTour, ChinesTour = :chinesTour WHERE InformationID = :id');
         $stmt->execute([
             'id' => $id,
-            'departure' => $departure,
             'startTime' => $startTime,
             'englishTour' => $englishTour,
             'dutchTour' => $dutchTour,
