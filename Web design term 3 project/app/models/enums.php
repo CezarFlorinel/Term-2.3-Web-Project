@@ -1,8 +1,9 @@
 <?php
 
+namespace App\Models;
 enum UserRole: string
 {
-    case CUSTOMER;
+    case MEMBER;
     case ADMIN;
     case EMPLOYEE;
 }
