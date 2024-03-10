@@ -5,8 +5,8 @@ $historyService = new HistoryService();
 
 $historyTopPart = $historyService->getHistoryTopParts();
 $historyRoutes = $historyService->getHistoryRoutes();
-$historyTourStartingPoints = $historyService->getHistoryTourStartingPoints();
 $firstHistoryRoute = $historyRoutes[0];
+$historyTourStartingPoints = $historyService->getHistoryTourStartingPoints();
 $historyTickets = $historyService->getHistoryTicketPrices();
 $firstHistoryTicket = $historyTickets[0];
 $secondHistoryTicket = $historyTickets[1];

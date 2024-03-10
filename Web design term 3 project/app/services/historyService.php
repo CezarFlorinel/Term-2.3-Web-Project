@@ -17,7 +17,7 @@ class HistoryService // manages all the history service
         return $paths;
     }
 
-    // get methods for all history related queries
+    // get methods for all history related queries ---------------------------------------
 
     public function getHistoryPracticalInformation(): array
     {
@@ -61,13 +61,62 @@ class HistoryService // manages all the history service
         return $repository->getHistoryTicketPrices();
     }
 
-    //edit methods for all history related queries
+    public function getCurrentImagePathTourStartingPoint($id, $columnName)
+    {
+        $repository = new HistoryRepository();
+        return $repository->getCurrentImagePathTourStartingPoint($id, $columnName);
+    }
+
+    //edit methods for all history related queries -------------------------------
+
+    public function editImagePathsTourStartingPoint($id, $imagePath, $columnName)
+    {
+        $repository = new HistoryRepository();
+        $repository->editImagePathsTourStartingPoint($id, $imagePath, $columnName);
+    }
 
     public function editHistoryPracticalInformation($id, $question, $answer)
     {
         $repository = new HistoryRepository();
         $repository->editHistoryPracticalInformation($id, $question, $answer);
     }
+
+    public function editHistoryTopPart($id, $imagePath, $subheader, $description)
+    {
+        $repository = new HistoryRepository();
+        $repository->editHistoryTopPart($id, $imagePath, $subheader, $description);
+    }
+
+    public function editHistoryRoute($id, $mainImagePath, $locationName, $locationDespcription, $locationImagePath, $wheelchairSupport)
+    {
+        $repository = new HistoryRepository();
+        $repository->editHistoryRoute($id, $mainImagePath, $locationName, $locationDespcription, $locationImagePath, $wheelchairSupport);
+    }
+
+    public function editHistoryTicketPrices($id, $imagePath, $ticketType, $price, $description)
+    {
+        $repository = new HistoryRepository();
+        $repository->editHistoryTicketPrices($id, $imagePath, $ticketType, $price, $description);
+    }
+
+    public function editHistoryTourStartingPoint($id, $description)
+    {
+        $repository = new HistoryRepository();
+        $repository->editHistoryTourStartingPoint($id, $description);
+    }
+
+    public function editHistoryTourDeparturesTimetables($id, $date)
+    {
+        $repository = new HistoryRepository();
+        $repository->editHistoryTourDeparturesTimetables($id, $date);
+    }
+
+    public function editHistoryTours($id, $departure, $startTime, $englishTour, $dutchTour, $chinesTour)
+    {
+        $repository = new HistoryRepository();
+        $repository->editHistoryTours($id, $departure, $startTime, $englishTour, $dutchTour, $chinesTour);
+    }
+
 
     // create methods for all history related queries
 

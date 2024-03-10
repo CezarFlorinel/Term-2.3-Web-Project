@@ -13,12 +13,9 @@ html {
   height: 313.5px;
   position: relative;
   border-radius: 15px 15px 0 0;
-  /* Top corners rounded */
   border-top: 15px solid;
-  /* Assuming you want a solid border, specify color */
   overflow: hidden;
   width: 100%;
-  /* Ensures it fills the entire width of the viewport */
 }
 
 .footer-box a[href] {

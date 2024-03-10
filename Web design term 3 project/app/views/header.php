@@ -20,7 +20,7 @@
 
                 <a href="/mainpageadmin" class="nav-link">Admin</a>
                 <a href="/" class="nav-link">Home</a>
-                <a href="/yummyevent"  class="nav-link">Yummy</a>
+                <a href="/yummyevent" class="nav-link">Yummy</a>
                 <a href="/danceevent" class="nav-link">Dance!</a>
                 <a href="/historyevent" class="nav-link">History Tour</a>
                 <a href="/payment">
