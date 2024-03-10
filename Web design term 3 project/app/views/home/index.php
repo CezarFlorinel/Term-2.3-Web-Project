@@ -199,14 +199,6 @@
         padding: 20px;
       }
 
-      .text-gold {
-        /* your existing styles for text-gold */
-      }
-
-      .text-gray-600 {
-        /* your existing styles for text-gray-600 */
-      }
-
       .btn {
         display: block;
         width: 100%;
@@ -219,18 +211,15 @@
       }
 
       .btn-red {
-        background-color: #e53e3e;
-        /* TailwindCSS red-600 */
+        background-color: red;
       }
 
       .btn-blue {
-        background-color: #3182ce;
-        /* TailwindCSS blue-500 */
+        background-color: blue;
       }
 
       .btn-yellow {
-        background-color: #ecc94b;
-        /* TailwindCSS yellow-400 */
+        background-color: yellow;
       }
     </style>
 
@@ -496,9 +485,6 @@
     </div>
     </div>
 
-
-
-
     <!-- Events -->
     <div class="space-y-10 px-20">
       <!-- Historical Tour -->
@@ -660,13 +646,10 @@
     </div>
 
   </body>
-
   </html>
 
   <div style="height: 20px;"></div>
   <div style="height: 20px;"></div>
-
   <?php include __DIR__ . '/../footer.php'; ?>
 </body>
-
 </html>
