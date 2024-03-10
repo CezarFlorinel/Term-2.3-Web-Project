@@ -5,12 +5,69 @@
 
 <?php require __DIR__ . '/../../../components/admin/header.php'; ?>
 
+<head>
+    <link rel="stylesheet" href="CSS_files/Admin/history_admin.css">
+</head>
+
 <body class="bg-gray-200">
     <div class="flex min-h-screen overflow-hidden">
 
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
-        <!-- Starting Point Of The Tour Section ------------------------------------------------------- -->
+
         <div class="flex-grow p-6">
+            <!-- Top Part Section ------------------------------------------------------- -->
+            <h1 class="text-3xl text-center mb-6">Top Part</h1>
+            <!-- Route Section ------------------------------------------------------- -->
+            <h1 class="text-3xl text-center mb-6">Route</h1>
+            <!-- Ticket Prices Section ------------------------------------------------------- -->
+            <h1 class="text-3xl text-center mb-6">Ticket Prices</h1>
+
+            <!-- Tour Departures Timetable Section -->
+            <h1 class="text-3xl text-center mb-6">Tour Departures Timetable</h1>
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <?php foreach ($historyTourDeparturesTimetables as $timetable): ?>
+                    <div class="p-4 border-b border-gray-200"
+                        data-id="<?php echo htmlspecialchars($timetable->informationID); ?>">
+                        <div>
+                            <p>Date:</p>
+                            <input type="date" class="date-editable text-lg font-semibold"
+                                value="<?php echo htmlspecialchars($timetable->date); ?>" readonly>
+                            <button
+                                class="edit-departure-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Edit</button>
+                        </div>
+                        <div class="tour-times">
+                            <?php $toursForThisDate = array_filter($historyTours, function ($tour) use ($timetable) {
+                                return $tour->departure == $timetable->informationID;
+                            });
+                            foreach ($toursForThisDate as $tour): ?>
+                                <div class="tour-info tour-details p-4"
+                                    data-id="<?php echo htmlspecialchars($tour->informationID); ?>">
+                                    <div class="time-details">
+                                        <p>Start Time: <span class="editable" contenteditable="false">
+                                                <?php echo htmlspecialchars($tour->startTime); ?>
+                                            </span></p>
+                                    </div>
+                                    <div class="language-tours">
+                                        <p>English: <input type="number" name="englishTour" min="1" max="3"
+                                                value="<?php echo htmlspecialchars($tour->englishTour); ?>"
+                                                class="tour-editable"></p>
+                                        <p>Dutch: <input type="number" name="dutchTour" min="1" max="3"
+                                                value="<?php echo htmlspecialchars($tour->dutchTour); ?>" class="tour-editable">
+                                        </p>
+                                        <p>Chinese: <input type="number" name="chineseTour" min="1" max="3"
+                                                value="<?php echo htmlspecialchars($tour->chineseTour); ?>"
+                                                class="tour-editable"></p>
+                                    </div>
+                                    <button
+                                        class="edit-tour-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Edit</button>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <!-- Starting Point Of The Tour Section ------------------------------------------------------- -->
             <h1 class="text-3xl text-center mb-6">Starting Point Of The Tour</h1>
 
             <div class="bg-white shadow-md rounded-lg p-6">
@@ -41,7 +98,7 @@
                         </div>
                     </div>
                     <button
-                        class="edit-tour-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Edit</button>
+                        class="edit-tour-starting-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Edit</button>
                 </div>
             </div>
 
@@ -95,196 +152,7 @@
 
     </div>
 
-    <script>
-        const parentPage = 1; // Fixed for now, to be changed later
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.edit-practical-btn').forEach(btn => {
-                btn.addEventListener('click', function () {
-                    handleEditableFields(this, updateHistoryPracticalInformation);
-                });
-            });
-
-            // Tour Starting Point Edit button
-            document.querySelectorAll('.edit-tour-btn').forEach(btn => {
-                btn.addEventListener('click', function () {
-                    handleEditableFields(this, updateHistoryStartingPointDescription);
-                });
-            });
-
-            document.getElementById('image1Input').addEventListener('change', function () {
-                if (this.files && this.files[0]) {
-                    uploadAndUpdateImage(this.files[0], 'image1', '<?php echo $historyTourStartingPoints->informationID; ?>');
-                }
-            });
-
-            document.getElementById('image2Input').addEventListener('change', function () {
-                if (this.files && this.files[0]) {
-                    uploadAndUpdateImage(this.files[0], 'image2', '<?php echo $historyTourStartingPoints->informationID; ?>');
-                }
-            });
-
-            // Show add form
-            document.querySelector('.add-practical-btn').addEventListener('click', function () {
-                document.getElementById('addForm').classList.toggle('hidden');
-            });
-
-            // Add new question and answer
-            document.getElementById('submitNewInfo').addEventListener('click', function () {
-                const question = document.getElementById('newQuestion').value;
-                const answer = document.getElementById('newAnswer').value;
-                if (question && answer) {
-                    addHistoryPracticalInformation(parentPage, question, answer);
-                } else {
-                    alert('Please fill in both question and answer');
-                }
-            });
-
-            document.querySelectorAll('.delete-practical-btn').forEach(btn => {
-                btn.addEventListener('click', function () {
-                    const container = this.closest('div[data-id]');
-                    const id = container.getAttribute('data-id');
-
-                    if (confirm('Are you sure you want to delete this item?')) {
-                        deleteHistoryPracticalInformation(id);
-                    }
-                });
-            });
-        });
-
-        function handleEditableFields(button, updateFunction) {
-            const container = button.closest('div[data-id]');
-            const editableElements = container.querySelectorAll('.editable');
-            const isEditing = container.getAttribute('data-editing');
-            const id = container.getAttribute('data-id');
-
-            if (isEditing === 'true') {
-                // Switch off editing and update information
-                editableElements.forEach(el => { el.contentEditable = false; });
-                button.textContent = 'Edit';
-                container.removeAttribute('data-editing');
-                const content = editableElements[0].innerText; // Assuming first element is always the target
-                updateFunction(id, content);
-            } else {
-                // Enable editing
-                editableElements.forEach(el => { el.contentEditable = true; });
-                button.textContent = 'Save';
-                container.setAttribute('data-editing', 'true');
-            }
-        }
-
-        function uploadAndUpdateImage(file, imageId, tourId) {
-            const formData = new FormData();
-            formData.append('image', file);
-            formData.append('id', tourId); // Your tour starting point's ID
-            formData.append('imageId', imageId);
-
-            fetch('/api/historyadmin/uploadAndUpdateImageForTourStartingPoint', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById(imageId).src = data.imageUrl; // Update the displayed image
-                    } else {
-                        alert('Image upload failed: ' + data.error);
-                    }
-                })
-                .catch(error => console.error('Error uploading image:', error));
-        }
-
-        function updateHistoryStartingPointDescription(id, description) {
-            console.log(id, description);
-            fetch('/api/historyadmin/updateHistoryTourStartingPointDescription', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    informationID: id,
-                    description: description
-                })
-            })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-        }
-
-        function deleteHistoryPracticalInformation(id) {
-            console.log('Deleting:', id);
-            fetch('/api/historyadmin/deleteHistoryPracticalInformation', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    informationID: id
-                })
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    location.reload(); // Reload the page to remove the deleted item
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('There was an error deleting the information');
-                });
-        }
-
-        function updateHistoryPracticalInformation(id, question, answer) {
-            console.log(id, question, answer);
-            fetch('/api/historyadmin/updateHistoryPracticalInformation', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json', // Correct content-type for JSON
-                },
-                body: JSON.stringify({
-                    informationID: id,
-                    question: question,
-                    answer: answer
-                })
-            })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-        }
-
-        function addHistoryPracticalInformation(parentPage, question, answer) {
-            console.log(parentPage, question, answer);
-            fetch('/api/historyadmin/createHistoryPracticalInformation', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    parentPage: parentPage,
-                    question: question,
-                    answer: answer
-                })
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    location.reload(); // Reload the page to see the new entry
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('There was an error adding the information');
-                });
-        }
-    </script>
+    <script src="javascript/History/admin_part.js"></script>
 </body>
 
 
