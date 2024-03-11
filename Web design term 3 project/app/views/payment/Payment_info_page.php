@@ -1,8 +1,11 @@
 <?php
 include __DIR__ . '/../header.php';
 ?>
+<<<<<<< HEAD
 
 <head>
+=======
+>>>>>>> Diego
 
     <html lang="en">
 
