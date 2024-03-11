@@ -1,0 +1,18 @@
+.tour-times {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.tour-info {
+    flex-basis: calc(33.33% - 20px);
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+.time-details,
+.language-tours {
+    margin-bottom: 10px;
+}
