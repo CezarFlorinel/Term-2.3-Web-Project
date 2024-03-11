@@ -41,21 +41,20 @@ class HistoryAdminController
                 return;
             }
 
-            $resultString = $this->remakImageCarouselStringForDeletion($imageToDelete);
-            $resultArray = ['updatedImagePathString' => $resultString]; // Wrapping the result for clarity
-            echo json_encode($resultArray);
+            $resultString = $this->remakeImageCarouselStringForDeletion($pathForSQLdelete);
 
             // Now proceed to remove the image path from the database
             $this->historyService->editImagePathHistoryDelete($id, $resultString);
 
             // Return a success message
             echo json_encode(['success' => true, 'message' => 'Image deleted successfully from both the server and the database.']);
+
         } else {
             echo json_encode(['success' => false, 'error' => 'Missing ID or imagePath.']);
         }
     }
 
-    function remakImageCarouselStringForDeletion($imageToDelete)
+    function remakeImageCarouselStringForDeletion($imageToDelete)
     {
 
         $topPart = $this->historyService->getHistoryTopParts();
