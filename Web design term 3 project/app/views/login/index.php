@@ -8,11 +8,8 @@
     <link
         href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
         rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="login.css">
-    <title>Document</title>
 </head>
 
 <body>
@@ -20,62 +17,61 @@
     <?php include __DIR__ . '/../header.php'; ?>
 
 
-    <div class="background">
-        
-    </div>
-    <h1>Sign in</h1>
-    <div class="Form"
-        style="width: 399px; height: 374px; left: 372px; top: 263px; position: absolute; flex-direction: column; justify-content: center; align-items: flex-start; gap: 20px; display: inline-flex">
-        <div class="Input"
-            style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #D9D9D9 solid; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-            <div class="Email"
-                style="flex: 1 1 0; color: #9A9A9A; font-size: 18px; font-family: Inter; font-weight: 400; line-height: 27px; word-wrap: break-word">
-                Email</div>
-        </div>
-        <div class="Input"
-            style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #D9D9D9 solid; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-            <div class="Password"
-                style="flex: 1 1 0; color: #9A9A9A; font-size: 18px; font-family: Inter; font-weight: 400; line-height: 27px; word-wrap: break-word">
-                Password</div>
-            <div class="EyeOff" style="width: 24px; height: 24px; position: relative">
-                <div class="Icon"
-                    style="width: 19.69px; height: 18px; left: 2.16px; top: 3px; position: absolute; border: 2px #9A9A9A solid">
+    <section class="flex justify-center items-center h-screen bg-black">
+        <div class="max-w-md w-full bg-white rounded p-6 space-y-4">
+            <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+                <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+                    <img class="mx-auto h-10 w-auto"
+                        src="assets/images/Logos/Logo-Festival.png" alt="Logo">
+                    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to
+                        your
+                        account</h2>
+                </div>
+
+                <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                    <form class="space-y-6" action="#" method="POST">
+                        <div>
+                            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email
+                                address</label>
+                            <div class="mt-2">
+                                <input id="email" name="email" type="email" autocomplete="email" required
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <label for="password"
+                                    class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                                <div class="text-sm">
+                                    <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot
+                                        password?</a>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <input id="password" name="password" type="password" autocomplete="current-password"
+                                    required
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit"
+                                class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
+                                in</button>
+                        </div>
+                    </form>
+
+                    <p class="mt-10 text-center text-sm text-gray-500">
+                        You don't have an account yet?
+                        <a href="/login/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Create one</a>
+                    </p>
                 </div>
             </div>
         </div>
-        <div class="Keep" style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
-            <div class="Square" style="width: 24px; height: 24px; position: relative">
-                <div class="Icon"
-                    style="width: 18px; height: 18px; left: 3px; top: 3px; position: absolute; border: 2px black solid">
-                </div>
-            </div>
-            <div class="KeepMeLoggedIn"
-                style="color: #232323; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 24px; word-wrap: break-word">
-                Keep me logged in</div>
-        </div>
-        <div class="Button"
-            style="align-self: stretch; padding-left: 8px; padding-right: 8px; padding-top: 16px; padding-bottom: 16px; background: #367AFF; border-radius: 10px; border: 1px solid; justify-content: center; align-items: center; gap: 8px; display: inline-flex">
-            <div class="SignIn"
-                style="color: white; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 21.60px; word-wrap: break-word">
-                Sign in</div>
-        </div>
-
-
-
-    </div>
-
-    <div class="CreateAccount" style="width: 265px; height: 27px; left: 439px; top: 665px; position: absolute">
-        <div class="NeedAnAccount"
-            style="left: 0px; top: 0px; position: absolute; text-align: center; color: #6C6C6C; font-size: 18px; font-family: Inter; font-weight: 400; line-height: 27px; word-wrap: break-word">
-            Need an account? </div>
-        <div class="CreateOne"
-            style="left: 169px; top: 0px; position: absolute; text-align: center; color: #367AFF; font-size: 18px; font-family: Inter; font-weight: 600; text-decoration: underline; line-height: 27px; word-wrap: break-word">
-            Create one</div>
-    </div>
-    </div>
-
+    </section>
 
 </body>
 
 </html>
-<!-- <?php include __DIR__ . '/../footer.php'; ?> -->
+<?php include __DIR__ . '/../footer.php'; ?>

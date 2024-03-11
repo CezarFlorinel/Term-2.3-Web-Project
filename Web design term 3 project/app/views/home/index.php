@@ -52,7 +52,7 @@
   $repository = new App\Repositories\userRepository();
 
   // Fetch users
-  $users = $repository->getUsers();
+  $users = $repository->getAllUsers();
   ?>
 
   <!DOCTYPE html>
