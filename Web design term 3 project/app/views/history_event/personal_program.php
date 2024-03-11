@@ -112,7 +112,7 @@
             <div>Starting Point Near<br>Church Of Saint Bavo</div>
             <div class="flex items-center">
                 <button class="px-2 py-1 border">-</button>
-                <input type="text" class="w-8 text-center border-t border-b" value="1">
+                <input type="text" class="w-8 text-center border-t border-b" value="4">
                 <button class="px-2 py-1 border">+</button>
             </div>
             <div class="flex flex-col items-center">
@@ -174,7 +174,7 @@
             </div>
             <div class="flex flex-col items-center">
                 <div class="flex items-center mt-[-8px]"> <!-- This negative margin pulls the checkbox and bin icon up -->
-                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
+                    <!-- <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600"> -->
                     <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
                 </div>
                 <div class="text-sm text-gray-500">--€</div>
@@ -195,7 +195,7 @@
             </div>
             <div class="flex flex-col items-center">
                 <div class="flex items-center mt-[-8px]"> <!-- This negative margin pulls the checkbox and bin icon up -->
-                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
+                    <!-- <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600"> -->
                     <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
                 </div>
                 <div class="text-sm text-gray-500">--€</div>
@@ -216,7 +216,7 @@
             </div>
             <div class="flex flex-col items-center">
                 <div class="flex items-center mt-[-8px]"> <!-- This negative margin pulls the checkbox and bin icon up -->
-                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
+                    <!-- <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600"> -->
                     <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
                 </div>
                 <div class="text-sm text-gray-500">--€</div>
