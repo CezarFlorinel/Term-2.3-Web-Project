@@ -182,14 +182,41 @@ class HistoryRepository extends Repository     // methods for all history relate
         ]);
     }
 
-    public function editHistoryTopPart($id, $imagePath, $subheader, $description)
+    public function editHistoryTopPart($id, $subheader, $description)
     {
-        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOP_PART] SET ImagePath = :imagePath, Subheader = :subheader, Description = :description WHERE InformationID = :id');
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOP_PART] SET Subheader = :subheader, Description = :description WHERE InformationID = :id');
         $stmt->execute([
             'id' => $id,
-            'imagePath' => $imagePath,
             'subheader' => $subheader,
             'description' => $description
+        ]);
+    }
+
+    public function editImagePathHistoryTopPart($id, $newImagePath)
+    {
+        $topPart = $this->getHistoryTopParts();
+
+        $currentImagePathString = $topPart->imagePath;
+
+        // Append the new image path to the existing paths, separated by "; "
+        $updatedImagePathString = $currentImagePathString ? $currentImagePathString . " ; " . $newImagePath : $newImagePath;
+
+        // Now update the database with the new combined image path string
+
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOP_PART] SET ImagePath = :updatedImagePathString WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id,
+            'updatedImagePathString' => $updatedImagePathString
+        ]);
+
+    }
+
+    public function editImagePathHistoryDelete($id, $newUrl)
+    {
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOP_PART] SET ImagePath = :updatedImagePathString WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id,
+            'updatedImagePathString' => $newUrl
         ]);
     }
 
@@ -274,9 +301,6 @@ class HistoryRepository extends Repository     // methods for all history relate
             'answer' => $answer
         ]);
     }
-
-
-
 
     // delete the information methods
 

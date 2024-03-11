@@ -8,6 +8,133 @@ const parentPage = 1; // Fixated for now, to be changed later
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    document.querySelectorAll('.grid .relative button').forEach(button => {
+        button.addEventListener('click', function () {
+            const container = this.closest('.relative');
+            const imagePath = container.querySelector('img').src.split('/').slice(-3).join('/'); // Adjust according to your image src structure
+            const id = document.getElementById("getTheIdForTopPart").getAttribute('data-id');
+            console.log(id, "aaand", imagePath);
+
+            if (confirm('Are you sure you want to delete this image?')) {
+                fetch('/api/historyadmin/deleteImageFromCarousel', { // Adjust the endpoint as necessary
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: id, imagePath: imagePath })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            container.remove(); // Remove the image element
+                            alert(data.message);
+                        } else {
+                            alert(data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while deleting the image');
+                    });
+            }
+        });
+    });
+
+    document.getElementById('addImageBtnTopPart').addEventListener('click', function () {
+        // Trigger the hidden file input
+        document.getElementById('imageUploadInputTopPart').click();
+    });
+
+    document.getElementById('imageUploadInputTopPart').addEventListener('change', function () {
+        if (this.files && this.files[0]) {
+            const formData = new FormData();
+            formData.append('image', this.files[0]);
+
+            // Get the ID from the container of the top part
+            const topPartContainer = document.getElementById("getTheIdForTopPart");
+            const id = topPartContainer.getAttribute('data-id');
+            formData.append('id', id);
+
+            // API endpoint
+            const apiEndpoint = '/api/historyadmin/uploadNewImageCarousel'; // Adjust if necessary
+
+            fetch(apiEndpoint, {
+                method: 'POST',
+                body: formData, // FormData handles the multipart/form-data headers
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Directly access the carousel since it's not a child of 'getTheIdForTopPart'
+                        const gallery = document.getElementById("carouselImages");
+                        const newImgDiv = document.createElement('div');
+                        newImgDiv.className = 'relative';
+                        newImgDiv.innerHTML = `
+                        <img src="${data.imageUrl}" alt="Uploaded Image" class="w-full h-auto">
+                        <button class="absolute top-0 right-0 bg-red-500 text-white px-2 py-1">Delete</button>
+                    `;
+                        gallery.appendChild(newImgDiv); // Add new image to the gallery
+                        alert('Image added successfully.');
+                    } else {
+                        alert(`Failed to upload image: ${data.error}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while uploading the image');
+                });
+
+            // Clear the input after upload for potential subsequent uploads
+            this.value = '';
+        }
+    });
+
+    document.getElementById("edit-top-part-btn").addEventListener("click", function () {
+        const container = document.getElementById("getTheIdForTopPart");
+        const descriptionEl = container.querySelector('[data-type="descriptionTop"]');
+        const subheaderEl = container.querySelector('[data-type="subheaderTop"]');
+
+        // Check if we are currently editing
+        const isEditing = container.hasAttribute('data-editing');
+
+        if (isEditing) {
+            // Currently in edit mode, switch to view mode and save changes
+            descriptionEl.contentEditable = 'false';
+            subheaderEl.contentEditable = 'false';
+            this.textContent = 'Edit';
+            container.removeAttribute('data-editing');
+
+            // Collect data and send it to the server
+            const id = container.getAttribute('data-id');
+            const description = descriptionEl.innerText;
+            const subheader = subheaderEl.innerText;
+
+            fetch('/api/historyadmin/updateTopPartInformation', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    informationID: id,
+                    description: description,
+                    subheader: subheader
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating the top part');
+                });
+        } else {
+            // Currently in view mode, switch to edit mode
+            descriptionEl.contentEditable = 'true';
+            subheaderEl.contentEditable = 'true';
+            this.textContent = 'Save';
+            container.setAttribute('data-editing', 'true');
+        }
+    });
+
     document.querySelectorAll(".edit-practical-btn").forEach((btn) => {
         btn.addEventListener("click", function () {
             handleEditableFieldsForQandA(this, updateHistoryPracticalInformation);
@@ -76,7 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-
     document.querySelectorAll("#imageTourPlaceInput").forEach(input => {
         input.addEventListener("change", function () {
             if (this.files && this.files[0]) {
@@ -112,7 +238,6 @@ document.addEventListener("DOMContentLoaded", () => {
             handleEditableFields(this, updateHistoryStartingPointDescription);
         });
     });
-
 
     document.querySelectorAll("#imageTicketPriceInput").forEach(input => {
         input.addEventListener("change", function () {
@@ -439,8 +564,6 @@ function handleEditableFields(button, updateFunction) {
         container.setAttribute("data-editing", "true");
     }
 }
-
-
 
 function uploadAndUpdateImage(file, imageId, tourId) {
     const formData = new FormData();

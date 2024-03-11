@@ -93,10 +93,22 @@ class HistoryService // manages all the history service
         $repository->editHistoryPracticalInformation($id, $question, $answer);
     }
 
-    public function editHistoryTopPart($id, $imagePath, $subheader, $description)
+    public function editHistoryTopPart($id, $subheader, $description)
     {
         $repository = new HistoryRepository();
-        $repository->editHistoryTopPart($id, $imagePath, $subheader, $description);
+        $repository->editHistoryTopPart($id, $subheader, $description);
+    }
+
+    public function editImagePathHistoryTopPart($id, $imagePath)
+    {
+        $repository = new HistoryRepository();
+        $repository->editImagePathHistoryTopPart($id, $imagePath);
+    }
+
+    public function editImagePathHistoryDelete($id, $imageToDelete)
+    {
+        $repository = new HistoryRepository();
+        $repository->editImagePathHistoryDelete($id, $imageToDelete);
     }
 
     public function editHistoryRoute($id, $locationName, $locationDespcription, $wheelchairSupport)

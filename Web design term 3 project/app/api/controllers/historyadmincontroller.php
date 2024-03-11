@@ -13,6 +13,127 @@ class HistoryAdminController
         $this->historyService = new HistoryService();
     }
 
+    public function deleteImageFromCarousel()
+    {
+        // Retrieve and decode the JSON from the request body
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        // Now check if the necessary data is present
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($data['id'], $data['imagePath'])) {
+            $id = $data['id'];
+            $imageToDelete = $data['imagePath']; // Assuming this is a relative path from the project root.
+
+            // Remove the image file from the folder
+            $projectRoot = realpath(__DIR__ . '/../../..');
+            $fullImagePath = $projectRoot . '/app/public/assets/images/' . $imageToDelete;
+            $pathForSQLdelete = 'assets/images/' . $imageToDelete;
+
+            // Check if file exists before trying to delete
+            if (file_exists($fullImagePath)) {
+                if (!unlink($fullImagePath)) {
+                    // File exists but couldn't be deleted
+                    echo json_encode(['success' => false, 'error' => 'Failed to delete the file from the server.']);
+                    return;  // Stop execution if we couldn't delete the file
+                }
+            } else {
+                // File does not exist, might already be deleted or wrong path provided
+                echo json_encode(['success' => false, 'error' => 'File does not exist on the server.']);
+                return;
+            }
+
+            $resultString = $this->remakImageCarouselStringForDeletion($imageToDelete);
+            $resultArray = ['updatedImagePathString' => $resultString]; // Wrapping the result for clarity
+            echo json_encode($resultArray);
+
+            // Now proceed to remove the image path from the database
+            $this->historyService->editImagePathHistoryDelete($id, $resultString);
+
+            // Return a success message
+            echo json_encode(['success' => true, 'message' => 'Image deleted successfully from both the server and the database.']);
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Missing ID or imagePath.']);
+        }
+    }
+
+    function remakImageCarouselStringForDeletion($imageToDelete)
+    {
+
+        $topPart = $this->historyService->getHistoryTopParts();
+        $currentImagePathString = $topPart->imagePath;
+
+        $imagePaths = explode(" ; ", $currentImagePathString);
+
+        // Remove the specific image path
+        $updatedImagePaths = array_filter($imagePaths, function ($path) use ($imageToDelete) {
+            return trim($path) !== trim($imageToDelete);
+        });
+
+        // Convert the array back to string
+        $updatedImagePathString = implode(" ; ", $updatedImagePaths);
+
+        return $updatedImagePathString;
+
+    }
+
+    public function uploadNewImageCarousel()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
+            $image = $_FILES['image'];
+            $id = $_POST['id'];
+
+            $projectRoot = realpath(__DIR__ . '/../../..');
+            $uploadsDir = $projectRoot . '/app/public/assets/images/history_event/top_part';
+            if (!file_exists($uploadsDir)) {
+                mkdir($uploadsDir, 0777, true);
+            }
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+
+            if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
+                $uniqueSuffix = time() . '-' . rand(); // Ensuring unique filename
+                $newFileName = $uniqueSuffix . '-' . basename($image['name']);
+                $destination = $uploadsDir . '/' . $newFileName;
+
+                if (move_uploaded_file($image['tmp_name'], $destination)) {
+                    // Construct the new image URL path
+                    $imageUrl = "assets/images/history_event/top_part/$newFileName";
+
+                    // Here, implement the method to update the image path in your database
+                    // This could look something like this:
+                    $this->historyService->editImagePathHistoryTopPart($id, $imageUrl);
+
+                    echo json_encode(['success' => true, 'imageUrl' => '/' . $imageUrl]);
+                } else {
+                    echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
+        }
+    }
+
+
+    public function updateTopPartInformation()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            if (isset($input['informationID'], $input['subheader'], $input['description'])) {
+                $id = $input['informationID'];
+                $subheader = $input['subheader'];
+                $description = $input['description'];
+
+                $this->historyService->editHistoryTopPart($id, $subheader, $description);
+
+                echo json_encode(['message' => 'Top part updated successfully']);
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
+        }
+    }
+
     public function updateHistoryToursImages()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
@@ -50,7 +171,6 @@ class HistoryAdminController
             echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
         }
     }
-
 
     public function updateHistoryRouteInformation()
     {
