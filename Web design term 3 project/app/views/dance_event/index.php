@@ -20,6 +20,10 @@
             color: #ffd700;
             /* gold color */
         }
+        
+        body {
+            font-family: 'Playfair Display', serif;
+        }
     </style>
 </head>
 
@@ -33,10 +37,10 @@
             </div>
         </div>
 
-        <div class="bg-black py-8">
+        <div class="bg-black py-8 ">
             <div class="max-w-6xl mx-auto px-4">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-white text-3xl font-bold">Artists lineup</h2>
+                    <h2 class="text-white text-3xl font-bold ">Artists lineup</h2>
                     <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                         Get your ticket now!
                     </button>
