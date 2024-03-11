@@ -4,6 +4,7 @@ use App\Services\HistoryService;
 $historyService = new HistoryService();
 
 $historyTopPart = $historyService->getHistoryTopParts();
+$arrayWithImagePathsCarousel = $historyService->returnImagePathsForCarousel();
 $historyRoutes = $historyService->getHistoryRoutes();
 $firstHistoryRoute = $historyRoutes[0];
 $historyTourStartingPoints = $historyService->getHistoryTourStartingPoints();
@@ -13,6 +14,6 @@ $secondHistoryTicket = $historyTickets[1];
 $historyTourDeparturesTimetables = $historyService->getHistoryTourDeparturesTimetables();
 $historyTours = $historyService->getHistoryTours();
 $historyPracticalInformation = $historyService->getHistoryPracticalInformation();
-$arrayWithImagePathsCarousel = $historyService->returnImagePathsForCarousel();
+
 
 ?>
