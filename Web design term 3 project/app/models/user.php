@@ -19,12 +19,13 @@ class User implements \JsonSerializable
         return get_object_vars($this);
     }
 
-    public function __construct(array $userData)
+    public function __construct(string $email, string $name, string $password, UserRole $role, \DateTime $registrationDate)
     {
-        $this->setEmail($userData['email'] ?? '');
-        $this->setName($userData['name'] ?? '');
-        $this->setPassword($userData['password'] ?? '');
-        $this->setUserRole($userData['user_role'] ?? '');
+        $this->setEmail($email['email'] ?? '');
+        $this->setName($name['name'] ?? '');
+        $this->setPassword($password['password'] ?? '');
+        $this->setUserRole($role);
+        $this->setRegistrationDate($registrationDate);
         // $this->setProfilePicture($userData['user_profile_picture'] ?? '');
     }
 

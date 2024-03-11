@@ -25,7 +25,7 @@ class UserService
         return $repository->getByEmail($email);
     }
 
-    public function create($user)
+    public function createUser($user)
     {
         $repository = new UserRepository();
         $repository->create($user);
