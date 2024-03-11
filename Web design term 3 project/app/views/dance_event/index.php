@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="CSS_files/dance_event.css">
-    <link rel="stylesheet" href="CSS_files/history_event.css">
 
 
     <style>
@@ -49,32 +48,32 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
 
                     <div class="artist-container">
-                        <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Hardwell" alt="Hardwell">
+                        <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/hardwell-pp.png" alt="Hardwell">
                         <p class="text-center text-white mt-2">Hardwell</p>
                     </div>
 
                     <div class="artist-container">
-                        <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Armin+van+Buuren" alt="Armin van Buuren">
+                        <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/armin-buren.png" alt="Armin van Buuren">
                         <p class="text-center text-white mt-2">Armin van Buuren</p>
                     </div>
 
                     <div class="artist-container">
-                        <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Tiesto" alt="Tiesto">
+                        <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/tiesto.png" alt="Tiesto">
                         <p class="text-center text-white mt-2">Tiesto</p>
                     </div>
 
                     <div class="artist-container">
-                        <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Martin+Garrix" alt="Martin Garrix">
+                        <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/martin.png" alt="Martin Garrix">
                         <p class="text-center text-white mt-2">Martin Garrix</p>
                     </div>
 
                     <div class="artist-container">
-                        <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Nicky+Romero" alt="Nicky Romero">
+                        <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/nicky.png" alt="Nicky Romero">
                         <p class="text-center text-white mt-2">Nicky Romero</p>
                     </div>
 
                     <div class="artist-container">
-                        <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Afrojack" alt="Afrojack">
+                        <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/afrojack.png" alt="Afrojack">
                         <p class="text-center text-white mt-2">Afrojack</p>
                     </div>
 
@@ -93,32 +92,32 @@
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-6 gap-4 mb-8">
                             <div class="club-container">
-                                <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Club+Ruis" alt="Club Ruis">
+                                <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/club-ruis.png" alt="Club Ruis">
                                 <p class="mt-2">CLUB RUIS</p>
                                 <p class="text-xs">Smedestraat 31, 2011 RE Haarlem</p>
                             </div>
                             <div class="club-container">
-                                <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Caprera+Openluchttheater" alt="Caprera Openluchttheater">
+                                <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/openlucht.png" alt="Caprera Openluchttheater">
                                 <p class="mt-2">OPENLUCHTTHEATER</p>
                                 <p class="text-xs">Hoge Duin en Daalseweg 2, 2061 AG Bloemendaal</p>
                             </div>
                             <div class="club-container">
-                                <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Jopen+Kerk" alt="JOPEN-KERK">
+                                <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/jopen-kerk.png" alt="JOPEN-KERK">
                                 <p class="mt-2">JOPEN-KERK</p>
                                 <p class="text-xs">Gedempte Voldersgracht 2, 2011 WD Haarlem</p>
                             </div>
                             <div class="club-container">
-                                <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Licht+Fabriek" alt="LICHT FABRIEK">
+                                <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/licht-fabriek.png" alt="LICHT FABRIEK">
                                 <p class="mt-2">LICHT FABRIEK</p>
                                 <p class="text-xs">Minckelersweg 2, 2031 EM Haarlem</p>
                             </div>
                             <div class="club-container">
-                                <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Club+Stalker" alt="CLUB STALKER">
+                                <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/club-stalker.png" alt="CLUB STALKER">
                                 <p class="mt-2">CLUB STALKER</p>
                                 <p class="text-xs">Kromme Elleboogsteeg 20, 2011 TS Haarlem</p>
                             </div>
                             <div class="club-container">
-                                <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=XO-the-club" alt="XO THE CLUB">
+                                <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/xo-club.png" alt="XO THE CLUB">
                                 <p class="mt-2">XO THE CLUB</p>
                                 <p class="text-xs">Grote Markt 8, 2011 RD Haarlem</p>
                             </div>
@@ -137,31 +136,31 @@
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <!-- Placeholder for Artists -->
                         <div class="artist-container">
-                            <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Nicky+Romero+Afrojack" alt="Nicky Romero + Afrojack">
+                            <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/nicky.png" alt="Nicky Romero + Afrojack">
                             <p class="mt-2">NICKY ROMERO + AFROJACK</p>
                             <p class="text-xs">22:00 - 04:00</p>
                             <p class="text-xs">LICHTFABRIEK</p>
                         </div>
                         <div class="artist-container">
-                            <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Tiesto" alt="Tiesto">
+                            <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/tiesto.png" alt="Tiesto">
                             <p class="mt-2">TIESTO</p>
                             <p class="text-xs">22:00 - 23:30</p>
                             <p class="text-xs">CLUB STALKER </p>
                         </div>
                         <div class="artist-container">
-                            <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Hardwell" alt="Hardwell">
+                            <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/profile-hardwell.png" alt="Hardwell">
                             <p class="mt-2">HARDWELL</p>
                             <p class="text-xs">23:00 - 00:30</p>
                             <p class="text-xs">JOPENKERK</p>
                         </div>
                         <div class="artist-container">
-                            <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Armin+van+Buren" alt="Armin+van+Buren">
+                            <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/armin-buren.png" alt="Armin+van+Buren">
                             <p class="mt-2">ARMIN VAN BUREN</p>
                             <p class="text-xs">22:00 - 23:30</p>
                             <p class="text-xs">KO THE CLUB</p>
                         </div>
                         <div class="artist-container">
-                            <img class="w-full h-48 object-cover rounded" src="https://placehold.co/200x200?text=Martin+Garrix" alt="Martin Garrix">
+                            <img class="w-full h-48 object-cover rounded" src="assets/images/dance_event/martin.png" alt="Martin Garrix">
                             <p class="mt-2">MARTIN GARRIX</p>
                             <p class="text-xs">22:00 - 23:30</p>
                             <p class="text-xs">CLUB RUIS</p>
