@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Services\UserService;
 use App\Models\User;
+use App\Models\UserRole;
 
 session_start();
 class UserController
@@ -23,8 +24,8 @@ class UserController
         $email=($_POST['email']);
         $password=($_POST['password']);
         $name=($_POST['name']);
-        $role=($_POST['Member']);
-        $registrationDate = ($_POST[(new \DateTime())->format('Y-m-d')]);
+        $role=($_POST['role'] ?? UserRole::Member);
+        $registrationDate = ($_POST['registrationDate' ?? (new \DateTime())->format('Y-m-d')]);
         $user = new User($email, password_hash($password, PASSWORD_DEFAULT), $name, $role, $registrationDate);
         $this->userService->createUser($user);
 

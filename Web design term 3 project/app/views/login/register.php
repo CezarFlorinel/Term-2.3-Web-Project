@@ -16,7 +16,11 @@
 
     <?php include __DIR__ . '/../header.php'; ?>
 
-
+<?php
+if(isset($_POST['create'])) {
+    echo'user registered';
+}
+?>
     <section class="flex justify-center items-center h-screen bg-black">
         <div class="max-w-md w-full bg-white rounded p-6 space-y-4">
             <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -63,30 +67,30 @@
                                     password</label>
                             </div>
                             <div class="mt-2">
-                                
-                                <input id="confirmPassword" name="confirmPassword" type="confirmPassword"
-                                    autocomplete="confirm-password" required
+
+                                <input id="confirmPassword" name="confirmPassword" type="password"
+                                    autocomplete="current-password" required
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             </div>
                         </div>
 
                         <div class="flex justify-start">
-                                <label class="block text-gray-500 font-bold my-4 flex items-center">
-                                    <input class="leading-loose text-pink-600 top-0" type="checkbox" required/>
-                                    <span class="ml-2 text-sm py-2 text-gray-600 text-left">Accept the
-                                          <a href="#"
-                                             class="font-semibold text-black border-b-2 border-gray-200 hover:border-gray-500">
-                                           Terms and Conditions of the site
-                                          </a>and
-                                          <a href="#"
-                                             class="font-semibold text-black border-b-2 border-gray-200 hover:border-gray-500">
-                                            the information data policy.</a>
-                                    </span>
-                                </label>
-                            </div>
+                            <label class="block text-gray-500 font-bold my-4 flex items-center">
+                                <input class="leading-loose text-pink-600 top-0" type="checkbox" required />
+                                <span class="ml-2 text-sm py-2 text-gray-600 text-left">Accept the
+                                    <a href="#"
+                                        class="font-semibold text-black border-b-2 border-gray-200 hover:border-gray-500">
+                                        Terms and Conditions of the site
+                                    </a>and
+                                    <a href="#"
+                                        class="font-semibold text-black border-b-2 border-gray-200 hover:border-gray-500">
+                                        the information data policy.</a>
+                                </span>
+                            </label>
+                        </div>
 
                         <div>
-                            <button type="submit"
+                            <button type="submit" name="create"
                                 class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
                                 up</button>
                         </div>

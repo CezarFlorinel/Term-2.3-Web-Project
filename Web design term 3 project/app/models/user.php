@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-require '../models/enums.php';
+use App\Models\UserRole;
 
 class User implements \JsonSerializable
 {
