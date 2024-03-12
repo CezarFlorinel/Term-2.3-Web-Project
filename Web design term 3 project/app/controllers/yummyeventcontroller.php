@@ -5,7 +5,8 @@ class YummyEventController
 {
     public function index()
     {
-        require __DIR__ . '/../views/yummy_event/reservation_form.php';
+        //require __DIR__ . '/../views/test/test.php';
+        require __DIR__ . '/../views/yummy_event/index.php';
     }
 }
 
