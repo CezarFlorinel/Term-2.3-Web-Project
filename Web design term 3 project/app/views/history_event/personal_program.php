@@ -1,3 +1,5 @@
+<?php include __DIR__ . '/../header.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +10,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
+
 <body class="bg-black text-white flex justify-center items-center min-h-screen">
+
     <div class="w-full max-w-4xl mx-auto p-8">
 
         <div class="flex flex-col" style="font-family: 'Playfair Display', serif;">
@@ -131,6 +135,7 @@
                         </div>
                         <div class="text-sm text-gray-700">--€</div>
                     </div>
+
                 </div>
 
                 <!-- Repeat End -->
@@ -172,6 +177,7 @@
                 <!-- Item Rows -->
                 <!-- Repeat this structure for each item, replace with actual data -->
                 <div class="flex justify-between items-center" style="font-family: imprima">
+
                     <div class="flex items-center">
                         <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
                             class="w-20 h-20 mr-2">
@@ -190,9 +196,11 @@
                         </div>
                         <div class="text-sm text-gray-500">--€</div>
                     </div>
+
                 </div>
 
                 <div class="border-t border-gray-400"></div>
+
 
                 <div class="flex justify-between items-center" style="font-family: imprima">
                     <div class="flex items-center">
@@ -213,9 +221,11 @@
                         </div>
                         <div class="text-sm text-gray-500">--€</div>
                     </div>
+
                 </div>
 
                 <div class="border-t border-gray-400"></div>
+
 
                 <div class="flex justify-between items-center" style="font-family: imprima">
                     <div class="flex items-center">
@@ -236,9 +246,11 @@
                         </div>
                         <div class="text-sm text-gray-500">--€</div>
                     </div>
+
                 </div>
                 <!-- Repeat End -->
                 <div class="pt-4 mt-4 border-t border-gray-700 flex justify-between items-center text-xl font-bold">
+
                     <div>You have 6 items in total</div>
                     <div>Total 145.00€</div>
                 </div>
@@ -246,3 +258,4 @@
 </body>
 
 </html>
+

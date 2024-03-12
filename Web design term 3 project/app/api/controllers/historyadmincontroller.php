@@ -41,7 +41,9 @@ class HistoryAdminController
                 return;
             }
 
+
             $resultString = $this->remakeImageCarouselStringForDeletion($pathForSQLdelete);
+
 
             // Now proceed to remove the image path from the database
             $this->historyService->editImagePathHistoryDelete($id, $resultString);
@@ -54,7 +56,9 @@ class HistoryAdminController
         }
     }
 
+
     function remakeImageCarouselStringForDeletion($imageToDelete)
+
     {
 
         $topPart = $this->historyService->getHistoryTopParts();
