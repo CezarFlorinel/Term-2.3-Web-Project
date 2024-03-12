@@ -18,68 +18,32 @@
     <link rel="stylesheet" href="CSS_files/yummy_event.css">
     <link rel="stylesheet" href="CSS_files/dance_event.css">
     <style>
-        .test,
-        .test-reverse {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            max-width: 80%;
-            margin: auto;
+        body {
+            font-family: 'Playfair Display', serif;
         }
 
-        .test-reverse {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            max-width: 90%;
-            margin: auto;
+        .day {
+            background-color: black;
         }
 
-        .centered-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .text-rectangle-red {
-            padding: 20px;
-            background-color: lightcoral;
-            border-radius: 10px;
-        }
-
-        .text-rectangle-white {
-            padding: 20px;
-            background-color: whitesmoke;
-            border-radius: 10px;
-        }
-
-        .text-rectangle-blue {
-            padding: 20px;
-            background-color: lightsteelblue;
-            border-radius: 10px;
-        }
-
-        .image-container {
-            width: 150;
-            height: auto;
-            object-fit: cover;
+        .event {
+            background-color: #4C4C4C;
         }
     </style>
 </head>
 
 <body>
     <main>
-        <div class="start-image-container">
-            <div class="start-image-text">
-                <h1 class="text-1-h">Hardwell</h1>
+        <section>
+            <div class="start-image-container">
+                <div class="start-image-text">
+                    <h1 class="text-1-h">Hardwell</h1>
+                </div>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded absolute bottom-0 mb-4 left-0 ml-4 playfair-display">
+                    Get Your ticket now
+                </button>
             </div>
-            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded absolute bottom-0 mb-4 left-0 ml-4 playfair-display">
-                Get Your ticket now
-            </button>
-        </div>
+        </section>
 
         <!-- Career Highlights Section -->
         <section class="mb-8">
@@ -90,54 +54,165 @@
             </div>
         </section>
 
-        <section class="test" style="position: relative;">
-            <h1 style="position: absolute; top: 30px; left: 0; font-family: 'Playfair Display', serif; font-size: 26px;">Musical Beginnings (2002-2009)</h1>
-            <div class="text-rectangle-red">
-                <p style="color: black;">At the age of 12, he produced his first song in the field of electro, while performing as a hip-hop DJ. Through his participation in various competitions, he became known in Breda’s DJ scene. As hip-hop became an underground scene, Hardwell changed his genre to commercial electronic dance music. At the age of 14 in 2002, he was offered a record deal with a Dutch record label.</p>
+        <section>
+            <div class="flex justify-center items-center">
+                <div class="flex flex-col md:flex-row items-center p-6">
+                    <div class="flex flex-col w-full md:w-2/3 items-start md:items-center">
+                        <h2 class="text-3xl font-bold mb-3 text-left md:text-left">Musical beginnings (2002-2009)</h2>
+                        <div class="bg-pink-300 p-6 rounded-lg shadow-lg w-full md:max-w-3xl">
+                            <p class="text-lg text-center md:text-left">
+                                At the age of 12, he produced his first song in the field of electro, while performing as
+                                a hip-hop DJ. Through his participation in various competitions, he became known in
+                                Breda’s DJ scene. As hip-hop became an underground scene, Hardwell changed his
+                                genre to commercial electronic dance music. At the age of 14 in 2002, he was offered a
+                                record deal with a Dutch record label.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="md:ml-6">
+                        <img src="https://placehold.co/300x300" alt="Man" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
             </div>
-            <div class="image-container">
-                <img class="w-auto h-auto object-cover rounded" src="assets/images/dance_event/profile-hardwell.png" style="max-width: 100%; height: auto;" alt="Hardwell">
+        </section>
+
+        <section>
+            <div class="flex justify-center items-center">
+                <div class="flex flex-col md:flex-row-reverse items-center p-6">
+                    <!-- Changed to flex-row-reverse -->
+                    <div class="flex flex-col w-full md:w-2/3 items-start md:items-center md:ml-6">
+                        <!-- Added md:ml-6 to maintain the spacing when the layout changes -->
+                        <h2 class="text-3xl font-bold mb-3 text-left md:text-left">Awards and Recognitions (2010-2017)</h2>
+                        <div class="bg-pink-300 p-6 rounded-lg shadow-lg w-full md:max-w-3xl">
+                            <p class="text-lg text-center md:text-left">
+                                At the age of 12, he produced his first song in the field of electro, while performing as
+                                a hip-hop DJ. Through his participation in various competitions, he became known in
+                                Breda’s DJ scene. As hip-hop became an underground scene, Hardwell changed his
+                                genre to commercial electronic dance music. At the age of 14 in 2002, he was offered a
+                                record deal with a Dutch record label.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://placehold.co/300x300" alt="Man" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex justify-center items-center">
+                <div class="flex flex-col md:flex-row items-center p-6">
+                    <div class="flex flex-col w-full md:w-2/3 items-start md:items-center">
+                        <h2 class="text-3xl font-bold mb-3 text-left md:text-left">Exploring new Horizons (2018-2021)</h2>
+                        <div class="bg-pink-300 p-6 rounded-lg shadow-lg w-full md:max-w-3xl">
+                            <p class="text-lg text-center md:text-left">
+                                After getting nominated 2 times World No.1 DJ and winning numerous awards, in 2018, after
+                                more than a decade of playing on the most significant stages on the planet, Hardwell announced
+                                he would be taking a sabbatical from touring. Although out of the spotlight, studio singles kept coming.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="md:ml-6">
+                        <img src="https://placehold.co/300x300" alt="Man" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex justify-center items-center">
+                <div class="flex flex-col md:flex-row-reverse items-center p-6">
+                    <!-- Changed to flex-row-reverse -->
+                    <div class="flex flex-col w-full md:w-2/3 items-start md:items-center md:ml-6">
+                        <!-- Added md:ml-6 to maintain the spacing when the layout changes -->
+                        <h2 class="text-3xl font-bold mb-3 text-left md:text-left">Musical Renaissance (2022-now)</h2>
+                        <div class="bg-pink-300 p-6 rounded-lg shadow-lg w-full md:max-w-3xl">
+                            <p class="text-lg text-center md:text-left">
+                                In 2022, Hardwell returned to Miami’s Ultra Music Festival to perform a surprise closing set,
+                                officially returning to the dance scene with a new style of music, which has been described as
+                                Future Rave or Future Techno. At the same time, his website was rebooted with new tour dates
+                                for his forthcoming album titled “Rebels Never Die”.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://placehold.co/300x300" alt="Man" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
             </div>
         </section>
 
 
-        <section class="test-reverse" style="position: relative;">
-            <h1 style="position: absolute; top: 40px; right: 100px; font-family: 'Playfair Display', serif; font-size: 26px;">Awards and recognitions (2010-2017)</h1>
-            <div class="image-container">
-                <img class="w-auto h-auto object-cover rounded" src="assets/images/dance_event/hardwell-award.png" alt="Descriptive Alt Text">
-            </div>
-            <div class="text-rectangle-white">
-                <p style="color: black;">After releasing numerous albums and tracks, in 2010 he founded his own record label, Revealed Recordings. In 2011, he launched his own podcast<br>, Hardwell On Air, and was ranked in the Top 100 DJs. In 2013 he was first crowned World’s #1 DJ. Between 2014-2016 he completed 2 world tours.<br> He was the first DJ to play on the podium at Formula 1 at the Mexican Grand Prix. Moreover, he utilized his position for philanthropic causes. With his<br> “United We Are Foundation”, the project achieved social change through 2 aid events that raised enough to school around 122 thousand children from the slums of Mumbai.</p>
-            </div>
-        </section>
+        <section class="flex items-center justify-center pt-8 px-4 lg:px-8">
+            <div class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4 w-full max-w-4xl">
+                <!-- Left Panel -->
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/3V255hE9vdJhkGx5DlhP2K?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
-        <section class="test" style="position: relative;">
-            <h1 style="position: absolute; top: 50px; left: 130px; font-family: 'Playfair Display', serif; font-size: 26px;">Exploring new horizons (2018-2021)</h1>
-            <div class="text-rectangle-blue">
-                <p style="color: black;"> After getting nominated 2 times World No.1 DJ and winning numerous awards, in 2018, after more than a decade of playing on the most<br> significant stages on the planet, Hardwell announced he would be taking a sabbatical from touring. Although out of the spotlight, studio<br> singles kept coming.</p>
-            </div>
-            <div class="image-container">
-                <img class="w-auto h-auto object-cover rounded" src="assets/images/dance_event/hardwell-horizons.png" style="max-width: 100%; height: auto;" alt="Hardwell">
+                <!-- Middle Panel -->
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/5OU4esREA0HLwNekPigYeZ?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+                <!-- Right Panel -->
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/5OU4esREA0HLwNekPigYeZ?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
         </section>
 
-        <section class="test-reverse" style="position: relative;">
-            <h1 style="position: absolute; top: 50px; right: 210px; font-family: 'Playfair Display', serif; font-size: 26px;">Musical Renaissance (2022-now)</h1>
-
-            <div class="image-container">
-                <img class="w-auto h-auto object-cover rounded" src="assets/images/dance_event/hardwell-event.png" alt="Descriptive Alt Text">
+        <section class="text-white">
+            <div class="max-w-screen-lg mx-auto">
+                <h1 class="text-5xl font-bold text-center my-12">Appearances In The Festival</h1>
+                <div class="flex justify-between">
+                    <div class="day p-6 text-center">
+                        <div class="text-9xl font-bold">26</div>
+                        <div class="text-4xl">Jul</div>
+                        <div class="text-xl mb-6">Friday</div>
+                        <div class="event p-6">
+                            <div class="text-xl mb-2">23:00 - 00:30</div>
+                            <img class="mx-auto mb-4" src="https://placehold.co/150x150" alt="HARDWELL performing">
+                            <div class="text-3xl font-bold mb-2">HARDWELL</div>
+                            <div class="text-sm mb-6">Jopenkerk</div>
+                            <button class="bg-red-600 text-white px-4 py-2">60,00</button>
+                        </div>
+                    </div>
+                    <div class="day p-6 text-center">
+                        <div class="text-9xl font-bold">27</div>
+                        <div class="text-4xl">Jul</div>
+                        <div class="text-xl mb-6">Saturday</div>
+                        <div class="event p-6">
+                            <div class="text-xl mb-2">23:00 - 00:30</div>
+                            <img class="mx-auto mb-4" src="https://placehold.co/150x150" alt="HARDWELL performing">
+                            <div class="text-3xl font-bold mb-2">HARDWELL</div>
+                            <div class="text-sm mb-6">Openlucht theatre</div>
+                            <button class="bg-red-600 text-white px-4 py-2">110,00</button>
+                        </div>
+                    </div>
+                    <div class="day p-6 text-center">
+                        <div class="text-9xl font-bold">28</div>
+                        <div class="text-4xl">Jul</div>
+                        <div class="text-xl mb-6">Sunday</div>
+                        <div class="event p-6">
+                            <div class="text-xl mb-2">23:00 - 00:30</div>
+                            <img class="mx-auto mb-4" src="https://placehold.co/150x150" alt="HARDWELL performing">
+                            <div class="text-3xl font-bold mb-2">HARDWELL</div>
+                            <div class="text-sm mb-6">XO the Club</div>
+                            <button class="bg-red-600 text-white px-4 py-2">90,00</button>
+                        </div>
+                    </div>
+                    <!-- Repeat the structure above for each day with respective content -->
+                </div>
+                <div class="flex justify-center my-12">
+                    <button class="bg-red-600 text-white px-4 py-2 mr-4">Buy tickets</button>
+                    <button class="bg-transparent border-2 border-white text-white px-4 py-2">Check festival schedule</button>
+                </div>
             </div>
-            <div class="text-rectangle-white">
-                <p style="color: black;">In 2022, Hardwell returned to Miami’s Ultra Music Festival to perform a surprise closing set, officially returning to the dance scene with a new<br> style of music, which has been described as Future Rave or Future Techno. At the same time, his website was rebooted with new tour dates<br> for his forthcoming album titled “Rebels Never Die”.</p>
-            </div>
-        </section>
+</body>
 
-    </main>
 
-    <footer>
+</main>
 
-    </footer>
-    <!-- JavaScript Files -->
+<footer>
+
+</footer>
+<!-- JavaScript Files -->
 </body>
 
 </html>
