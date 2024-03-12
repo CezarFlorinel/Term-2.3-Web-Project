@@ -3,7 +3,7 @@
 namespace App\Models;
 enum UserRole: string
 {
-    case Member;
-    case Admin;
-    case Employee;
+    case Member = "Member";
+    case Admin = "Admin";
+    case Employee = "Employee";
 }

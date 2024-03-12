@@ -1,4 +1,5 @@
 <?php
+namespace App\Controllers;
 
 use App\Services\UserService;
 use App\Models\User;
@@ -9,7 +10,7 @@ class UserController
     private UserService $userService;
     function __construct()
     {
-        $userService = new UserService();
+        $this->userService = new UserService();
     }
 
     public function index()
@@ -17,16 +18,22 @@ class UserController
         $this->checkUserRole('/../views/user/index.php');
     }
 
-    public function addUser()
+    public function add()
     {
         $email=($_POST['email']);
         $password=($_POST['password']);
-        // password_hash($_POST['password']);
         $name=($_POST['name']);
         $role=($_POST['Member']);
         $registrationDate = ($_POST[(new \DateTime())->format('Y-m-d')]);
         $user = new User($email, password_hash($password, PASSWORD_DEFAULT), $name, $role, $registrationDate);
         $this->userService->createUser($user);
+
+        echo json_encode($user);
+        // if ($result) {
+        //     echo 'User added successfully!';
+        // } else {
+        //     echo 'Error adding user';
+        // }
     }
 
     public function edit()
