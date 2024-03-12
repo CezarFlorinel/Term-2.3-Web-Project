@@ -35,12 +35,8 @@
                 <!-- Repeat this structure for each item, replace with actual data -->
                 <div class="flex justify-between items-center">
                     <div class="w-1/4 flex items-center">
-<<<<<<< HEAD
                         <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
                             class="w-20 h-20 rounded-full mr-2">
-=======
-                        <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1" class="w-20 h-20 mr-2">
->>>>>>> Diego
                         English Tour
                     </div>
                     <div class="w-1/4">25 Jul<br>10:00-12:30</div>
@@ -53,12 +49,8 @@
 
                 <div class="flex justify-between items-center">
                     <div class="w-1/4 flex items-center">
-<<<<<<< HEAD
                         <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1"
                             class="w-20 h-20 rounded-full mr-2">
-=======
-                        <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1" class="w-20 h-20 mr-2">
->>>>>>> Diego
                         English Tour
                     </div>
                     <div class="w-1/4">27 Jul<br>21:00-02:00</div>
@@ -66,17 +58,13 @@
                     <div class="w-1/12">1</div>
                     <div class="w-1/12 text-right">70.00€</div>
                 </div>
-                
+
                 <div class="w-full border-t border-gray-400"></div>
 
                 <div class="flex justify-between items-center">
                     <div class="w-1/4 flex items-center">
-<<<<<<< HEAD
                         <img src="assets/images/Payment_event_images/Checkinfo3.png" alt="Event 1"
                             class="w-20 h-20 rounded-full mr-2">
-=======
-                        <img src="assets/images/Payment_event_images/Checkinfo3.png" alt="Event 1" class="w-20 h-20 mr-2">
->>>>>>> Diego
                         English Tour
                     </div>
                     <div class="w-1/4">27 Jul<br>13:00-15:30</div>

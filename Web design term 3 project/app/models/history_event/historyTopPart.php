@@ -17,6 +17,7 @@ class HistoryTopPart implements \JsonSerializable
         $this->subheader = $subheader;
         $this->description = $description;
     }
+
     public function jsonSerialize(): mixed
     {
         return get_object_vars($this);
