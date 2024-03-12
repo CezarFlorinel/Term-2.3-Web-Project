@@ -1,3 +1,5 @@
+<?php include __DIR__ . '/../header.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +9,8 @@
     <title>Checkout Summary</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-black text-white flex justify-center items-center min-h-screen">
+<body>
+    <div class="bg-black text-white flex justify-center items-center min-h-screen">
     <div class="w-full max-w-4xl mx-auto p-8">
     
     <div class="flex flex-col" style="font-family: 'Playfair Display', serif;">
@@ -227,6 +230,7 @@
             <div>You have 6 items in total</div>
             <div>Total 145.00€</div>
             </div>
-            </div>
                 </body>
                 </html>
+                <?php include __DIR__ . '/../footer.php'; ?>
+                
