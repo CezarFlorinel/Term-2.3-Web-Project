@@ -7,7 +7,9 @@
             "name": "Cezar,Bianca,Diego,Wouter"
         }
     ],
-    "require": {},
+    "require": {
+        "tecnickcom/tcpdf": "^6.6"
+    },
     "autoload": {
         "psr-4": {
             "App\\": ".",
