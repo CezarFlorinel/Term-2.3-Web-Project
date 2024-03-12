@@ -45,6 +45,8 @@
                     <div class="w-1/12 text-right">17.50€</div>
                 </div>
 
+                <div class="w-full border-t border-gray-400"></div>
+
                 <div class="flex justify-between items-center">
                     <div class="w-1/4 flex items-center">
                         <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1"
@@ -56,6 +58,8 @@
                     <div class="w-1/12">1</div>
                     <div class="w-1/12 text-right">70.00€</div>
                 </div>
+
+                <div class="w-full border-t border-gray-400"></div>
 
                 <div class="flex justify-between items-center">
                     <div class="w-1/4 flex items-center">

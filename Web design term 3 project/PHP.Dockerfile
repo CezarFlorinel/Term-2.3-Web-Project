@@ -16,5 +16,23 @@ RUN apt-get update \
 # Install Composer globally
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+
+# Install system dependencies for Composer, zip extension, and other necessary tools
+RUN apt-get update && \
+    apt-get install -y git unzip libzip-dev && \
+    docker-php-ext-install zip
+
+# Install GD dependencies and enable the GD extension
+RUN apt-get update -y && apt-get install -y zlib1g-dev libpng-dev libfreetype6-dev libjpeg62-turbo-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd
+
+
+# Install TCPDF using Composer
+RUN composer require tecnickcom/tcpdf
+
+# Cleanup to reduce image size
+RUN rm -rf /var/lib/apt/lists/*
+
 # Uncomment if you want to install xdebug
 # RUN pecl install xdebug && docker-php-ext-enable xdebug
