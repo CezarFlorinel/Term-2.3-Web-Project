@@ -25,7 +25,7 @@ class UserController
         $password=($_POST['password']);
         $name=($_POST['name']);
         $role=($_POST['role'] ?? UserRole::Member);
-        $registrationDate = ($_POST['registrationDate' ?? (new \DateTime())->format('Y-m-d')]);
+        $registrationDate = ($_POST['registrationDate'] ?? (new \DateTime())->format('Y-m-d'));
         $user = new User($email, password_hash($password, PASSWORD_DEFAULT), $name, $role, $registrationDate);
         $this->userService->createUser($user);
 
