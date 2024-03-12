@@ -84,11 +84,109 @@
             background-color: #b3b3b3;
             /* Hover effect */
         }
+
+    .container {
+        font-family: 'Open Sans', sans-serif;
+        max-width: 100%;
+        margin: 20px auto;
+        background-color: #000;
+        color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .steps {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        position: relative;
+        padding: 20px 0;
+    }
+    .step {
+        text-align: center;
+        flex-grow: 1;
+        flex-basis: 20%; /* Adjust this value to control the minimum width of each step */
+    }
+    .step-circle {
+        width: 40px;
+        height: 40px;
+        line-height: 38px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        display: inline-block;
+        color: #fff;
+        background-color: #444;
+        position: relative;
+        z-index: 1;
+    }
+    .step-text {
+        display: block;
+        margin-bottom: 15px;
+        font-weight: 500;
+    }
+    .active-step {
+        background-color: green;
+    }
+    .step-line {
+        display: none; /* Hide step-lines on smaller screens for better responsiveness */
+    }
+    @media (min-width: 768px) {
+        .step-line {
+            height: 2px;
+            background-color: #fff;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            right: 0;
+            z-index: 0;
+            display: block;
+        }
+    }
+    /* Adjustments for first and last step-circle positioning on smaller screens */
+    .step:first-child .step-circle {
+        margin-left: 0; /* Adjust as needed */
+    }
+    .step:last-child .step-circle {
+        margin-right: 0; /* Adjust as needed */
+    }
+
     </style>
 </head>
 
 <body>
     <?php include __DIR__ . '/../header.php'; ?>
+
+    <div class="container">
+  <!-- Steps Indicator -->
+  <div class="steps">
+    <div class="step-line"></div>
+    <div class="step">
+      <span class="step-text">Payment Information</span>
+      <div class="step-circle active-step">1</div>
+    </div>
+    <div class="step">
+      <span class="step-text">Payment Method</span>
+      <div class="step-circle">2</div>
+    </div>
+    <div class="step">
+      <span class="step-text">Payment Details</span>
+      <div class="step-circle">3</div>
+    </div>
+    <div class="step">
+      <span class="step-text">Overview</span>
+      <div class="step-circle">4</div>
+    </div>
+    <div class="step">
+      <span class="step-text">Finish</span>
+      <div class="step-circle">5</div>
+    </div>
+  </div>
+</div>
 
     <div style="height: 150px;"></div>
     <div class="payment-method-container" style="width: 50%; margin-left: auto; margin-right: auto">

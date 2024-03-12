@@ -19,64 +19,54 @@ include __DIR__ . '/../header.php';
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
         <style>
             body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #000; /* Changed to black */
-        }
-        .container {
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: #000;
-    color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  }
-  .steps {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    padding: 20px 0;
-  }
-  .step {
-    text-align: center;
-    flex-grow: 1;
-  }
-  .step-circle {
-    width: 40px;
-    height: 40px;
-    line-height: 38px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    display: inline-block;
-    color: #fff;
-    background-color: #444;
-    position: relative;
-    z-index: 1;
-  }
-  .step-text {
-    display: block;
-    margin-bottom: 15px;
-    font-weight: 500;
-  }
-  .active-step {
-    background-color: green;
-  }
-  .step-line {
-    height: 2px;
-    background-color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    z-index: 0;
-  }
-  .step:first-child .step-circle {
-    margin-left: -20px;
-  }
-  .step:last-child .step-circle {
-    margin-right: -20px;
-  }
-        
+                font-family: 'Open Sans', sans-serif;
+                background-color: #000;
+                /* Changed to black */
+            }
+
+            .step-text {
+                display: block;
+                color: white;
+                text-align: center;
+                font-size: 0.75rem;
+                /* Smaller text size */
+                margin-bottom: 4px;
+                /* Space between text and button */
+            }
+
+            .step-circle {
+                width: 50px;
+                /* Increased size */
+                height: 50px;
+                /* Increased size */
+                border-radius: 50%;
+                background: #4B5563;
+                /* Grayish circle, changed to green when active */
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 16px;
+                /* Adjust space between circles */
+                cursor: pointer;
+                /* Make it clickable */
+                position: relative;
+                /* Needed to position the text correctly */
+            }
+
+            .active-step {
+                background-color: #10B981;
+                /* Tailwind Green-500 */
+            }
+
+            .step-line {
+                flex-grow: 1;
+                height: 2px;
+                background: #9CA3AF;
+                /* Tailwind Gray-400 */
+                margin: 0 8px;
+                /* Less space around the line */
+            }
 
             .icon-image {
                 height: 80px;
@@ -149,31 +139,25 @@ include __DIR__ . '/../header.php';
     </head>
 
 <body>
-<div class="container">
-  <!-- Steps Indicator -->
-  <div class="steps">
-    <div class="step-line"></div>
-    <div class="step">
-      <span class="step-text">Payment Information</span>
-      <div class="step-circle active-step">1</div>
-    </div>
-    <div class="step">
-      <span class="step-text">Payment Method</span>
-      <div class="step-circle">2</div>
-    </div>
-    <div class="step">
-      <span class="step-text">Payment Details</span>
-      <div class="step-circle">3</div>
-    </div>
-    <div class="step">
-      <span class="step-text">Overview</span>
-      <div class="step-circle">4</div>
-    </div>
-    <div class="step">
-      <span class="step-text">Finish</span>
-      <div class="step-circle">5</div>
-    </div>
-  </div>
+    <div class="container mx-auto px-4 text-white">
+        <div class="bg-black p-6 rounded-lg shadow-lg mt-6">
+            <!-- Steps Indicator -->
+            <div class="flex items-center mb-8 justify-center">
+                <span class="step-text">Payment Information</span>
+                <button class="step-circle active-step">1</button>
+                <div class="step-line"></div>
+                <span class="step-text">Payment Method</span>
+                <button class="step-circle">2</button>
+                <div class="step-line"></div>
+                <span class="step-text">Payment Details</span>
+                <button class="step-circle">3</button>
+                <div class="step-line"></div>
+                <span class="step-text">Overview</span>
+                <button class="step-circle">4</button>
+                <div class="step-line"></div>
+                <span class="step-text">Finish</span>
+                <button class="step-circle">5</button>
+            </div>
 
             <!-- Form Title -->
             <div class="mb-6 flex items-center">
