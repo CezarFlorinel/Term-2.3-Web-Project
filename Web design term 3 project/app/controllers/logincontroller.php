@@ -7,7 +7,7 @@ use PDOException;
 use App\Services\UserService;
 
 
-session_start();
+//session_start();
 
 class LoginController
 {
@@ -21,10 +21,10 @@ class LoginController
         require __DIR__ . '/../views/login/index.php';
     }
 
-    // public function register()
-    // {
-    //     require __DIR__ . '/../views/login/register.php';
-    // }
+    public function register()
+    {
+        require __DIR__ . '/../views/login/register.php';
+    }
     // public function createAccount()
     // {
     //     //session_start();

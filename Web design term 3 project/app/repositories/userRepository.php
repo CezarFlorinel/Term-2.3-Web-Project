@@ -42,15 +42,15 @@ class UserRepository extends Repository
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return($result['count_users'] > 0);
     }
-    function createUser(User $user): ?User
+    function createUser(User $user): void
     {
         try {
-            $stmt = $this->connection->prepare("INSERT INTO [USER] (email, password, role, name) VALUES (?, ?, ?, ?)");
+            $stmt = $this->connection->prepare("INSERT INTO [USER] (Email, Password, Role, Name) VALUES (?, ?, ?, ?)");
 
             $stmt->execute([
                 $user->getEmail(),
                 $user->getPassword(),
-                $user->getUserRole()->value,
+                $user->getUserRole(),
                 $user->getName()
                 //$user->getRegistrationDate()->format('Y-m-d')
                 // $user->getProfilePicture()

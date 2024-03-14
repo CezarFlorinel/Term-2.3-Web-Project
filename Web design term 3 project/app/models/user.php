@@ -16,10 +16,10 @@ class User
 
     public function __construct(string $email, string $name, string $password, UserRole $role)
     {
-        $this->setEmail($email['email'] ?? '');
-        $this->setName($name['name'] ?? '');
-        $this->setPassword($password['password'] ?? '');
-        $this->setUserRole($role ?? UserRole::Member);
+        $this->setEmail($email);
+        $this->setName($name);
+        $this->setPassword($password);
+        $this->setUserRole(UserRole::Member);
         //$this->setRegistrationDate($registrationDate);
         // $this->setProfilePicture($userData['user_profile_picture'] ?? '');
     }
@@ -31,41 +31,34 @@ class User
     {
         return $this->email;
     }
-    public function setEmail(string $email): self
+    public function setEmail(string $email)
     {
         $this->email = $email;
-
-        return $this;
     }
     public function getName(): string
     {
         return $this->name;
     }
-    public function setName(string $name): self
+    public function setName(string $name)
     {
         $this->name = $name;
-
-        return $this;
     }
-    public function getUserRole(): UserRole
+    public function getUserRole() : string
     {
-        return $this->role;
+        return $this->role->name;
+        //return $this->role;
     }
-    public function setUserRole(UserRole $role): self
+    public function setUserRole(UserRole $role)
     {
         $this->role = $role;
-
-        return $this;
     }
     public function getPassword(): string
     {
         return $this->password;
     }
-    public function setPassword(string $password): self
+    public function setPassword(string $password)
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
-
-        return $this;
     }
     public function getRegistrationDate(): \DateTime
     {
@@ -73,7 +66,7 @@ class User
     }
     public function setRegistrationDate($registrationDate)
     {
-        return $this->registrationDate = $registrationDate;
+        $this->registrationDate = $registrationDate;
     }
 //     public function getProfilePicture(): string
 //     {

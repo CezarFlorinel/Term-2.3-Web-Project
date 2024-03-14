@@ -21,10 +21,10 @@ class UserService
         return $this->userRepository->getById($userId);
     }
 
-    function getByEmail($email)
-    {
-        return $this->userRepository->getByEmail($email);
-    }
+    // function getByEmail($email)
+    // {
+    //     return $this->userRepository->getByEmail($email);
+    // }
     public function checkIfEmailExists($email)
     {
         return $this->userRepository->checkIfEmailExists($email);

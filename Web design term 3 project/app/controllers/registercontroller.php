@@ -22,19 +22,20 @@ class RegisterController
     }
 
     public function createAccount()
-    {
-        //session_start();
+    { 
+        session_start();
+
 
         $email = filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $password = filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $name = filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        // $role = filter_var($_POST['role'] ?? UserRole::Member, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        //$role = filter_var($_POST['role'] ?? UserRole::Member, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // $registrationDate = filter_var($_POST['registrationDate'] ?? (new \DateTime())->format('Y-m-d'), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        if ($this->userService->checkIfEmailExists($email)) {
-            echo 'email already exist';
-        } else {
-            //echo 'User created. You are a genius...';
+        // if ($this->userService->checkIfEmailExists($email)) {
+            
+        // } else {
+           
             $user = new User($email, $name, $password, UserRole::Member);
             $this->userService->createUser($user);
             // try {
@@ -45,7 +46,7 @@ class RegisterController
             // } catch (PDOException $e) {
             //     echo $e;
             // }
-        }
+        //}
     }
         //my old code
 
