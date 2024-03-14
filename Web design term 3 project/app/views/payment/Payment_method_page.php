@@ -5,90 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Method</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #000;
-            /* Set body background to black */
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            /* Stack items vertically */
-            min-height: 100vh;
-            /* Full height */
-            color: white;
-            /* Set text color to white */
-            font-family: 'Playfair Display';
-            font-size: 2em;
-        }
-
-        .payment-method-container {
-            flex: 1;
-            /* Fill available space */
-            width: 600px;
-            text-align: center;
-            margin: auto 0;
-            /* Center in the available space */
-        }
-
-        .payment-method-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .payment-method-header img {
-            height: 50px;
-            /* Adjust size as necessary */
-            margin-right: 10px;
-        }
-
-        .payment-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            background-color: #fff;
-            border-radius: 20px;
-            /* Rounded edges */
-            padding: 10px 20px;
-            cursor: pointer;
-            /* Make it clickable */
-        }
-
-        .payment-option img {
-            height: 30px;
-            /* Adjust size as necessary */
-        }
-
-        .payment-option:hover {
-            background-color: #f2f2f2;
-            /* Hover effect */
-        }
-
-        .next-button {
-            background-color: #ccc;
-            border: none;
-            padding: 10px 80px;
-            /* Slightly longer button */
-            margin-top: 20px;
-            cursor: pointer;
-            border-radius: 20px;
-            /* Rounded button */
-            font-weight: bold;
-        }
-
-        .next-button:hover {
-            background-color: #b3b3b3;
-            /* Hover effect */
-        }
-    </style>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
 
 <body>
     <?php include __DIR__ . '/../header.php'; ?>
+
+    <div class="container">
+  <!-- Steps Indicator -->
+  <div class="steps">
+    <div class="step-line"></div>
+    <div class="step">
+      <span class="step-text">Payment Information</span>
+      <div class="step-circle active-step">1</div>
+    </div>
+    <div class="step">
+      <span class="step-text">Payment Method</span>
+      <div class="step-circle">2</div>
+    </div>
+    <div class="step">
+      <span class="step-text">Payment Details</span>
+      <div class="step-circle">3</div>
+    </div>
+    <div class="step">
+      <span class="step-text">Overview</span>
+      <div class="step-circle">4</div>
+    </div>
+    <div class="step">
+      <span class="step-text">Finish</span>
+      <div class="step-circle">5</div>
+    </div>
+  </div>
+</div>
 
     <div style="height: 150px;"></div>
     <div class="payment-method-container" style="width: 50%; margin-left: auto; margin-right: auto">

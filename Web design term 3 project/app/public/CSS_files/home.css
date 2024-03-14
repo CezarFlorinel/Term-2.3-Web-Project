@@ -1,0 +1,32 @@
+    .event-bg {
+      margin-left: 50px;
+      margin-right: 50px;
+    }
+
+    body {
+      background-color: black;
+    }
+
+    .fest-bg {
+      background-color: #333;
+    }
+
+    .section-bg {
+      background-color: #000;
+    }
+
+    .schedule-bg {
+      background-color: black;
+    }
+
+    .event-bg {
+      background-color: black;
+    }
+
+    .text-gold {
+      color: #000;
+    }
+
+    .text-dim-white {
+      color: rgba(255, 255, 255, 0.7);
+    }

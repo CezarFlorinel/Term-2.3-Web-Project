@@ -5,6 +5,10 @@ class PaymentController
 {
     public function index()
     {
-        require __DIR__ . '/../views/payment/Payment_Info_page.php';
+<<<<<<< HEAD
+        require __DIR__ . '/../views/payment/Payment_method_page.php';
+=======
+        require __DIR__ . '/../views/payment/Payment_info_page.php';
+>>>>>>> secondary-main
     }
 }
