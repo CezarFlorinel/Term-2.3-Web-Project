@@ -13,6 +13,7 @@ class UserController
         'email' => FILTER_SANITIZE_EMAIL,
         'name' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
         'role' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+        'registrationDate' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
         'password' => FILTER_SANITIZE_FULL_SPECIAL_CHARS
     ];
 
@@ -63,7 +64,7 @@ class UserController
     {
         $jsonInput = file_get_contents('php://input');
         $data = json_decode($jsonInput, true);
-
+        
         if ($data !== null) {
             $sanitizedData = filter_var_array($data, $this->filters, false);
 

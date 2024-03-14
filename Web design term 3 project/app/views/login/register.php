@@ -16,11 +16,6 @@
 
     <?php include __DIR__ . '/../header.php'; ?>
 
-<?php
-if(isset($_POST['create'])) {
-    echo'user registered';
-}
-?>
     <section class="flex justify-center items-center h-screen bg-black">
         <div class="max-w-md w-full bg-white rounded p-6 space-y-4">
             <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -31,7 +26,7 @@ if(isset($_POST['create'])) {
                 </div>
 
                 <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form class="space-y-6" action="/user/add" method="POST">
+                    <form class="space-y-6" action="/register/createAccount" method="POST">
                         <div>
                             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email
                                 address</label>
@@ -74,7 +69,7 @@ if(isset($_POST['create'])) {
                             </div>
                         </div>
 
-                        <div class="flex justify-start">
+                        <!-- <div class="flex justify-start">
                             <label class="block text-gray-500 font-bold my-4 flex items-center">
                                 <input class="leading-loose text-pink-600 top-0" type="checkbox" required />
                                 <span class="ml-2 text-sm py-2 text-gray-600 text-left">Accept the
@@ -87,7 +82,7 @@ if(isset($_POST['create'])) {
                                         the information data policy.</a>
                                 </span>
                             </label>
-                        </div>
+                        </div> -->
 
                         <div>
                             <button type="submit" name="create"

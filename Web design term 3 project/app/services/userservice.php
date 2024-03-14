@@ -6,41 +6,45 @@ use App\Repositories\UserRepository;
 
 class UserService
 {
+    private UserRepository $userRepository;
+    function __construct()
+    {
+        $this->userRepository = new UserRepository();
+    }
     public function getAllUsers()
     {
-        $repository = new UserRepository();
-        return $repository->getAllUsers();
+        return $this->userRepository->getAllUsers();
     }
 
     public function getById($userId)
     {
-        $repository = new UserRepository();
-        return $repository->getById($userId);
+        return $this->userRepository->getById($userId);
     }
 
     function getByEmail($email)
     {
-        $repository = new UserRepository();
-        return $repository->getByEmail($email);
+        return $this->userRepository->getByEmail($email);
     }
-
+    public function checkIfEmailExists($email)
+    {
+        return $this->userRepository->checkIfEmailExists($email);
+    }
     public function createUser($user)
     {
-        $repository = new UserRepository();
-        return $repository->create($user);
+        return $this->userRepository->createUser($user);
     }
 
-    public function update($user)
-    {
-        $repository = new UserRepository();
-        $repository->update($user);
-    }
+    // public function update($user)
+    // {
+    //     $repository = new UserRepository();
+    //     $repository->update($user);
+    // }
 
-    public function delete($userId)
-    {
-        $repository = new UserRepository();
-        $repository->delete($userId);
-    }
+    // public function delete($userId)
+    // {
+    //     $repository = new UserRepository();
+    //     $repository->delete($userId);
+    // }
 }
 
 ?>

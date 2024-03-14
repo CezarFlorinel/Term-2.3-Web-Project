@@ -4,98 +4,66 @@ namespace App\Models;
 
 use App\Models\UserRole;
 
-class User implements \JsonSerializable
+class User
 {
-    public int $id;
-    public string $email;
-    public string $password;
-    public UserRole $role;
-    public string $name;
-    // public ?string $profilePicture;
-    public \DateTime $registrationDate;
+    private int $id;
+    private string $email;
+    private string $password;
+    private UserRole $role;
+    private string $name;
+    //private ?string $profilePicture;
+    private \DateTime $registrationDate;
 
-    public function jsonSerialize(): mixed
-    {
-        return get_object_vars($this);
-    }
-
-    public function __construct(string $email, string $name, string $password, UserRole $role, \DateTime $registrationDate)
+    public function __construct(string $email, string $name, string $password, UserRole $role)
     {
         $this->setEmail($email['email'] ?? '');
         $this->setName($name['name'] ?? '');
         $this->setPassword($password['password'] ?? '');
-        $this->setUserRole($role);
-        $this->setRegistrationDate($registrationDate);
+        $this->setUserRole($role ?? UserRole::Member);
+        //$this->setRegistrationDate($registrationDate);
         // $this->setProfilePicture($userData['user_profile_picture'] ?? '');
     }
-
-    public function toArray(): array
-    {
-        return [
-            'email' => $this->email,
-            'name' => $this->name,
-            'password' => $this->password,
-            'user_role' => $this->role,
-            // 'user_profile_picture' => $this->profilePicture,
-        ];
-    }
-
     public function getId(): int
     {
         return $this->id;
     }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
     public function getEmail(): string
     {
         return $this->email;
     }
-
     public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
-
     public function getName(): string
     {
         return $this->name;
     }
-
     public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
-
     public function getUserRole(): UserRole
     {
         return $this->role;
     }
-
     public function setUserRole(UserRole $role): self
     {
         $this->role = $role;
 
         return $this;
     }
-
     public function getPassword(): string
     {
         return $this->password;
     }
-
     public function setPassword(string $password): self
     {
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
 
         return $this;
     }
@@ -103,11 +71,9 @@ class User implements \JsonSerializable
     {
         return $this->registrationDate;
     }
-    public function setRegistrationDate(\DateTime $registrationDate): self
+    public function setRegistrationDate($registrationDate)
     {
-        $this->registrationDate = $registrationDate;
-
-        return $this;
+        return $this->registrationDate = $registrationDate;
     }
 //     public function getProfilePicture(): string
 //     {
@@ -120,6 +86,3 @@ class User implements \JsonSerializable
 //         return $this;
 //     }
 }
-
-?>
-
