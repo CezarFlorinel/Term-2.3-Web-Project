@@ -7,6 +7,9 @@ use App\Repositories\HistoryRepository;
 
 class HistoryService // manages all the history service
 {
+    // make a construct instead of a new instance of the repository, and replace it in all the functions
+    // with the unique repository variable
+
     public function returnImagePathsForCarousel(): array
     {
         $repository = new HistoryRepository();
