@@ -5,79 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Method</title>
-    <style>
-        body {
-            font-family: 'Arial', 'Playfair Display', sans-serif;
-            background-color: #000;
-            /* Set body background to black */
-            margin: 0;
-            padding: 0;
-            display: block;
-            /* Change to block or keep flex but adjust usage */
-            color: white;
-            /* Set text color to white */
-            font-size: 2em;
-        }
-
-        .payment-method-container {
-            width: 600px;
-            text-align: center;
-            margin: auto;
-        }
-
-        .payment-method-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .payment-method-header img {
-            height: 50px;
-            /* Adjust size as necessary */
-            margin-right: 10px;
-        }
-
-        .payment-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            background-color: #fff;
-            border-radius: 20px;
-            /* Rounded edges */
-            padding: 10px 20px;
-            cursor: pointer;
-            /* Make it clickable */
-        }
-
-        .payment-option img {
-            height: 30px;
-            /* Adjust size as necessary */
-        }
-
-        .payment-option:hover {
-            background-color: #f2f2f2;
-            /* Hover effect */
-        }
-
-        .next-button {
-            background-color: #ccc;
-            border: none;
-            padding: 10px 80px;
-            /* Slightly longer button */
-            margin-top: 20px;
-            cursor: pointer;
-            border-radius: 20px;
-            /* Rounded button */
-            font-weight: bold;
-        }
-
-        .next-button:hover {
-            background-color: #b3b3b3;
-            /* Hover effect */
-        }
-    </style>
+    <!-- Tailwind CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
 
 <body>
