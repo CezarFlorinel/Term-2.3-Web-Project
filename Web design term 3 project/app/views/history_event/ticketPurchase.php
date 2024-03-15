@@ -265,7 +265,6 @@ function changeNumberOfTickets(change) {
     }
 }
 </script>
-
 </body>
 </html>
 

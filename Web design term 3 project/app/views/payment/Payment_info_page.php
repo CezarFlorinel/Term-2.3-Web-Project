@@ -1,6 +1,8 @@
 <?php
 include __DIR__ . '/../header.php';
 ?>
+<<<<<<< HEAD
+=======
 
 <html lang="en">
 
@@ -18,6 +20,7 @@ include __DIR__ . '/../header.php';
             background-color: #000;
             /* Changed to black */
         }
+>>>>>>> secondary-main
 
         .step-text {
             display: block;
@@ -29,6 +32,18 @@ include __DIR__ . '/../header.php';
             /* Space between text and button */
         }
 
+<<<<<<< HEAD
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Payment Information</title>
+        <!-- Tailwind CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="CSS_files/payment.css">
+    </head>
+=======
         .step-circle {
             width: 50px;
             /* Increased size */
@@ -132,27 +147,34 @@ include __DIR__ . '/../header.php';
         }
     </style>
 </head>
+>>>>>>> secondary-main
 
 <body>
-    <div class="container mx-auto px-4 text-white">
-        <div class="bg-black p-6 rounded-lg shadow-lg mt-6">
-            <!-- Steps Indicator -->
-            <div class="flex items-center mb-8 justify-center">
-                <span class="step-text">Payment Information</span>
-                <button class="step-circle active-step">1</button>
-                <div class="step-line"></div>
-                <span class="step-text">Payment Method</span>
-                <button class="step-circle">2</button>
-                <div class="step-line"></div>
-                <span class="step-text">Payment Details</span>
-                <button class="step-circle">3</button>
-                <div class="step-line"></div>
-                <span class="step-text">Overview</span>
-                <button class="step-circle">4</button>
-                <div class="step-line"></div>
-                <span class="step-text">Finish</span>
-                <button class="step-circle">5</button>
-            </div>
+<div class="container">
+  <!-- Steps Indicator -->
+  <div class="steps">
+    <div class="step-line"></div>
+    <div class="step">
+      <span class="step-text">Payment Information</span>
+      <div class="step-circle active-step">1</div>
+    </div>
+    <div class="step">
+      <span class="step-text">Payment Method</span>
+      <div class="step-circle">2</div>
+    </div>
+    <div class="step">
+      <span class="step-text">Payment Details</span>
+      <div class="step-circle">3</div>
+    </div>
+    <div class="step">
+      <span class="step-text">Overview</span>
+      <div class="step-circle">4</div>
+    </div>
+    <div class="step">
+      <span class="step-text">Finish</span>
+      <div class="step-circle">5</div>
+    </div>
+  </div>
 
             <!-- Form Title -->
             <div class="mb-6 flex items-center">
@@ -244,7 +266,6 @@ include __DIR__ . '/../header.php';
         </div>
     </div>
 </body>
-
 </html>
 
 <?php
