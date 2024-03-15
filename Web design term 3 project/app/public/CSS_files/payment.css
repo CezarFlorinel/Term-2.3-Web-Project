@@ -1,507 +1,531 @@
-            body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #000; /* Changed to black */
-        }
-        .container {
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: #000;
-    color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  }
-  .steps {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    padding: 20px 0;
-  }
-  .step {
-    text-align: center;
-    flex-grow: 1;
-  }
-  .step-circle {
-    width: 40px;
-    height: 40px;
-    line-height: 38px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    display: inline-block;
-    color: #fff;
-    background-color: #444;
-    position: relative;
-    z-index: 1;
-  }
-  .step-text {
-    display: block;
-    margin-bottom: 15px;
-    font-weight: 500;
-  }
-  .active-step {
-    background-color: green;
-  }
-  .step-line {
-    height: 2px;
-    background-color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    z-index: 0;
-  }
-  .step:first-child .step-circle {
-    margin-left: -20px;
-  }
-  .step:last-child .step-circle {
-    margin-right: -20px;
-  }
-            .icon-image {
-                height: 80px;
-                /* Set the height to control the size of the image */
-                width: auto;
-                /* Maintain the aspect ratio */
-                margin-right: 5px;
-                /* Add some space between the image and the title */
-                margin-left: 30px;
-            }
+ body {
+     font-family: 'Open Sans', sans-serif;
+     background-color: #000;
+     /* Changed to black */
+ }
 
-            .form-header {
-                color: white;
-                /* Text color */
-                margin-left: 40px;
-                font-size: 2.5em;
-            }
+ .container {
+     max-width: 800px;
+     margin: 50px auto;
+     background-color: #000;
+     color: #fff;
+     padding: 20px;
+     border-radius: 8px;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+ }
 
-            .form-subtitle {
-                color: red;
-                /* Tailwind Blue-500 */
-                margin-left: 180px;
-            }
+ .steps {
+     display: flex;
+     justify-content: space-between;
+     position: relative;
+     padding: 20px 0;
+ }
 
-            .form-input {
-                background: white;
-                /* Tailwind Gray-900 */
-                color: black;
-                /* Input text color */
-                border: none;
-                width: 60%;
-            }
+ .step {
+     text-align: center;
+     flex-grow: 1;
+ }
 
-            .form-label {
-                color: white;
-                /* Label color */
-                font-family: 'Playfair Display';
-                font-size: 1.6em;
-                text-decoration: underline;
-            }
+ .step-circle {
+     width: 40px;
+     height: 40px;
+     line-height: 38px;
+     border: 2px solid #fff;
+     border-radius: 50%;
+     display: inline-block;
+     color: #fff;
+     background-color: #444;
+     position: relative;
+     z-index: 1;
+ }
 
-            .button-back {
-                background: blue;
-                /* Tailwind Gray-800 */
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 0.375rem;
-                /* Tailwind rounded-md */
-                cursor: pointer;
-            }
+ .step-text {
+     display: block;
+     margin-bottom: 15px;
+     font-weight: 500;
+ }
 
-            .button-next {
-                background: green;
-                /* Tailwind Gray-800 */
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 0.375rem;
-                /* Tailwind rounded-md */
-                cursor: pointer;
-            }
+ .active-step {
+     background-color: green;
+ }
 
-            .button-back:hover,
-            .button-next:hover {
-                background: #374151;
-                /* Tailwind Gray-700 */
-            }
+ .step-line {
+     height: 2px;
+     background-color: #fff;
+     position: absolute;
+     top: 50%;
+     left: 0;
+     right: 0;
+     z-index: 0;
+ }
 
-            /* Payment_Detail_IDeal */
-        body {
-            font-family: 'Arial', 'Playfair Display', sans-serif;
-            background-color: #000;
-            /* Set body background to black */
-            margin: 0;
-            padding: 0;
-            display: block;
-            /* Change to block or keep flex but adjust usage */
-            color: white;
-            /* Set text color to white */
-            font-size: 2em;
-        }
+ .step:first-child .step-circle {
+     margin-left: -20px;
+ }
 
-        .payment-method-container {
-            width: 600px;
-            text-align: center;
-            margin: auto;
-        }
+ .step:last-child .step-circle {
+     margin-right: -20px;
+ }
 
-        .payment-method-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+ .icon-image {
+     height: 80px;
+     /* Set the height to control the size of the image */
+     width: auto;
+     /* Maintain the aspect ratio */
+     margin-right: 5px;
+     /* Add some space between the image and the title */
+     margin-left: 30px;
+ }
 
-        .payment-method-header img {
-            height: 50px;
-            /* Adjust size as necessary */
-            margin-right: 10px;
-        }
+ .form-header {
+     color: white;
+     /* Text color */
+     margin-left: 40px;
+     font-size: 2.5em;
+ }
 
-        .payment-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            background-color: #fff;
-            border-radius: 20px;
-            /* Rounded edges */
-            padding: 10px 20px;
-            cursor: pointer;
-            /* Make it clickable */
-        }
+ .form-subtitle {
+     color: red;
+     /* Tailwind Blue-500 */
+     margin-left: 180px;
+ }
 
-        .payment-option img {
-            height: 30px;
-            /* Adjust size as necessary */
-        }
+ .form-input {
+     background: white;
+     /* Tailwind Gray-900 */
+     color: black;
+     /* Input text color */
+     border: none;
+     width: 60%;
+ }
 
-        .payment-option:hover {
-            background-color: #f2f2f2;
-            /* Hover effect */
-        }
+ .form-label {
+     color: white;
+     /* Label color */
+     font-family: 'Playfair Display';
+     font-size: 1.6em;
+     text-decoration: underline;
+ }
 
-        .next-button {
-            background-color: #ccc;
-            border: none;
-            padding: 10px 80px;
-            /* Slightly longer button */
-            margin-top: 20px;
-            cursor: pointer;
-            border-radius: 20px;
-            /* Rounded button */
-            font-weight: bold;
-        }
+ .button-back {
+     background: blue;
+     /* Tailwind Gray-800 */
+     color: white;
+     padding: 10px 20px;
+     border: none;
+     border-radius: 0.375rem;
+     /* Tailwind rounded-md */
+     cursor: pointer;
+ }
 
-        .next-button:hover {
-            background-color: #b3b3b3;
-            /* Hover effect */
-        }
+ .button-next {
+     background: green;
+     /* Tailwind Gray-800 */
+     color: white;
+     padding: 10px 20px;
+     border: none;
+     border-radius: 0.375rem;
+     /* Tailwind rounded-md */
+     cursor: pointer;
+ }
 
-        /* Credit Card */
-        body {
-            font-family: 'Arial', 'Playfair Display', sans-serif;
-            background-color: #000;
-            /* Black background */
-            margin: 0;
-            padding: 0;
-            color: #ffffff;
-            /* White text for visibility */
-        }
+ .button-back:hover,
+ .button-next:hover {
+     background: #374151;
+     /* Tailwind Gray-700 */
+ }
 
-        .card-container {
-            display: flex;
-            /* Place card forms next to each other */
-            align-items: flex-start;
-            /* Align cards to the top */
-            justify-content: center;
-            gap: 20px;
-            /* Space between cards */
-        }
+ /* Payment_Detail_IDeal */
+ body {
+     font-family: 'Arial', 'Playfair Display', sans-serif;
+     background-color: #000;
+     /* Set body background to black */
+     margin: 0;
+     padding: 0;
+     display: block;
+     /* Change to block or keep flex but adjust usage */
+     color: white;
+     /* Set text color to white */
+     font-size: 2em;
+ }
 
-        .card {
-            background-color: #005792;
-            /* Dark blue background */
-            border-radius: 10px;
-            /* Rounded corners for the card */
-            color: #ffffff;
-            /* White text for visibility */
-            padding: 20px;
-            width: 300px;
-            /* Equal width for both cards */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            /* Soft shadow for depth */
-            position: relative;
-            /* For absolute positioning inside */
-        }
+ .payment-method-container {
+     width: 600px;
+     text-align: center;
+     margin: auto;
+ }
 
-        .card input {
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid #ffffff;
-            /* White bottom border */
-            color: #ffffff;
-            font-size: 1em;
-            width: 100%;
-            margin-bottom: 20px;
-            padding: 5px 0;
-        }
+ .payment-method-header {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin-bottom: 20px;
+ }
 
-        .card label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 0.8em;
-        }
+ .payment-method-header img {
+     height: 50px;
+     /* Adjust size as necessary */
+     margin-right: 10px;
+ }
 
-        .card-back {
-            height: 223px;
-            /* Larger height for the back card */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
+ .payment-option {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     margin-bottom: 10px;
+     background-color: #fff;
+     border-radius: 20px;
+     /* Rounded edges */
+     padding: 10px 20px;
+     cursor: pointer;
+     /* Make it clickable */
+ }
 
-        .card-back::before {
-            content: '';
-            display: block;
-            width: 100%;
-            /* Full width of the card */
-            height: 60px;
-            /* Height of the black line */
-            background-color: #000;
-            /* Black color for the line */
-            position: absolute;
-            top: 20px;
-            /* Position the line at the top of the card-back */
-            left: 0;
-        }
+ .payment-option img {
+     height: 30px;
+     /* Adjust size as necessary */
+ }
 
-        .cvv-box {
-            border-radius: 5px;
-            color: #ffffff;
-            padding: 5px 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
+ .payment-option:hover {
+     background-color: #f2f2f2;
+     /* Hover effect */
+ }
 
-        .cvv-box input {
-            width: 60px;
-            /* Fixed width for CVV input */
-            border-bottom: 2px solid #ffffff;
-            /* White bottom border */
-            text-align: center;
-        }
+ .next-button {
+     background-color: #ccc;
+     border: none;
+     padding: 10px 80px;
+     /* Slightly longer button */
+     margin-top: 20px;
+     cursor: pointer;
+     border-radius: 20px;
+     /* Rounded button */
+     font-weight: bold;
+ }
 
-        .cvv-box .cvv-title {
-            font-size: 1em;
-        }
+ .next-button:hover {
+     background-color: #b3b3b3;
+     /* Hover effect */
+ }
 
-        .cvv-detail {
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            font-size: 0.8em;
-        }
+ /* Credit Card */
+ body {
+     font-family: 'Arial', 'Playfair Display', sans-serif;
+     background-color: #000;
+     /* Black background */
+     margin: 0;
+     padding: 0;
+     color: #ffffff;
+     /* White text for visibility */
+ }
 
-        .next-button {
-            background-color: #ccc;
-            border: none;
-            padding: 10px 80px;
-            margin-top: 30px;
-            margin-bottom: 30px;
-            /* Add bottom margin if needed */
-            cursor: pointer;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 1em;
-            color: white;
-            display: block;
-            /* Set to block to allow margins to center the element */
-            margin-left: auto;
-            margin-right: auto;
-            /* Auto margins center the block-level element */
-            width: fit-content;
-            /* Set width to the content of the button */
-        }
+ .card-container {
+     display: flex;
+     /* Place card forms next to each other */
+     align-items: flex-start;
+     /* Align cards to the top */
+     justify-content: center;
+     gap: 20px;
+     /* Space between cards */
+ }
 
-        main {
-            flex: 1 0 auto;
-            width: 100%;
-            /* Match header/footer width */
-            padding: 20px;
-            box-sizing: border-box;
-            /* Include padding in width calculation */
-            overflow-y: auto;
-            /* Enable vertical scrolling */
-        }
+ .card {
+     background-color: #005792;
+     /* Dark blue background */
+     border-radius: 10px;
+     /* Rounded corners for the card */
+     color: #ffffff;
+     /* White text for visibility */
+     padding: 20px;
+     width: 300px;
+     /* Equal width for both cards */
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     /* Soft shadow for depth */
+     position: relative;
+     /* For absolute positioning inside */
+ }
 
-        .payment-method-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+ .card input {
+     background: transparent;
+     border: none;
+     border-bottom: 2px solid #ffffff;
+     /* White bottom border */
+     color: #ffffff;
+     font-size: 1em;
+     width: 100%;
+     margin-bottom: 20px;
+     padding: 5px 0;
+ }
 
-        .payment-method-header img {
-            height: 50px;
-            /* Adjust size as necessary */
-            margin-right: 10px;
-        }
+ .card label {
+     display: block;
+     margin-bottom: 10px;
+     font-size: 0.8em;
+ }
 
-        .payment-method-container {
-            width: 600px;
-            text-align: center;
-            margin: auto;
-        }
+ .card-back {
+     height: 223px;
+     /* Larger height for the back card */
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     position: relative;
+ }
 
-        /* method */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #000;
-            /* Set body background to black */
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            /* Stack items vertically */
-            min-height: 100vh;
-            /* Full height */
-            color: white;
-            /* Set text color to white */
-            font-family: 'Playfair Display';
-            font-size: 2em;
-        }
+ .card-back::before {
+     content: '';
+     display: block;
+     width: 100%;
+     /* Full width of the card */
+     height: 60px;
+     /* Height of the black line */
+     background-color: #000;
+     /* Black color for the line */
+     position: absolute;
+     top: 20px;
+     /* Position the line at the top of the card-back */
+     left: 0;
+ }
 
-        .payment-method-container {
-            flex: 1;
-            /* Fill available space */
-            width: 600px;
-            text-align: center;
-            margin: auto 0;
-            /* Center in the available space */
-        }
+ .cvv-box {
+     border-radius: 5px;
+     color: #ffffff;
+     padding: 5px 10px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     width: 100%;
+ }
 
-        .payment-method-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+ .cvv-box input {
+     width: 60px;
+     /* Fixed width for CVV input */
+     border-bottom: 2px solid #ffffff;
+     /* White bottom border */
+     text-align: center;
+ }
 
-        .payment-method-header img {
-            height: 50px;
-            /* Adjust size as necessary */
-            margin-right: 10px;
-        }
+ .cvv-box .cvv-title {
+     font-size: 1em;
+ }
 
-        .payment-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            background-color: #fff;
-            border-radius: 20px;
-            /* Rounded edges */
-            padding: 10px 20px;
-            cursor: pointer;
-            /* Make it clickable */
-        }
+ .cvv-detail {
+     position: absolute;
+     bottom: 10px;
+     right: 20px;
+     font-size: 0.8em;
+ }
 
-        .payment-option img {
-            height: 30px;
-            /* Adjust size as necessary */
-        }
+ .next-button {
+     background-color: #ccc;
+     border: none;
+     padding: 10px 80px;
+     margin-top: 30px;
+     margin-bottom: 30px;
+     /* Add bottom margin if needed */
+     cursor: pointer;
+     border-radius: 20px;
+     font-weight: bold;
+     font-size: 1em;
+     color: white;
+     display: block;
+     /* Set to block to allow margins to center the element */
+     margin-left: auto;
+     margin-right: auto;
+     /* Auto margins center the block-level element */
+     width: fit-content;
+     /* Set width to the content of the button */
+ }
 
-        .payment-option:hover {
-            background-color: #f2f2f2;
-            /* Hover effect */
-        }
+ main {
+     flex: 1 0 auto;
+     width: 100%;
+     /* Match header/footer width */
+     padding: 20px;
+     box-sizing: border-box;
+     /* Include padding in width calculation */
+     overflow-y: auto;
+     /* Enable vertical scrolling */
+ }
 
-        .next-button {
-            background-color: #ccc;
-            border: none;
-            padding: 10px 80px;
-            /* Slightly longer button */
-            margin-top: 20px;
-            cursor: pointer;
-            border-radius: 20px;
-            /* Rounded button */
-            font-weight: bold;
-        }
+ .payment-method-header {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin-bottom: 20px;
+ }
 
-        .next-button:hover {
-            background-color: #b3b3b3;
-            /* Hover effect */
-        }
+ .payment-method-header img {
+     height: 50px;
+     /* Adjust size as necessary */
+     margin-right: 10px;
+ }
 
-    .container {
-        font-family: 'Open Sans', sans-serif;
-        max-width: 100%;
-        margin: 20px auto;
-        background-color: #000;
-        color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .steps {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        position: relative;
-        padding: 20px 0;
-    }
-    .step {
-        text-align: center;
-        flex-grow: 1;
-        flex-basis: 20%; /* Adjust this value to control the minimum width of each step */
-    }
-    .step-circle {
-        width: 40px;
-        height: 40px;
-        line-height: 38px;
-        border: 2px solid #fff;
-        border-radius: 50%;
-        display: inline-block;
-        color: #fff;
-        background-color: #444;
-        position: relative;
-        z-index: 1;
-    }
-    .step-text {
-        display: block;
-        margin-bottom: 15px;
-        font-weight: 500;
-    }
-    .active-step {
-        background-color: green;
-    }
-    .step-line {
-        display: none; /* Hide step-lines on smaller screens for better responsiveness */
-    }
-    @media (min-width: 768px) {
-        .step-line {
-            height: 2px;
-            background-color: #fff;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 0;
-            right: 0;
-            z-index: 0;
-            display: block;
-        }
-    }
-    /* Adjustments for first and last step-circle positioning on smaller screens */
-    .step:first-child .step-circle {
-        margin-left: 0; /* Adjust as needed */
-    }
-    .step:last-child .step-circle {
-        margin-right: 0; /* Adjust as needed */
-    }
+ .payment-method-container {
+     width: 600px;
+     text-align: center;
+     margin: auto;
+ }
+
+ /* method */
+ body {
+     font-family: 'Arial', sans-serif;
+     background-color: #000;
+     /* Set body background to black */
+     margin: 0;
+     padding: 0;
+     display: flex;
+     flex-direction: column;
+     /* Stack items vertically */
+     min-height: 100vh;
+     /* Full height */
+     color: white;
+     /* Set text color to white */
+     font-family: 'Playfair Display';
+     font-size: 2em;
+ }
+
+ .payment-method-container {
+     flex: 1;
+     /* Fill available space */
+     width: 600px;
+     text-align: center;
+     margin: auto 0;
+     /* Center in the available space */
+ }
+
+ .payment-method-header {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin-bottom: 20px;
+ }
+
+ .payment-method-header img {
+     height: 50px;
+     /* Adjust size as necessary */
+     margin-right: 10px;
+ }
+
+ .payment-option {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     margin-bottom: 10px;
+     background-color: #fff;
+     border-radius: 20px;
+     /* Rounded edges */
+     padding: 10px 20px;
+     cursor: pointer;
+     /* Make it clickable */
+ }
+
+ .payment-option img {
+     height: 30px;
+     /* Adjust size as necessary */
+ }
+
+ .payment-option:hover {
+     background-color: #f2f2f2;
+     /* Hover effect */
+ }
+
+ .next-button {
+     background-color: #ccc;
+     border: none;
+     padding: 10px 80px;
+     /* Slightly longer button */
+     margin-top: 20px;
+     cursor: pointer;
+     border-radius: 20px;
+     /* Rounded button */
+     font-weight: bold;
+ }
+
+ .next-button:hover {
+     background-color: #b3b3b3;
+     /* Hover effect */
+ }
+
+ .container {
+     font-family: 'Open Sans', sans-serif;
+     max-width: 100%;
+     margin: 20px auto;
+     background-color: #000;
+     color: #fff;
+     padding: 20px;
+     border-radius: 8px;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
+
+ .steps {
+     display: flex;
+     justify-content: center;
+     flex-wrap: wrap;
+     gap: 10px;
+     position: relative;
+     padding: 20px 0;
+ }
+
+ .step {
+     text-align: center;
+     flex-grow: 1;
+     flex-basis: 20%;
+     /* Adjust this value to control the minimum width of each step */
+ }
+
+ .step-circle {
+     width: 40px;
+     height: 40px;
+     line-height: 38px;
+     border: 2px solid #fff;
+     border-radius: 50%;
+     display: inline-block;
+     color: #fff;
+     background-color: #444;
+     position: relative;
+     z-index: 1;
+ }
+
+ .step-text {
+     display: block;
+     margin-bottom: 15px;
+     font-weight: 500;
+ }
+
+ .active-step {
+     background-color: green;
+ }
+
+ .step-line {
+     display: none;
+     /* Hide step-lines on smaller screens for better responsiveness */
+ }
+
+ @media (min-width: 768px) {
+     .step-line {
+         height: 2px;
+         background-color: #fff;
+         position: absolute;
+         top: 50%;
+         transform: translateY(-50%);
+         left: 0;
+         right: 0;
+         z-index: 0;
+         display: block;
+     }
+ }
+
+ /* Adjustments for first and last step-circle positioning on smaller screens */
+ .step:first-child .step-circle {
+     margin-left: 0;
+     /* Adjust as needed */
+ }
+
+ .step:last-child .step-circle {
+     margin-right: 0;
+     /* Adjust as needed */
+ }
