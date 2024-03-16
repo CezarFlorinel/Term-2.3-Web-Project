@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout Summary</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
 </head>
 <body class="bg-black text-white flex justify-center items-center min-h-screen">
     <div class="w-full max-w-4xl mx-auto p-8">
@@ -33,12 +34,8 @@
                 <!-- Repeat this structure for each item, replace with actual data -->
                 <div class="flex justify-between items-center">
                     <div class="w-1/4 flex items-center">
-<<<<<<< HEAD:Web design term 3 project/app/views/payment/Payment_Check_Info.php
-                        <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1" class="w-20 h-20 mr-2">
-=======
                         <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
                             class="w-20 h-20 rounded-full mr-2">
->>>>>>> secondary-main:Web design term 3 project/app/views/payment/Payment_Chechk_Info.php
                         English Tour
                     </div>
                     <div class="w-1/4">25 Jul<br>10:00-12:30</div>
@@ -51,12 +48,8 @@
 
                 <div class="flex justify-between items-center">
                     <div class="w-1/4 flex items-center">
-<<<<<<< HEAD:Web design term 3 project/app/views/payment/Payment_Check_Info.php
-                        <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1" class="w-20 h-20 mr-2">
-=======
                         <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1"
                             class="w-20 h-20 rounded-full mr-2">
->>>>>>> secondary-main:Web design term 3 project/app/views/payment/Payment_Chechk_Info.php
                         English Tour
                     </div>
                     <div class="w-1/4">27 Jul<br>21:00-02:00</div>
@@ -69,12 +62,8 @@
 
                 <div class="flex justify-between items-center">
                     <div class="w-1/4 flex items-center">
-<<<<<<< HEAD:Web design term 3 project/app/views/payment/Payment_Check_Info.php
-                        <img src="assets/images/Payment_event_images/Checkinfo3.png" alt="Event 1" class="w-20 h-20 mr-2">
-=======
                         <img src="assets/images/Payment_event_images/Checkinfo3.png" alt="Event 1"
                             class="w-20 h-20 rounded-full mr-2">
->>>>>>> secondary-main:Web design term 3 project/app/views/payment/Payment_Chechk_Info.php
                         English Tour
                     </div>
                     <div class="w-1/4">27 Jul<br>13:00-15:30</div>

@@ -12,11 +12,10 @@
         <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
 
-<body>
-    <?php include __DIR__ . '/../header.php'; ?>
+<body class="creditcard-page">
     <div style="height: 100px;"></div>
-    <div class="payment-method-container" style="width: 50%; margin-left: auto; margin-right: auto">
-        <div class="payment-method-header" style="color: white ; font-size: 2em; text-decoration: underline">
+    <div class="payment-method-container">
+        <div class="payment-method-header">
             <img src="assets/images/Payment_event_images/PaymentMethodIcon.png" alt="Payment Details Icon">
             <h2>Payment Details:</h2>
         </div>
@@ -45,6 +44,5 @@
 
         <button type="submit" class="next-button">NEXT STEP →</button>
         <div style="height: 100px;"></div>
-        <?php include __DIR__ . '/../footer.php'; ?>
 </body>
 </html>
