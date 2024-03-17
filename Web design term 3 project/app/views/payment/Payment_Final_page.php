@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purchase Success</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
 
 <body class="bg-black text-black flex justify-center items-center min-h-screen">
+<div class="scale-container">
     <div class="w-full max-w-lg p-10 bg-white border border-gray-700 rounded-lg text-center">
         <img src="assets/images/Payment_event_images/success-green-check-mark-icon 1.png" alt="Success"
             class="mx-auto mb-6">

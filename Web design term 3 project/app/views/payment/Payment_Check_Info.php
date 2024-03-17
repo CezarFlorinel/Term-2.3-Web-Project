@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout Summary</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
+    <link rel="stylesheet" href="CSS_files/payment.css">
+
 </head>
 <body class="bg-black text-white flex justify-center items-center min-h-screen">
+<div class="scale-container">
     <div class="w-full max-w-4xl mx-auto p-8">
         <!-- Header Section -->
         <div class="flex items-center mb-10" style="text-decoration: underline">

@@ -14,6 +14,7 @@
 
 <body class="method-page">
 <?php include __DIR__ . '/../header.php'; ?>
+<div class="scale-container">
     <div style="height: 150px;"></div>
     <div class="payment-method-container" style="width: 50%; margin-left: auto; margin-right: auto">
         <div class="payment-method-header" style="color: white ; text-decoration: underline">
@@ -35,7 +36,6 @@
         <button class="next-button">NEXT STEP →</button>
     </div>
     <div style="height: 150px;"></div>
-    <?php include __DIR__ . '/../footer.php'; ?>
     <script>
         function selectPaymentMethod(method) {
             // Placeholder function for handling click event on payment options
@@ -43,6 +43,8 @@
             // Implement further logic as required
         }
     </script>
+     <?php include __DIR__ . '/../footer.php'; ?>
+    </div>
 </body>
 
 </html>

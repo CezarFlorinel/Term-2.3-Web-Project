@@ -11,8 +11,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
-
 <body class="creditcard-page">
+<div class="scale-container">
     <div style="height: 100px;"></div>
     <div class="payment-method-container">
         <div class="payment-method-header">
@@ -44,5 +44,6 @@
 
         <button type="submit" class="next-button">NEXT STEP →</button>
         <div style="height: 100px;"></div>
+        </div>
 </body>
 </html>

@@ -13,6 +13,7 @@
 </head>
 
 <body class="ideal-page">
+<div class="scale-container">
     <?php include __DIR__ . '/../header.php'; ?>
 
     <div style="height: 150px;"></div>
@@ -56,6 +57,7 @@
             // Implement further logic as required
         }
     </script>
+    </div>
 </body>
 
 </html>

@@ -1,3 +1,19 @@
+/* Scalability */
+
+.scale-container {
+    transform-origin: top left; /* Ensures scaling happens from top left */
+    transform: scale(1); /* Default scale */
+}
+
+/* Example media query for smaller screens */
+@media (max-width: 1200px) {
+    .scale-container {
+        transform: scale(0.8); /* Adjust scale value based on your needs */
+    }
+}
+
+/* Payment-info-page */
+
 .payment-info-page {
     font-family: 'Open Sans', sans-serif;
     background-color: #000;
@@ -149,7 +165,7 @@
  .ideal-page .next-button {
      background-color: #ccc;
      border: none;
-     padding: 5px 80px;
+     padding: 20px 50px;
      /* Slightly longer button */
      margin-top: 20px;
      cursor: pointer;
@@ -190,8 +206,8 @@
     border-radius: 10px; /* Rounded corners for the card */
     color: #ffffff; /* White text for visibility */
     padding: 20px; /* Increase padding for more space inside the card */
-    height: 300px;
-    width: 400px; /* Increased width from 300px to 350px */
+    height: 350px;
+    width: 450px; /* Increased width from 300px to 350px */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
     position: relative; /* For absolute positioning inside */
     margin-bottom: 20px; /* Add space between cards if they wrap */
@@ -216,8 +232,8 @@
  }
 
  .creditcard-page .card-back {
-     height: 300px;
-     width: 400px;
+     height: 350px;
+     width: 450px;
      /* Larger height for the back card */
      display: flex;
      align-items: center;
@@ -260,6 +276,7 @@
 
  .creditcard-page .cvv-box .cvv-title {
      font-size: 1em;
+     margin-right: 10px;
  }
 
  .creditcard-page .cvv-detail {
@@ -267,12 +284,13 @@
      bottom: 10px;
      right: 20px;
      font-size: 0.8em;
+     margin-left: 5px; 
  }
 
  .creditcard-page .next-button {
      background-color: #ccc;
      border: none;
-     padding: 50px 80px;
+     padding: 20px 50px;
      margin-top: 30px;
      margin-bottom: 30px;
      /* Add bottom margin if needed */
@@ -379,7 +397,7 @@
 .method-page .next-button {
    background-color: #ccc;
    border: none;
-   padding: 5px 80px;
+   padding: 20px 50px;
    margin-top: 20px;
    cursor: pointer;
    border-radius: 20px;

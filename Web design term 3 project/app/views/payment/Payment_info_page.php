@@ -14,7 +14,7 @@ include __DIR__ . '/../header.php';
 </head>
 
 <body class="payment-info-page">
-<div class="container">
+<div class="scale-container">
             <!-- Form Title -->
             <div class="mb-6 flex items-center">
                 <img src="assets/images/Payment_event_images/Payment_info.png" alt="Payment Information"
@@ -103,6 +103,7 @@ include __DIR__ . '/../header.php';
                 </div>
             </form>
         </div>
+    </div>
     </div>
 </body>
 <?php
