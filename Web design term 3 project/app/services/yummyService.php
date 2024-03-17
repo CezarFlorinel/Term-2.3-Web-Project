@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Repositories\YummyRepository;
+use App\Models\Yummy_event\Restaurant;
 
 class YummyService
 {
@@ -24,6 +25,32 @@ class YummyService
         return $this->yummyRepository->getCurrentHomepageDataRestaurantImagePath($id, $columnName);
     }
 
+    public function getRestaurantsNameAndId()
+    {
+        return $this->yummyRepository->getRestaurantsNameAndId();
+    }
+
+    //--------------------Restaurant Part ------------------
+    public function getRestaurantById($id): Restaurant
+    {
+        return $this->yummyRepository->getRestaurantById($id);
+    }
+
+    public function getRestaurantReviews($id): array
+    {
+        return $this->yummyRepository->getRestaurantReviews($id);
+    }
+
+    public function getRestaurantImagePathGallery($id): array
+    {
+        return $this->yummyRepository->getRestaurantImagePathGallery($id);
+    }
+
+    public function getRestaurantSession($id): array
+    {
+        return $this->yummyRepository->getRestaurantSession($id);
+    }
+
     //-------------------- EDIT METHODS --------------------------------------------------------
     //-------------------- Home Part ------------------
     public function editHomepageDataRestaurant($id, $subheader, $description)
@@ -35,6 +62,25 @@ class YummyService
     {
         $this->yummyRepository->editImagePathHomepageDataRestaurant($id, $columnName, $imageUrl);
     }
+
+    //--------------------Restaurant Part ------------------
+
+    public function editRestaurant($id, $name, $location, $numberOfSeats, $rating, $descriptionTopPart, $descriptionSideOne, $descriptionSideTwo)
+    {
+        $this->yummyRepository->editRestaurant($id, $name, $location, $numberOfSeats, $rating, $descriptionTopPart, $descriptionSideOne, $descriptionSideTwo);
+    }
+
+    public function editRestaurantImagePath($id, $columnName, $imageUrl)
+    {
+        $this->yummyRepository->editRestaurantImagePath($id, $columnName, $imageUrl);
+    }
+
+    public function editRestaurantTypeOfCuisine($id, $cuisineTypes)
+    {
+        $this->yummyRepository->editRestaurantTypeOfCuisine($id, $cuisineTypes);
+    }
+
+
 
 
 }
