@@ -15,3 +15,5 @@ services:
         working_dir: /app    
         volumes:
             - ./app:/app
+            - ./app/config/php.ini:/usr/local/etc/php/php.ini
+

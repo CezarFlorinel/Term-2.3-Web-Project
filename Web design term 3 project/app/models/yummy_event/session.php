@@ -1,5 +1,5 @@
 <?php
-namespace App\Models;
+namespace App\Models\Yummy_event;
 
 class Session implements \JsonSerializable
 {
