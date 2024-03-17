@@ -16,6 +16,9 @@ RUN apt-get update \
 # Install Composer globally
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Copy the php.ini file to the container
+COPY ./app/config/php.ini /usr/local/etc/php/php.ini
+
 
 # Install system dependencies for Composer, zip extension, and other necessary tools
 RUN apt-get update && \
