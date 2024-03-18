@@ -19,7 +19,7 @@
             color: #ffd700;
             /* gold color */
         }
-        
+
         body {
             font-family: 'Playfair Display', serif;
         }
@@ -262,19 +262,134 @@
                         </p>
                     </div>
                 </div>
+                <section class="bg-gray-600 rounded-lg py-8">
+                    <div class="max-w-7xl mx-auto px-4">
+                        <div class="flex flex-wrap -mx-4">
+                            <!-- Sidebar: Filter Section -->
+                            <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">
+                                <div class="bg-black p-6 shadow-lg rounded-lg">
+                                    <h3 class="text-xl font-bold mb-4">Filter Tickets</h3>
+                                    <!-- Artists Filter -->
+                                    <div class="mb-4 relative">
+                                        <label class="block font-bold text-white mb-1" for="artists">Artists</label>
+                                        <div class="mt-1 relative">
+                                            <select id="artists" class="form-select block w-full pl-3 pr-10 py-2 border border-gray-300 shadow-sm rounded-md appearance-none bg-white" onchange="this.style.color='black'">
+                                                <option value="" disabled selected hidden>All Artists</option>
+                                                <option>Hardwell</option>
+                                                <option>Armin van Buuren</option>
+                                                <option>Martin Garrix</option>
+                                                <option>Tiesto</option>
+                                                <option>Afrojack</option>
+                                                <option>Nicky Romero</option>
+                                                <option>All Artists</option>
+                                            </select>
+                                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <!-- Date Filter -->
+                                    <div class="mb-4">
+                                        <label class="block font-bold text-white mb-1">DATE</label>
+                                        <div class="flex flex-col space-y-2">
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox" name="date[]" value="26.07">
+                                                <span class="ml-2"> Friday 26 July</span>
+                                            </label>
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox" name="date[]" value="27.07">
+                                                <span class="ml-2">Saturday 27 July</span>
+                                            </label>
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox" name="date[]" value="27.07">
+                                                <span class="ml-2">Sunday 28 July</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- Location Filter -->
+                                    <div class="mb-4">
+                                        <label class="block font-bold text-white mb-1">LOCATION</label>
+                                        <div class="flex flex-col space-y-2">
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox" name="location[]" value="Club Ruis">
+                                                <span class="ml-2">Club Ruis</span>
+                                            </label>
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox" name="location[]" value="Club Ruis">
+                                                <span class="ml-2">XO The club</span>
+                                            </label>
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox" name="location[]" value="Club Ruis">
+                                                <span class="ml-2">JopenKerk</span>
+                                            </label>
+                                            <label class="inline-flex items-center">
+                                                <input type="checkbox" class="form-checkbox" name="location[]" value="Club Ruis">
+                                                <span class="ml-2">JopenKerk</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- Available Tickets Filter -->
+                                    <div class="mb-4">
+                                        <label class="inline-flex items-center">
+                                            <input type="checkbox" class="form-checkbox" name="available" value="1">
+                                            <span class="ml-2">Show only available tickets</span>
+                                        </label>
+                                    </div>
+                                    <button class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg w-full">Reset all filters</button>
+                                </div>
+                            </div>
+
+                            <!-- Ticket Display -->
+                            <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex items-center w-full max-w-4xl mx-auto">
+                                <div class="flex-1">
+                                    <div class="text-2xl font-bold mb-2">
+                                        Nicky Romero / Afrojack
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-4 text-sm mb-4">
+                                        <div>
+                                            <div class="font-semibold">Location</div>
+                                            <div>📍 LICHTFABRIEK</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold">Date&Time</div>
+                                            <div>26 JUL - FRIDAY</div>
+                                            <div>20:00 - 04:00</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold">Session</div>
+                                            <div>BACK 2 BACK</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center flex-1 justify-end">
+                                    <div class="text-lg font-semibold mr-10">
+                                        Price
+                                    </div>
+                                    <div class="text-3xl font-bold mr-10">
+                                        € 75,00
+                                    </div>
+                                    <div class="flex items-center mr-10">
+                                        <button class="bg-gray-700 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <i class="fas fa-minus text-white"></i>
+                                        </button>
+                                        <span class="mx-3">1</span>
+                                        <button class="bg-gray-700 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <i class="fas fa-plus text-white"></i>
+                                        </button>
+                                    </div>
+                                    <button class="bg-blue-500 py-2 px-6 rounded-lg font-bold text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        Add ticket to cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-
         </div>
-        </div>
-
-
     </main>
-
-    <footer>
-
-    </footer>
-    <!-- JavaScript Files -->
 </body>
 
 </html>

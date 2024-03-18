@@ -143,7 +143,6 @@
             </div>
         </section>
 
-
         <section class="flex items-center justify-center pt-8 px-4 lg:px-8">
             <div class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4 w-full max-w-4xl">
                 <!-- Left Panel -->
