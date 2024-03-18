@@ -99,6 +99,11 @@ class YummyService
         $this->yummyRepository->deleteRestaurantSession($id);
     }
 
+    public function deleteRestaurantReview($id)
+    {
+        $this->yummyRepository->deleteRestaurantReview($id);
+    }
+
 
     //-------------------- ADD METHODS --------------------------------------------------------
 
@@ -108,7 +113,10 @@ class YummyService
         $this->yummyRepository->addRestaurantSession($restaurantid, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime);
     }
 
-
+    public function addRestaurantReview($restaurantid, $rating, $review, )
+    {
+        $this->yummyRepository->addRestaurantReview($restaurantid, $rating, $review);
+    }
 
 
 

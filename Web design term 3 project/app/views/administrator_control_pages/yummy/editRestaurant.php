@@ -122,14 +122,9 @@ $cusineTypes = explode(";", $restaurant->cuisineTypes);
                     </div>
                 </div>
 
-                <!-- Restaurant Table Info Section ------------------------------------------------------- -->
-
-
-
             </div>
 
-
-            <!-- Session Table Info Section ------------------------------------------------------- -->
+            <!-- Session Cards Info Section ------------------------------------------------------- -->
             <h1 class="text-3xl text-center mb-6">Restaurant Sessions</h1>
             <div class="flex flex-wrap -mx-4"> <!-- Container for the cards -->
                 <?php foreach ($sessions as $session): ?>
@@ -182,43 +177,101 @@ $cusineTypes = explode(";", $restaurant->cuisineTypes);
                         </div>
                     </div>
                 <?php endforeach; ?>
-                <div class="add-session-container p-4">
-                    <h2 class="text-xl font-semibold mb-2">Add New Session</h2>
-                    <!-- New Session fields -->
-                    <div class="mb-4">Available Seats:
-                        <input type="number" class="new-session-input bg-gray-200 p-2 rounded"
-                            data-new-field="availableSeats">
+
+                <div class="card-container p-4 md:w-1/2 lg:w-1/3">
+                    <div class="add-session-container bg-white shadow-md rounded-lg overflow-hidden p-6">
+                        <h2 class="text-xl font-semibold mb-2">Add New Session</h2>
+                        <!-- New Session fields -->
+                        <div class="mb-4">Available Seats:
+                            <input type="number" class="new-session-input bg-gray-200 p-2 rounded"
+                                data-new-field="availableSeats">
+                        </div>
+                        <div class="mb-4">Prices for Adults: €
+                            <input type="text" class="new-session-input bg-gray-200 p-2 rounded"
+                                data-new-field="pricesForAdults">
+                        </div>
+                        <div class="mb-4">Prices for Children: €
+                            <input type="text" class="new-session-input bg-gray-200 p-2 rounded"
+                                data-new-field="pricesForChildren">
+                        </div>
+                        <div class="mb-4">Reservation Fee: €
+                            <input type="text" class="new-session-input bg-gray-200 p-2 rounded"
+                                data-new-field="reservationFee">
+                        </div>
+                        <div class="mb-4">Start Time:
+                            <input type="time" class="new-session-input bg-gray-200 p-2 rounded"
+                                data-new-field="startTime">
+                        </div>
+                        <div class="mb-4">End Time:
+                            <input type="time" class="new-session-input bg-gray-200 p-2 rounded"
+                                data-new-field="endTime">
+                        </div>
+                        <!-- Create button -->
+                        <button
+                            class="create-session-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Create
+                            New Session</button>
                     </div>
-                    <div class="mb-4">Prices for Adults: €
-                        <input type="text" class="new-session-input bg-gray-200 p-2 rounded"
-                            data-new-field="pricesForAdults">
-                    </div>
-                    <div class="mb-4">Prices for Children: €
-                        <input type="text" class="new-session-input bg-gray-200 p-2 rounded"
-                            data-new-field="pricesForChildren">
-                    </div>
-                    <div class="mb-4">Reservation Fee: €
-                        <input type="text" class="new-session-input bg-gray-200 p-2 rounded"
-                            data-new-field="reservationFee">
-                    </div>
-                    <div class="mb-4">Start Time:
-                        <input type="time" class="new-session-input bg-gray-200 p-2 rounded" data-new-field="startTime">
-                    </div>
-                    <div class="mb-4">End Time:
-                        <input type="time" class="new-session-input bg-gray-200 p-2 rounded" data-new-field="endTime">
-                    </div>
-                    <!-- Create button -->
-                    <button
-                        class="create-session-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Create
-                        New Session</button>
                 </div>
             </div>
 
-        </div>
-    </div>
-    </div>
+            <!-- Reviews Table Info Section ------------------------------------------------------- -->
+            <h1 class="text-3xl text-center mb-6">Restaurant Reviews</h1>
+            <div class="flex flex-wrap -mx-4"> <!-- Container for the cards -->
+                <?php foreach ($reviews as $review): ?>
+                    <div class="review-container p-4 md:w-1/2 lg:w-1/3"
+                        data-id="<?php echo htmlspecialchars($review->id); ?>">
+                        <!-- Each card -->
+                        <div class="bg-white shadow-md rounded-lg overflow-hidden p-6"> <!-- Card styling -->
+                            <div class="mb-4">Review Text:
+                                <div class="review-output bg-gray-200 p-2 rounded w-full" data-field="reviewText">
+                                    <?php echo nl2br(htmlspecialchars($review->description)); ?>
+                                </div>
+                            </div>
+                            <div class="mb-4">Rating:
+                                <div class="review-output bg-gray-200 p-2 rounded" data-field="rating">
+                                    <?php echo htmlspecialchars($review->numberOfStars); ?> / 5
+                                </div>
+                            </div>
 
-    <script src="javascript/Yummy/edit_restaurant_admin.js"></script>
+                            <button
+                                class="delete-review-btn py-2 px-4 bg-red-500 text-white rounded hover:bg-red-700 transition duration-150"
+                                data-session-id="<?php echo htmlspecialchars($review->id); ?>">Delete</button>
+
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+                <div class="card-container p-4 md:w-1/2 lg:w-1/3">
+                    <div class="add-review-container bg-white shadow-md rounded-lg overflow-hidden p-6">
+                        <h2 class="text-xl font-semibold mb-2">Add New Review</h2>
+                        <div class="mb-4">Review Text:
+                            <textarea class="new-review-input bg-gray-200 p-2 rounded w-full" data-field="reviewText"
+                                rows="4"></textarea>
+                        </div>
+                        <div class="mb-4">Rating:
+                            <input type="number" min="1" max="5" class="new-review-input bg-gray-200 p-2 rounded"
+                                value="" data-field="rating">
+                        </div>
+                        <button
+                            class="create-review-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Create
+                            New Review</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Gallery Section ------------------------------------------------------- -->
+            <h1 class="text-3xl text-center mb-6">Restaurant Gallery</h1>
+            <div class="bg-white shadow-md rounded-lg p-6">
+
+            </div>
+
+
+
+        </div>
+
+
+        <script src="javascript/Yummy/edit_restaurant_admin.js"></script>
 
 </body>
 
