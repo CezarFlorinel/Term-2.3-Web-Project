@@ -1,4 +1,3 @@
-<!-- What is there to do? -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Vampiro+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="CSS_files/home.css">
 </head>
 
@@ -21,9 +21,6 @@
   // Fetch users
   $users = $repository->getUsers();
   ?>
-
-  <!DOCTYPE html>
-  <html>
 
   <head>
     <style>
@@ -77,62 +74,7 @@
         padding: 8px 32px;
         font-size: 24px;
       }
-    </style>
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Vampiro+One&display=swap" rel="stylesheet">
-  </head>
 
-  <body>
-    <div class="word-container">
-      <div class="word-vertical haarlem" style="margin-left: 120px; margin-top: 30px;">
-        <div>H</div>
-        <div>A</div>
-        <div>A</div>
-        <div>R</div>
-        <div>L</div>
-        <div>E</div>
-        <div>M</div>
-      </div>
-      <div class="word-vertical festival" style="margin-left: 60px; margin-top: 30px;">
-        <div>F</div>
-        <div>E</div>
-        <div>S</div>
-        <div>T</div>
-        <div>I</div>
-        <div>V</div>
-        <div>A</div>
-        <div>L</div>
-      </div>
-    </div>
-    <div class="banner">
-      Let The Fun Begin
-    </div>
-  </body>
-
-  </html>
-
-
-  <!DOCTYPE html>
-  <html lang="en">
-  <main>
-    <section class="section-bg py-10 px-10">
-      <div class="text-center mb-8 text-white">
-        <h2 class="text-6xl font-bold">WHAT IS THERE TO DO?</h2>
-        <div class="flex items-center justify-center"
-          style="background: url('assets/images/elements/Union.png') no-repeat center center; background-size: contain; margin-left: 50px; margin-right: 50px; min-height: 300px;">
-          <p style="font-size: 1.4em; font-weight: normal; color: black; border-radius: 10px;">
-            Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills,
-            savor the city's culinary delights, and let kids revel in a mobile event tied to the Taylers Museum.
-            For the night owls, "Dance" beckons with lively hotspots. Discover history, flavors, family fun,
-            and nightlife in this captivating city—a blend of past, present, and endless possibilities.</p>
-        </div>
-      </div>
-      <div class="container mx-auto grid grid-cols-1 gap-4"></div>
-    </section>
-  </main>
-
-  <div class="container mx-auto grid grid-cols-1 gap-4">
-
-    <style>
       .event-bg {
         background-color: white;
         border-radius: 8px;
@@ -188,85 +130,7 @@
       .btn-yellow {
         background-color: yellow;
       }
-    </style>
 
-    <!-- Dance -->
-    <div class="event-bg rounded-lg p-6 flex items-center justify-between"
-      style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
-      <div style="flex: 1; max-width: 50%;">
-        <img class="image-round" src="assets/images/Home_page_Images/Dance_Image_Homepage.png"
-          alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
-          style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
-      </div>
-      <div style="flex: 1; padding: 20px; margin-right: 250px;">
-        <h3 class="text-gold text-2xl font-bold mt-4">Dance!</h3>
-        <p class="text-gray-600 mt-2">If you are a music enthusiast, Haarlem is THE PLACE for YOU!
-          With lots of bars and music venues, you can find any kind of music you might like: from the
-          best techno parties to live bands playing jazz and songwriter’s concerts.
-          Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
-        <a href="#" class="bg-red-500 text-white py-2 px-20 rounded"
-          style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
-      </div>
-    </div>
-
-    <!-- Food -->
-    <div class="event-bg rounded-lg p-6 flex items-center justify-between"
-      style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
-      <div style="flex: 1; max-width: 50%;">
-        <img src="assets\images\Home_page_Images\Yummy_Image_Homepage.png"
-          alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
-          style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
-      </div>
-      <div style="flex: 1; padding: 20px; margin-right: 250px;">
-        <h3 class="text-gold text-2xl font-bold mt-4">Yummy!</h3>
-        <p class="text-gray-600 mt-2">
-          Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses.
-          While Haarlem may not be a global culinary icon, our city is home to a diverse array of restaurants that are
-          sure to captivate
-          your taste buds. Dive into a world of gastronomic delights, where each bite tells a unique story.</p>
-        <a href="#" class="bg-blue-500 text-white py-2 px-20 rounded"
-          style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
-      </div>
-    </div>
-
-
-    <!-- History -->
-    <div class="event-bg rounded-lg p-6 flex items-center justify-between"
-      style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
-      <div style="flex: 1; max-width: 50%;">
-        <img src="assets\images\Home_page_Images\History_Image_Homepage.png"
-          alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
-          style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
-      </div>
-      <div style="flex: 1; padding: 20px; margin-right: 250px;">
-        <h3 class="text-gold text-2xl font-bold mt-4">History!</h3>
-        <p class="text-gray-600 mt-2">
-          Haarlem, a city rich in history and adorned with captivating tales,
-          offering a treasure trove of landmarks waiting to be explored.
-          We invite you to immerse yourself in this enchanting blend of antiquity and modernity,
-          where the past's timeless charm meets the vibrant pulse of the present—a perfect opportunity
-          to discover and indulge in the city's breath-taking splendor.</p>
-        <a href="#" class="bg-yellow-500 text-white py-2 px-20 rounded"
-          style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
-      </div>
-    </div>
-
-    <div style="height: 20px;"></div>
-
-  </html>
-
-  <div style="height: 20px;"></div>
-  <div style="height: 20px;"></div>
-
-  <!-- Festival Location -->
-  <!DOCTYPE html>
-  <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Festival Location</title>
-    <style>
       .festival-location-section {
         border-radius: 8px;
         padding: 24px;
@@ -349,48 +213,6 @@
         font-size: 50px;
         /* Adjust the font size as needed */
       }
-    </style>
-  </head>
-
-  <body>
-
-    <div class="right-aligned-text">
-      WHERE IS THE FESTIVAL?
-    </div>
-
-    <div class="festival-location-section">
-      <div class="info-box">
-        <!-- <h2>WHERE IS THE FESTIVAL?</h2> -->
-        <p>Discover the magic of The Festival in the vibrant city of Haarlem,
-          nestled to the west of Amsterdam and north of The Hague.
-          The festival takes place across the entire city of Haarlem, but most noticeably in the center.
-          Join us for an unforgettable experience!</p>
-        <a href="#" class="btn" style="padding: 0.5rem 1rem; width: 50%; margin-left: 180px; font-size: 0.9rem;">Check
-          festival schedule</a>
-      </div>
-
-      <div>
-        <!-- Replace the src attribute's value with the actual path to your image -->
-        <iframe src="assets/images/Home_page_Images/Map_Image_Homepage.png" frameborder="0"></iframe>
-      </div>
-    </div>
-
-  </body>
-
-  </html>
-
-  <div style="height: 20px;"></div>
-
-  <!DOCTYPE html>
-  <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Schedule</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet">
-    <style>
       @import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
 
       .font-sans {
@@ -415,6 +237,212 @@
         letter-spacing: 0.1em;
         /* Added spacing between letters */
       }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #f3f3f3;
+        /* Light grey background for the whole page */
+      }
+
+      .event-section {
+        background-color: white;
+        /* White background for the section */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: 'Comic Sans MS', 'Comic Neue', sans-serif;
+        /* This is a playful font that might match the style */
+        padding: 40px;
+        /* Increased padding for more vertical space */
+        margin: 20px;
+        /* Adds margin for some space from the edges of the viewport */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* Optional: adds a subtle shadow for depth */
+        border-radius: 10px;
+        /* Optional: rounds the corners of the section */
+      }
+
+      .event-title {
+        font-size: 48px;
+        color: red;
+      }
+
+      .mobile-event {
+        font-size: 32px;
+        color: red;
+        font-style: italic;
+      }
+
+      .event-description {
+        font-size: 24px;
+      }
+
+      .event-image,
+      .qr-code {
+        width: 250px;
+        /* Increased size of images */
+        height: auto;
+        margin: 0 20px;
+        /* Adds horizontal spacing around the images */
+      }
+
+      /* Ensure the content is centered */
+      .content {
+        color: black;
+        flex-grow: 2;
+        /* Allows the content to grow and fill the space for better centering */
+        padding: 0 40px;
+        /* Adds padding to the left and right of the content */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="word-container">
+      <div class="word-vertical haarlem" style="margin-left: 120px; margin-top: 30px;">
+        <div>H</div>
+        <div>A</div>
+        <div>A</div>
+        <div>R</div>
+        <div>L</div>
+        <div>E</div>
+        <div>M</div>
+      </div>
+      <div class="word-vertical festival" style="margin-left: 60px; margin-top: 30px;">
+        <div>F</div>
+        <div>E</div>
+        <div>S</div>
+        <div>T</div>
+        <div>I</div>
+        <div>V</div>
+        <div>A</div>
+        <div>L</div>
+      </div>
+    </div>
+    <div class="banner">
+      Let The Fun Begin
+    </div>
+  <main>
+    <section class="section-bg py-10 px-10">
+      <div class="text-center mb-8 text-white">
+        <h2 class="text-6xl font-bold">WHAT IS THERE TO DO?</h2>
+        <div class="flex items-center justify-center"
+          style="background: url('assets/images/elements/Union.png') no-repeat center center; background-size: contain; margin-left: 50px; margin-right: 50px; min-height: 300px;">
+          <p style="font-size: 1.4em; font-weight: normal; color: black; border-radius: 10px;">
+            Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills,
+            savor the city's culinary delights, and let kids revel in a mobile event tied to the Taylers Museum.
+            For the night owls, "Dance" beckons with lively hotspots. Discover history, flavors, family fun,
+            and nightlife in this captivating city—a blend of past, present, and endless possibilities.</p>
+        </div>
+      </div>
+      <div class="container mx-auto grid grid-cols-1 gap-4"></div>
+    </section>
+  </main>
+
+  <div class="container mx-auto grid grid-cols-1 gap-4">
+    <!-- Dance -->
+    <div class="event-bg rounded-lg p-6 flex items-center justify-between"
+      style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
+      <div style="flex: 1; max-width: 50%;">
+        <img class="image-round" src="assets/images/Home_page_Images/Dance_Image_Homepage.png"
+          alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
+          style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
+      </div>
+      <div style="flex: 1; padding: 20px; margin-right: 250px;">
+        <h3 class="text-gold text-2xl font-bold mt-4">Dance!</h3>
+        <p class="text-gray-600 mt-2">If you are a music enthusiast, Haarlem is THE PLACE for YOU!
+          With lots of bars and music venues, you can find any kind of music you might like: from the
+          best techno parties to live bands playing jazz and songwriter’s concerts.
+          Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
+        <a href="#" class="bg-red-500 text-white py-2 px-20 rounded"
+          style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
+      </div>
+    </div>
+
+    <!-- Food -->
+    <div class="event-bg rounded-lg p-6 flex items-center justify-between"
+      style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
+      <div style="flex: 1; max-width: 50%;">
+        <img src="assets\images\Home_page_Images\Yummy_Image_Homepage.png"
+          alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
+          style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
+      </div>
+      <div style="flex: 1; padding: 20px; margin-right: 250px;">
+        <h3 class="text-gold text-2xl font-bold mt-4">Yummy!</h3>
+        <p class="text-gray-600 mt-2">
+          Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses.
+          While Haarlem may not be a global culinary icon, our city is home to a diverse array of restaurants that are
+          sure to captivate
+          your taste buds. Dive into a world of gastronomic delights, where each bite tells a unique story.</p>
+        <a href="#" class="bg-blue-500 text-white py-2 px-20 rounded"
+          style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
+      </div>
+    </div>
+
+
+    <!-- History -->
+    <div class="event-bg rounded-lg p-6 flex items-center justify-between"
+      style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
+      <div style="flex: 1; max-width: 50%;">
+        <img src="assets\images\Home_page_Images\History_Image_Homepage.png"
+          alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
+          style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
+      </div>
+      <div style="flex: 1; padding: 20px; margin-right: 250px;">
+        <h3 class="text-gold text-2xl font-bold mt-4">History!</h3>
+        <p class="text-gray-600 mt-2">
+          Haarlem, a city rich in history and adorned with captivating tales,
+          offering a treasure trove of landmarks waiting to be explored.
+          We invite you to immerse yourself in this enchanting blend of antiquity and modernity,
+          where the past's timeless charm meets the vibrant pulse of the present—a perfect opportunity
+          to discover and indulge in the city's breath-taking splendor.</p>
+        <a href="#" class="bg-yellow-500 text-white py-2 px-20 rounded"
+          style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
+      </div>
+    </div>
+
+    <div style="height: 20px;"></div>
+  <div style="height: 20px;"></div>
+  <div style="height: 20px;"></div>
+    <title>Festival Location</title>
+  </head>
+
+  <body>
+
+    <div class="right-aligned-text">
+      WHERE IS THE FESTIVAL?
+    </div>
+
+    <div class="festival-location-section">
+      <div class="info-box">
+        <!-- <h2>WHERE IS THE FESTIVAL?</h2> -->
+        <p>Discover the magic of The Festival in the vibrant city of Haarlem,
+          nestled to the west of Amsterdam and north of The Hague.
+          The festival takes place across the entire city of Haarlem, but most noticeably in the center.
+          Join us for an unforgettable experience!</p>
+        <a href="#" class="btn" style="padding: 0.5rem 1rem; width: 50%; margin-left: 180px; font-size: 0.9rem;">Check
+          festival schedule</a>
+      </div>
+
+      <div>
+        <!-- Replace the src attribute's value with the actual path to your image -->
+        <iframe src="assets/images/Home_page_Images/Map_Image_Homepage.png" frameborder="0"></iframe>
+      </div>
+    </div>
+  </body>
+
+  <div style="height: 20px;"></div>
+
+  <head>
+    <title>Event Schedule</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet">
+    <style>
+      
     </style>
   </head>
 
@@ -529,72 +557,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Secret of Professor Teyler</title>
-    <style>
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        background-color: #f3f3f3;
-        /* Light grey background for the whole page */
-      }
-
-      .event-section {
-        background-color: white;
-        /* White background for the section */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-family: 'Comic Sans MS', 'Comic Neue', sans-serif;
-        /* This is a playful font that might match the style */
-        padding: 40px;
-        /* Increased padding for more vertical space */
-        margin: 20px;
-        /* Adds margin for some space from the edges of the viewport */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        /* Optional: adds a subtle shadow for depth */
-        border-radius: 10px;
-        /* Optional: rounds the corners of the section */
-      }
-
-      .event-title {
-        font-size: 48px;
-        color: red;
-      }
-
-      .mobile-event {
-        font-size: 32px;
-        color: red;
-        font-style: italic;
-      }
-
-      .event-description {
-        font-size: 24px;
-      }
-
-      .event-image,
-      .qr-code {
-        width: 250px;
-        /* Increased size of images */
-        height: auto;
-        margin: 0 20px;
-        /* Adds horizontal spacing around the images */
-      }
-
-      /* Ensure the content is centered */
-      .content {
-        color: black;
-        flex-grow: 2;
-        /* Allows the content to grow and fill the space for better centering */
-        padding: 0 40px;
-        /* Adds padding to the left and right of the content */
-      }
-    </style>
   </head>
 
   <body>
-
     <div class="event-section">
       <img class="event-image" src="assets/images/Home_page_Images/Dexter_Image_Homepage.png" alt="Image of Dexter">
 
@@ -608,15 +573,12 @@
           the activity app—just scan the QR code to begin the adventure.
         </div>
       </div>
-
       <img class="qr-code" src="assets/images/Home_page_Images/QR_Image_Homepage.png" alt="QR Code">
     </div>
-
-  </body>
-  </html>
 
   <div style="height: 20px;"></div>
   <div style="height: 20px;"></div>
   <?php include __DIR__ . '/../footer.php'; ?>
 </body>
 </html>
+

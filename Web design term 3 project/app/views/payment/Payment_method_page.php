@@ -23,15 +23,15 @@
         </div>
         <div class="payment-option" style="color: black" onclick="selectPaymentMethod('ideal')">
             <span>IDeal</span>
-            <img src="assets/images/Payment_event_images/IDEAL_Logo.png" alt="IDEAL Logo">
+            <img src="assets/images/Payment_event_images/IDEAL_Logo.png" alt="IDEAL Logo"  class="w-12 h-12">
         </div>
         <div class="payment-option" style="color: black" onclick="selectPaymentMethod('paypal')">
             <span>PayPal</span>
-            <img src="assets/images/Payment_event_images/Paypal-logo.png" alt="PayPal Logo">
+            <img src="assets/images/Payment_event_images/Paypal-logo.png" alt="PayPal Logo"  class="w-12 h-12">
         </div>
         <div class="payment-option" style="color: black" onclick="selectPaymentMethod('creditcard')">
             <span>Credit Card</span>
-            <img src="assets/images/Payment_event_images/Group_Credit_Card.png" alt="Credit Card Logos">
+            <img src="assets/images/Payment_event_images/Group_Credit_Card.png" alt="Credit Card Logos"  class="w-12 h-12">
         </div>
         <button class="next-button">NEXT STEP →</button>
     </div>

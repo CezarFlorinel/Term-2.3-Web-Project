@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
 
-<body class="bg-black text-black flex justify-center items-center min-h-screen">
-<div class="scale-container">
-    <div class="w-full max-w-lg p-10 bg-white border border-gray-700 rounded-lg text-center">
+<body class="flex flex-col min-h-screen bg-black text-black">
+  <div class="flex-grow">
+<?php include __DIR__ . '/../header.php'; ?>
+<div class="flex-grow flex justify-center items-center mt-8 mb-6"> <!-- Adjust the mt- and mb- values as needed -->
+        <div class="w-full max-w-lg p-10 bg-white border border-gray-700 rounded-lg text-center">
         <img src="assets/images/Payment_event_images/success-green-check-mark-icon 1.png" alt="Success"
             class="mx-auto mb-6">
         <h1 class="text-2xl font-bold mb-2">Thanks for your purchase!</h1>
@@ -25,6 +27,8 @@
             BACK TO PERSONAL PROGRAM
         </a>
     </div>
+</div>
+    <?php include __DIR__ . '/../footer.php'; ?>
 </body>
 
 </html>
