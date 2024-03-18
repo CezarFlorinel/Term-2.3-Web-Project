@@ -39,7 +39,26 @@ class RestaurantIndividualAdminController
         }
     }
 
-    public function updateHomePageImages()
+    public function updateRestaurantCuisineTypes()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            if (isset ($input['restaurantID'], $input['cuisineTypes'])) {
+                $id = $input['restaurantID'];
+                $cuisineTypes = $input['cuisineTypes'];
+
+                $this->yummyService->editRestaurantTypeOfCuisine($id, $cuisineTypes);
+
+                echo json_encode(['message' => 'Cuisine Types updated successfully']);
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
+        }
+    }
+
+    public function updateRestaurantImages()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
             $image = $_FILES['image'];
@@ -47,21 +66,21 @@ class RestaurantIndividualAdminController
             $columnName = $_POST['columnName'];
 
             $projectRoot = realpath(__DIR__ . '/../../..');
-            $uploadsDir = $projectRoot . '/app/public/assets/images/yummy_event/home_page_top';
+            $uploadsDir = $projectRoot . '/app/public/assets/images/yummy_event/individual_resturant';
             if (!file_exists($uploadsDir)) {
                 mkdir($uploadsDir, 0777, true);
             }
             $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
 
             if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
-                $currentImage = $this->yummyService->getCurrentHomepageDataRestaurantImagePath($id, $columnName);
+                $currentImage = $this->yummyService->getCurrentRestaurantImagePath($id, $columnName);
                 $tmpName = $image['tmp_name'];
                 $name = uniqid() . '-' . basename($image['name']);
                 $destination = $uploadsDir . '/' . $name;
 
                 if (move_uploaded_file($tmpName, $destination)) {
-                    $imageUrl = "assets/images/yummy_event/home_page_top/$name";
-                    $this->yummyService->editImagePathHomepageDataRestaurant($id, $columnName, $imageUrl);
+                    $imageUrl = "assets/images/yummy_event/individual_resturant/$name";
+                    $this->yummyService->editRestaurantImagePath($id, $columnName, $imageUrl);
 
                     if ($currentImage && $currentImage != $imageUrl) {
                         @unlink($projectRoot . '/app/public/' . $currentImage);
@@ -75,6 +94,72 @@ class RestaurantIndividualAdminController
             }
         } else {
             echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
+        }
+    }
+
+    public function updateRestaurantSession()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            if (isset ($input['id'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
+                $id = $input['id'];
+                $availableSeats = $input['availableSeats'];
+                $pricesForAdults = $input['pricesForAdults'];
+                $pricesForChildren = $input['pricesForChildren'];
+                $reservationFee = $input['reservationFee'];
+                $startTime = $input['startTime'];
+                $endTime = $input['endTime'];
+
+                $this->yummyService->editRestaurantSession($id, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime);
+
+                echo json_encode(['message' => 'Session updated successfully']);
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
+        }
+    }
+
+    public function deleteRestaurantSession()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            if (isset ($input['id'])) {
+                $id = $input['id'];
+
+                $this->yummyService->deleteRestaurantSession($id);
+
+                echo json_encode(['message' => 'Session deleted successfully']);
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
+        }
+    }
+
+    public function addRestaurantSession()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            if (isset ($input['restaurantID'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
+                $restaurantID = $input['restaurantID'];
+                $availableSeats = $input['availableSeats'];
+                $pricesForAdults = $input['pricesForAdults'];
+                $pricesForChildren = $input['pricesForChildren'];
+                $reservationFee = $input['reservationFee'];
+                $startTime = $input['startTime'];
+                $endTime = $input['endTime'];
+
+                $this->yummyService->addRestaurantSession($restaurantID, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime);
+
+                echo json_encode(['message' => 'Session added successfully']);
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
         }
     }
 
