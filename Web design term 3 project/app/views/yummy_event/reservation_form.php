@@ -16,9 +16,8 @@
 </head>
 
 <body>
-    <main class="bg-gray-800 flex justify-center items-center h-screen" style="font-family: 'Playfair Display', serif;">
-        <div class="bg-white p-10 rounded-lg shadow-lg w-auto max-w-4xl">
-            <!-- Changed width to auto and max-width to 4xl -->
+    <main class="bg-gray-800 flex justify-center items-center min-h-screen px-4 py-2 sm:px-6 lg:px-8" style="font-family: 'Playfair Display', serif;">
+        <div class="bg-white p-10 rounded-lg shadow-lg mx-auto">
             <h1 class="text-4xl text-center font-semibold mb-6 text-gray-800">Reservation</h1>
             <form class="space-y-4">
                 <div>
