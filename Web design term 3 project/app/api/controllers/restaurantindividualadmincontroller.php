@@ -163,5 +163,43 @@ class RestaurantIndividualAdminController
         }
     }
 
+    public function deleteReview()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            if (isset ($input['id'])) {
+                $id = $input['id'];
+
+                $this->yummyService->deleteRestaurantReview($id);
+
+                echo json_encode(['message' => 'Review deleted successfully']);
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
+        }
+    }
+
+    public function addReview()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            if (isset ($input['restaurantID'], $input['reviewText'], $input['rating'])) {
+                $restaurantID = $input['restaurantID'];
+                $review = $input['reviewText'];
+                $rating = $input['rating'];
+
+                $this->yummyService->addRestaurantReview($restaurantID, $rating, $review);
+
+                echo json_encode(['message' => 'Review added successfully']);
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
+        }
+    }
+
 
 }
