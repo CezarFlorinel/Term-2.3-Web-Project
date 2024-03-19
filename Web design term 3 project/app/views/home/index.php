@@ -10,9 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Vampiro+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="CSS_files/home.css">
-</head>
+  </head>
 
-<body class="antialiased font-'Open Sans'">
+  <body class="antialiased font-'Open Sans'">
   <?php include __DIR__ . '/../header.php';
 
   // Initialize the repository
@@ -21,287 +21,6 @@
   // Fetch users
   $users = $repository->getUsers();
   ?>
-
-  <head>
-    <style>
-      body {
-        background-color: black;
-        color: white;
-        font-family: 'Playfair Display', serif;
-        margin: 0;
-        padding-top: 100px;
-        /* This adds vertical space at the top */
-      }
-
-      .word-container {
-        display: flex;
-        justify-content: flex-start;
-        /* Align to the left */
-        margin-left: 50px;
-        /* Adjust if more space is needed from the left edge */
-      }
-
-      .word-vertical {
-        display: flex;
-        flex-direction: column;
-        font-size: 50px;
-        /* Larger font size */
-        margin-right: 20px;
-        /* Horizontal margin between HAARLEM and FESTIVAL */
-      }
-
-      .word-vertical div {
-        margin-bottom: 5px;
-        /* Vertical margin between each letter */
-      }
-
-      .haarlem {
-        color: white;
-      }
-
-      .festival {
-        color: purple;
-        font-family: 'Vampiro One', cursive;
-      }
-
-      .banner {
-        position: absolute;
-        right: 10%;
-        top: 50%;
-        transform: translate(0, -50%) rotate(12deg);
-        background-color: red;
-        color: white;
-        padding: 8px 32px;
-        font-size: 24px;
-      }
-
-      .event-bg {
-        background-color: white;
-        border-radius: 8px;
-        padding: 10px;
-        max-width: 1300px;
-        margin: 20px auto;
-        /* Added space for the tilt effect */
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        transform: rotate(-3deg);
-        /* Tilts the section */
-        overflow: hidden;
-        /* Ensures nothing spills outside the border */
-      }
-
-      .image-container {
-        flex: 1;
-        max-width: 50%;
-        margin-left: 150px;
-      }
-
-      .image-round {
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
-      }
-
-      .content-container {
-        flex: 1;
-        padding: 20px;
-      }
-
-      .btn {
-        display: block;
-        width: 100%;
-        text-align: center;
-        padding: 10px 20px;
-        border-radius: 8px;
-        color: white;
-        text-decoration: none;
-        margin-top: 15px;
-      }
-
-      .btn-red {
-        background-color: red;
-      }
-
-      .btn-blue {
-        background-color: blue;
-      }
-
-      .btn-yellow {
-        background-color: yellow;
-      }
-
-      .festival-location-section {
-        border-radius: 8px;
-        padding: 24px;
-        margin-left: 50px;
-        margin-right: 50px;
-        display: flex;
-        align-items: center;
-        background-color: black;
-        /* Adjust the background color if needed */
-      }
-
-      .info-box {
-        border-top-left-radius: 8px;
-        border-bottom-left-radius: 8px;
-        border-top-right-radius: 0;
-        /* Make top right corner flat */
-        border-bottom-right-radius: 0;
-        /* Make bottom right corner flat */
-        padding: 24px;
-        background-color: #FDF7D9;
-        /* Dark yellow background */
-        flex: 1;
-        /* Takes up remaining space */
-        color: black;
-        /* Text color changed to black */
-        margin-right: -24px;
-        /* Adjust so it touches the image */
-      }
-
-      .info-box h2 {
-        margin-top: 0;
-        color: black;
-        /* Ensuring the heading is also black */
-      }
-
-      .btn {
-        display: inline-block;
-        text-decoration: none;
-        padding: 10px 20px;
-        background-color: red;
-        /* Button color changed to red */
-        color: white;
-        border-radius: 5px;
-        margin-top: 10px;
-      }
-
-      .btn:hover {
-        background-color: darkred;
-        /* Darker red on hover */
-      }
-
-      iframe {
-        border-radius: 8px;
-        width: 600px;
-        /* Fixed width for the image */
-        height: 400px;
-        /* Fixed height for the image */
-        border: none;
-        /* Removes the default border */
-      }
-
-      /* ------------------------ */
-      .right-aligned-text {
-        text-align: right;
-        color: white;
-        background-color: black;
-        width: 100%;
-        /* or the width you desire */
-        height: 100px;
-        /* or the height you desire */
-        display: flex;
-        align-items: center;
-        /* This centers the text vertically */
-        justify-content: flex-end;
-        /* This aligns the text to the right */
-        padding-right: 60px;
-        /* Adjust the padding to ensure the text doesn't touch the edges */
-        font-family: 'Playfair Display', serif;
-        /* Specify the font you want to use */
-        font-size: 50px;
-        /* Adjust the font size as needed */
-      }
-      @import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
-
-      .font-sans {
-        font-family: 'Playfair Display', serif;
-        background-color: black;
-        color: white;
-        padding-top: 2.5rem;
-        /* 40px */
-        padding-bottom: 2.5rem;
-        /* 40px */
-      }
-
-      .text-center {
-        text-align: center;
-        margin-bottom: 2.5rem;
-        /* 40px */
-      }
-
-      .text-4xl {
-        font-size: 2.5rem;
-        /* Adjusted to 40px */
-        letter-spacing: 0.1em;
-        /* Added spacing between letters */
-      }
-
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        background-color: #f3f3f3;
-        /* Light grey background for the whole page */
-      }
-
-      .event-section {
-        background-color: white;
-        /* White background for the section */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-family: 'Comic Sans MS', 'Comic Neue', sans-serif;
-        /* This is a playful font that might match the style */
-        padding: 40px;
-        /* Increased padding for more vertical space */
-        margin: 20px;
-        /* Adds margin for some space from the edges of the viewport */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        /* Optional: adds a subtle shadow for depth */
-        border-radius: 10px;
-        /* Optional: rounds the corners of the section */
-      }
-
-      .event-title {
-        font-size: 48px;
-        color: red;
-      }
-
-      .mobile-event {
-        font-size: 32px;
-        color: red;
-        font-style: italic;
-      }
-
-      .event-description {
-        font-size: 24px;
-      }
-
-      .event-image,
-      .qr-code {
-        width: 250px;
-        /* Increased size of images */
-        height: auto;
-        margin: 0 20px;
-        /* Adds horizontal spacing around the images */
-      }
-
-      /* Ensure the content is centered */
-      .content {
-        color: black;
-        flex-grow: 2;
-        /* Allows the content to grow and fill the space for better centering */
-        padding: 0 40px;
-        /* Adds padding to the left and right of the content */
-      }
-    </style>
-  </head>
-
-  <body>
     <div class="word-container">
       <div class="word-vertical haarlem" style="margin-left: 120px; margin-top: 30px;">
         <div>H</div>
@@ -323,25 +42,26 @@
         <div>L</div>
       </div>
     </div>
-    <div class="banner">
+    <!-- <div class="banner">
       Let The Fun Begin
-    </div>
-  <main>
+    </div> -->
+  <div>
+    
     <section class="section-bg py-10 px-10">
       <div class="text-center mb-8 text-white">
         <h2 class="text-6xl font-bold">WHAT IS THERE TO DO?</h2>
-        <div class="flex items-center justify-center"
-          style="background: url('assets/images/elements/Union.png') no-repeat center center; background-size: contain; margin-left: 50px; margin-right: 50px; min-height: 300px;">
-          <p style="font-size: 1.4em; font-weight: normal; color: black; border-radius: 10px;">
-            Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills,
-            savor the city's culinary delights, and let kids revel in a mobile event tied to the Taylers Museum.
-            For the night owls, "Dance" beckons with lively hotspots. Discover history, flavors, family fun,
-            and nightlife in this captivating city—a blend of past, present, and endless possibilities.</p>
-        </div>
-      </div>
+        <div class="flex items-center justify-center bg-no-repeat bg-center bg-contain h-72 md:h-96 lg:min-h-[300px] px-12 py-10"
+     style="background-image: url('assets/images/elements/Union.png');">
+  <p class="text-base font-normal text-black rounded-lg">
+    Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills,
+    savor the city's culinary delights,<br> and let kids revel in a mobile event tied to the Taylers Museum.
+    For the night owls, "Dance" beckons with lively hotspots.<br> Discover history, flavors, family fun,
+    and nightlife in this captivating city—a blend of past, present, and endless possibilities.
+  </p>
+</div>
       <div class="container mx-auto grid grid-cols-1 gap-4"></div>
     </section>
-  </main>
+    </div>
 
   <div class="container mx-auto grid grid-cols-1 gap-4">
     <!-- Dance -->
@@ -383,7 +103,6 @@
       </div>
     </div>
 
-
     <!-- History -->
     <div class="event-bg rounded-lg p-6 flex items-center justify-between"
       style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
@@ -405,14 +124,12 @@
       </div>
     </div>
 
-    <div style="height: 20px;"></div>
-  <div style="height: 20px;"></div>
-  <div style="height: 20px;"></div>
+
+  <div style="height: 60px;"></div>
     <title>Festival Location</title>
-  </head>
+    </div>
 
-  <body>
-
+  <div>
     <div class="right-aligned-text">
       WHERE IS THE FESTIVAL?
     </div>
@@ -433,25 +150,16 @@
         <iframe src="assets/images/Home_page_Images/Map_Image_Homepage.png" frameborder="0"></iframe>
       </div>
     </div>
-  </body>
+    </div>
 
   <div style="height: 20px;"></div>
 
-  <head>
-    <title>Event Schedule</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet">
-    <style>
-      
-    </style>
-  </head>
-
-  <body>
-
+  <div>
     <div class="font-sans">
       <div class="text-center text-5xl">
         SCHEDULE OF THE EVENTS
       </div>
+    </div>
     </div>
 
     <!-- Dates -->
@@ -502,6 +210,7 @@
       </div>
 
       <div style="height: 5px;"></div>
+
       <!-- Food Festival -->
       <div class="pt-8"
         style="background-image: url('assets/images/Home_page_Images/Rectangle.png'); background-repeat: no-repeat; background-position: top; background-size: 100% auto;">
@@ -543,23 +252,11 @@
       </div>
     </div>
     </div>
-  </body>
-
-  </html>
+    </div>
 
   <div style="height: 60px;"></div>
 
-  <!-- Teylor Museum -->
-  <!DOCTYPE html>
-  <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Secret of Professor Teyler</title>
-  </head>
-
-  <body>
+  <div>
     <div class="event-section">
       <img class="event-image" src="assets/images/Home_page_Images/Dexter_Image_Homepage.png" alt="Image of Dexter">
 
@@ -575,10 +272,9 @@
       </div>
       <img class="qr-code" src="assets/images/Home_page_Images/QR_Image_Homepage.png" alt="QR Code">
     </div>
-
-  <div style="height: 20px;"></div>
-  <div style="height: 20px;"></div>
+  <div style="height: 40px;"></div>
   <?php include __DIR__ . '/../footer.php'; ?>
-</body>
+    </div>
+    </body>
 </html>
 
