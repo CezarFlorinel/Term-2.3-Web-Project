@@ -25,6 +25,10 @@ class LoginController
     {
         require __DIR__ . '/../views/login/register.php';
     }
+    public function login()
+    {
+
+    }
     // public function createAccount()
     // {
     //     //session_start();

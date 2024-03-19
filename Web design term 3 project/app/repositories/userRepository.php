@@ -34,7 +34,7 @@ class UserRepository extends Repository
         }
     }
     //private and use it when you create user.
-    public function checkIfEmailExists($email): bool
+    private function checkIfEmailExists($email): bool
     {
         $stmt = $this->connection->prepare("SELECT COUNT(*) as count_users FROM [USER] WHERE email = ?");
         $stmt->execute([$email]);
@@ -52,7 +52,6 @@ class UserRepository extends Repository
                 $user->getPassword(),
                 $user->getUserRole(),
                 $user->getName()
-                //$user->getRegistrationDate()->format('Y-m-d')
                 // $user->getProfilePicture()
             ]);
         } catch (PDOException $e) {

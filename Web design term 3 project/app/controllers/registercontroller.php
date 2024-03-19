@@ -30,23 +30,21 @@ class RegisterController
         $password = filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $name = filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         //$role = filter_var($_POST['role'] ?? UserRole::Member, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        // $registrationDate = filter_var($_POST['registrationDate'] ?? (new \DateTime())->format('Y-m-d'), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        // if ($this->userService->checkIfEmailExists($email)) {
+        if ($this->userService->checkIfEmailExists($email)) {
             
-        // } else {
+        } else {
            
             $user = new User($email, $name, $password, UserRole::Member);
-            $this->userService->createUser($user);
-            // try {
-            //     $this->userService->createUser($user);
-            //     //header("Location: http://localhost/");
+            try {
+                $this->userService->createUser($user);
+                header("Location: http://localhost/login");
                 
-            //     exit();
-            // } catch (PDOException $e) {
-            //     echo $e;
-            // }
-        //}
+                exit();
+            } catch (PDOException $e) {
+                echo $e;
+            }
+        }
     }
         //my old code
 

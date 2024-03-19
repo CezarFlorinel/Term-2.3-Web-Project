@@ -20,7 +20,6 @@ class User
         $this->setName($name);
         $this->setPassword($password);
         $this->setUserRole(UserRole::Member);
-        //$this->setRegistrationDate($registrationDate);
         // $this->setProfilePicture($userData['user_profile_picture'] ?? '');
     }
     public function getId(): int
@@ -46,7 +45,6 @@ class User
     public function getUserRole() : string
     {
         return $this->role->name;
-        //return $this->role;
     }
     public function setUserRole(UserRole $role)
     {
