@@ -50,21 +50,40 @@
     <section class="section-bg py-10 px-10">
       <div class="text-center mb-8 text-white">
         <h2 class="text-6xl font-bold">WHAT IS THERE TO DO?</h2>
-        <div class="flex items-center justify-center bg-no-repeat bg-center bg-contain h-72 md:h-96 lg:min-h-[300px] px-12 py-10"
-     style="background-image: url('assets/images/elements/Union.png');">
-  <p class="text-base font-normal text-black rounded-lg">
-    Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills,
-    savor the city's culinary delights,<br> and let kids revel in a mobile event tied to the Taylers Museum.
-    For the night owls, "Dance" beckons with lively hotspots.<br> Discover history, flavors, family fun,
-    and nightlife in this captivating city—a blend of past, present, and endless possibilities.
-  </p>
-</div>
+        <div class="flex items-center justify-center bg-no-repeat bg-center bg-contain h-72 md:h-96 lg:min-h-[300px] px-12 py-10" 
+          style="background-image: url('assets/images/elements/Union.png'); ">
+          <p class="text-base font-normal text-white rounded-lg lg:text-black">
+            Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills,
+            savor the city's culinary delights,<br> and let kids revel in a mobile event tied to the Taylers Museum.
+            For the night owls, "Dance" beckons with lively hotspots.<br> Discover history, flavors, family fun,
+            and nightlife in this captivating city—a blend of past, present, and endless possibilities.
+          </p>
+        </div>
       <div class="container mx-auto grid grid-cols-1 gap-4"></div>
     </section>
     </div>
 
-  <div class="container mx-auto grid grid-cols-1 gap-4">
-    <!-- Dance -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl rounded-lg bg-white p-6 shadow-lg lg:grid lg:grid-cols-2 lg:gap-4 items-center"
+       style="max-width: 1300px; background-color: white;">
+    <div class="flex justify-center lg:justify-start px-4 lg:pl-0"
+         style="flex: 1; max-width: 50%;">
+      <img src="assets/images/Home_page_Images/Dance_Image_Homepage.png"
+           alt="A vibrant dance event with people enjoying music and performances"
+           class="rounded-lg max-w-xs md:max-w-sm lg:max-w-none"
+           style="width: 100%; height: auto; margin-left: 0; lg:margin-left: 150px;">
+    </div>
+    <div class="text-center lg:text-left px-4 lg:px-0"
+         style="flex: 1; padding: 20px; margin-right: 0; lg:margin-right: 250px;">
+      <h3 class="text-2xl font-bold text-gold mt-4">Dance!</h3>
+      <p class="text-gray-600 mt-2">If you are a music enthusiast, Haarlem is THE PLACE for YOU! With lots of bars and music venues, you can find any kind of music you might like: from the best techno parties to live bands playing jazz and songwriter’s concerts. Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
+      <a href="#" class="mt-4 lg:mt-8 inline-block bg-red-500 text-white py-2 px-6 lg:px-20 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+         style="display: block; width: 100%; text-align: center;">Learn More</a>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container mx-auto grid grid-cols-1 gap-4">
     <div class="event-bg rounded-lg p-6 flex items-center justify-between"
       style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
       <div style="flex: 1; max-width: 50%;">
@@ -81,7 +100,7 @@
         <a href="#" class="bg-red-500 text-white py-2 px-20 rounded"
           style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
       </div>
-    </div>
+    </div> -->
 
     <!-- Food -->
     <div class="event-bg rounded-lg p-6 flex items-center justify-between"
@@ -134,8 +153,8 @@
       WHERE IS THE FESTIVAL?
     </div>
 
-    <div class="festival-location-section">
-      <div class="info-box">
+    <div class="festival-location-section flex-col-reverse md:flex-row ">
+      <div class="info-box md:w-2/3 pr-14">
         <!-- <h2>WHERE IS THE FESTIVAL?</h2> -->
         <p>Discover the magic of The Festival in the vibrant city of Haarlem,
           nestled to the west of Amsterdam and north of The Hague.
@@ -145,9 +164,9 @@
           festival schedule</a>
       </div>
 
-      <div>
+      <div class="md:w-1/3 h-80 rounded-lg overflow-hidden">
         <!-- Replace the src attribute's value with the actual path to your image -->
-        <iframe src="assets/images/Home_page_Images/Map_Image_Homepage.png" frameborder="0"></iframe>
+        <img src="assets/images/Home_page_Images/Map_Image_Homepage.png" class="h-full object-cover">
       </div>
     </div>
     </div>
