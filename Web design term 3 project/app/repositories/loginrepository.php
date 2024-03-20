@@ -7,7 +7,7 @@ use App\Models\User;
 use PDO;
 use PDOException;
 
-class UserRepository extends Repository
+class LoginRepository extends Repository
 {
     function getAllUsers()
     {
@@ -21,40 +21,26 @@ class UserRepository extends Repository
             echo $e;
         }
     }
-    public function getById($userId)
-    {
-        try {
-            $stmt = $this->connection->prepare("SELECT * FROM [USER] WHERE UserID = ?");
-            $stmt->execute([$userId]);
-    
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result ? $result : null;
-        } catch (PDOException $e) {
-            echo $e;
-        }
-    }
     private function checkIfEmailExists($email): bool
     {
         $stmt = $this->connection->prepare("SELECT COUNT(*) as count_users FROM [USER] WHERE email = ?");
         $stmt->execute([$email]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return($result['count_users'] > 0);
+        return ($result['count_users'] > 0);
     }
-    function createUser(User $user): void
+    function getUserByEmail($email)
     {
         try {
-            $stmt = $this->connection->prepare("INSERT INTO [USER] (Email, Password, Role, Name) VALUES (?, ?, ?, ?)");
+            $stmt = $this->connection->prepare("SELECT * FROM [USER] WHERE email = ?");
+            $stmt->bindParam(1, $email, PDO::PARAM_STR);
+            $stmt->execute();
 
-            $stmt->execute([
-                $user->getEmail(),
-                $user->getPassword(),
-                $user->getUserRole(),
-                $user->getName()
-                // $user->getProfilePicture()
-            ]);
+            $result = $stmt->fetch(PDO::FETCH_CLASS);
+
+            return $result ? $result : null;
         } catch (PDOException $e) {
-            echo $e;
+            echo  "Error fetching user by email: " . $e->getMessage();
         }
     }
     //separate methods for update password, email, name and picture
@@ -78,27 +64,12 @@ class UserRepository extends Repository
     // {
     //     try {
     //         $stmt = $this->connection->prepare("DELETE FROM user WHERE id = ?");
-            
+
     //         $stmt->execute([$userId]);
     //     } catch (PDOException $e) {
     //         echo $e;
     //     }
     // }
 
-        
-    // function getByEmail($email): ?string
-    // {
-    //     try{
-    //         $stmt = $this->connection->prepare("SELECT * FROM [USER] WHERE email = ?");
-    //         $stmt->setFetchMode(PDO::FETCH_CLASS, 'App\Models\User');
-    //         $stmt->execute([$email]);
-
-    //         $result = $stmt->fetch(PDO::FETCH_CLASS);
-
-    //         return $result ? $result : null;
-    //     } catch (PDOException $e) {
-    //         echo $e;
-    //     }
-    // }
 
 }

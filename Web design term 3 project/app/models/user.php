@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\UserRole;
 
-class User
+class User implements \JsonSerializable
 {
     private int $id;
     private string $email;
@@ -14,14 +14,18 @@ class User
     //private ?string $profilePicture;
     private \DateTime $registrationDate;
 
-    public function __construct(string $email, string $name, string $password, UserRole $role)
+    public function jsonSerialize(): mixed
     {
-        $this->setEmail($email);
-        $this->setName($name);
-        $this->setPassword($password);
-        $this->setUserRole(UserRole::Member);
-        // $this->setProfilePicture($userData['user_profile_picture'] ?? '');
+        return get_object_vars($this);
     }
+    // public function __construct(string $email, string $name, string $password, UserRole $role)
+    // {
+    //     $this->setEmail($email);
+    //     $this->setName($name);
+    //     $this->setPassword($password);
+    //     $this->setUserRole(UserRole::Member);
+    //     // $this->setProfilePicture($userData['user_profile_picture'] ?? '');
+    // }
     public function getId(): int
     {
         return $this->id;
