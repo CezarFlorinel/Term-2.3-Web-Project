@@ -58,9 +58,7 @@ class HistoryAdminController
 
 
     function remakeImageCarouselStringForDeletion($imageToDelete)
-
     {
-
         $topPart = $this->historyService->getHistoryTopParts();
         $currentImagePathString = $topPart->imagePath;
 

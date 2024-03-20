@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout Summary</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
-<body class="bg-black text-white flex justify-center items-center min-h-screen">
-    <div class="w-full max-w-4xl mx-auto p-8">
+
+<body class="bg-black text-white">
+<?php include __DIR__ . '/../header.php'; ?>
+<div class="flex justify-center items-center min-h-screen">
+        <div class="w-full max-w-4xl mx-auto p-8">
         <!-- Header Section -->
         <div class="flex items-center mb-10" style="text-decoration: underline">
             <img src="assets/images/Payment_event_images/Overview_icon.png" alt="Logo" class="mr-2 w-12 h-12">
@@ -16,11 +20,11 @@
 
         <!-- Headings Section -->
         <div class="flex justify-between px-4 mb-2">
-            <div class="w-1/4 font-bold">Event</div>
-            <div class="w-1/4 font-bold">Time</div>
-            <div class="w-1/4 font-bold">Location</div>
-            <div class="w-1/12 font-bold">Quantity</div>
-            <div class="w-1/12 text-right font-bold">Price</div>
+            <div class="w-1/4 font-bold text-sm">Event</div>
+            <div class="w-1/4 font-bold text-sm">Time</div>
+            <div class="w-1/4 font-bold text-sm">Location</div>
+            <div class="w-1/6 font-bold text-sm">Quantity</div>
+            <div class="w-1/12 text-right font-bold text-sm">Price</div>
         </div>
         <div class="w-full border-t border-gray-400"></div>
 
@@ -32,55 +36,43 @@
                 <!-- Item Rows -->
                 <!-- Repeat this structure for each item, replace with actual data -->
                 <div class="flex justify-between items-center">
-                    <div class="w-1/4 flex items-center">
-<<<<<<< HEAD:Web design term 3 project/app/views/payment/Payment_Check_Info.php
-                        <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1" class="w-20 h-20 mr-2">
-=======
+                    <div class="w-1/4 flex-col items-center">
                         <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
-                            class="w-20 h-20 rounded-full mr-2">
->>>>>>> secondary-main:Web design term 3 project/app/views/payment/Payment_Chechk_Info.php
+                        class="w-20 h-20 rounded-full mb-2 text-sm">
                         English Tour
                     </div>
-                    <div class="w-1/4">25 Jul<br>10:00-12:30</div>
-                    <div class="w-1/4">Starting Point Near<br>Church Of Saint Bavo</div>
-                    <div class="w-1/12">1</div>
-                    <div class="w-1/12 text-right">17.50€</div>
+                    <div class="w-1/4 text-sm">25 Jul<br>10:00-12:30</div>
+                    <div class="w-1/3 text-sm">Starting Point <br> Near Church<br> Of Saint Bavo</div>
+                    <div class="w-1/12 text-sm">1</div>
+                    <div class="w-1/12 text-right text-sm">17.50€</div>
                 </div>
-
+                
                 <div class="w-full border-t border-gray-400"></div>
 
                 <div class="flex justify-between items-center">
-                    <div class="w-1/4 flex items-center">
-<<<<<<< HEAD:Web design term 3 project/app/views/payment/Payment_Check_Info.php
-                        <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1" class="w-20 h-20 mr-2">
-=======
+                <div class="w-1/4 flex-col items-center">
                         <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1"
-                            class="w-20 h-20 rounded-full mr-2">
->>>>>>> secondary-main:Web design term 3 project/app/views/payment/Payment_Chechk_Info.php
+                        class="w-20 h-20 rounded-full mb-2 text-sm">
                         English Tour
                     </div>
-                    <div class="w-1/4">27 Jul<br>21:00-02:00</div>
-                    <div class="w-1/4">Lichtfabriek<br>Club</div>
-                    <div class="w-1/12">1</div>
-                    <div class="w-1/12 text-right">70.00€</div>
+                    <div class="w-1/4 text-sm">27 Jul<br>21:00-02:00</div>
+                    <div class="w-1/3 text-sm">Lichtfabriek<br>Club</div>
+                    <div class="w-1/12 text-sm">1</div>
+                    <div class="w-1/12 text-right text-sm">70.00€</div>
                 </div>
 
                 <div class="w-full border-t border-gray-400"></div>
 
                 <div class="flex justify-between items-center">
-                    <div class="w-1/4 flex items-center">
-<<<<<<< HEAD:Web design term 3 project/app/views/payment/Payment_Check_Info.php
-                        <img src="assets/images/Payment_event_images/Checkinfo3.png" alt="Event 1" class="w-20 h-20 mr-2">
-=======
+                    <div class="w-1/4 flex-col items-center">
                         <img src="assets/images/Payment_event_images/Checkinfo3.png" alt="Event 1"
-                            class="w-20 h-20 rounded-full mr-2">
->>>>>>> secondary-main:Web design term 3 project/app/views/payment/Payment_Chechk_Info.php
+                        class="w-20 h-20 rounded-full mb-2 text-sm">
                         English Tour
                     </div>
-                    <div class="w-1/4">27 Jul<br>13:00-15:30</div>
-                    <div class="w-1/4">Starting Point Near<br>Church Of Saint Bavo</div>
-                    <div class="w-1/12">4</div>
-                    <div class="w-1/12 text-right">75.00€</div>
+                    <div class="w-1/4 text-sm">27 Jul<br>13:00-15:30</div>
+                    <div class="w-1/3 text-sm">Starting Point<br>Near Church<br>Of Saint Bavo</div>
+                    <div class="w-1/12 text-sm">4</div>
+                    <div class="w-1/12 text-right text-sm">75.00€</div>
                 </div>
                 <!-- Repeat End -->
                 
@@ -129,5 +121,6 @@
                 </div>
                 </div>
                 </div>
+                <?php include __DIR__ . '/../footer.php'; ?>
                 </body>
                 </html>

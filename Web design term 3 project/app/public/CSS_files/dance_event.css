@@ -9,6 +9,16 @@
     justify-content: space-between;
 }
 
+.artist-image-container {
+    background-image: url('../assets/images/dance_event/artist/hardwell.png ');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .start-image-text {
     align-self: flex-start;
     padding-left: 10%;
@@ -58,6 +68,22 @@
 
 }
 
+.rectangle{
+    margin-top: -30px;
+    margin-left: 60px;
+    background-size: 400px 200px;
+    background-position: center;
+}
+
+.rectangle-right{
+    margin-top: -30px;
+    margin-left: 60px;
+    background-image: url('../assets/images/dance_event/');
+    background-size: 800px 200px;
+    background-position: center;
+}
+
+
 .event-info-h {
     color: black;
     font-family: 'Imprima', sans-serif;
@@ -80,6 +106,27 @@
     font-weight: 500;
 }
 
+.info-h {
+    color: white;
+    font-family:'Playfair Display', serif;
+    margin-top: 50px;
+    margin-left: -55px;
+    text-align: left;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.rectangle {
+    width: 90%; /* Rectangle spans 90% of the page width */
+    height: 200px; /* Adjust height as needed */
+    background-color: #ffcccc; /* Light red background color */
+    border-radius: 10px; /* Rounded corners */
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds shadow for better visibility */
+}
+
 .ratatouille-image-container {
     background-image: url('../assets/images/yummy_event/ratatouille.png');
     background-size: cover;
@@ -90,3 +137,7 @@
     height: 400px;
     width: 100%;
 }
+
+
+
+

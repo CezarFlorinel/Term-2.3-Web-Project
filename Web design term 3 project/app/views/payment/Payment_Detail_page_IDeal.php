@@ -12,42 +12,46 @@
         <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
 
-<body>
+<body class="ideal-page">
+<div class="scale-container">
     <?php include __DIR__ . '/../header.php'; ?>
 
-    <div style="height: 150px;"></div>
-    <div class="payment-method-container" style="width: 50%; margin-left: auto; margin-right: auto">
-        <div class="payment-method-header" style="color: white ; text-decoration: underline">
-            <img src="assets/images/Payment_event_images/PaymentMethodIcon.png" alt="Payment Details Icon">
-            <h2>Payment Details:</h2>
+    <div class="py-10"> <!-- Spacing at the top replaced with Tailwind padding -->
+    <div class="payment-method-container max-w-lg mx-auto"> <!-- Centered container with a max-width -->
+        <div class="payment-method-header flex items-center space-x-4 mb-6"> <!-- Header with spacing and margin -->
+            <img src="assets/images/Payment_event_images/PaymentMethodIcon.png" alt="Payment Details Icon" class="flex-shrink-0">
+            <h2 class="text-xl font-semibold">Payment Details:</h2>
         </div>
-        <div class="payment-option" style="color: black" onclick="selectPaymentDetails('AMRO')">
-            <span>IDeal</span>
-            <img src="assets\images\Payment_event_images\IDEAL_banks\ABN AMRO.png" alt="AMRO">
+        <div class="payment-option flex items-center justify-between mb-4 p-2 cursor-pointer" onclick="selectPaymentDetails('AMRO')">
+            <span>ABN AMRO</span>
+            <img src="assets\images\Payment_event_images\ABN-Amro-logo.png" alt="AMRO" class="flex-shrink-0">
         </div>
-        <div class="payment-option" style="color: black" onclick="selectPaymentDetails('ING')">
-            <span>PayPal</span>
-            <img src="assets\images\Payment_event_images\IDEAL_banks\ING.png" alt="ING">
+        <div class="payment-option flex items-center justify-between mb-4 p-2 cursor-pointer" onclick="selectPaymentDetails('ING')">
+            <span>ING</span>
+            <img src="assets/images/Payment_event_images/IDEAL_banks/ING.png" alt="ING" class="flex-shrink-0">
         </div>
-        <div class="payment-option" style="color: black" onclick="selectPaymentDetails('N26')">
-            <span>Credit Card</span>
-            <img src="assets\images\Payment_event_images\IDEAL_banks\N26.png" alt="N26">
+        <div class="payment-option flex items-center justify-between mb-4 p-2 cursor-pointer" onclick="selectPaymentDetails('N26')">
+            <span>N26</span>
+            <img src="assets/images/Payment_event_images/IDEAL_banks/N26.png" alt="N26" class="flex-shrink-0">
         </div>
-        <div class="payment-option" style="color: black" onclick="selectPaymentDetails('RaboBank')">
-            <span>IDeal</span>
-            <img src="assets\images\Payment_event_images\IDEAL_banks\Rabobank.png" alt="RaboBank">
+        <div class="payment-option flex items-center justify-between mb-4 p-2 cursor-pointer" onclick="selectPaymentDetails('RaboBank')">
+            <span>RaboBank</span>
+            <img src="assets/images/Payment_event_images/IDEAL_banks/Rabobank.png" alt="RaboBank" class="flex-shrink-0">
         </div>
-        <div class="payment-option" style="color: black" onclick="selectPaymentDetails('SNS')">
-            <span>PayPal</span>
-            <img src="assets\images\Payment_event_images\IDEAL_banks\SNS.png" alt="SNS">
+        <div class="payment-option flex items-center justify-between mb-4 p-2 cursor-pointer" onclick="selectPaymentDetails('SNS')">
+            <span>SNS</span>
+            <img src="assets/images/Payment_event_images/IDEAL_banks/SNS.png" alt="SNS" class="flex-shrink-0">
         </div>
-        <div class="payment-option" style="color: black" onclick="selectPaymentDetails('Triodos Bank')">
-            <span>Credit Card</span>
-            <img src="assets\images\Payment_event_images\IDEAL_banks\Triodos_Bank.png" alt="Triodos Bank">
+        <div class="payment-option flex items-center justify-between mb-4 p-2 cursor-pointer" onclick="selectPaymentDetails('Triodos Bank')">
+            <span>Triodos Bank</span>
+            <img src="assets/images/Payment_event_images/IDEAL_banks/Triodos_Bank.png" alt="Triodos Bank" class="flex-shrink-0 w-12 h-12">
         </div>
-        <button class="next-button">NEXT STEP →</button>
+        <button class="next-button w-full bg-blue-500 text-white py-3 px-6 rounded hover:bg-blue-600 transition duration-300">NEXT STEP →</button>
     </div>
-    <div style="height: 150px;"></div>
+</div>
+<div class="py-10"> <!-- Spacing at the bottom replaced with Tailwind padding -->
+</div>
+
     <?php include __DIR__ . '/../footer.php'; ?>
     <script>
         function selectPaymentDetails(method) {
@@ -56,6 +60,7 @@
             // Implement further logic as required
         }
     </script>
+    </div>
 </body>
 
 </html>
