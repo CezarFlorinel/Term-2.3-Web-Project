@@ -87,14 +87,16 @@ $restaurantsNameAndId = $yummyService->getRestaurantsNameAndId();
 
             <br>
             <div class="text-center mt-8">
-                <button
-                    class="inline-flex items-center justify-center py-4 px-8 text-lg bg-orange-500 text-white rounded-lg hover:bg-orange-700 transition duration-150 mt-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="w-6 h-6 mr-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                    </svg>
-                    Create New Restaurant
-                </button>
+                <a href="/createRestaurant">
+                    <button
+                        class="inline-flex items-center justify-center py-4 px-8 text-lg bg-orange-500 text-white rounded-lg hover:bg-orange-700 transition duration-150 mt-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-6 h-6 mr-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                        </svg>
+                        Create New Restaurant
+                    </button>
+                </a>
             </div>
 
         </div>

@@ -142,6 +142,23 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         return $result[$columnName];
     }
 
+    public function getLastImageGalleryInsertedId(): int
+    {
+        $stmt = $this->connection->prepare('SELECT MAX(ID) AS lastID FROM IMAGE_PATH_GALLERY_RESTAURANT');
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['lastID'];
+    }
+    //-------------------- Create New Restaurant Part ------------------
+
+    public function getNewRestaurantID(): int
+    {
+        $stmt = $this->connection->prepare('SELECT MAX(RestaurantID) AS lastID FROM RESTAURANT');
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['lastID'] + 1;
+    }
+
 
     //-------------------- EDIT METHODS --------------------------------------------------------
     //-------------------- Home Part ------------------
@@ -274,5 +291,30 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt->bindParam(':endTime', $endTime);
         $stmt->execute();
     }
+
+    //-------------------- Create New Restaurant Part ------------------
+
+    public function createNewRestaurant($name, $location, $description, $descriptionSideOne, $descriptionSideTwo, $numberOfSeats, $numberOfStars, $cuisineType, $imagePathTop, $imagePathLocation, $imagePathChef)
+    {
+        $restaurantID = $this->getNewRestaurantID();
+
+        $stmt = $this->connection->prepare('INSERT INTO RESTAURANT (RestaurantID, Name, Location, DescriptionTopPart, DescriptionSideOne, DescriptionSideTwo, NumberofSeats, Rating, CuisineTypes, ImagePathHomepage, ImagePathLocation, ImagePathChef) VALUES (:restaurantID, :name, :location, :description, :descriptionSideOne, :descriptionSideTwo, :numberOfSeats, :numberOfStars, :cuisineType, :imagePathTop, :imagePathLocation, :imagePathChef)');
+        $stmt->bindParam(':restaurantID', $restaurantID);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':location', $location);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':descriptionSideOne', $descriptionSideOne);
+        $stmt->bindParam(':descriptionSideTwo', $descriptionSideTwo);
+        $stmt->bindParam(':numberOfSeats', $numberOfSeats);
+        $stmt->bindParam(':numberOfStars', $numberOfStars);
+        $stmt->bindParam(':cuisineType', $cuisineType);
+        $stmt->bindParam(':imagePathTop', $imagePathTop);
+        $stmt->bindParam(':imagePathLocation', $imagePathLocation);
+        $stmt->bindParam(':imagePathChef', $imagePathChef);
+        $stmt->execute();
+
+    }
+
+
 
 }

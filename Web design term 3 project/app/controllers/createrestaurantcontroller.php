@@ -5,6 +5,15 @@ class CreateRestaurantController
 {
     public function index()
     {
-        // require __DIR__ . '/../views/administrator_control_pages/yummy/editRestaurant.php';
+        require __DIR__ . '/../views/administrator_control_pages/yummy/createRestaurant.php';
     }
+
+    public function createRestaurant()
+    {
+
+
+
+
+    }
+
 }
