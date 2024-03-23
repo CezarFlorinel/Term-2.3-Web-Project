@@ -240,15 +240,36 @@ class RestaurantIndividualAdminController
     public function addRestaurantImagePathGallery()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['restaurantID'], $input['imagePath'])) {
-                $restaurantID = $input['restaurantID'];
-                $imagePath = $input['imagePath'];
+            if (isset ($_POST['restaurantID'], $_FILES['image'])) {
+                $restaurantID = $_POST['restaurantID'];
+                $image = $_FILES['image'];
+                $projectRoot = realpath(__DIR__ . '/../../..');
+                $uploadsDir = $projectRoot . '/app/public/assets/images/yummy_event/restaurant_gallery';
 
-                $this->yummyService->addRestaurantImagePathGallery($restaurantID, $imagePath);
+                if (!file_exists($uploadsDir)) {
+                    mkdir($uploadsDir, 0777, true);
+                }
+                $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
 
-                echo json_encode(['message' => 'Image added successfully']);
+                if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
+                    $tmpName = $image['tmp_name'];
+                    $name = uniqid() . '-' . basename($image['name']);
+                    $destination = $uploadsDir . '/' . $name;
+
+                    if (move_uploaded_file($tmpName, $destination)) {
+                        $imageUrl = "assets/images/yummy_event/restaurant_gallery/$name";
+                        $this->yummyService->addRestaurantImagePathGallery($restaurantID, $imageUrl);
+                        $imageId = $this->yummyService->getLastImageGalleryInsertedId();
+
+                        echo json_encode(['success' => true, 'message' => 'Image added successfully', 'imageId' => "$imageId", 'imageUrl' => "$imageUrl"]);
+                    } else {
+                        echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
+                    }
+                } else {
+                    echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
+                }
+
             } else {
                 http_response_code(400); // Bad Request
                 echo json_encode(['message' => 'Missing required fields']);

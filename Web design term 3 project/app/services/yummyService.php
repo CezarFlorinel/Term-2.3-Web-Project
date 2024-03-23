@@ -56,6 +56,11 @@ class YummyService
         return $this->yummyRepository->getCurrentRestaurantImagePath($id, $columnName);
     }
 
+    public function getLastImageGalleryInsertedId(): int
+    {
+        return $this->yummyRepository->getLastImageGalleryInsertedId();
+    }
+
     //-------------------- EDIT METHODS --------------------------------------------------------
     //-------------------- Home Part ------------------
     public function editHomepageDataRestaurant($id, $subheader, $description)
@@ -126,6 +131,13 @@ class YummyService
     public function addRestaurantImagePathGallery($restaurantid, $imagePath)
     {
         $this->yummyRepository->addRestaurantImagePathGallery($restaurantid, $imagePath);
+    }
+
+    //-------------------- Create New Restaurant Part ------------------
+
+    public function createNewRestaurant($name, $location, $description, $descriptionSideOne, $descriptionSideTwo, $numberOfSeats, $numberOfStars, $cuisineType, $imagePathTop, $imagePathLocation, $imagePathChef)
+    {
+        $this->yummyRepository->createNewRestaurant($name, $location, $description, $descriptionSideOne, $descriptionSideTwo, $numberOfSeats, $numberOfStars, $cuisineType, $imagePathTop, $imagePathLocation, $imagePathChef);
     }
 
 
