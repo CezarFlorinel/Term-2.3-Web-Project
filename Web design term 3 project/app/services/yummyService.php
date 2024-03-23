@@ -104,6 +104,11 @@ class YummyService
         $this->yummyRepository->deleteRestaurantReview($id);
     }
 
+    public function deleteRestaurantImagePathGallery($id)
+    {
+        $this->yummyRepository->deleteRestaurantImagePathGallery($id);
+    }
+
 
     //-------------------- ADD METHODS --------------------------------------------------------
 
@@ -116,6 +121,11 @@ class YummyService
     public function addRestaurantReview($restaurantid, $rating, $review, )
     {
         $this->yummyRepository->addRestaurantReview($restaurantid, $rating, $review);
+    }
+
+    public function addRestaurantImagePathGallery($restaurantid, $imagePath)
+    {
+        $this->yummyRepository->addRestaurantImagePathGallery($restaurantid, $imagePath);
     }
 
 
