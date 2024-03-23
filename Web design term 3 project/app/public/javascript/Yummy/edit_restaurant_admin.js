@@ -344,6 +344,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
+    document.querySelectorAll('.delete-image-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const imageId = this.getAttribute('data-image-id');
+            const imagePath = this.getAttribute('data-image-path');
+
+            if (confirm('Are you sure you want to delete this image?')) {
+                fetch('/api/restaurantIndividualAdmin/deleteImageGallery', { // Replace with your actual API endpoint
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: imageId, imagePath: imagePath }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Remove the image element from the DOM
+                            this.closest('.relative').remove();
+                            alert('Image deleted successfully.');
+                        } else {
+                            alert('Failed to delete image: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('There was an error deleting the image');
+                    });
+            }
+        });
+    });
+
+
 });
 
 let cuisineTypes = []; // will hold the current state of cuisine types

@@ -226,6 +226,13 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt->execute();
     }
 
+    public function deleteRestaurantImagePathGallery($id)
+    {
+        $stmt = $this->connection->prepare('DELETE FROM IMAGE_PATH_GALLERY_RESTAURANT WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
 
     //-------------------- ADD METHODS --------------------------------------------------------
 

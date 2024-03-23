@@ -201,5 +201,59 @@ class RestaurantIndividualAdminController
         }
     }
 
+    public function deleteImageGallery()
+    {
+        // Retrieve and decode the JSON from the request body
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        // Now check if the necessary data is present
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($data['id'], $data['imagePath'])) {
+            $id = $data['id'];
+            $imageToDelete = $data['imagePath'];
+
+            // Remove the image file from the folder
+            $projectRoot = realpath(__DIR__ . '/../../..');
+            $fullImagePath = $projectRoot . '/app/public/' . $imageToDelete;
+
+            // Check if file exists before trying to delete
+            if (file_exists($fullImagePath)) {
+                if (!unlink($fullImagePath)) {
+                    // File exists but couldn't be deleted
+                    echo json_encode(['success' => false, 'error' => 'Failed to delete the file from the server.']);
+                    return;  // Stop execution if we couldn't delete the file
+                }
+            } else {
+                // File does not exist, might already be deleted or wrong path provided
+                echo json_encode(['success' => false, 'error' => 'File does not exist on the server.']);
+                return;
+            }
+            $this->yummyService->deleteRestaurantImagePathGallery($id);
+
+            // Return a success message
+            echo json_encode(['success' => true, 'message' => 'Image deleted successfully from both the server and the database.']);
+
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Missing ID or imagePath.']);
+        }
+    }
+
+    public function addRestaurantImagePathGallery()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            if (isset ($input['restaurantID'], $input['imagePath'])) {
+                $restaurantID = $input['restaurantID'];
+                $imagePath = $input['imagePath'];
+
+                $this->yummyService->addRestaurantImagePathGallery($restaurantID, $imagePath);
+
+                echo json_encode(['message' => 'Image added successfully']);
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
+        }
+    }
 
 }
