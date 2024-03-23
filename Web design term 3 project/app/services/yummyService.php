@@ -51,7 +51,7 @@ class YummyService
         return $this->yummyRepository->getRestaurantSession($id);
     }
 
-    public function getCurrentRestaurantImagePath($id, $columnName)
+    public function getCurrentRestaurantImagePath($id, $columnName): string
     {
         return $this->yummyRepository->getCurrentRestaurantImagePath($id, $columnName);
     }
