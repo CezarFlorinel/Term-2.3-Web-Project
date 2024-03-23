@@ -51,7 +51,7 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         return $results;
     }
 
-    //-------------------- Edit Restaurant Part ------------------
+    //--------------------  Restaurant Part ------------------
 
     public function getRestaurantById($id): Restaurant
     {
@@ -162,7 +162,7 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt->execute();
     }
 
-    //-------------------- Edit Restaurant Part ------------------
+    //--------------------  Restaurant Part ------------------
 
     public function editRestaurant($id, $name, $location, $numberOfSeats, $rating, $descriptionTopPart, $descriptionSideOne, $descriptionSideTwo)
     {
@@ -191,6 +191,87 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt = $this->connection->prepare('UPDATE RESTAURANT SET CuisineTypes = :cuisineTypes WHERE RestaurantID = :id');
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':cuisineTypes', $cuisineTypes);
+        $stmt->execute();
+    }
+
+    public function editRestaurantSession($id, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime)
+    {
+        $stmt = $this->connection->prepare('UPDATE SESSION SET AvailableSeats = :availableSeats, PricesForAdults = :pricesForAdults, PricesForChildren = :pricesForChildren, ReservationFee = :reservationFee, StartTime = :startTime, EndTime = :endTime WHERE SessionID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':availableSeats', $availableSeats);
+        $stmt->bindParam(':pricesForAdults', $pricesForAdults);
+        $stmt->bindParam(':pricesForChildren', $pricesForChildren);
+        $stmt->bindParam(':reservationFee', $reservationFee);
+        $stmt->bindParam(':startTime', $startTime);
+        $stmt->bindParam(':endTime', $endTime);
+        $stmt->execute();
+    }
+
+
+
+    //-------------------- DELETE METHODS --------------------------------------------------------
+    //--------------------  Restaurant Part ------------------
+
+    public function deleteRestaurantSession($id)
+    {
+        $stmt = $this->connection->prepare('DELETE FROM SESSION WHERE SessionID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
+    public function deleteRestaurantReview($id)
+    {
+        $stmt = $this->connection->prepare('DELETE FROM RESTAURANT_REVIEWS WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
+    public function deleteRestaurantImagePathGallery($id)
+    {
+        $stmt = $this->connection->prepare('DELETE FROM IMAGE_PATH_GALLERY_RESTAURANT WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
+
+    //-------------------- ADD METHODS --------------------------------------------------------
+
+    //--------------------  Restaurant Part ------------------
+
+    public function addRestaurantReview($restaurantID, $numberOfStars, $description)
+    {
+        $stmt = $this->connection->prepare('INSERT INTO RESTAURANT_REVIEWS (RestaurantID, NumberOfStars, Description) VALUES (:restaurantID, :numberOfStars, :description)');
+        $stmt->bindParam(':restaurantID', $restaurantID);
+        $stmt->bindParam(':numberOfStars', $numberOfStars);
+        $stmt->bindParam(':description', $description);
+        $stmt->execute();
+    }
+
+    public function addRestaurantImagePathGallery($restaurantID, $imagePath)
+    {
+        $stmt = $this->connection->prepare('INSERT INTO IMAGE_PATH_GALLERY_RESTAURANT (RestaurantID, ImagePath) VALUES (:restaurantID, :imagePath)');
+        $stmt->bindParam(':restaurantID', $restaurantID);
+        $stmt->bindParam(':imagePath', $imagePath);
+        $stmt->execute();
+    }
+
+    public function addRestaurantSession($restaurantID, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime)
+    {
+        // Get the last sessionID and increment it
+        $lastIdStmt = $this->connection->prepare('SELECT MAX(sessionID) AS lastID FROM SESSION');
+        $lastIdStmt->execute();
+        $lastIdResult = $lastIdStmt->fetch();
+        $newId = $lastIdResult['lastID'] + 1;
+
+        $stmt = $this->connection->prepare('INSERT INTO SESSION (SessionID, RestaurantID, AvailableSeats, PricesForAdults, PricesForChildren, ReservationFee, StartTime, EndTime) VALUES (:sessionID, :restaurantID, :availableSeats, :pricesForAdults, :pricesForChildren, :reservationFee, :startTime, :endTime)');
+        $stmt->bindParam(':sessionID', $newId);
+        $stmt->bindParam(':restaurantID', $restaurantID);
+        $stmt->bindParam(':availableSeats', $availableSeats);
+        $stmt->bindParam(':pricesForAdults', $pricesForAdults);
+        $stmt->bindParam(':pricesForChildren', $pricesForChildren);
+        $stmt->bindParam(':reservationFee', $reservationFee);
+        $stmt->bindParam(':startTime', $startTime);
+        $stmt->bindParam(':endTime', $endTime);
         $stmt->execute();
     }
 

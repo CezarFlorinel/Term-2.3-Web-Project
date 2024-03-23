@@ -51,6 +51,11 @@ class YummyService
         return $this->yummyRepository->getRestaurantSession($id);
     }
 
+    public function getCurrentRestaurantImagePath($id, $columnName)
+    {
+        return $this->yummyRepository->getCurrentRestaurantImagePath($id, $columnName);
+    }
+
     //-------------------- EDIT METHODS --------------------------------------------------------
     //-------------------- Home Part ------------------
     public function editHomepageDataRestaurant($id, $subheader, $description)
@@ -80,6 +85,48 @@ class YummyService
         $this->yummyRepository->editRestaurantTypeOfCuisine($id, $cuisineTypes);
     }
 
+    public function editRestaurantSession($id, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime)
+    {
+        $this->yummyRepository->editRestaurantSession($id, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime);
+    }
+
+
+    //-------------------- DELETE METHODS --------------------------------------------------------
+    //--------------------  Restaurant Part ------------------
+
+    public function deleteRestaurantSession($id)
+    {
+        $this->yummyRepository->deleteRestaurantSession($id);
+    }
+
+    public function deleteRestaurantReview($id)
+    {
+        $this->yummyRepository->deleteRestaurantReview($id);
+    }
+
+    public function deleteRestaurantImagePathGallery($id)
+    {
+        $this->yummyRepository->deleteRestaurantImagePathGallery($id);
+    }
+
+
+    //-------------------- ADD METHODS --------------------------------------------------------
+
+    //--------------------  Restaurant Part ------------------
+    public function addRestaurantSession($restaurantid, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime)
+    {
+        $this->yummyRepository->addRestaurantSession($restaurantid, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime);
+    }
+
+    public function addRestaurantReview($restaurantid, $rating, $review, )
+    {
+        $this->yummyRepository->addRestaurantReview($restaurantid, $rating, $review);
+    }
+
+    public function addRestaurantImagePathGallery($restaurantid, $imagePath)
+    {
+        $this->yummyRepository->addRestaurantImagePathGallery($restaurantid, $imagePath);
+    }
 
 
 

@@ -12,36 +12,8 @@
         <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
 
-<body>
-    <?php include __DIR__ . '/../header.php'; ?>
-
-    <div class="container">
-  <!-- Steps Indicator -->
-  <div class="steps">
-    <div class="step-line"></div>
-    <div class="step">
-      <span class="step-text">Payment Information</span>
-      <div class="step-circle active-step">1</div>
-    </div>
-    <div class="step">
-      <span class="step-text">Payment Method</span>
-      <div class="step-circle">2</div>
-    </div>
-    <div class="step">
-      <span class="step-text">Payment Details</span>
-      <div class="step-circle">3</div>
-    </div>
-    <div class="step">
-      <span class="step-text">Overview</span>
-      <div class="step-circle">4</div>
-    </div>
-    <div class="step">
-      <span class="step-text">Finish</span>
-      <div class="step-circle">5</div>
-    </div>
-  </div>
-</div>
-
+<body class="method-page">
+<?php include __DIR__ . '/../header.php'; ?>
     <div style="height: 150px;"></div>
     <div class="payment-method-container" style="width: 50%; margin-left: auto; margin-right: auto">
         <div class="payment-method-header" style="color: white ; text-decoration: underline">

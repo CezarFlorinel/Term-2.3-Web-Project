@@ -6,7 +6,7 @@ class Restaurant implements \JsonSerializable
     public int $restaurantID;
     public string $name;
     public string $location;
-    public string $cuisineTyes;
+    public string $cuisineTypes;
     public int $numberOfSeats;
     public int $rating;
     public string $imagePathHomepage;
@@ -21,7 +21,7 @@ class Restaurant implements \JsonSerializable
         $this->restaurantID = $restaurantID;
         $this->name = $name;
         $this->location = $location;
-        $this->cuisineTyes = $cuisineTyes;
+        $this->cuisineTypes = $cuisineTyes;
         $this->numberOfSeats = $numberOfSeats;
         $this->rating = $rating;
         $this->imagePathHomepage = $imagePathHomepage;
