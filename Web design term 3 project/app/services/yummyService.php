@@ -51,7 +51,7 @@ class YummyService
         return $this->yummyRepository->getRestaurantSession($id);
     }
 
-    public function getCurrentRestaurantImagePath($id, $columnName)
+    public function getCurrentRestaurantImagePath($id, $columnName): string
     {
         return $this->yummyRepository->getCurrentRestaurantImagePath($id, $columnName);
     }
@@ -112,6 +112,11 @@ class YummyService
     public function deleteRestaurantImagePathGallery($id)
     {
         $this->yummyRepository->deleteRestaurantImagePathGallery($id);
+    }
+
+    public function deleteRestaurant($id)
+    {
+        $this->yummyRepository->deleteRestaurant($id);
     }
 
 
