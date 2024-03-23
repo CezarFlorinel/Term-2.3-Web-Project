@@ -19,7 +19,7 @@ class HistoryAdminController
         $data = json_decode(file_get_contents('php://input'), true);
 
         // Now check if the necessary data is present
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($data['id'], $data['imagePath'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($data['id'], $data['imagePath'])) {
             $id = $data['id'];
             $imageToDelete = $data['imagePath']; // Assuming this is a relative path from the project root.
 
@@ -78,7 +78,7 @@ class HistoryAdminController
 
     public function uploadNewImageCarousel()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_FILES['image'], $_POST['id'])) {
             $image = $_FILES['image'];
             $id = $_POST['id'];
 
@@ -120,7 +120,7 @@ class HistoryAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset($input['informationID'], $input['subheader'], $input['description'])) {
+            if (isset ($input['informationID'], $input['subheader'], $input['description'])) {
                 $id = $input['informationID'];
                 $subheader = $input['subheader'];
                 $description = $input['description'];
@@ -137,7 +137,7 @@ class HistoryAdminController
 
     public function updateHistoryToursImages()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_FILES['image'], $_POST['id'])) {
             $image = $_FILES['image'];
             $id = $_POST['id'];
 
@@ -178,7 +178,7 @@ class HistoryAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset($input['informationID'], $input['locationName'], $input['locationDescription'], $input['wheelchairSupport'])) {
+            if (isset ($input['informationID'], $input['locationName'], $input['locationDescription'], $input['wheelchairSupport'])) {
                 $id = $input['informationID'];
                 $locationName = $input['locationName'];
                 $locationDescription = $input['locationDescription'];
@@ -199,7 +199,7 @@ class HistoryAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset($input['informationID'], $input['type'], $input['price'], $input['description'])) {
+            if (isset ($input['informationID'], $input['type'], $input['price'], $input['description'])) {
                 $id = $input['informationID'];
                 $ticketType = $input['type'];
                 $price = $input['price'];
@@ -217,7 +217,7 @@ class HistoryAdminController
 
     public function updateHistoryTicketPricesImages()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_FILES['image'], $_POST['id'])) {
             $image = $_FILES['image'];
             $id = $_POST['id'];
 
@@ -258,7 +258,7 @@ class HistoryAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset($input['informationID'], $input['date'])) {
+            if (isset ($input['informationID'], $input['date'])) {
                 $id = $input['informationID'];
                 $date = $input['date'];
 
@@ -277,7 +277,7 @@ class HistoryAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset($input['informationID'], $input['startTime'], $input['englishTour'], $input['dutchTour'], $input['chineseTour'])) {
+            if (isset ($input['informationID'], $input['startTime'], $input['englishTour'], $input['dutchTour'], $input['chineseTour'])) {
                 $id = $input['informationID'];
                 $startTime = $input['startTime'];
                 $englishTour = $input['englishTour'];
@@ -296,7 +296,7 @@ class HistoryAdminController
 
     public function uploadAndUpdateImageForTourStartingPoint()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'], $_POST['imageId'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_FILES['image'], $_POST['id'], $_POST['imageId'])) {
             $image = $_FILES['image'];
             $id = $_POST['id'];
             $imageId = $_POST['imageId']; // Identifying which image (image1 or image2)
@@ -339,7 +339,7 @@ class HistoryAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset($input['informationID'], $input['description'])) {
+            if (isset ($input['informationID'], $input['description'])) {
                 $id = $input['informationID'];
                 $description = $input['description'];
 
@@ -358,7 +358,7 @@ class HistoryAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset($input['informationID'], $input['question'], $input['answer'])) {
+            if (isset ($input['informationID'], $input['question'], $input['answer'])) {
                 $id = $input['informationID'];
                 $question = $input['question'];
                 $answer = $input['answer'];
@@ -378,12 +378,11 @@ class HistoryAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset($input['parentPage'], $input['question'], $input['answer'])) {
-                $parentPage = $input['parentPage'];
+            if (isset ($input['question'], $input['answer'])) {
                 $question = $input['question'];
                 $answer = $input['answer'];
 
-                $this->historyService->addHistoryPracticalInformation($parentPage, $question, $answer);
+                $this->historyService->addHistoryPracticalInformation($question, $answer);
 
                 echo json_encode(['message' => 'New information added successfully']);
             } else {
@@ -399,7 +398,7 @@ class HistoryAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset($input['informationID'])) {
+            if (isset ($input['informationID'])) {
                 $id = $input['informationID'];
 
                 $this->historyService->deleteHistoryPracticalInformation($id);

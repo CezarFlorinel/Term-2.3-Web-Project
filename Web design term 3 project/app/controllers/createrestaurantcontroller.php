@@ -43,9 +43,8 @@ class CreateRestaurantController
                     return;
                 }
 
-
                 $this->yummyService->createNewRestaurant($name, $location, $description, $descriptionLeft, $descriptionRight, $numberOfSeats, $numberOfStars, $cuisineType, $imageUrlTop, $imageUrlLocation, $imageUrlChef);
-                header('Location: /createRestaurant');
+                header('Location: /yummyHomeAdmin');
 
             } else {
                 echo "Error in the form fields. Please fill all the fields.";

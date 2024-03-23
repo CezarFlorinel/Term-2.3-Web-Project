@@ -114,6 +114,11 @@ class YummyService
         $this->yummyRepository->deleteRestaurantImagePathGallery($id);
     }
 
+    public function deleteRestaurant($id)
+    {
+        $this->yummyRepository->deleteRestaurant($id);
+    }
+
 
     //-------------------- ADD METHODS --------------------------------------------------------
 

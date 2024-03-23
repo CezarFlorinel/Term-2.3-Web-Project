@@ -144,21 +144,11 @@ class YummyRepository extends Repository  //methods for getting, updating and de
 
     public function getLastImageGalleryInsertedId(): int
     {
-        $stmt = $this->connection->prepare('SELECT MAX(ID) AS lastID FROM IMAGE_PATH_GALLERY_RESTAURANT');
+        $stmt = $this->connection->prepare('SELECT MAX(ID) FROM IMAGE_PATH_GALLERY_RESTAURANT');
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['lastID'];
+        return $result['MAX(ID)'];
     }
-    //-------------------- Create New Restaurant Part ------------------
-
-    public function getNewRestaurantID(): int
-    {
-        $stmt = $this->connection->prepare('SELECT MAX(RestaurantID) AS lastID FROM RESTAURANT');
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['lastID'] + 1;
-    }
-
 
     //-------------------- EDIT METHODS --------------------------------------------------------
     //-------------------- Home Part ------------------
@@ -250,6 +240,13 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt->execute();
     }
 
+    public function deleteRestaurant($id)
+    {
+        $stmt = $this->connection->prepare('DELETE FROM RESTAURANT WHERE RestaurantID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
 
     //-------------------- ADD METHODS --------------------------------------------------------
 
@@ -274,14 +271,7 @@ class YummyRepository extends Repository  //methods for getting, updating and de
 
     public function addRestaurantSession($restaurantID, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime)
     {
-        // Get the last sessionID and increment it
-        $lastIdStmt = $this->connection->prepare('SELECT MAX(sessionID) AS lastID FROM SESSION');
-        $lastIdStmt->execute();
-        $lastIdResult = $lastIdStmt->fetch();
-        $newId = $lastIdResult['lastID'] + 1;
-
-        $stmt = $this->connection->prepare('INSERT INTO SESSION (SessionID, RestaurantID, AvailableSeats, PricesForAdults, PricesForChildren, ReservationFee, StartTime, EndTime) VALUES (:sessionID, :restaurantID, :availableSeats, :pricesForAdults, :pricesForChildren, :reservationFee, :startTime, :endTime)');
-        $stmt->bindParam(':sessionID', $newId);
+        $stmt = $this->connection->prepare('INSERT INTO SESSION (RestaurantID, AvailableSeats, PricesForAdults, PricesForChildren, ReservationFee, StartTime, EndTime) VALUES (:sessionID, :restaurantID, :availableSeats, :pricesForAdults, :pricesForChildren, :reservationFee, :startTime, :endTime)');
         $stmt->bindParam(':restaurantID', $restaurantID);
         $stmt->bindParam(':availableSeats', $availableSeats);
         $stmt->bindParam(':pricesForAdults', $pricesForAdults);
@@ -296,10 +286,8 @@ class YummyRepository extends Repository  //methods for getting, updating and de
 
     public function createNewRestaurant($name, $location, $description, $descriptionSideOne, $descriptionSideTwo, $numberOfSeats, $numberOfStars, $cuisineType, $imagePathTop, $imagePathLocation, $imagePathChef)
     {
-        $restaurantID = $this->getNewRestaurantID();
 
-        $stmt = $this->connection->prepare('INSERT INTO RESTAURANT (RestaurantID, Name, Location, DescriptionTopPart, DescriptionSideOne, DescriptionSideTwo, NumberofSeats, Rating, CuisineTypes, ImagePathHomepage, ImagePathLocation, ImagePathChef) VALUES (:restaurantID, :name, :location, :description, :descriptionSideOne, :descriptionSideTwo, :numberOfSeats, :numberOfStars, :cuisineType, :imagePathTop, :imagePathLocation, :imagePathChef)');
-        $stmt->bindParam(':restaurantID', $restaurantID);
+        $stmt = $this->connection->prepare('INSERT INTO RESTAURANT (Name, Location, DescriptionTopPart, DescriptionSideOne, DescriptionSideTwo, NumberofSeats, Rating, CuisineTypes, ImagePathHomepage, ImagePathLocation, ImagePathChef) VALUES (:name, :location, :description, :descriptionSideOne, :descriptionSideTwo, :numberOfSeats, :numberOfStars, :cuisineType, :imagePathTop, :imagePathLocation, :imagePathChef)');
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':location', $location);
         $stmt->bindParam(':description', $description);
