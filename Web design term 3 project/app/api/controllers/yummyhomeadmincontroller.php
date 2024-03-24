@@ -71,4 +71,61 @@ class YummyHomeAdminController
             echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
         }
     }
+
+    public function updateReservation()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            if (isset ($input['reservationId'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'], $input['comment'], $input['active'])) {
+                $id = $input['reservationId'];
+                $firstName = $input['firstName'];
+                $lastName = $input['lastName'];
+                $email = $input['email'];
+                $phoneNumber = $input['phoneNumber'];
+                $session = $input['session'];
+                $date = $input['date'];
+                $numberOfAdults = (int) $input['numberOfAdults'];
+                $numberOfChildren = (int) $input['numberOfChildren'];
+                $comment = $input['comment'];
+                $active = $input['active'];
+
+                $this->yummyService->editReservation($id, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active);
+
+                echo json_encode(['message' => 'Reservation updated successfully $numberOfAdults' . $numberOfAdults . ' $numberOfChildren' . $numberOfChildren]);
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
+        }
+    }
+
+    public function createReservation()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            if (isset ($input['restaurantId'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'], $input['comment'], $input['active'])) {
+                $restaurantId = $input['restaurantId'];
+                $firstName = $input['firstName'];
+                $lastName = $input['lastName'];
+                $email = $input['email'];
+                $phoneNumber = $input['phoneNumber'];
+                $session = $input['session'];
+                $date = $input['date'];
+                $numberOfAdults = (int) $input['numberOfAdults'];
+                $numberOfChildren = (int) $input['numberOfChildren'];
+                $comment = $input['comment'];
+                $active = $input['active'];
+
+                $this->yummyService->addReservation($restaurantId, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active);
+
+                echo json_encode(['message' => 'Reservation updated successfully $numberOfAdults' . $numberOfAdults . ' $numberOfChildren' . $numberOfChildren]);
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Missing required fields']);
+            }
+        }
+
+    }
 }
