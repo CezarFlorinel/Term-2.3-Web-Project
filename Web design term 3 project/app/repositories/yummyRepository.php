@@ -173,6 +173,15 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         return $sessions;
     }
 
+    public function getRestaurantIdByName($restaurantName): int
+    {
+        $stmt = $this->connection->prepare('SELECT RestaurantID FROM RESTAURANT WHERE Name = :name');
+        $stmt->bindParam(':name', $restaurantName);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? (int) $result['RestaurantID'] : 0;
+    }
+
     //-------------------- Reservation Part ------------------
 
     public function getAllReservations(): array

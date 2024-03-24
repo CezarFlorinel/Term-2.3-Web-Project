@@ -193,6 +193,47 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
+    const createReservationBtn = document.querySelector('.create-new-reservation-btn');
+    createReservationBtn.addEventListener('click', () => {
+        const form = document.querySelector('.new-reservation-form');
+        const formData = new FormData(form);
+        const jsonData = {};
+
+        formData.forEach((value, key) => {
+            // Special handling for checkboxes since FormData only includes them if they're checked
+            if (form.elements[key].type === 'checkbox') {
+                jsonData[key] = form.elements[key].checked;
+            } else {
+                jsonData[key] = value;
+            }
+        });
+
+        fetch('/api/YummyHomeAdmin/createReservation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data); // Handle success response
+                alert('Reservation created successfully');
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error); // Handle errors
+                alert('Error creating reservation');
+            });
+    });
+
+
+
 
 });
 
