@@ -31,6 +31,7 @@ class YummyService
     }
 
     //--------------------Restaurant Part ------------------
+
     public function getRestaurantById($id): Restaurant
     {
         return $this->yummyRepository->getRestaurantById($id);
@@ -51,9 +52,20 @@ class YummyService
         return $this->yummyRepository->getRestaurantSession($id);
     }
 
-    public function getCurrentRestaurantImagePath($id, $columnName)
+    public function getCurrentRestaurantImagePath($id, $columnName): string
     {
         return $this->yummyRepository->getCurrentRestaurantImagePath($id, $columnName);
+    }
+
+    public function getLastImageGalleryInsertedId(): int
+    {
+        return $this->yummyRepository->getLastImageGalleryInsertedId();
+    }
+
+    //-------------------- Reservation Part ------------------
+    public function getAllReservations(): array
+    {
+        return $this->yummyRepository->getAllReservations();
     }
 
     //-------------------- EDIT METHODS --------------------------------------------------------
@@ -90,6 +102,12 @@ class YummyService
         $this->yummyRepository->editRestaurantSession($id, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime);
     }
 
+    //-------------------- Reservation Part ------------------
+
+    public function editReservation($id, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive)
+    {
+        $this->yummyRepository->editReservation($id, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive);
+    }
 
     //-------------------- DELETE METHODS --------------------------------------------------------
     //--------------------  Restaurant Part ------------------
@@ -109,6 +127,10 @@ class YummyService
         $this->yummyRepository->deleteRestaurantImagePathGallery($id);
     }
 
+    public function deleteRestaurant($id)
+    {
+        $this->yummyRepository->deleteRestaurant($id);
+    }
 
     //-------------------- ADD METHODS --------------------------------------------------------
 
@@ -126,6 +148,20 @@ class YummyService
     public function addRestaurantImagePathGallery($restaurantid, $imagePath)
     {
         $this->yummyRepository->addRestaurantImagePathGallery($restaurantid, $imagePath);
+    }
+
+    //-------------------- Create New Restaurant Part ------------------
+
+    public function createNewRestaurant($name, $location, $description, $descriptionSideOne, $descriptionSideTwo, $numberOfSeats, $numberOfStars, $cuisineType, $imagePathTop, $imagePathLocation, $imagePathChef)
+    {
+        $this->yummyRepository->createNewRestaurant($name, $location, $description, $descriptionSideOne, $descriptionSideTwo, $numberOfSeats, $numberOfStars, $cuisineType, $imagePathTop, $imagePathLocation, $imagePathChef);
+    }
+
+    //-------------------- Reservation Part ------------------
+
+    public function addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive)
+    {
+        $this->yummyRepository->addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive);
     }
 
 

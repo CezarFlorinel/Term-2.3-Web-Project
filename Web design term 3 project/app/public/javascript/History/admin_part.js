@@ -3,9 +3,6 @@
 // check fo such issues if you do changes to the HTML
 // --- remove this problems, used id's instead of classes, so it should be fine now
 
-
-const parentPage = 1; // Fixated for now, to be changed later
-
 document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll('.grid .relative button').forEach(button => {
@@ -312,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const question = document.getElementById("newQuestion").value;
             const answer = document.getElementById("newAnswer").value;
             if (question && answer) {
-                addHistoryPracticalInformation(parentPage, question, answer);
+                addHistoryPracticalInformation(question, answer);
             } else {
                 alert("Please fill in both question and answer");
             }
@@ -647,15 +644,14 @@ function updateHistoryPracticalInformation(id, question, answer) {
         .catch((error) => console.error("Error:", error));
 }
 
-function addHistoryPracticalInformation(parentPage, question, answer) {
-    console.log(parentPage, question, answer);
+function addHistoryPracticalInformation(question, answer) {
+    console.log(question, answer);
     fetch("/api/historyadmin/createHistoryPracticalInformation", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            parentPage: parentPage,
             question: question,
             answer: answer,
         }),
