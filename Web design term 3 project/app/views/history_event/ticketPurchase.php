@@ -40,7 +40,7 @@
         width: 100%; /* To control the width of the content area */
         margin-top: 20px; /* Added space between header text and content */
     }
-    .image-section {
+    /* .image-section {
         margin-right: 20px;
     }
     .image-section img {
@@ -49,7 +49,7 @@
         width: auto;
         display: block;
         max-width: none;
-    }
+    } */
     .booking-form {
         width: 500px;
         padding: 20px;
