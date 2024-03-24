@@ -244,11 +244,10 @@ class YummyRepository extends Repository  //methods for getting, updating and de
 
     //-------------------- Reservation Part ------------------
 
-    public function editReservation($id, $restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active)
+    public function editReservation($id, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active)
     {
-        $stmt = $this->connection->prepare('UPDATE RESTAURANT_RESERVATIONS SET RestaurantID = :restaurantID, FirstName = :firstName, LastName = :lastName, Email = :email, PhoneNumber = :phoneNumber, Session = :session, Date = :date, NumberOfAdults = :numberOfAdults, NumberOfChildren = :numberOfChildren, Comment = :comment, Active = :active WHERE ID = :id');
+        $stmt = $this->connection->prepare('UPDATE RESTAURANT_RESERVATIONS SET FirstName = :firstName, LastName = :lastName, Email = :email, PhoneNumber = :phoneNumber, Session = :session, Date = :date, NumberOfAdults = :numberOfAdults, NumberOfChildren = :numberOfChildren, Comment = :comment, Active = :active WHERE ID = :id');
         $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':restaurantID', $restaurantID);
         $stmt->bindParam(':firstName', $firstName);
         $stmt->bindParam(':lastName', $lastName);
         $stmt->bindParam(':email', $email);
@@ -289,15 +288,6 @@ class YummyRepository extends Repository  //methods for getting, updating and de
     public function deleteRestaurant($id)
     {
         $stmt = $this->connection->prepare('DELETE FROM RESTAURANT WHERE RestaurantID = :id');
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-    }
-
-    //-------------------- Reservation Part ------------------
-
-    public function deleteReservation($id)
-    {
-        $stmt = $this->connection->prepare('DELETE FROM RESTAURANT_RESERVATIONS WHERE ID = :id');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
     }

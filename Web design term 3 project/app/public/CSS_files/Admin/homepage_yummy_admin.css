@@ -1,0 +1,17 @@
+.activeCheckboxParagraph {
+    font-size: 1.5rem;
+    color: red;
+}
+
+.large-checkbox {
+    margin-left: 7rem;
+    margin-top: 0.5rem;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    transform: scale(1.5);
+}

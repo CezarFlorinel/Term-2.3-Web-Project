@@ -31,6 +31,7 @@ class YummyService
     }
 
     //--------------------Restaurant Part ------------------
+
     public function getRestaurantById($id): Restaurant
     {
         return $this->yummyRepository->getRestaurantById($id);
@@ -103,9 +104,9 @@ class YummyService
 
     //-------------------- Reservation Part ------------------
 
-    public function editReservation($id, $restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive)
+    public function editReservation($id, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive)
     {
-        $this->yummyRepository->editReservation($id, $restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive);
+        $this->yummyRepository->editReservation($id, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive);
     }
 
     //-------------------- DELETE METHODS --------------------------------------------------------
@@ -130,14 +131,6 @@ class YummyService
     {
         $this->yummyRepository->deleteRestaurant($id);
     }
-
-    //-------------------- Reservation Part ------------------
-
-    public function deleteReservation($id)
-    {
-        $this->yummyRepository->deleteReservation($id);
-    }
-
 
     //-------------------- ADD METHODS --------------------------------------------------------
 

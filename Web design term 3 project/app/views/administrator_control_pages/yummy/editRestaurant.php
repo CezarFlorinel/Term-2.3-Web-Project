@@ -137,12 +137,10 @@ $cusineTypes = explode(";", $restaurant->cuisineTypes);
                 <?php foreach ($sessions as $session): ?>
                     <div class="card-container p-4 md:w-1/2 lg:w-1/3"
                         data-id="<?php echo htmlspecialchars($session->sessionID); ?>">
-                        <!-- Each card -->
                         <div class="bg-white shadow-md rounded-lg overflow-hidden p-6"> <!-- Card styling -->
                             <h2 class="text-xl font-semibold mb-2">Session ID:
                                 <?php echo htmlspecialchars($session->sessionID); ?>
                             </h2>
-                            <!-- Editable fields -->
                             <div class="mb-4">Available Seats:
                                 <input type="number" class="session-input bg-gray-200 p-2 rounded"
                                     value="<?php echo htmlspecialchars($session->availableSeats); ?>"
@@ -213,7 +211,6 @@ $cusineTypes = explode(";", $restaurant->cuisineTypes);
                             <input type="time" class="new-session-input bg-gray-200 p-2 rounded"
                                 data-new-field="endTime">
                         </div>
-                        <!-- Create button -->
                         <button
                             class="create-session-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Create
                             New Session</button>
