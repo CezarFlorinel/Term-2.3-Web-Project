@@ -71,7 +71,7 @@ class UserController
             if ($sanitizedData !== false && !in_array(false, $sanitizedData, true)) {
                 $user = new User($sanitizedData);
 
-                $this->userService->create($user);
+                $this->userService->createUser($user);
 
                 echo json_encode(['status' => 'success', 'message' => 'User created successfully']);
             } else {

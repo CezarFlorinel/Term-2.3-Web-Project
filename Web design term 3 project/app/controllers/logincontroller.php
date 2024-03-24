@@ -11,11 +11,7 @@ use App\Services\UserService;
 
 class LoginController
 {
-    private $userService;
-    function __construct()
-    {
-        $this->userService = new UserService();
-    }
+
     public function index()
     {
         require __DIR__ . '/../views/login/index.php';

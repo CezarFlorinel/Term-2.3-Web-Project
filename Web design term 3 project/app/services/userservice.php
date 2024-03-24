@@ -21,10 +21,10 @@ class UserService
         return $this->userRepository->getById($userId);
     }
 
-    // function getByEmail($email)
-    // {
-    //     return $this->userRepository->getByEmail($email);
-    // }
+    function getByEmail($email)
+    {
+        return $this->userRepository->getByEmail($email);
+    }
     public function checkIfEmailExists($email)
     {
         return $this->userRepository->checkIfEmailExists($email);
@@ -34,17 +34,15 @@ class UserService
         return $this->userRepository->createUser($user);
     }
 
-    // public function update($user)
-    // {
-    //     $repository = new UserRepository();
-    //     $repository->update($user);
-    // }
+    public function update($user)
+    {
+        return $this->userRepository->update($user);
+    }
 
-    // public function delete($userId)
-    // {
-    //     $repository = new UserRepository();
-    //     $repository->delete($userId);
-    // }
+    public function delete($userId)
+    {
+        return $this->userRepository->delete($userId);
+    }
 }
 
 ?>
