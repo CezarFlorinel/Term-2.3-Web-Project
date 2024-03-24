@@ -52,6 +52,11 @@ class YummyService
         return $this->yummyRepository->getRestaurantSession($id);
     }
 
+    public function getRestaurantIdByName($restaurantName): int
+    {
+        return $this->yummyRepository->getRestaurantIdByName($restaurantName);
+    }
+
     public function getCurrentRestaurantImagePath($id, $columnName): string
     {
         return $this->yummyRepository->getCurrentRestaurantImagePath($id, $columnName);
@@ -60,6 +65,11 @@ class YummyService
     public function getLastImageGalleryInsertedId(): int
     {
         return $this->yummyRepository->getLastImageGalleryInsertedId();
+    }
+
+    public function getSessionByRestaurantName($restaurantName): array
+    {
+        return $this->yummyRepository->getSessionByRestaurantName($restaurantName);
     }
 
     //-------------------- Reservation Part ------------------

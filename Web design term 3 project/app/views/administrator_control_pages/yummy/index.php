@@ -178,10 +178,10 @@ $restaurantReservations = $yummyService->getAllReservations();
                             </div>
 
                             <div class="mb-4">
-                                <p>Session Time: <span id="newSessionTimeText"></span></p>
-                                <label for="newSessionDropdown">Session:</label>
-                                <select class="reservation-input bg-gray-200 p-2 rounded" data-field="session"
-                                    name="session" id="newSessionDropdown">
+                                <p id="sessionTimeContent">Session Time:</p>
+                                Session:
+                                <select class="reservation-input bg-gray-200 p-2 rounded" name="session"
+                                    id="newSessionDropdown">
                                     <!-- Sessions will be loaded here based on selected restaurant -->
                                 </select>
                             </div>

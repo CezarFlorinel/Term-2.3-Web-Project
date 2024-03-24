@@ -105,8 +105,8 @@ class YummyHomeAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['restaurantId'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'], $input['comment'], $input['active'])) {
-                $restaurantId = $input['restaurantId'];
+            if (isset ($input['restaurantName'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'], $input['comment'], $input['active'])) {
+                $restaurantName = $input['restaurantName'];
                 $firstName = $input['firstName'];
                 $lastName = $input['lastName'];
                 $email = $input['email'];
@@ -118,6 +118,8 @@ class YummyHomeAdminController
                 $comment = $input['comment'];
                 $active = $input['active'];
 
+
+                $restaurantId = $this->yummyService->getRestaurantIdByName($restaurantName);
                 $this->yummyService->addReservation($restaurantId, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active);
 
                 echo json_encode(['message' => 'Reservation updated successfully $numberOfAdults' . $numberOfAdults . ' $numberOfChildren' . $numberOfChildren]);
@@ -126,6 +128,20 @@ class YummyHomeAdminController
                 echo json_encode(['message' => 'Missing required fields']);
             }
         }
-
     }
+
+    public function getSessionByRestaurantName()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "GET" && isset ($_GET['name'])) {
+            $restaurantName = $_GET['name'];
+
+            $sessions = $this->yummyService->getSessionByRestaurantName($restaurantName);
+
+            echo json_encode($sessions); // Send sessions back as JSON
+        } else {
+            http_response_code(400); // Bad Request
+            echo json_encode(['message' => 'Missing required parameters']);
+        }
+    }
+
 }
