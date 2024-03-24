@@ -7,38 +7,58 @@
 <link href="https://cdn.tailwindcss.com" rel="stylesheet">
 <style>
     body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: black;
-        color: white;
-        display: flex;
-        flex-direction: column; /* Stack content vertically */
-        align-items: center;
-        min-height: 130vh;
-    }
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    min-height: 200vh; /* Adjust to ensure full viewport height is usable */
+    width: 100%; /* Changed from 100vw to prevent potential scrollbar issues */
+    overflow-x: hidden; /* Keep to prevent horizontal overflow */
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center;
+    width: 100%; /* Ensure container width does not exceed viewport */
+    flex: 1; /* Allow container to expand */
+    padding: 20px 0; /* Increase padding for space around content, including header */
+}
+
     .header-text {
-        margin-top: 20px; /* Add space at the top */
-        text-align: center;
-        max-width: 1200px; /* Or width of your content area */
-    }
-    .header-text h1 {
-        font-family: "Playfair Display";
-        font-size: 2em; /* Adjust as needed */
-        margin-bottom: 0.5em; /* Space between the h1 and paragraph */
-    }
-    .header-text p {
-        font-family: "Imprima";
-        font-size: 1em; /* Adjust as needed */
-        margin-bottom: 1em; /* Space below the paragraph */
-    }
+    margin-top: 20px;
+    text-align: center;
+    width: 90%; /* Adjust content width to prevent overflow, with some padding */
+    max-width: 1200px; /* Maximum content width */
+    margin: 20px auto; /* Center content and add spacing */
+}
+
+.header-text h1 {
+    font-family: "Playfair Display";
+    font-size: 2em; /* Adjust as needed */
+    margin-bottom: 0.5em; /* Space between the h1 and paragraph */
+}
+
+.header-text p {
+    font-family: "Imprima";
+    font-size: 1.2em; /* Adjust as needed */
+    margin-bottom: 1em; /* Space below the paragraph */
+}
     .content {
         display: flex;
         justify-content: center;
         align-items: flex-start;
         max-width: 1200px;
-        width: 100%; /* To control the width of the content area */
-        margin-top: 20px; /* Added space between header text and content */
+        width: 100%;
+        margin-top: 20px;
+    }
+    .header-text, .content {
+        width: 90%; /* Adjust content width to prevent overflow, with some padding */
+        max-width: 1200px; /* Maximum content width */
+        margin: 20px auto; /* Center content and add spacing */
     }
     /* .image-section {
         margin-right: 20px;
@@ -51,10 +71,26 @@
         max-width: none;
     } */
     .booking-form {
-        width: 500px;
-        padding: 20px;
-        background-color: #f8f9fa;
-        border-radius: 10px;
+    padding: 20px; /* Increased padding */
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin: 20px auto; /* Added space around the form */
+    font-size: 0.9rem; /* Smaller relative font size */
+}
+.booking-form label, .booking-form input, .booking-form button {
+    font-size: 1em; /* Relative size to the .booking-form */
+}
+
+@media (max-width: 768px){
+    .booking-form {
+        padding: 15px; /* Adjust padding for smaller screens */
+        margin: 10px; /* Ensure it doesn’t touch the borders */
+        font-size: 0.8rem; /* Even smaller font size for very small devices */
+    }
+}
+
+.booking-form label, .booking-form input, .booking-form button {
+        font-size: 0.9em; /* Slightly larger than the form to maintain hierarchy */
     }
     .form-group {
         margin-bottom: 15px;
@@ -172,15 +208,19 @@
 </style>
 </head>
 <body>
+<?php include __DIR__ . '/../header.php'; ?>
+<div class="main-container"> 
 <div class="header-text">
         <h1>Book Ticket – History Tour</h1>
-        <p>Embark on a captivating journey through Haarlem's rich tapestry of history! Join our immersive tour, where tales of the past come alive in English, Dutch, and Chinese, offering a truly multilingual exploration of this enchanting city.</p>
+        <p>Embark on a captivating journey through Haarlem's rich tapestry of history!
+         Join our immersive tour,<br> where tales of the past come alive in English,
+          Dutch, and Chinese, offering a truly multilingual exploration of this enchanting city.</p>
     </div>
-    <div class="content mx-auto max-w-4xl p-4 flex flex-col md:flex-row items-center justify-center gap-4">
-    <div class="image-section w-full md:w-1/2 flex justify-center items-center mb-4 md:mb-0">
+    <!-- <div class="content mx-auto max-w-4xl p-4 flex flex-col md:flex-row items-center justify-center gap-4">
+    <div class="image-section w-full md:w-1/2 flex justify-center items-center mb-4 md:mb-0 order-1 md:order-1">
         <img src="assets/images/history_event/history_ticket_purchase/Church-HistoryTicket.png" alt="Saint Bavo" class="max-w-full h-auto">
-    </div>
-    <div class="booking-form w-full md:w-1/2 grid gap-4">
+    </div> -->
+    <div class="booking-form w-full md:w-1/2 grid gap-4 order-2 md:order-2">
         <div class="form-group flag-icons flex justify-center items-center gap-2">
             <label class="block text-sm font-medium text-gray-700">Selected Language</label>
             <div class="flex">
@@ -225,6 +265,7 @@
         </div>
         <button class="submit-btn mx-auto px-6 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">Add to Cart</button>
     </div>
+</div>
 </div>
 
 
@@ -271,6 +312,7 @@ function changeNumberOfTickets(change) {
     }
 }
 </script>
+<?php include __DIR__ . '/../footer.php'; ?>
 </body>
 </html>
 
