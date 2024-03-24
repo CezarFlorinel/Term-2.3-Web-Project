@@ -13,7 +13,7 @@ class UserController
         'email' => FILTER_SANITIZE_EMAIL,
         'name' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
         'role' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-        'registrationDate' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+        // 'registrationDate' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
         'password' => FILTER_SANITIZE_FULL_SPECIAL_CHARS
     ];
 
@@ -104,6 +104,7 @@ class UserController
 
                         $this->userService->update($updatedUser);
 
+                        http_response_code(200);
                         echo json_encode(['status' => 'success', 'message' => 'User updated successfully', 'user' => $updatedUser->toArray()]);
                     } else {
                         http_response_code(400);
@@ -133,6 +134,7 @@ class UserController
             $this->userService->delete($userId);
 
             if ($existingUser) {
+                http_response_code(204);
                 echo json_encode(['status' => 'success', 'message' => 'User deleted successfully']);
                 $existingUser = null;
             } else {

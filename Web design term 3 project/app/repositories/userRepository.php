@@ -30,7 +30,9 @@ class UserRepository extends Repository
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result ? $result : null;
         } catch (PDOException $e) {
-            echo $e;
+            error_log($e->getMessage());
+            throw $e;
+            //echo $e;
         }
     }
     function getByEmail($email)
@@ -75,7 +77,7 @@ class UserRepository extends Repository
     public function update($user)
     {
         try {
-            $stmt = $this->connection->prepare("UPDATE [USER] SET email = :email, password = :password, name = :name, role = :role, WHERE id = :id");
+            $stmt = $this->connection->prepare("UPDATE [USER] SET email = :email, password = :password, name = :name, role = :role WHERE UserID = :id");
 
             $stmt->bindValue(':email', $user->getEmail());
             $stmt->bindValue(':password', $user->getPassword());
@@ -92,7 +94,7 @@ class UserRepository extends Repository
     public function delete($userId)
     {
         try {
-            $stmt = $this->connection->prepare("DELETE FROM user WHERE id = ?");
+            $stmt = $this->connection->prepare("DELETE FROM [USER] WHERE UserID = ?");
             
             $stmt->execute([$userId]);
         } catch (PDOException $e) {

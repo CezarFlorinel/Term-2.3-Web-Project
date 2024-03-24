@@ -12,15 +12,21 @@ class User
     private UserRole $role;
     private string $name;
     //private ?string $profilePicture;
-    private \DateTime $registrationDate;
+    private ?\DateTime $registrationDate;
 
     public function __construct(array $userData)
     {
         $this->setEmail($userData['email' ?? '']);
         $this->setName($userData['name' ?? '']);
         $this->setPassword($userData['password' ?? '']);
-        $this->setUserRole($userData['role' ?? '']);
-        //$this->setUserRole(UserRole::Member);
+        if(isset($userData['role'])) {
+            $validRoles = [UserRole::Admin, UserRole::Member, UserRole::Employee];
+            $this->setUserRole(in_array($userData['role'], $validRoles) ? $userData['role'] : UserRole::Member);
+        } 
+        // if (isset($userData['registrationDate'])) {
+        //     // Assuming registration date is in 'Y-m-d' format, otherwise adjust the format accordingly
+        //     $this->registrationDate = new \DateTime($userData['registrationDate']);
+        // }
         // $this->setProfilePicture($userData['user_profile_picture'] ?? '');
     }
     public function toArray(): array
