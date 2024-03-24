@@ -62,6 +62,11 @@ class YummyService
         return $this->yummyRepository->getLastImageGalleryInsertedId();
     }
 
+    public function getSessionByRestaurantName($restaurantName): array
+    {
+        return $this->yummyRepository->getSessionByRestaurantName($restaurantName);
+    }
+
     //-------------------- Reservation Part ------------------
     public function getAllReservations(): array
     {

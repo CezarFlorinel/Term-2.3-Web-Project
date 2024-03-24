@@ -126,6 +126,22 @@ class YummyHomeAdminController
                 echo json_encode(['message' => 'Missing required fields']);
             }
         }
+    }
+
+    public function getSessionByRestaurantName()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "GET" && isset ($_GET['name'])) {
+            $restaurantName = $_GET['name'];
+
+            $sessions = $this->yummyService->getSessionByRestaurantName($restaurantName);
+
+            echo json_encode($sessions); // Send sessions back as JSON
+        } else {
+            http_response_code(400); // Bad Request
+            echo json_encode(['message' => 'Missing required parameters']);
+        }
+
 
     }
+
 }

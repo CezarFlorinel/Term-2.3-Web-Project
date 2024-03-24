@@ -151,6 +151,28 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         return $result ? (int) $result['MaxId'] : 0;
     }
 
+    public function getSessionByRestaurantName($restaurantName): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM SESSION WHERE RestaurantID = (SELECT RestaurantID FROM RESTAURANT WHERE Name = :name)');
+        $stmt->bindParam(':name', $restaurantName);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sessions = [];
+        foreach ($results as $result) {
+            $sessions[] = new Session(
+                $result['SessionID'],
+                $result['RestaurantID'],
+                $result['AvailableSeats'],
+                $result['PricesForAdults'],
+                $result['PricesForChildren'],
+                $result['ReservationFee'],
+                $result['StartTime'],
+                $result['EndTime']
+            );
+        }
+        return $sessions;
+    }
+
     //-------------------- Reservation Part ------------------
 
     public function getAllReservations(): array
