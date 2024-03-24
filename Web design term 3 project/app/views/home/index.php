@@ -19,7 +19,7 @@
   $repository = new App\Repositories\userRepository();
 
   // Fetch users
-  $users = $repository->getUsers();
+  $users = $repository->getAllUsers();
   ?>
     <div class="word-container">
       <div class="word-vertical haarlem" style="margin-left: 120px; margin-top: 30px;">

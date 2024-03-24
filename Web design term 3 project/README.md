@@ -1,16 +1,11 @@
-# Basic PHP MVC demo
-This repository demonstrates how the MVC design pattern can be implemented using PHP.
+# Haarlem Festival
 
-It contains a docker configuration with:
-* NGINX webserver
-* PHP FastCGI Process Manager with PDO MySQL support
-* MariaDB (GPL MySQL fork)
-* PHPMyAdmin
+
 
 ## Installation
 
 1. Install Docker Desktop on Windows or Mac, or Docker Engine on Linux.
-1. Clone the project
+2. Clone the project
 
 ## Usage
 
@@ -23,10 +18,6 @@ NGINX will now serve files in the app/public folder. Visit localhost in your bro
 PHPMyAdmin is accessible on localhost:8080
 
 If you want to stop the containers, press Ctrl+C. 
-Or run:
-blalalblabla
-```bash
-
 
 docker-compose down
 
