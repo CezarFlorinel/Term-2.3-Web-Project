@@ -74,7 +74,7 @@
     <div class="lg:col-span-2">
       <div class="text-center lg:text-left w-full px-4 mt-6 lg:mt-0 lg:px-0">
         <h3 class="text-2xl font-bold text-gold mt-4">Dance!</h3>
-        <p class="text-gray-600 mt-2">If you are a music enthusiast, Haarlem is THE PLACE for YOU! With lots of bars and music venues, you can find any kind of music you might like: from the best techno parties to live bands playing jazz and songwriter’s concerts. Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
+        <p class="text-gray-600 mt-2">If you are a music enthusiast , Haarlem is THE PLACE for YOU! With lots of bars and music venues, you can find any kind of music you might like: from the best techno parties to live bands playing jazz and songwriter’s concerts. Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
         <a href="#" class="mt-4 lg:mt-8 inline-block bg-red-500 text-white py-2 px-6 lg:px-60 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
            style="display: block; width: fit-content; margin-left: auto; margin-right: auto; text-align: center;">Learn More</a>
       </div>
