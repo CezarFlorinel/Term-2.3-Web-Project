@@ -50,12 +50,12 @@
     <section class="section-bg py-10 px-10">
       <div class="text-center mb-8 text-white">
         <h2 class="text-6xl font-bold">WHAT IS THERE TO DO?</h2>
-        <div class="flex items-center justify-center bg-no-repeat bg-center bg-contain h-72 md:h-96 lg:min-h-[300px] px-12 py-10" 
-          style="background-image: url('assets/images/elements/Union.png'); ">
+        <div class="flex items-center justify-center bg-no-repeat bg-center bg-contain h-72 md:h-96 
+        lg:min-h-[300px] px-12 py-10 lg:bg-[url('assets/images/elements/Union.png')]">
           <p class="text-base font-normal text-white rounded-lg lg:text-black">
-            Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills,
-            savor the city's culinary delights,<br> and let kids revel in a mobile event tied to the Taylers Museum.
-            For the night owls, "Dance" beckons with lively hotspots.<br> Discover history, flavors, family fun,
+            Indulge in Haarlem's vibrant tapestry—immerse in cultural marvels within museums and iconic windmills,<br>
+            savor the city's culinary delights, and let kids revel in a mobile event tied to the Taylers Museum.<br>
+            For the night owls, "Dance" beckons with lively hotspots. Discover history, flavors, family fun,
             and nightlife in this captivating city—a blend of past, present, and endless possibilities.
           </p>
         </div>
@@ -63,86 +63,68 @@
     </section>
     </div>
 
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-7xl rounded-lg bg-white p-6 shadow-lg lg:grid lg:grid-cols-2 lg:gap-4 items-center"
-       style="max-width: 1300px; background-color: white;">
-    <div class="flex justify-center lg:justify-start px-4 lg:pl-0"
-         style="flex: 1; max-width: 50%;">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+  <div class="max-w-7xl mx-auto bg-white p-6 shadow-lg rounded-lg lg:grid lg:grid-cols-3 lg:gap-4 items-center" style="max-width: 1300px;">
+    <div class="lg:col-span-1 flex justify-center lg:justify-start">
       <img src="assets/images/Home_page_Images/Dance_Image_Homepage.png"
            alt="A vibrant dance event with people enjoying music and performances"
-           class="rounded-lg max-w-xs md:max-w-sm lg:max-w-none"
-           style="width: 100%; height: auto; margin-left: 0; lg:margin-left: 150px;">
+           class="rounded-lg w-1/2 md:w-2/3 lg:w-3/4 max-w-xs md:max-w-xs lg:max-w-sm mx-auto lg:mx-0"
+           style="height: auto;">
     </div>
-    <div class="text-center lg:text-left px-4 lg:px-0"
-         style="flex: 1; padding: 20px; margin-right: 0; lg:margin-right: 250px;">
-      <h3 class="text-2xl font-bold text-gold mt-4">Dance!</h3>
-      <p class="text-gray-600 mt-2">If you are a music enthusiast, Haarlem is THE PLACE for YOU! With lots of bars and music venues, you can find any kind of music you might like: from the best techno parties to live bands playing jazz and songwriter’s concerts. Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
-      <a href="#" class="mt-4 lg:mt-8 inline-block bg-red-500 text-white py-2 px-6 lg:px-20 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
-         style="display: block; width: 100%; text-align: center;">Learn More</a>
+    <div class="lg:col-span-2">
+      <div class="text-center lg:text-left w-full px-4 mt-6 lg:mt-0 lg:px-0">
+        <h3 class="text-2xl font-bold text-gold mt-4">Dance!</h3>
+        <p class="text-gray-600 mt-2">If you are a music enthusiast, Haarlem is THE PLACE for YOU! With lots of bars and music venues, you can find any kind of music you might like: from the best techno parties to live bands playing jazz and songwriter’s concerts. Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
+        <a href="#" class="mt-4 lg:mt-8 inline-block bg-red-500 text-white py-2 px-6 lg:px-60 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+           style="display: block; width: fit-content; margin-left: auto; margin-right: auto; text-align: center;">Learn More</a>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- <div class="container mx-auto grid grid-cols-1 gap-4">
-    <div class="event-bg rounded-lg p-6 flex items-center justify-between"
-      style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
-      <div style="flex: 1; max-width: 50%;">
-        <img class="image-round" src="assets/images/Home_page_Images/Dance_Image_Homepage.png"
-          alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
-          style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
-      </div>
-      <div style="flex: 1; padding: 20px; margin-right: 250px;">
-        <h3 class="text-gold text-2xl font-bold mt-4">Dance!</h3>
-        <p class="text-gray-600 mt-2">If you are a music enthusiast, Haarlem is THE PLACE for YOU!
-          With lots of bars and music venues, you can find any kind of music you might like: from the
-          best techno parties to live bands playing jazz and songwriter’s concerts.
-          Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!</p>
-        <a href="#" class="bg-red-500 text-white py-2 px-20 rounded"
-          style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
-      </div>
-    </div> -->
-
-    <!-- Food -->
-    <div class="event-bg rounded-lg p-6 flex items-center justify-between"
-      style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
-      <div style="flex: 1; max-width: 50%;">
-        <img src="assets\images\Home_page_Images\Yummy_Image_Homepage.png"
-          alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
-          style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
-      </div>
-      <div style="flex: 1; padding: 20px; margin-right: 250px;">
-        <h3 class="text-gold text-2xl font-bold mt-4">Yummy!</h3>
-        <p class="text-gray-600 mt-2">
-          Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses.
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+  <div class="max-w-7xl mx-auto bg-white p-6 shadow-lg rounded-lg lg:grid lg:grid-cols-3 lg:gap-4 items-center" style="max-width: 1300px;">
+    <div class="lg:col-span-1 flex justify-center lg:justify-start">
+      <img src="assets\images\Home_page_Images\Yummy_Image_Homepage.png"
+           alt="A vibrant dance event with people enjoying music and performances"
+           class="rounded-lg w-1/2 md:w-2/3 lg:w-3/4 max-w-xs md:max-w-xs lg:max-w-sm mx-auto lg:mx-0"
+           style="height: auto;">
+    </div>
+    <div class="lg:col-span-2">
+      <div class="text-center lg:text-left w-full px-4 mt-6 lg:mt-0 lg:px-0">
+        <h3 class="text-2xl font-bold text-gold mt-4">Yummy!</h3>
+        <p class="text-gray-600 mt-2">Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses.
           While Haarlem may not be a global culinary icon, our city is home to a diverse array of restaurants that are
-          sure to captivate
-          your taste buds. Dive into a world of gastronomic delights, where each bite tells a unique story.</p>
-        <a href="#" class="bg-blue-500 text-white py-2 px-20 rounded"
-          style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
+          sure to captivate your taste buds. Dive into a world of gastronomic delights, where each bite tells a unique story.</p>
+        <a href="#" class="mt-4 lg:mt-8 inline-block bg-blue-500 text-white py-2 px-6 lg:px-60 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+           style="display: block; width: fit-content; margin-left: auto; margin-right: auto; text-align: center;">Learn More</a>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- History -->
-    <div class="event-bg rounded-lg p-6 flex items-center justify-between"
-      style="background-color: white; padding: 10px; max-width: 1300px; margin: auto;">
-      <div style="flex: 1; max-width: 50%;">
-        <img src="assets\images\Home_page_Images\History_Image_Homepage.png"
-          alt="A vibrant dance event with people enjoying music and performances" class="rounded-lg"
-          style="width: 100%; height: auto; max-width: 50%; margin-left: 150px;">
-      </div>
-      <div style="flex: 1; padding: 20px; margin-right: 250px;">
-        <h3 class="text-gold text-2xl font-bold mt-4">History!</h3>
-        <p class="text-gray-600 mt-2">
-          Haarlem, a city rich in history and adorned with captivating tales,
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+  <div class="max-w-7xl mx-auto bg-white p-6 shadow-lg rounded-lg lg:grid lg:grid-cols-3 lg:gap-4 items-center" style="max-width: 1300px;">
+    <div class="lg:col-span-1 flex justify-center lg:justify-start">
+      <img src="assets\images\Home_page_Images\History_Image_Homepage.png"
+           alt="A vibrant dance event with people enjoying music and performances"
+           class="rounded-lg w-1/2 md:w-2/3 lg:w-3/4 max-w-xs md:max-w-xs lg:max-w-sm mx-auto lg:mx-0"
+           style="height: auto;">
+    </div>
+    <div class="lg:col-span-2">
+      <div class="text-center lg:text-left w-full px-4 mt-6 lg:mt-0 lg:px-0">
+        <h3 class="text-2xl font-bold text-gold mt-4">History!</h3>
+        <p class="text-gray-600 mt-2">Haarlem, a city rich in history and adorned with captivating tales,
           offering a treasure trove of landmarks waiting to be explored.
           We invite you to immerse yourself in this enchanting blend of antiquity and modernity,
           where the past's timeless charm meets the vibrant pulse of the present—a perfect opportunity
           to discover and indulge in the city's breath-taking splendor.</p>
-        <a href="#" class="bg-yellow-500 text-white py-2 px-20 rounded"
-          style="display: block; width: 100%; margin-top: 15px; text-align: center;">Learn More</a>
+        <a href="#" class="mt-4 lg:mt-8 inline-block bg-yellow-500 text-white py-2 px-6 lg:px-60 rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+           style="display: block; width: fit-content; margin-left: auto; margin-right: auto; text-align: center;">Learn More</a>
       </div>
     </div>
-
+  </div>
+</div>
 
   <div style="height: 60px;"></div>
     <title>Festival Location</title>
@@ -150,20 +132,19 @@
 
   <div>
     <div class="right-aligned-text">
-      WHERE IS THE FESTIVAL?
+      WHERE IS <br> THE FESTIVAL?
     </div>
 
     <div class="festival-location-section flex-col-reverse md:flex-row ">
-      <div class="info-box md:w-2/3 pr-14">
-        <!-- <h2>WHERE IS THE FESTIVAL?</h2> -->
+      <div class="info-box md:w-2/3 pr-14 text-center">
         <p>Discover the magic of The Festival in the vibrant city of Haarlem,
           nestled to the west of Amsterdam and north of The Hague.
           The festival takes place across the entire city of Haarlem, but most noticeably in the center.
           Join us for an unforgettable experience!</p>
-        <a href="#" class="btn" style="padding: 0.5rem 1rem; width: 50%; margin-left: 180px; font-size: 0.9rem;">Check
-          festival schedule</a>
+          <a href="#" class="btn" style="padding: 0.5rem 1rem; width: 50%; margin-left: auto; margin-right: auto; display: block; font-size: 0.9rem; text-align: center;">
+          Check festival schedule
+        </a>
       </div>
-
       <div class="md:w-1/3 h-80 rounded-lg overflow-hidden">
         <!-- Replace the src attribute's value with the actual path to your image -->
         <img src="assets/images/Home_page_Images/Map_Image_Homepage.png" class="h-full object-cover">
@@ -182,115 +163,109 @@
     </div>
 
     <!-- Dates -->
-    <div class="flex justify-around space-x-10 mb-10"
-      style="display: flex; justify-content: space-around; margin-bottom: 2.5rem;">
-      <div class="text-center px-5" style="text-align: center; padding-left: 1.25rem; padding-right: 1.25rem;">
-        <div class="text-6xl" style="font-size: 5rem; font-family: 'Impact', sans-serif;">25</div>
-        <div class="text-xl" style="font-size: 1.5rem; font-family: 'Imprima', sans-serif;">Jul</div>
-        <div style="font-size: 1.25rem; font-family: 'Imprima', sans-serif;">Thursday</div>
-      </div>
-      <div class="text-center px-5" style="text-align: center; padding-left: 1.25rem; padding-right: 1.25rem;">
-        <div class="text-6xl" style="font-size: 5rem; font-family: 'Impact', sans-serif;">26</div>
-        <div class="text-xl" style="font-size: 1.5rem; font-family: 'Imprima', sans-serif;">Jul</div>
-        <div style="font-size: 1.25rem; font-family: 'Imprima', sans-serif;">Friday</div>
-      </div>
-      <div class="text-center px-5" style="text-align: center; padding-left: 1.25rem; padding-right: 1.25rem;">
-        <div class="text-6xl" style="font-size: 5rem; font-family: 'Impact', sans-serif;">27</div>
-        <div class="text-xl" style="font-size: 1.5rem; font-family: 'Imprima', sans-serif;">Jul</div>
-        <div style="font-size: 1.25rem; font-family: 'Imprima', sans-serif;">Saturday</div>
-      </div>
-      <div class="text-center px-5" style="text-align: center; padding-left: 1.25rem; padding-right: 1.25rem;">
-        <div class="text-6xl" style="font-size: 5rem; font-family: 'Impact', sans-serif;">28</div>
-        <div class="text-xl" style="font-size: 1.5rem; font-family: 'Imprima', sans-serif;">Jul</div>
-        <div style="font-size: 1.25rem; font-family: 'Imprima', sans-serif;">Sunday</div>
-      </div>
-    </div>
-    </div>
+    <div class="flex flex-wrap justify-around space-x-2 md:space-x-10 mb-10">
+  <div class="text-center px-2 md:px-5 w-full md:w-auto">
+    <div class="text-3xl md:text-6xl font-bold font-Impact">25</div>
+    <div class="text-lg md:text-xl font-imprima">Jul</div>
+    <div class="text-md md:text-lg font-imprima">Thursday</div>
+  </div>
+  <div class="text-center px-2 md:px-5 w-full md:w-auto">
+    <div class="text-3xl md:text-6xl font-bold font-Impact">26</div>
+    <div class="text-lg md:text-xl font-imprima">Jul</div>
+    <div class="text-md md:text-lg font-imprima">Friday</div>
+  </div>
+  <div class="text-center px-2 md:px-5 w-full md:w-auto">
+    <div class="text-3xl md:text-6xl font-bold font-Impact">27</div>
+    <div class="text-lg md:text-xl font-imprima">Jul</div>
+    <div class="text-md md:text-lg font-imprima">Saturday</div>
+  </div>
+  <div class="text-center px-2 md:px-5 w-full md:w-auto">
+    <div class="text-3xl md:text-6xl font-bold font-Impact">28</div>
+    <div class="text-lg md:text-xl font-imprima">Jul</div>
+    <div class="text-md md:text-lg font-imprima">Sunday</div>
+  </div>
+</div>
+
 
     <!-- Events -->
     <div class="space-y-10 px-20">
       <!-- Historical Tour -->
-      <div class="pt-8"
-        style="background-image: url('assets/images/Home_page_Images/Rectangle.png'); background-repeat: no-repeat; background-position: top; background-size: 100% auto;">
-        <div style="height: 20px;"></div>
-        <div class="text-4xl font-bold mb-4 text-white bg-black py-4" style="font-family: 'Playfair Display', serif;">A
-          Stroll Through History</div>
-        <div class="grid grid-cols-3 gap-4">
-          <div class="col-span-1">
-            <img src="assets\images\Home_page_Images\HistoryEvent_Image_Homepage.png" alt="Historical Tour"
-              class="w-full h-auto">
-          </div>
-          <div class="col-span-2 text-base flex items-center justify-center"
-            style="font-family: 'Imprima', sans-serif; font-size: 1.6em; margin-right: 380px;">
-            The event takes place every day, the hours when the tours start are always 10:00, 13:00, 16:00.
-            The tours are available in multiple languages.
-          </div>
+      <div class="pt-8 lg:pt-12 bg-no-repeat bg-top bg-[size:100%_auto] bg-[url('assets/images/Home_page_Images/Rectangle.png')]">
+    <div class="h-5"></div>
+    <div class="text-4xl lg:text-5xl font-bold mb-4 text-white bg-black py-4 lg:py-6 font-playfair text-center sm:text-left">
+        A Stroll Through History
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 lg:gap-6">
+        <div class="sm:col-span-1">
+            <img src="assets/images/Home_page_Images/HistoryEvent_Image_Homepage.png" alt="Historical Tour" class="w-full h-auto">
         </div>
-      </div>
+        <div class="sm:col-span-2 text-base lg:text-xl flex items-center justify-center font-imprima text-lg sm:text-2xl text-center sm:text-left px-4 sm:px-0 lg:px-6">
+            The event takes place every day, the hours when the tours start are always 10:00, 13:00, 16:00. The tours are available in multiple languages.
+        </div>
+    </div>
+</div>
+
 
       <div style="height: 5px;"></div>
 
-      <!-- Food Festival -->
-      <div class="pt-8"
-        style="background-image: url('assets/images/Home_page_Images/Rectangle.png'); background-repeat: no-repeat; background-position: top; background-size: 100% auto;">
-        <div style="height: 20px;"></div>
-        <div class="text-4xl font-bold mb-4 text-white bg-black py-4" style="font-family: 'Playfair Display', serif;">
-          Yummy!</div>
-        <div class="grid grid-cols-3 gap-4">
-          <div class="col-span-1">
-            <img src="assets\images\Home_page_Images\YummyEvent_Image_Homepage.png" alt="Food Festival"
-              class="w-full h-auto">
-          </div>
-          <div class="col-span-2 text-base flex items-center justify-center"
-            style="font-family: 'Imprima', sans-serif; font-size: 1.6em; margin-right: 380px;">
-            Reservations can be made during the period of the festival at various restaurants
+      <div class="pt-8 lg:pt-12 bg-no-repeat bg-top bg-[size:100%_auto] bg-[url('assets/images/Home_page_Images/Rectangle.png')]">
+    <div class="h-5"></div>
+    <div class="text-4xl lg:text-5xl font-bold mb-4 text-white bg-black py-4 lg:py-6 font-playfair text-center sm:text-left">
+    Yummy!
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 lg:gap-6">
+        <div class="sm:col-span-1">
+            <img src="assets/images/Home_page_Images/YummyEvent_Image_Homepage.png" alt="Historical Tour" class="w-full h-auto">
+        </div>
+        <div class="sm:col-span-2 text-base lg:text-xl flex items-center justify-center font-imprima text-lg sm:text-2xl text-center sm:text-left px-4 sm:px-0 lg:px-6">
+        Reservations can be made during the period of the festival at various restaurants
             across Haarlem at various hours depending on the restaurant.
-          </div>
         </div>
-      </div>
+    </div>
+</div>
 
       <div style="height: 5px;"></div>
-      <!-- Dance Event -->
-      <div class="pt-8"
-        style="background-image: url('assets/images/Home_page_Images/Rectangle.png'); background-repeat: no-repeat; background-position: top; background-size: 100% auto;">
-        <div style="height: 20px;"></div>
-        <div class="text-4xl font-bold mb-4 text-white bg-black py-4" style="font-family: 'Playfair Display', serif;">
-          Dance!</div>
-        <div class="grid grid-cols-3 gap-4">
-          <div class="col-span-1">
-            <img src="assets\images\Home_page_Images\DanceEvent_Image_Homepage.jpg" alt="Dance Event"
-              class="w-full h-auto">
-          </div>
-          <div class="col-span-2 text-base flex items-center justify-center"
-            style="font-family: 'Imprima', sans-serif; font-size: 1.6em; margin-right: 380px;">
+
+      <div class="pt-8 lg:pt-12 bg-no-repeat bg-top bg-[size:100%_auto] bg-[url('assets/images/Home_page_Images/Rectangle.png')]">
+    <div class="h-5"></div>
+    <div class="text-4xl lg:text-5xl font-bold mb-4 text-white bg-black py-4 lg:py-6 font-playfair text-center sm:text-left">
+    Dance!
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 lg:gap-6">
+        <div class="sm:col-span-1">
+            <img src="assets/images/Home_page_Images/DanceEvent_Image_Homepage.jpg" alt="Historical Tour" class="w-full h-auto">
+        </div>
+        <div class="sm:col-span-2 text-base lg:text-xl flex items-center justify-center font-imprima text-lg sm:text-2xl text-center sm:text-left px-4 sm:px-0 lg:px-6">
             The event takes place on the dates of 26, 27 and 28. Multiple artists will play
             their music at different places across Haarlem. Most of the concerts will take place in the evening and
             during the night.
-          </div>
         </div>
-      </div>
+    </div>
+</div>
     </div>
     </div>
     </div>
 
   <div style="height: 60px;"></div>
 
-  <div>
-    <div class="event-section">
-      <img class="event-image" src="assets/images/Home_page_Images/Dexter_Image_Homepage.png" alt="Image of Dexter">
+  <div class="event-section flex flex-col md:flex-row items-center md:items-start">
+  <img class="event-image w-1/4 md:w-1/12" src="assets/images/Home_page_Images/Dexter_Image_Homepage.png" alt="Image of Dexter">
 
-      <div class="content">
-        <div class="event-title">The Secret of Professor Teyler</div>
-        <div class="mobile-event" style="margin-bottom: 20px;">(mobile event)</div>
-        <div class="event-description">
-          Looking for a great way to keep your kids entertained?
-          Join in on the excitement with The Teyler Museum's
-          scavenger hunt during the festival! Get started by downloading
-          the activity app—just scan the QR code to begin the adventure.
-        </div>
-      </div>
-      <img class="qr-code" src="assets/images/Home_page_Images/QR_Image_Homepage.png" alt="QR Code">
+  <div class="content p-4">
+    <div class="event-title text-5xl font-bold">The Secret of Professor Teyler</div>
+    <div class="mobile-event mb-5 text-xl text-sm">(mobile event)</div>
+    <div class="event-description text-base">
+      Looking for a great way to keep your kids entertained?
+      Join in on the excitement with The Teyler Museum's
+      scavenger hunt during the festival! Get started by downloading
+      the activity app—just scan the QR code to begin the adventure.
     </div>
+  </div>
+  
+  <img class="qr-code w-1/4 md:w-1/12" src="assets/images/Home_page_Images/QR_Image_Homepage.png" alt="QR Code">
+</div>
+
+
   <div style="height: 40px;"></div>
   <?php include __DIR__ . '/../footer.php'; ?>
     </div>

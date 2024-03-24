@@ -1,29 +1,3 @@
-    /* .event-bg {
-      background-color: black;
-      margin-left: 50px;
-      margin-right: 50px;
-    } */
-
-    /* .fest-bg {
-      background-color: #333;
-    }
-
-    .section-bg {
-      background-color: #000;
-    }
-
-    .schedule-bg {
-      background-color: black;
-    }
-
-    .text-gold {
-      color: #000;
-    }
-
-    .text-dim-white {
-      color: rgba(255, 255, 255, 0.7);
-    } */
-
     /* <style> */
       body {
         background-color: black;
@@ -85,17 +59,6 @@
         font-family: 'Vampiro One', cursive;
       }
 
-      /* .banner {
-        position: absolute;
-        right: 10%;
-        top: 50%;
-        transform: translate(0, -50%) rotate(12deg);
-        background-color: red;
-        color: white;
-        padding: 8px 32px;
-        font-size: 24px;
-      } */
-
       .event-bg {
         background-color: white;
         border-radius: 8px;
@@ -106,17 +69,24 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        transform: rotate(-3deg);
+        /* transform: rotate(-3deg); */
         /* Tilts the section */
         overflow: hidden;
         /* Ensures nothing spills outside the border */
       }
+      
 
       .image-container {
         flex: 1;
         max-width: 50%;
         margin-left: 150px;
       }
+
+      /* @media (min-width: 768px) {
+        .bg-image-md {
+          background-image: url('assets/images/elements/Union.png');
+        }
+      } */
 
       .image-round {
         width: 100%;
@@ -164,11 +134,12 @@
       }
 
       .info-box {
+        margin-top: 8px;
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
-        border-top-right-radius: 0;
+        border-top-right-radius: 8px;
         /* Make top right corner flat */
-        border-bottom-right-radius: 0;
+        border-bottom-right-radius: 8px;
         /* Make bottom right corner flat */
         padding: 24px;
         background-color: #FDF7D9;
@@ -177,7 +148,7 @@
         /* Takes up remaining space */
         color: black;
         /* Text color changed to black */
-        margin-right: -24px;
+        /* margin-right: -8px; */
         /* Adjust so it touches the image */
       }
 
@@ -215,7 +186,8 @@
 
       /* ------------------------ */
       .right-aligned-text {
-        text-align: right;
+        margin-bottom: 10px;
+        text-align: center;
         color: white;
         background-color: black;
         width: 100%;
@@ -320,5 +292,4 @@
         /* Adds padding to the left and right of the content */
       }
     /* </style> */
-
     
