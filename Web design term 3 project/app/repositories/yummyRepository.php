@@ -8,6 +8,7 @@ use App\Models\Yummy_event\RestaurantReviews;
 use App\Models\Yummy_event\Restaurant;
 use App\Models\Yummy_event\ImagePathGalleryRestaurant;
 use App\Models\Yummy_event\Session;
+use App\Models\Yummy_event\Reservation;
 
 
 class YummyRepository extends Repository  //methods for getting, updating and deleting information for the yummy related tables
@@ -144,10 +145,37 @@ class YummyRepository extends Repository  //methods for getting, updating and de
 
     public function getLastImageGalleryInsertedId(): int
     {
-        $stmt = $this->connection->prepare('SELECT MAX(ID) FROM IMAGE_PATH_GALLERY_RESTAURANT');
+        $stmt = $this->connection->prepare('SELECT MAX(ID) AS MaxId FROM IMAGE_PATH_GALLERY_RESTAURANT');
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['MAX(ID)'];
+        return $result ? (int) $result['MaxId'] : 0;
+    }
+
+    //-------------------- Reservation Part ------------------
+
+    public function getAllReservations(): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM RESTAURANT_RESERVATIONS');
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $reservations = [];
+        foreach ($results as $result) {
+            $reservations[] = new Reservation(
+                $result['ID'],
+                $result['RestaurantID'],
+                $result['FirstName'],
+                $result['LastName'],
+                $result['Email'],
+                $result['PhoneNumber'],
+                $result['Session'],
+                $result['Date'],
+                $result['NumberOfAdults'],
+                $result['NumberOfChildren'],
+                $result['Comment'],
+                $result['Active']
+            );
+        }
+        return $reservations;
     }
 
     //-------------------- EDIT METHODS --------------------------------------------------------
@@ -214,7 +242,25 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt->execute();
     }
 
+    //-------------------- Reservation Part ------------------
 
+    public function editReservation($id, $restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active)
+    {
+        $stmt = $this->connection->prepare('UPDATE RESTAURANT_RESERVATIONS SET RestaurantID = :restaurantID, FirstName = :firstName, LastName = :lastName, Email = :email, PhoneNumber = :phoneNumber, Session = :session, Date = :date, NumberOfAdults = :numberOfAdults, NumberOfChildren = :numberOfChildren, Comment = :comment, Active = :active WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':restaurantID', $restaurantID);
+        $stmt->bindParam(':firstName', $firstName);
+        $stmt->bindParam(':lastName', $lastName);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phoneNumber', $phoneNumber);
+        $stmt->bindParam(':session', $session);
+        $stmt->bindParam(':date', $date);
+        $stmt->bindParam(':numberOfAdults', $numberOfAdults);
+        $stmt->bindParam(':numberOfChildren', $numberOfChildren);
+        $stmt->bindParam(':comment', $comment);
+        $stmt->bindParam(':active', $active);
+        $stmt->execute();
+    }
 
     //-------------------- DELETE METHODS --------------------------------------------------------
     //--------------------  Restaurant Part ------------------
@@ -247,6 +293,15 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt->execute();
     }
 
+    //-------------------- Reservation Part ------------------
+
+    public function deleteReservation($id)
+    {
+        $stmt = $this->connection->prepare('DELETE FROM RESTAURANT_RESERVATIONS WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
 
     //-------------------- ADD METHODS --------------------------------------------------------
 
@@ -271,7 +326,7 @@ class YummyRepository extends Repository  //methods for getting, updating and de
 
     public function addRestaurantSession($restaurantID, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime)
     {
-        $stmt = $this->connection->prepare('INSERT INTO SESSION (RestaurantID, AvailableSeats, PricesForAdults, PricesForChildren, ReservationFee, StartTime, EndTime) VALUES (:sessionID, :restaurantID, :availableSeats, :pricesForAdults, :pricesForChildren, :reservationFee, :startTime, :endTime)');
+        $stmt = $this->connection->prepare('INSERT INTO SESSION (RestaurantID, AvailableSeats, PricesForAdults, PricesForChildren, ReservationFee, StartTime, EndTime) VALUES (:restaurantID, :availableSeats, :pricesForAdults, :pricesForChildren, :reservationFee, :startTime, :endTime)');
         $stmt->bindParam(':restaurantID', $restaurantID);
         $stmt->bindParam(':availableSeats', $availableSeats);
         $stmt->bindParam(':pricesForAdults', $pricesForAdults);
@@ -301,6 +356,25 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt->bindParam(':imagePathChef', $imagePathChef);
         $stmt->execute();
 
+    }
+
+    //-------------------- Reservation Part ------------------
+
+    public function addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active)
+    {
+        $stmt = $this->connection->prepare('INSERT INTO RESTAURANT_RESERVATIONS (RestaurantID, FirstName, LastName, Email, PhoneNumber, Session, Date, NumberOfAdults, NumberOfChildren, Comment, Active) VALUES (:restaurantID, :firstName, :lastName, :email, :phoneNumber, :session, :date, :numberOfAdults, :numberOfChildren, :comment, :active)');
+        $stmt->bindParam(':restaurantID', $restaurantID);
+        $stmt->bindParam(':firstName', $firstName);
+        $stmt->bindParam(':lastName', $lastName);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phoneNumber', $phoneNumber);
+        $stmt->bindParam(':session', $session);
+        $stmt->bindParam(':date', $date);
+        $stmt->bindParam(':numberOfAdults', $numberOfAdults);
+        $stmt->bindParam(':numberOfChildren', $numberOfChildren);
+        $stmt->bindParam(':comment', $comment);
+        $stmt->bindParam(':active', $active);
+        $stmt->execute();
     }
 
 

@@ -366,18 +366,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 method: 'POST',
                 body: formData,
             })
-                .then(response => response.json())
+                .then(response => {
+                    console.log('Raw response:', response); // Log the raw response
+                    return response.json(); // This parses the JSON body of the response (but can throw if not valid JSON)
+                })
                 .then(data => {
+                    console.log('Parsed data:', data); // Log the parsed data
                     if (data.success) {
                         // Add the uploaded image to the gallery
                         const imagesGallery = document.getElementById('imagesGallery');
                         const newImageDiv = document.createElement('div');
                         newImageDiv.className = 'relative';
                         newImageDiv.innerHTML = `
-                    <img src="${data.imageUrl}" alt="Uploaded Image" class="w-full h-auto">
-                    <button class="delete-image-btn absolute top-0 right-0 bg-red-500 text-white px-2 py-1"
-                        data-image-id="${data.imageId}" data-image-path="${data.imageUrl}">Delete</button>
-                `;
+                        <img src="${data.imageUrl}" alt="Uploaded Image" class="w-full h-auto">
+                        <button class="delete-image-btn absolute top-0 right-0 bg-red-500 text-white px-2 py-1"
+                        data-image-id="${data.imageId}" data-image-path="${data.imageUrl}">Delete</button>`;
                         imagesGallery.appendChild(newImageDiv);
 
                         // Attach event listener for deletion to the new delete button
@@ -398,6 +401,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    document.getElementById('delete-restaurant-btn').addEventListener('click', function () {
+        if (confirm('Are you sure you want to delete this restaurant?')) {
+            const container = document.getElementById("container-restaurant-info");
+            const id = container.getAttribute('data-id');
+
+            fetch('/api/restaurantIndividualAdmin/deleteRestaurant', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: id }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Restaurant deleted successfully.');
+                        window.location.href = '/yummyHomeAdmin';
+                    } else {
+                        alert('Failed to delete restaurant: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error deleting the restaurant');
+                });
+        }
+    });
 
 });
 

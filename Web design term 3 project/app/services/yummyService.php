@@ -61,6 +61,12 @@ class YummyService
         return $this->yummyRepository->getLastImageGalleryInsertedId();
     }
 
+    //-------------------- Reservation Part ------------------
+    public function getAllReservations(): array
+    {
+        return $this->yummyRepository->getAllReservations();
+    }
+
     //-------------------- EDIT METHODS --------------------------------------------------------
     //-------------------- Home Part ------------------
     public function editHomepageDataRestaurant($id, $subheader, $description)
@@ -95,6 +101,12 @@ class YummyService
         $this->yummyRepository->editRestaurantSession($id, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime);
     }
 
+    //-------------------- Reservation Part ------------------
+
+    public function editReservation($id, $restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive)
+    {
+        $this->yummyRepository->editReservation($id, $restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive);
+    }
 
     //-------------------- DELETE METHODS --------------------------------------------------------
     //--------------------  Restaurant Part ------------------
@@ -117,6 +129,13 @@ class YummyService
     public function deleteRestaurant($id)
     {
         $this->yummyRepository->deleteRestaurant($id);
+    }
+
+    //-------------------- Reservation Part ------------------
+
+    public function deleteReservation($id)
+    {
+        $this->yummyRepository->deleteReservation($id);
     }
 
 
@@ -143,6 +162,13 @@ class YummyService
     public function createNewRestaurant($name, $location, $description, $descriptionSideOne, $descriptionSideTwo, $numberOfSeats, $numberOfStars, $cuisineType, $imagePathTop, $imagePathLocation, $imagePathChef)
     {
         $this->yummyRepository->createNewRestaurant($name, $location, $description, $descriptionSideOne, $descriptionSideTwo, $numberOfSeats, $numberOfStars, $cuisineType, $imagePathTop, $imagePathLocation, $imagePathChef);
+    }
+
+    //-------------------- Reservation Part ------------------
+
+    public function addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive)
+    {
+        $this->yummyRepository->addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive);
     }
 
 
