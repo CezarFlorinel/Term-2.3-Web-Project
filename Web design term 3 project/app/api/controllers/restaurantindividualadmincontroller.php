@@ -13,6 +13,53 @@ class RestaurantIndividualAdminController
         $this->yummyService = new YummyService();
     }
 
+    public function deleteRestaurant()
+    {
+        // Retrieve and decode the JSON from the request body
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        // Now check if the necessary data is present
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($data['id'])) {
+            $id = $data['id'];
+
+            // Remove the image files from the folder
+            $projectRoot = realpath(__DIR__ . '/../../..');
+
+            $restaurant = $this->yummyService->getRestaurantById($id);
+
+            $galleryImages = $this->yummyService->getRestaurantImagePathGallery($id);
+            $otherImages2 = [];
+            foreach ($galleryImages as $image) {
+                $otherImages2[] = ['imagePath' => $image->imagePath];
+            }
+            $otherImages = [
+                ['imagePath' => $restaurant->imagePathHomepage],
+                ['imagePath' => $restaurant->imagePathLocation],
+                ['imagePath' => $restaurant->imagePathChef]
+            ];
+            $images = array_merge($otherImages2, $otherImages);
+
+
+            foreach ($images as $image) {
+                $fullImagePath = $projectRoot . '/app/public/' . $image['imagePath'];
+                if (file_exists($fullImagePath)) {
+                    unlink($fullImagePath);
+                }
+            }
+
+            // Delete the restaurant from the database
+            $this->yummyService->deleteRestaurant($id);
+
+            // Return a success message
+            echo json_encode(['success' => true, 'message' => 'Restaurant deleted successfully']);
+
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Missing ID.']);
+        }
+
+
+    }
+
     public function updateRestaurantInformation()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

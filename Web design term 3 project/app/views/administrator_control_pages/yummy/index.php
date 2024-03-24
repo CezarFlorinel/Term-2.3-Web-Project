@@ -4,6 +4,8 @@ use App\Services\YummyService;
 $yummyService = new YummyService();
 $homepageDataRestaurant = $yummyService->getHomepageDataRestaurant();
 $restaurantsNameAndId = $yummyService->getRestaurantsNameAndId();
+$restaurantReservations = $yummyService->getAllReservations();
+
 ?>
 
 
@@ -60,6 +62,28 @@ $restaurantsNameAndId = $yummyService->getRestaurantsNameAndId();
                     </button>
                 </div>
             </div>
+
+            <!-- Reservations Section ------------------------------------------------------- -->
+            <h1 class="text-3xl text-center mb-6">Reservations</h1>
+            <div class="flex flex-wrap -mx-4"> <!-- Container for the cards -->
+                <?php foreach ($restaurantReservations as $reservation): ?>
+                    <div class="card-container p-4 md:w-1/2 lg:w-1/3">
+                        <div class="mb-4">Available Seats:
+                            <input type="number" class="session-input bg-gray-200 p-2 rounded"
+                                value="<?php echo htmlspecialchars($reservation->numberOfAdults); ?>"
+                                data-field="availableSeats">
+                        </div>
+
+
+
+                    </div>
+                <?php endforeach; ?>
+
+
+
+
+            </div>
+
 
             <!-- Restaurants Section ------------------------------------------------------- -->
             <h1 class="text-3xl text-center mb-6">Restaurants List</h1>

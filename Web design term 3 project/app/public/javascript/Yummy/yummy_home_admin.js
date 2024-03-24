@@ -1,7 +1,5 @@
 
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("edit-top-part-btn").addEventListener("click", function () {
