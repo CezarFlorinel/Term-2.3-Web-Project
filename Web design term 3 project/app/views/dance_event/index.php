@@ -262,21 +262,23 @@
                         </p>
                     </div>
                 </div>
+
+                <!-- Ticket Section -->
                 <div class="flex justify-between items-center mb-2 mt-12">
-                    <h2 class="text-3xl font-bold">Select Your Ticket:</h2>                   
+                    <h2 class="text-3xl font-bold">Select Your Ticket:</h2>
                 </div>
-                <section class="bg-gray-600 rounded-lg py-8">
+                <section class="bg-black rounded-lg py-8">
                     <div class="max-w-7xl mx-auto px-4">
                         <div class="flex flex-wrap -mx-4">
                             <!-- Flex Container for both sections -->
                             <div class="flex flex-wrap w-full">
                                 <!-- Sidebar: Filter Section -->
                                 <div class="w-full lg:w-1/3 px-4 mb-6 lg:mb-0">
-                                    <div class="bg-black p-6 shadow-lg rounded-lg">
+                                    <div class="bg-black p-6 shadow-lg rounded-lg border border-blue-900">
                                         <h3 class="text-xl font-bold mb-4">Filter Tickets</h3>
                                         <!-- Artists Filter -->
                                         <div class="mb-4 relative">
-                                            <label class="block font-bold text-white mb-1 mt-4" for="artists">Artists</label>
+                                            <label class="block font-bold text-white mb-2 mt-8" for="artists">Artists</label>
                                             <div class="mt-1 relative">
                                                 <select id="artists" class="form-select block w-full pl-3 pr-10 py-2 border border-gray-300 shadow-sm rounded-md appearance-none bg-white" onchange="this.style.color='black'">
                                                     <option value="" disabled selected hidden>All Artists</option>
@@ -297,8 +299,8 @@
 
                                         <!-- Date Filter -->
                                         <div class="mb-4">
-                                            <label class="block font-bold text-white mb-1 mt-4">DATE</label>
-                                            <div class="flex flex-col space-y-2">
+                                            <label class="block font-bold text-white mb-2 mt-8">DATE</label>
+                                            <div class="bg-gray-900 flex flex-col space-y-2 border border-blue-900">
                                                 <label class="inline-flex items-center">
                                                     <input type="checkbox" class="form-checkbox" name="date[]" value="26.07">
                                                     <span class="ml-2"> Friday 26 July</span>
@@ -316,8 +318,8 @@
 
                                         <!-- Location Filter -->
                                         <div class="mb-4">
-                                            <label class="block font-bold text-white mb-1">LOCATION</label>
-                                            <div class="flex flex-col space-y-2">
+                                            <label class="block font-bold text-white mb-2 mt-8">LOCATION</label>
+                                            <div class="bg-gray-900 flex flex-col space-y-2 border border-blue-900">
                                                 <label class="inline-flex items-center">
                                                     <input type="checkbox" class="form-checkbox" name="location[]" value="Club Ruis">
                                                     <span class="ml-2">Club Ruis</span>
@@ -334,7 +336,7 @@
                                         </div>
 
                                         <!-- Available Tickets Filter -->
-                                        <div class="mb-4">
+                                        <div class="mb-8 mt-8 bg-gray-900 flex flex-col space-y-2 border border-blue-900">
                                             <label class="inline-flex items-center">
                                                 <input type="checkbox" class="form-checkbox" name="available" value="1">
                                                 <span class="ml-2">Show only available tickets</span>
@@ -346,9 +348,9 @@
                                 </div>
 
                                 <!-- Ticket Display adjusted for responsive and scalable display -->
-                                <div class="w-full lg:w-2/3 px-4 max-h-[800px] overflow-auto space-y-4 p-4">
+                                <div class="w-full lg:w-2/3 px-4 max-h-[800px] overflow-auto space-y-4 p-4 border border-blue-900">
                                     <!-- Ticket 1 -->
-                                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex flex-col w-full mx-auto">
+                                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex flex-col w-full mx-auto border border-blue-900">
                                         <div class="flex-1 mb-4">
                                             <div class="text-2xl font-bold mb-2 text-center lg:text-left">
                                                 Nicky Romero / Afrojack
@@ -373,7 +375,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Separate row for quantity adjuster and add to cart button, aligned to the right -->
                                         <div class="mt-4 flex justify-end items-center space-x-2">
                                             <button class="bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                                                 <i class="fas fa-minus text-white text-xs"></i>
@@ -389,7 +390,7 @@
                                     </div>
 
                                     <!-- Ticket 2 -->
-                                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex flex-col w-full mx-auto">
+                                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex flex-col w-full mx-auto border border-blue-900">
                                         <div class="flex-1 mb-4">
                                             <div class="text-2xl font-bold mb-2 text-center lg:text-left">
                                                 Nicky Romero / Afrojack
@@ -414,7 +415,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Separate row for quantity adjuster and add to cart button, aligned to the right -->
                                         <div class="mt-4 flex justify-end items-center space-x-2">
                                             <button class="bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                                                 <i class="fas fa-minus text-white text-xs"></i>
@@ -430,7 +430,7 @@
                                     </div>
 
                                     <!-- Ticket 3 -->
-                                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex flex-col w-full mx-auto">
+                                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex flex-col w-full mx-auto border border-blue-900">
                                         <div class="flex-1 mb-4">
                                             <div class="text-2xl font-bold mb-2 text-center lg:text-left">
                                                 Nicky Romero / Afrojack
@@ -455,7 +455,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Separate row for quantity adjuster and add to cart button, aligned to the right -->
                                         <div class="mt-4 flex justify-end items-center space-x-2">
                                             <button class="bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                                                 <i class="fas fa-minus text-white text-xs"></i>
@@ -469,8 +468,8 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <!-- Ticket 1 -->
-                                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex flex-col w-full mx-auto">
+                                    <!-- Ticket 4 -->
+                                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex flex-col w-full mx-auto border border-blue-900">
                                         <div class="flex-1 mb-4">
                                             <div class="text-2xl font-bold mb-2 text-center lg:text-left">
                                                 Nicky Romero / Afrojack
@@ -496,6 +495,45 @@
                                             </div>
                                         </div>
                                         <!-- Separate row for quantity adjuster and add to cart button, aligned to the right -->
+                                        <div class="mt-4 flex justify-end items-center space-x-2">
+                                            <button class="bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                <i class="fas fa-minus text-white text-xs"></i>
+                                            </button>
+                                            <span>1</span>
+                                            <button class="bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                <i class="fas fa-plus text-white text-xs"></i>
+                                            </button>
+                                            <button class="bg-blue-500 py-1 px-4 rounded-lg font-bold text-white text-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                Add ticket to cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- Ticket 5 -->
+                                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex flex-col w-full mx-auto border border-blue-900">
+                                        <div class="flex-1 mb-4">
+                                            <div class="text-2xl font-bold mb-2 text-center lg:text-left">
+                                                Nicky Romero / Afrojack
+                                            </div>
+                                            <div class="flex justify-center items-center space-x-4 lg:space-x-10">
+                                                <div class="text-center">
+                                                    <div class="font-semibold">Location</div>
+                                                    <div>LICHTFABRIEK</div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <div class="font-semibold">Date & Time</div>
+                                                    <div>26 JUL - FRIDAY</div>
+                                                    <div>20:00 - 04:00</div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <div class="font-semibold">Session</div>
+                                                    <div>Back 2 Back</div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <div class="font-semibold">Price</div>
+                                                    <div>€ 75,00</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="mt-4 flex justify-end items-center space-x-2">
                                             <button class="bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                                                 <i class="fas fa-minus text-white text-xs"></i>
