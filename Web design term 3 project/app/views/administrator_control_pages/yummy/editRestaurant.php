@@ -23,11 +23,18 @@ $cusineTypes = explode(";", $restaurant->cuisineTypes);
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
 
         <div class="flex-grow p-6">
+
             <h1 class="text-5xl font-bold text-center mb-6 text-red-900">
                 <?php echo ($restaurant->name); ?>
             </h1>
+
             <!-- Restaurant Table Info Section ------------------------------------------------------- -->
-            <h1 class="text-3xl text-center mb-6">Restaurant Information</h1>
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl">Restaurant Information</h1>
+                <button id="delete-restaurant-btn"
+                    class="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-150">DELETE
+                    RESTAURANT</button>
+            </div>
             <div class="bg-white shadow-md rounded-lg p-6">
                 <div id="container-restaurant-info"
                     class="p-4 border-b border-gray-200 flex justify-between items-start"
@@ -130,12 +137,10 @@ $cusineTypes = explode(";", $restaurant->cuisineTypes);
                 <?php foreach ($sessions as $session): ?>
                     <div class="card-container p-4 md:w-1/2 lg:w-1/3"
                         data-id="<?php echo htmlspecialchars($session->sessionID); ?>">
-                        <!-- Each card -->
                         <div class="bg-white shadow-md rounded-lg overflow-hidden p-6"> <!-- Card styling -->
                             <h2 class="text-xl font-semibold mb-2">Session ID:
                                 <?php echo htmlspecialchars($session->sessionID); ?>
                             </h2>
-                            <!-- Editable fields -->
                             <div class="mb-4">Available Seats:
                                 <input type="number" class="session-input bg-gray-200 p-2 rounded"
                                     value="<?php echo htmlspecialchars($session->availableSeats); ?>"
@@ -206,7 +211,6 @@ $cusineTypes = explode(";", $restaurant->cuisineTypes);
                             <input type="time" class="new-session-input bg-gray-200 p-2 rounded"
                                 data-new-field="endTime">
                         </div>
-                        <!-- Create button -->
                         <button
                             class="create-session-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Create
                             New Session</button>
@@ -263,7 +267,22 @@ $cusineTypes = explode(";", $restaurant->cuisineTypes);
             <!-- Gallery Section ------------------------------------------------------- -->
             <h1 class="text-3xl text-center mb-6">Restaurant Gallery</h1>
             <div class="bg-white shadow-md rounded-lg p-6">
-
+                <div id="imagesGallery" class="grid grid-cols-3 gap-4">
+                    <?php foreach ($gallery as $image): ?>
+                        <div class="relative" ?>
+                            <img src="<?php echo htmlspecialchars($image->imagePath); ?>" alt="Image" class="w-full h-auto">
+                            <button class="delete-image-btn absolute top-0 right-0 bg-red-500 text-white px-2 py-1"
+                                data-image-id="<?php echo htmlspecialchars($image->id); ?>"
+                                data-image-path="<?php echo htmlspecialchars($image->imagePath); ?>">Delete</button>
+                        </div>
+                    <?php endforeach; ?>
+                    <div class="add-image-container">
+                        <input type="file" id="imageUploadGallery" class="hidden"
+                            accept="image/jpeg, image/png, image/jpg, image/webp">
+                        <button onclick="document.getElementById('imageUploadGallery').click();" id="addImageBtnGallery"
+                            class="bg-green-500 text-white px-4 py-2">Add Image</button>
+                    </div>
+                </div>
             </div>
 
 
