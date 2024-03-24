@@ -8,6 +8,7 @@ use App\Models\Yummy_event\RestaurantReviews;
 use App\Models\Yummy_event\Restaurant;
 use App\Models\Yummy_event\ImagePathGalleryRestaurant;
 use App\Models\Yummy_event\Session;
+use App\Models\Yummy_event\Reservation;
 
 
 class YummyRepository extends Repository  //methods for getting, updating and deleting information for the yummy related tables
@@ -142,6 +143,71 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         return $result[$columnName];
     }
 
+    public function getLastImageGalleryInsertedId(): int
+    {
+        $stmt = $this->connection->prepare('SELECT MAX(ID) AS MaxId FROM IMAGE_PATH_GALLERY_RESTAURANT');
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? (int) $result['MaxId'] : 0;
+    }
+
+    public function getSessionByRestaurantName($restaurantName): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM SESSION WHERE RestaurantID = (SELECT RestaurantID FROM RESTAURANT WHERE Name = :name)');
+        $stmt->bindParam(':name', $restaurantName);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sessions = [];
+        foreach ($results as $result) {
+            $sessions[] = new Session(
+                $result['SessionID'],
+                $result['RestaurantID'],
+                $result['AvailableSeats'],
+                $result['PricesForAdults'],
+                $result['PricesForChildren'],
+                $result['ReservationFee'],
+                $result['StartTime'],
+                $result['EndTime']
+            );
+        }
+        return $sessions;
+    }
+
+    public function getRestaurantIdByName($restaurantName): int
+    {
+        $stmt = $this->connection->prepare('SELECT RestaurantID FROM RESTAURANT WHERE Name = :name');
+        $stmt->bindParam(':name', $restaurantName);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? (int) $result['RestaurantID'] : 0;
+    }
+
+    //-------------------- Reservation Part ------------------
+
+    public function getAllReservations(): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM RESTAURANT_RESERVATIONS');
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $reservations = [];
+        foreach ($results as $result) {
+            $reservations[] = new Reservation(
+                $result['ID'],
+                $result['RestaurantID'],
+                $result['FirstName'],
+                $result['LastName'],
+                $result['Email'],
+                $result['PhoneNumber'],
+                $result['Session'],
+                $result['Date'],
+                $result['NumberOfAdults'],
+                $result['NumberOfChildren'],
+                $result['Comment'],
+                $result['Active']
+            );
+        }
+        return $reservations;
+    }
 
     //-------------------- EDIT METHODS --------------------------------------------------------
     //-------------------- Home Part ------------------
@@ -207,7 +273,24 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt->execute();
     }
 
+    //-------------------- Reservation Part ------------------
 
+    public function editReservation($id, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active)
+    {
+        $stmt = $this->connection->prepare('UPDATE RESTAURANT_RESERVATIONS SET FirstName = :firstName, LastName = :lastName, Email = :email, PhoneNumber = :phoneNumber, Session = :session, Date = :date, NumberOfAdults = :numberOfAdults, NumberOfChildren = :numberOfChildren, Comment = :comment, Active = :active WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':firstName', $firstName);
+        $stmt->bindParam(':lastName', $lastName);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phoneNumber', $phoneNumber);
+        $stmt->bindParam(':session', $session);
+        $stmt->bindParam(':date', $date);
+        $stmt->bindParam(':numberOfAdults', $numberOfAdults);
+        $stmt->bindParam(':numberOfChildren', $numberOfChildren);
+        $stmt->bindParam(':comment', $comment);
+        $stmt->bindParam(':active', $active);
+        $stmt->execute();
+    }
 
     //-------------------- DELETE METHODS --------------------------------------------------------
     //--------------------  Restaurant Part ------------------
@@ -222,6 +305,20 @@ class YummyRepository extends Repository  //methods for getting, updating and de
     public function deleteRestaurantReview($id)
     {
         $stmt = $this->connection->prepare('DELETE FROM RESTAURANT_REVIEWS WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
+    public function deleteRestaurantImagePathGallery($id)
+    {
+        $stmt = $this->connection->prepare('DELETE FROM IMAGE_PATH_GALLERY_RESTAURANT WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
+    public function deleteRestaurant($id)
+    {
+        $stmt = $this->connection->prepare('DELETE FROM RESTAURANT WHERE RestaurantID = :id');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
     }
@@ -250,14 +347,7 @@ class YummyRepository extends Repository  //methods for getting, updating and de
 
     public function addRestaurantSession($restaurantID, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime)
     {
-        // Get the last sessionID and increment it
-        $lastIdStmt = $this->connection->prepare('SELECT MAX(sessionID) AS lastID FROM SESSION');
-        $lastIdStmt->execute();
-        $lastIdResult = $lastIdStmt->fetch();
-        $newId = $lastIdResult['lastID'] + 1;
-
-        $stmt = $this->connection->prepare('INSERT INTO SESSION (SessionID, RestaurantID, AvailableSeats, PricesForAdults, PricesForChildren, ReservationFee, StartTime, EndTime) VALUES (:sessionID, :restaurantID, :availableSeats, :pricesForAdults, :pricesForChildren, :reservationFee, :startTime, :endTime)');
-        $stmt->bindParam(':sessionID', $newId);
+        $stmt = $this->connection->prepare('INSERT INTO SESSION (RestaurantID, AvailableSeats, PricesForAdults, PricesForChildren, ReservationFee, StartTime, EndTime) VALUES (:restaurantID, :availableSeats, :pricesForAdults, :pricesForChildren, :reservationFee, :startTime, :endTime)');
         $stmt->bindParam(':restaurantID', $restaurantID);
         $stmt->bindParam(':availableSeats', $availableSeats);
         $stmt->bindParam(':pricesForAdults', $pricesForAdults);
@@ -267,5 +357,47 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt->bindParam(':endTime', $endTime);
         $stmt->execute();
     }
+
+    //-------------------- Create New Restaurant Part ------------------
+
+    public function createNewRestaurant($name, $location, $description, $descriptionSideOne, $descriptionSideTwo, $numberOfSeats, $numberOfStars, $cuisineType, $imagePathTop, $imagePathLocation, $imagePathChef)
+    {
+
+        $stmt = $this->connection->prepare('INSERT INTO RESTAURANT (Name, Location, DescriptionTopPart, DescriptionSideOne, DescriptionSideTwo, NumberofSeats, Rating, CuisineTypes, ImagePathHomepage, ImagePathLocation, ImagePathChef) VALUES (:name, :location, :description, :descriptionSideOne, :descriptionSideTwo, :numberOfSeats, :numberOfStars, :cuisineType, :imagePathTop, :imagePathLocation, :imagePathChef)');
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':location', $location);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':descriptionSideOne', $descriptionSideOne);
+        $stmt->bindParam(':descriptionSideTwo', $descriptionSideTwo);
+        $stmt->bindParam(':numberOfSeats', $numberOfSeats);
+        $stmt->bindParam(':numberOfStars', $numberOfStars);
+        $stmt->bindParam(':cuisineType', $cuisineType);
+        $stmt->bindParam(':imagePathTop', $imagePathTop);
+        $stmt->bindParam(':imagePathLocation', $imagePathLocation);
+        $stmt->bindParam(':imagePathChef', $imagePathChef);
+        $stmt->execute();
+
+    }
+
+    //-------------------- Reservation Part ------------------
+
+    public function addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active)
+    {
+        $stmt = $this->connection->prepare('INSERT INTO RESTAURANT_RESERVATIONS (RestaurantID, FirstName, LastName, Email, PhoneNumber, Session, Date, NumberOfAdults, NumberOfChildren, Comment, Active) VALUES (:restaurantID, :firstName, :lastName, :email, :phoneNumber, :session, :date, :numberOfAdults, :numberOfChildren, :comment, :active)');
+        $stmt->bindParam(':restaurantID', $restaurantID);
+        $stmt->bindParam(':firstName', $firstName);
+        $stmt->bindParam(':lastName', $lastName);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phoneNumber', $phoneNumber);
+        $stmt->bindParam(':session', $session);
+        $stmt->bindParam(':date', $date);
+        $stmt->bindParam(':numberOfAdults', $numberOfAdults);
+        $stmt->bindParam(':numberOfChildren', $numberOfChildren);
+        $stmt->bindParam(':comment', $comment);
+        $stmt->bindParam(':active', $active);
+        $stmt->execute();
+    }
+
+
 
 }

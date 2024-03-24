@@ -344,7 +344,121 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
+    document.querySelectorAll('.delete-image-btn').forEach(button => {
+        button.addEventListener('click', deleteImageFunction);
+    });
+
+
+    document.getElementById('imageUploadGallery').addEventListener('change', function () {
+        if (this.files && this.files[0]) {
+            const formData = new FormData();
+            formData.append('image', this.files[0]);
+
+            // Assume you have a hidden input or another element containing restaurant ID
+            const restaurantContainer = document.getElementById("container-restaurant-info");
+            const id = restaurantContainer.getAttribute('data-id');
+            formData.append('restaurantID', id);  // Add restaurant ID to formData
+
+            // API endpoint
+            const apiEndpoint = '/api/restaurantIndividualAdmin/addRestaurantImagePathGallery';
+
+            fetch(apiEndpoint, {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => {
+                    console.log('Raw response:', response); // Log the raw response
+                    return response.json(); // This parses the JSON body of the response (but can throw if not valid JSON)
+                })
+                .then(data => {
+                    console.log('Parsed data:', data); // Log the parsed data
+                    if (data.success) {
+                        // Add the uploaded image to the gallery
+                        const imagesGallery = document.getElementById('imagesGallery');
+                        const newImageDiv = document.createElement('div');
+                        newImageDiv.className = 'relative';
+                        newImageDiv.innerHTML = `
+                        <img src="${data.imageUrl}" alt="Uploaded Image" class="w-full h-auto">
+                        <button class="delete-image-btn absolute top-0 right-0 bg-red-500 text-white px-2 py-1"
+                        data-image-id="${data.imageId}" data-image-path="${data.imageUrl}">Delete</button>`;
+                        imagesGallery.appendChild(newImageDiv);
+
+                        // Attach event listener for deletion to the new delete button
+                        newImageDiv.querySelector('.delete-image-btn').addEventListener('click', deleteImageFunction);
+
+                        alert('Image uploaded successfully');
+                    } else {
+                        alert(`Failed to upload image: ${data.error}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while uploading the image');
+                });
+
+            // Clear the input after upload for potential subsequent uploads
+            this.value = '';
+        }
+    });
+
+    document.getElementById('delete-restaurant-btn').addEventListener('click', function () {
+        if (confirm('Are you sure you want to delete this restaurant?')) {
+            const container = document.getElementById("container-restaurant-info");
+            const id = container.getAttribute('data-id');
+
+            fetch('/api/restaurantIndividualAdmin/deleteRestaurant', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: id }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Restaurant deleted successfully.');
+                        window.location.href = '/yummyHomeAdmin';
+                    } else {
+                        alert('Failed to delete restaurant: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error deleting the restaurant');
+                });
+        }
+    });
+
 });
+
+
+function deleteImageFunction() {
+    const imageId = this.getAttribute('data-image-id');
+    const imagePath = this.getAttribute('data-image-path');
+
+    if (confirm('Are you sure you want to delete this image?')) {
+        fetch('/api/restaurantIndividualAdmin/deleteImageGallery', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: imageId, imagePath: imagePath }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    this.closest('.relative').remove();
+                    alert('Image deleted successfully.');
+                } else {
+                    alert('Failed to delete image: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error deleting the image');
+            });
+    }
+}
 
 let cuisineTypes = []; // will hold the current state of cuisine types
 

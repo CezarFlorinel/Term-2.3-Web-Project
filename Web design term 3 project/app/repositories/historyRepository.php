@@ -24,7 +24,6 @@ class HistoryRepository extends Repository     // methods for all history relate
         return array_map(function ($item) {
             return new HistoryPracticalInformation(
                 $item['InformationID'],
-                $item['ParentPage'],
                 $item['Question'],
                 $item['Answer']
             );
@@ -36,11 +35,10 @@ class HistoryRepository extends Repository     // methods for all history relate
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOP_PART]');
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if (!empty($results)) {
+        if (!empty ($results)) {
             $firstItem = $results[0];
             return new HistoryTopPart(
                 $firstItem['InformationID'],
-                $firstItem['ParentPage'],
                 $firstItem['ImagePath'],
                 $firstItem['Subheader'],
                 $firstItem['Description']
@@ -57,7 +55,6 @@ class HistoryRepository extends Repository     // methods for all history relate
         return array_map(function ($item) {
             return new HistoryRoute(
                 $item['InformationID'],
-                $item['ParentPage'],
                 $item['MainImagePath'],
                 $item['LocationName'],
                 $item['LocationDespcription'],
@@ -75,7 +72,6 @@ class HistoryRepository extends Repository     // methods for all history relate
         return array_map(function ($item) {
             return new HistoryTicketPrices(
                 $item['InformationID'],
-                $item['ParentPage'],
                 $item['ImagePath'],
                 $item['TicketType'],
                 $item['Price'],
@@ -89,11 +85,10 @@ class HistoryRepository extends Repository     // methods for all history relate
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOUR_STARTING_POINT]');
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if (!empty($results)) {
+        if (!empty ($results)) {
             $firstItem = $results[0];
             return new HistoryTourStartingPoint(
                 $firstItem['InformationID'],
-                $firstItem['ParentPage'],
                 $firstItem['MainImagePath'],
                 $firstItem['SecondaryImagePath'],
                 $firstItem['Description']
@@ -110,7 +105,6 @@ class HistoryRepository extends Repository     // methods for all history relate
         return array_map(function ($item) {
             return new HistoryTourDeparturesTimetables(
                 $item['InformationID'],
-                $item['ParentPage'],
                 $item['Date']
             );
         }, $results);
@@ -124,7 +118,6 @@ class HistoryRepository extends Repository     // methods for all history relate
         return array_map(function ($item) {
             return new HistoryTours(
                 $item['InformationID'],
-                $item['ParentPage'],
                 $item['Departure'],
                 $item['StartTime'],
                 $item['EnglishTour'],
@@ -292,11 +285,10 @@ class HistoryRepository extends Repository     // methods for all history relate
     }
 
     // add the information methods
-    public function addHistoryPracticalInformation($parentPage, $question, $answer)
+    public function addHistoryPracticalInformation($question, $answer)
     {
-        $stmt = $this->connection->prepare('INSERT INTO [HISTORY_PRACTICAL_INFORMATION] (ParentPage, Question, Answer) VALUES (:parentPage, :question, :answer)');
+        $stmt = $this->connection->prepare('INSERT INTO [HISTORY_PRACTICAL_INFORMATION] (Question, Answer) VALUES ( :question, :answer)');
         $stmt->execute([
-            'parentPage' => $parentPage,
             'question' => $question,
             'answer' => $answer
         ]);
