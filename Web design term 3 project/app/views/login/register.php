@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form class="space-y-6" action="/register/createAccount" method="POST">
+                    <form class="space-y-6" id="registrationForm" role="form">
                         <div>
                             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email
                                 address</label>
@@ -69,7 +69,7 @@
                             </div>
                         </div>
 
-                        <!-- <div class="flex justify-start">
+                        <div class="flex justify-start">
                             <label class="block text-gray-500 font-bold my-4 flex items-center">
                                 <input class="leading-loose text-pink-600 top-0" type="checkbox" required />
                                 <span class="ml-2 text-sm py-2 text-gray-600 text-left">Accept the
@@ -82,10 +82,10 @@
                                         the information data policy.</a>
                                 </span>
                             </label>
-                        </div> -->
+                        </div>
 
                         <div>
-                            <button type="submit" name="create"
+                            <button type="submit" id="registerButton"
                                 class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
                                 up</button>
                         </div>
@@ -102,6 +102,7 @@
     </section>
 
 </body>
+<script> src = "/javascript/user.js"</script>
 
 </html>
 <?php include __DIR__ . '/../footer.php'; ?>
