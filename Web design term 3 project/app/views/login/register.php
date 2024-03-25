@@ -14,7 +14,7 @@
 
 <body>
 
-    <?php include __DIR__ . '/../header.php'; ?>
+    <!-- <?php include __DIR__ . '/../header.php'; ?> -->
 
     <section class="flex justify-center items-center h-screen bg-black">
         <div class="max-w-md w-full bg-white rounded p-6 space-y-4">
@@ -102,7 +102,64 @@
     </section>
 
 </body>
-<script> src = "/javascript/user.js"</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+        const registrationForm = document.getElementById('registrationForm');
+        console.log(registrationForm);
+
+
+        const button = document.getElementById('registerButton');
+        if (button != null || button != '') {
+            console.log("button is present");
+        }
+        button.addEventListener("click", function () {
+            console.log("method is being called");
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const passwordConfirm = document.getElementById('confirmPassword').value;
+
+            console.log(name,email,password,passwordConfirm);
+
+            if (!name || !email || !password || !passwordConfirm) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            if (password !== passwordConfirm) {
+                alert('Passwords do not match.');
+                return;
+            }
+
+            const formData = {
+                name: name,
+                email: email,
+                password: password,
+                passwordConfirm: passwordConfirm,
+                userRole: 'Member',
+            };
+
+            fetch("/api/user/index", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({formData}),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // window.location.href = '/login/index';
+                    console.log("fetch success");
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+
+    });
+</script>
 
 </html>
-<?php include __DIR__ . '/../footer.php'; ?>
+<!-- <?php include __DIR__ . '/../footer.php'; ?> -->
