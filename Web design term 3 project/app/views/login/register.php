@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("button is present");
         }
         button.addEventListener("click", function () {
+            event.preventDefault();
             console.log("method is being called");
 
             const name = document.getElementById('name').value;
@@ -141,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 userRole: 'Member',
             };
 
-            fetch("/api/user/index", {
+            fetch("/api/user/create", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -151,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     // window.location.href = '/login/index';
+
                     console.log("fetch success");
                 })
                 .catch(error => {
