@@ -32,18 +32,21 @@
             <h1 class="event-info-header">Ratatouille Food & Wine</h1>
         </div>
 
-        <div class="Image">
-            <div class="event-info-text-container">
-                <p class="event-info-h">The successful Michelin restaurant in Haarlem of chef Jozua Jaring is - like Ratatouille -
-                    a <br>mix of French cuisine in today's reality with excellent value for money in an accessible environment in Haarlem.
-                </p>
-            </div>
-        </div>
+        <section class="section-bg py-10 px-10">
+            <div class="text-center mb-8 text-white">                
+                <div class="flex items-center justify-center bg-no-repeat bg-center bg-contain h-72 md:h-96 
+                            lg:min-h-[300px] px-12 py-10 lg:bg-[url('assets/images/elements/Union.png')]">
+                    <p class="text-base font-normal text-white rounded-lg lg:text-black">
+                        The successful Michelin restaurant in Haarlem of chef Jozua Jaring is - like Ratatouille - a mix of French cuisine<br>
+                        in today's reality with excellent value for money in an accessible environment in Haarlem.
+                    </p>
+                </div>
+        </section>
 
         <!-- Introductory content with chef's image on the same row -->
         <section class="md:flex md:items-start md:justify-between gap-8">
             <!-- First paragraph -->
-            <div class="md:w-1/3 space-y-6">
+            <div class="md:w-1/3 space-y-6 mb-5 mt-5">
                 <p class="text-xl">
                     Discover exquisite French cuisine at our charming restaurant on Lange Veerstraat. Let our chefs whisk you away to the streets of France with each delightful dish. Indulge in a culinary journey like no other, right here in the heart of the city.
                 </p>
@@ -53,7 +56,7 @@
                 <img src="https://placehold.co/400x300" alt="Chef Josua Jaring" class="rounded-lg">
             </div>
 
-            <div class="md:w-1/3 space-y-6">
+            <div class="md:w-1/3 space-y-6 mt-5 mb-5">
                 <p class="text-xl">
                     Embark on a culinary odyssey with the visionary Chef Josua Jaring, a true artist in the realm of flavors. With a passion that simmers and a creative flair that sizzles, Chef Jaring has carved his niche in the gastronomic world, making each dish a masterpiece.
                 </p>
