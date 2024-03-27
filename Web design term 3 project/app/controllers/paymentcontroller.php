@@ -5,6 +5,6 @@ class PaymentController
 {
     public function index()
     {
-        require __DIR__ . '/../views/payment/Payment_Check_Info.php';
+        require __DIR__ . '/../views/payment/Payment_Detail_page_IDeal.php';
     }
 }
