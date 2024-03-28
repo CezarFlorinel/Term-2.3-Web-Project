@@ -4,42 +4,63 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>History Tour Ticket Booking</title>
+<link href="https://cdn.tailwindcss.com" rel="stylesheet">
 <style>
     body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: black;
-        color: white;
-        display: flex;
-        flex-direction: column; /* Stack content vertically */
-        align-items: center;
-        min-height: 130vh;
-    }
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    min-height: 200vh; /* Adjust to ensure full viewport height is usable */
+    width: 100%; /* Changed from 100vw to prevent potential scrollbar issues */
+    overflow-x: hidden; /* Keep to prevent horizontal overflow */
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center;
+    width: 100%; /* Ensure container width does not exceed viewport */
+    flex: 1; /* Allow container to expand */
+    padding: 20px 0; /* Increase padding for space around content, including header */
+}
+
     .header-text {
-        margin-top: 20px; /* Add space at the top */
-        text-align: center;
-        max-width: 1200px; /* Or width of your content area */
-    }
-    .header-text h1 {
-        font-family: "Playfair Display";
-        font-size: 3em; /* Adjust as needed */
-        margin-bottom: 0.5em; /* Space between the h1 and paragraph */
-    }
-    .header-text p {
-        font-family: "Imprima";
-        font-size: 1.5em; /* Adjust as needed */
-        margin-bottom: 1em; /* Space below the paragraph */
-    }
+    margin-top: 20px;
+    text-align: center;
+    width: 90%; /* Adjust content width to prevent overflow, with some padding */
+    max-width: 1200px; /* Maximum content width */
+    margin: 20px auto; /* Center content and add spacing */
+}
+
+.header-text h1 {
+    font-family: "Playfair Display";
+    font-size: 2em; /* Adjust as needed */
+    margin-bottom: 0.5em; /* Space between the h1 and paragraph */
+}
+
+.header-text p {
+    font-family: "Imprima";
+    font-size: 1.2em; /* Adjust as needed */
+    margin-bottom: 1em; /* Space below the paragraph */
+}
     .content {
         display: flex;
         justify-content: center;
         align-items: flex-start;
         max-width: 1200px;
-        width: 100%; /* To control the width of the content area */
-        margin-top: 20px; /* Added space between header text and content */
+        width: 100%;
+        margin-top: 20px;
     }
-    .image-section {
+    .header-text, .content {
+        width: 90%; /* Adjust content width to prevent overflow, with some padding */
+        max-width: 1200px; /* Maximum content width */
+        margin: 20px auto; /* Center content and add spacing */
+    }
+    /* .image-section {
         margin-right: 20px;
     }
     .image-section img {
@@ -48,12 +69,28 @@
         width: auto;
         display: block;
         max-width: none;
-    }
+    } */
     .booking-form {
-        width: 500px;
-        padding: 20px;
-        background-color: #f8f9fa;
-        border-radius: 10px;
+    padding: 20px; /* Increased padding */
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin: 20px auto; /* Added space around the form */
+    font-size: 0.9rem; /* Smaller relative font size */
+}
+.booking-form label, .booking-form input, .booking-form button {
+    font-size: 1em; /* Relative size to the .booking-form */
+}
+
+@media (max-width: 768px){
+    .booking-form {
+        padding: 15px; /* Adjust padding for smaller screens */
+        margin: 10px; /* Ensure it doesn’t touch the borders */
+        font-size: 0.8rem; /* Even smaller font size for very small devices */
+    }
+}
+
+.booking-form label, .booking-form input, .booking-form button {
+        font-size: 0.9em; /* Slightly larger than the form to maintain hierarchy */
     }
     .form-group {
         margin-bottom: 15px;
@@ -171,56 +208,66 @@
 </style>
 </head>
 <body>
+<?php include __DIR__ . '/../header.php'; ?>
+<div class="main-container"> 
 <div class="header-text">
         <h1>Book Ticket – History Tour</h1>
-        <p>Embark on a captivating journey through Haarlem's rich tapestry of history! Join our immersive tour, where tales of the past come alive in English, Dutch, and Chinese, offering a truly multilingual exploration of this enchanting city.</p>
+        <p>Embark on a captivating journey through Haarlem's rich tapestry of history!
+         Join our immersive tour,<br> where tales of the past come alive in English,
+          Dutch, and Chinese, offering a truly multilingual exploration of this enchanting city.</p>
     </div>
-<div class="content">
-    <div class="image-section">
-        <img src="assets/images/history_event/Chruch-Order-Ticket-Image.png" alt="Saint Bavo">
-    </div>
-    <div class="booking-form">
-        <div class="form-group flag-icons">
-            <label>Selected Language</label>
-            <img src="assets/images/elements/UK-flag-small.png" alt="English">
-            <img src="assets/images/elements/download 3.png" alt="Dutch">
-            <img src="assets/images/elements/download 5.png" alt="Chinese">
-        </div>
-        <div class="form-group">
-            <label>Date</label>
-            <div class="button-group" id="date-group">
-                <button onclick="selectDate('25')">25</button>
-                <button onclick="selectDate('26')">26</button>
-                <button onclick="selectDate('27')">27</button>
-                <button onclick="selectDate('28')">28</button>
+    <!-- <div class="content mx-auto max-w-4xl p-4 flex flex-col md:flex-row items-center justify-center gap-4">
+    <div class="image-section w-full md:w-1/2 flex justify-center items-center mb-4 md:mb-0 order-1 md:order-1">
+        <img src="assets/images/history_event/history_ticket_purchase/Church-HistoryTicket.png" alt="Saint Bavo" class="max-w-full h-auto">
+    </div> -->
+    <div class="booking-form w-full md:w-1/2 grid gap-4 order-2 md:order-2">
+        <div class="form-group flag-icons flex justify-center items-center gap-2">
+            <label class="block text-sm font-medium text-gray-700">Selected Language</label>
+            <div class="flex">
+                <img src="assets/images/elements/UK-flag-small.png" alt="English" class="w-6 h-6">
+                <img src="assets/images/elements/download 3.png" alt="Dutch" class="w-6 h-6">
+                <img src="assets/images/elements/download 5.png" alt="Chinese" class="w-6 h-6">
             </div>
         </div>
         <div class="form-group">
-            <label>Starting Time</label>
-            <div class="button-group" id="time-group">
-                <button onclick="selectTime('10:00')">10:00</button>
-                <button onclick="selectTime('13:00')">13:00</button>
-                <button onclick="selectTime('16:00')">16:00</button>
+            <label class="block text-sm font-medium text-gray-700">Date</label>
+            <div class="button-group flex justify-center items-center gap-2" id="date-group">
+                <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" onclick="selectDate('25')">25</button>
+                <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" onclick="selectDate('26')">26</button>
+                <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" onclick="selectDate('27')">27</button>
+                <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" onclick="selectDate('28')">28</button>
             </div>
         </div>
         <div class="form-group">
-            <label>Type of Ticket</label>
-            <button class="ticket-btn" onclick="selectTicketType('family')">Family Ticket (x4) - 60€</button>
-            <button class="ticket-btn" onclick="selectTicketType('regular')">Regular Ticket - 17.50€</button>
+            <label class="block text-sm font-medium text-gray-700">Starting Time</label>
+            <div class="button-group flex justify-center items-center gap-2" id="time-group">
+                <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" onclick="selectTime('10:00')">10:00</button>
+                <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" onclick="selectTime('13:00')">13:00</button>
+                <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" onclick="selectTime('16:00')">16:00</button>
+            </div>
         </div>
-        <div class="form-group number-input">
-            <label for="number-of-tickets">Number of Tickets</label>
-            <button type="button" onclick="changeNumberOfTickets(-1)">-</button>
-            <input type="number" id="number-of-tickets" value="4">
-            <button type="button" onclick="changeNumberOfTickets(1)">+</button>
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700">Type of Ticket</label>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-2">
+                <button class="ticket-btn px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50" onclick="selectTicketType('family')">Family Ticket (x4) - 60€</button>
+                <button class="ticket-btn px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50" onclick="selectTicketType('regular')">Regular Ticket - 17.50€</button>
+            </div>
         </div>
-        <div class="total-container">
-            <label>Total:</label>
-            <span id="total-price">70.00€</span>
+        <div class="form-group number-input flex justify-center items-center gap-2">
+            <label for="number-of-tickets" class="block text-sm font-medium text-gray-700">Number of Tickets</label>
+            <button type="button" class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none" onclick="changeNumberOfTickets(-1)">-</button>
+            <input type="number" id="number-of-tickets" value="4" class="w-16 text-center rounded border-gray-300">
+            <button type="button" class="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none" onclick="changeNumberOfTickets(1)">+</button>
         </div>
-        <button class="submit-btn">Add to Cart</button>
+        <div class="total-container flex justify-center items-center">
+            <label class="text-sm font-medium text-gray-700">Total:</label>
+            <span id="total-price" class="ml-2 font-semibold">70.00€</span>
+        </div>
+        <button class="submit-btn mx-auto px-6 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">Add to Cart</button>
     </div>
 </div>
+</div>
+
 
 <script>
 // Placeholder functions for button actions
@@ -265,6 +312,7 @@ function changeNumberOfTickets(change) {
     }
 }
 </script>
+<?php include __DIR__ . '/../footer.php'; ?>
 </body>
 </html>
 

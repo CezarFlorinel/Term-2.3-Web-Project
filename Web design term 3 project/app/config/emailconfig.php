@@ -1,0 +1,5 @@
+<?php
+
+$emailAddress = '';
+$key = '';
+

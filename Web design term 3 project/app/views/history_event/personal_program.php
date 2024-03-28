@@ -1,5 +1,3 @@
-<?php include __DIR__ . '/../header.php'; ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,10 +9,11 @@
 </head>
 
 
-<body class="bg-black text-white flex justify-center items-center min-h-screen">
-
-    <div class="w-full max-w-4xl mx-auto p-8">
-
+<body class="bg-black text-white flex flex-col min-h-screen">
+<?php include __DIR__ . '/../header.php'; ?>
+<div class="flex flex-col flex-grow">
+        <div class="flex justify-center items-center">
+            <div class="w-full max-w-4xl mx-auto p-8">
         <div class="flex flex-col" style="font-family: 'Playfair Display', serif;">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-5xl font-bold">Your Personal Program</h1>
@@ -48,40 +47,38 @@
         <div style="height: 20px;"></div>
 
         <!-- Headings Section -->
-        <div class="flex justify-between px-4 mb-2 text-xl" style="font-family: Playfair Display;">
+        <div class="flex justify-between px-4 mb-2" style="font-family: Playfair Display;">
             <div class="w-1/4 font-bold">Event</div>
             <div class="w-1/4 font-bold">Time</div>
             <div class="w-1/4 font-bold">Location</div>
-            <div class="w-2/12 font-bold">Quantity</div>
+            <div class="w-1/6 font-bold">Quantity</div>
             <div class="w-1/12 text-right font-bold">Price</div>
         </div>
         <div class="w-full border-t border-gray-400"></div>
 
         <div style="height: 20px;"></div>
         <!-- White Square Section -->
-        <div class="bg-white text-black rounded-lg py-4 px-6">
+        <div class="bg-white text-black rounded-lg py-4 px-6 text-sm">
             <!-- Items List -->
             <div class="space-y-4">
                 <!-- Item Rows -->
                 <!-- Repeat this structure for each item, replace with actual data -->
                 <div class="flex justify-between items-center" style="font-family: imprima">
-                    <div class="flex items-center">
-                        <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
-                            class="w-20 h-20 mr-2">
+                <div class="flex flex-col sm:flex-row items-center">
+                        <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1" class="w-20 h-20 mr-2">
                         <span>English <br> Tour</span>
                     </div>
                     <div>25 Jul<br>10:00-12:30</div>
-                    <div>Starting Point Near<br>Church Of Saint Bavo</div>
+                    <div>Starting Point <br> Near Church<br> Of Saint Bavo</div>
                     <div class="flex items-center">
-                        <button class="px-2 py-1 border">-</button>
-                        <input type="text" class="w-8 text-center border-t border-b" value="1">
-                        <button class="px-2 py-1 border">+</button>
-                    </div>
+    <button class="px-1 py-0.5 text-xs border">-</button>
+    <input type="text" class="w-6 h-6 text-xs text-center border-t border-b" value="1">
+    <button class="px-1 py-0.5 text-xs border">+</button>
+</div>
                     <div class="flex flex-col items-center">
                         <div class="flex items-center mt-[-8px]">
-                            <!-- This negative margin pulls the checkbox and bin icon up -->
-                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
+                            <input type="checkbox" class="form-checkbox h-3 w-3 text-gray-600">
+                            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-3 h-3 ml-2">
                         </div>
                         <div class="text-sm text-gray-500">--€</div>
                     </div>
@@ -90,23 +87,23 @@
                 <div class="border-t border-gray-400"></div>
 
                 <div class="flex justify-between items-center" style="font-family: imprima">
-                    <div class="flex items-center">
+                    <div class="flex flex-col sm:flex-row items-center">
                         <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1"
                             class="w-20 h-20 mr-2">
                         <span>Tiësto <br> Concert</span>
                     </div>
                     <div>25 Jul<br>10:00-12:30</div>
-                    <div>Starting Point Near<br>Church Of Saint Bavo</div>
+                    <div>Starting Point <br> Near Church<br> Of Saint Bavo</div>
                     <div class="flex items-center">
-                        <button class="px-2 py-1 border">-</button>
-                        <input type="text" class="w-8 text-center border-t border-b" value="1">
-                        <button class="px-2 py-1 border">+</button>
-                    </div>
+    <button class="px-1 py-0.5 text-xs border">-</button>
+    <input type="text" class="w-6 h-6 text-xs text-center border-t border-b" value="1">
+    <button class="px-1 py-0.5 text-xs border">+</button>
+</div>
                     <div class="flex flex-col items-center">
                         <div class="flex items-center mt-[-8px]">
                             <!-- This negative margin pulls the checkbox and bin icon up -->
-                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
+                            <input type="checkbox" class="form-checkbox h-3 w-3 text-gray-600">
+                            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-3 h-3 ml-2">
                         </div>
                         <div class="text-sm text-gray-500">--€</div>
                     </div>
@@ -115,23 +112,23 @@
                 <div class="border-t border-gray-400"></div>
 
                 <div class="flex justify-between items-center" style="font-family: imprima">
-                    <div class="flex items-center">
+                    <div class="flex flex-col sm:flex-row items-center">
                         <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
                             class="w-20 h-20 mr-2">
                         <span>English <br> Tour</span>
                     </div>
                     <div>25 Jul<br>10:00-12:30</div>
-                    <div>Starting Point Near<br>Church Of Saint Bavo</div>
+                    <div>Starting Point <br> Near Church<br> Of Saint Bavo</div>
                     <div class="flex items-center">
-                        <button class="px-2 py-1 border">-</button>
-                        <input type="text" class="w-8 text-center border-t border-b" value="1">
-                        <button class="px-2 py-1 border">+</button>
-                    </div>
+    <button class="px-1 py-0.5 text-xs border">-</button>
+    <input type="text" class="w-6 h-6 text-xs text-center border-t border-b" value="1">
+    <button class="px-1 py-0.5 text-xs border">+</button>
+</div>
                     <div class="flex flex-col items-center">
                         <div class="flex items-center mt-[-8px]">
                             <!-- This negative margin pulls the checkbox and bin icon up -->
-                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
+                            <input type="checkbox" class="form-checkbox h-3 w-3 text-gray-600">
+                            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-3 h-3 ml-2">
                         </div>
                         <div class="text-sm text-gray-700">--€</div>
                     </div>
@@ -160,7 +157,7 @@
         <div style="height: 20px;"></div>
 
         <!-- Headings Section -->
-        <div class="flex justify-between px-4 mb-2 text-xl" style="font-family: Playfair Display;">
+        <div class="flex justify-between px-4 mb-2" style="font-family: Playfair Display;">
             <div class="w-1/4 font-bold">Event</div>
             <div class="w-1/4 font-bold">Time</div>
             <div class="w-1/4 font-bold">Location</div>
@@ -171,28 +168,28 @@
 
         <div style="height: 20px;"></div>
 
-        <div class="bg-white text-black rounded-lg py-4 px-6">
+        <div class="bg-white text-black rounded-lg py-4 px-6 text-sm">
             <!-- Items List -->
             <div class="space-y-4">
                 <!-- Item Rows -->
                 <!-- Repeat this structure for each item, replace with actual data -->
                 <div class="flex justify-between items-center" style="font-family: imprima">
 
-                    <div class="flex items-center">
+                    <div class="flex flex-col sm:flex-row items-center">
                         <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
                             class="w-20 h-20 mr-2">
                         <span>Dutch <br> Tour</span>
                     </div>
                     <div>25 Jul<br>10:00-12:30</div>
-                    <div>Starting Point Near<br>Church Of Saint Bavo</div>
+                    <div>Starting Point <br> Near Church<br> Of Saint Bavo</div>
                     <div class="flex items-center">
                         <div>4</div>
                     </div>
                     <div class="flex flex-col items-center">
                         <div class="flex items-center mt-[-8px]">
                             <!-- This negative margin pulls the checkbox and bin icon up -->
-                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
+                            <input type="checkbox" class="form-checkbox h-3 w-3 text-gray-600">
+                            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-3 h-3 ml-2">
                         </div>
                         <div class="text-sm text-gray-500">--€</div>
                     </div>
@@ -203,21 +200,21 @@
 
 
                 <div class="flex justify-between items-center" style="font-family: imprima">
-                    <div class="flex items-center">
+                    <div class="flex flex-col sm:flex-row items-center">
                         <img src="assets\images\Payment_event_images\Hardwell-returns-to-Ushuaia-Ibiza-2016 1.png"
                             alt="Event 1" class="w-20 h-20 mr-2">
                         <span>Hardwell <br> Concert</span>
                     </div>
                     <div>25 Jul<br>10:00-12:30</div>
-                    <div>Starting Point Near<br>Church Of Saint Bavo</div>
+                    <div>Starting Point <br> Near Church<br> Of Saint Bavo</div>
                     <div class="flex items-center">
                         <div>1</div>
                     </div>
                     <div class="flex flex-col items-center">
                         <div class="flex items-center mt-[-8px]">
                             <!-- This negative margin pulls the checkbox and bin icon up -->
-                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
+                            <input type="checkbox" class="form-checkbox h-3 w-3 text-gray-600">
+                            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-3 h-3 ml-2">
                         </div>
                         <div class="text-sm text-gray-500">--€</div>
                     </div>
@@ -228,21 +225,21 @@
 
 
                 <div class="flex justify-between items-center" style="font-family: imprima">
-                    <div class="flex items-center">
+                    <div class="flex flex-col sm:flex-row items-center">
                         <img src="assets\images\Payment_event_images\Multiple-Artists-Concert.png" alt="Event 1"
                             class="w-20 h-20 mr-2">
                         <span>Multiple <br> Artists <br> Concert</span>
                     </div>
                     <div>25 Jul<br>10:00-12:30</div>
-                    <div>Starting Point Near<br>Church Of Saint Bavo</div>
+                    <div>Starting Point <br> Near Church<br> Of Saint Bavo</div>
                     <div class="flex items-center">
                         <div>1</div>
                     </div>
                     <div class="flex flex-col items-center">
                         <div class="flex items-center mt-[-8px]">
                             <!-- This negative margin pulls the checkbox and bin icon up -->
-                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
+                            <input type="checkbox" class="form-checkbox h-3 w-3 text-gray-600">
+                            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-3 h-3 ml-2">
                         </div>
                         <div class="text-sm text-gray-500">--€</div>
                     </div>
@@ -255,7 +252,10 @@
                     <div>Total 145.00€</div>
                 </div>
             </div>
+                </div>
+                </div>
+                </div>
+            <?php include __DIR__ . '/../footer.php'; ?>
 </body>
-
 </html>
 

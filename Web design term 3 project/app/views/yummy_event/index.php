@@ -35,23 +35,25 @@
             <h1 class="event-info-header">27 July - 31 July</h1>
         </div>
 
-        <div class="Image">
-            <div class="event-info-text-container">
-                <p class="event-info-h">Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for the senses.
-                    <br>While Haarlem may not be a global culinary icon, our city is home to a diverse array of restaurants that are sure to <br>
-                    captivate your taste buds. Dive into a world of gastronomic delights, where each bite tells a unique story.
-                </p>
-            </div>
-        </div>
-        <section id="restaurants" class="py-8">
+        <section class="section-bg py-10 px-10">
+            <div class="text-center mb-8 text-white">
+                <div class="flex items-center justify-center bg-no-repeat bg-center bg-contain h-72 md:h-96 
+                            lg:min-h-[300px] px-12 py-10 lg:bg-[url('assets/images/elements/Union.png')]">
+                    <p class="text-base font-normal text-white rounded-lg lg:text-black">
+                        Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for<br>
+                        the senses. While Haarlem may not be a global culinary icon, our city is home to a diverse<br>
+                        array of restaurants that are sure to captivate your taste buds. Dive into a world of gastronomic <br>
+                        delights, where each bite tells a unique story.
+                    </p>
+                </div>
+        </section>
 
+        <section id="restaurants" class="py-8">
             <div class="Union-restaurant">
                 <div class="text-container">
                     <p class="info-h">Participating Restaurants</p>
                 </div>
             </div>
-
-
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4">
                 <!-- Restaurant 1 -->
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
@@ -66,9 +68,9 @@
                             <i class="far fa-star rating-star"></i>
                         </div>
                     </div>
-                    <div class="px-4 pb-4">
+                    <div class="px-4 pb-4 relative">
                         <p class="text-sm text-black">Seafood<br>Dutch<br>European</p>
-                        <a href="/yummyevent/detailed_page" class="text-indigo-500 hover:text-indigo-600">More Info</a>
+                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
                     </div>
                 </div>
                 <!-- Restaurant 2 -->
@@ -84,9 +86,9 @@
                             <i class="far fa-star rating-star"></i>
                         </div>
                     </div>
-                    <div class="px-4 pb-4">
+                    <div class="px-4 pb-4 relative">
                         <p class="text-sm text-black">Seafood<br>French<br>European</p>
-                        <a href="#" class="text-indigo-500 hover:text-indigo-600">More Info</a>
+                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
                     </div>
                 </div>
                 <!-- Restaurant 3 -->
@@ -102,9 +104,9 @@
                             <i class="fas fa-star rating-star"></i>
                         </div>
                     </div>
-                    <div class="px-4 pb-4">
+                    <div class="px-4 pb-4 relative">
                         <p class="text-sm text-black">Seafood<br>Dutch<br>European</p>
-                        <a href="#" class="text-indigo-500 hover:text-indigo-600">More Info</a>
+                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
                     </div>
                 </div>
                 <!-- Restaurant 4 -->
@@ -120,9 +122,9 @@
                             <i class="fas fa-star rating-star"></i>
                         </div>
                     </div>
-                    <div class="px-4 pb-4">
+                    <div class="px-4 pb-4 relative">
                         <p class="text-sm text-black">French<br>Dutch<br>European</p>
-                        <a href="#" class="text-indigo-500 hover:text-indigo-600">More Info</a>
+                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
                     </div>
                 </div>
                 <!-- Restaurant 5 -->
@@ -138,9 +140,9 @@
                             <i class="far fa-star rating-star"></i>
                         </div>
                     </div>
-                    <div class="px-4 pb-4">
-                        <p class="text-sm text-black">International<br>European<br>Asian</p>
-                        <a href="#" class="text-indigo-500 hover:text-indigo-600">More Info</a>
+                    <div class="px-4 pb-4 relative">
+                        <p class="text-sm text-black">Seafood<br>Dutch<br>European</p>
+                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
                     </div>
                 </div>
                 <!-- Restaurant 6 -->
@@ -156,9 +158,9 @@
                             <i class="far fa-star rating-star"></i>
                         </div>
                     </div>
-                    <div class="px-4 pb-4">
-                        <p class="text-sm text-black">European<br>Dutch<br>Modern</p>
-                        <a href="#" class="text-indigo-500 hover:text-indigo-600">More Info</a>
+                    <div class="px-4 pb-4 relative">
+                        <p class="text-sm text-black">International<br>Asian<br>European</p>
+                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
                     </div>
                 </div>
                 <!-- Restaurant 7 -->
@@ -174,9 +176,9 @@
                             <i class="fas fa-star rating-star"></i>
                         </div>
                     </div>
-                    <div class="px-4 pb-4">
-                        <p class="text-sm text-black">Seafood<br>Dutch<br>European</p>
-                        <a href="#" class="text-indigo-500 hover:text-indigo-600">More Info</a>
+                    <div class="px-4 pb-4 relative">
+                        <p class="text-sm text-black">Seafood<br>French<br>European</p>
+                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
                     </div>
                 </div>
                 <!-- CTA Section -->
@@ -208,10 +210,9 @@
                                         <span class="bg-red-500 px-4 py-2 rounded">Price</span>
                                     </th>
                                     <th class="text-left text-2xl font-bold py-4 px-4 text-white rounded">
-                                        <span class="bg-red-500 px-4 py-2 rounded">Kids price (-12 y/o)</span>
+                                        <span class="bg-red-500 px-4 py-2 rounded">Kids price</span>
                                     </th>
                                 </tr>
-
                             </thead>
 
                             <tbody class="text-black">
@@ -253,8 +254,8 @@
                                 </tr>
                             </tbody>
                         </table>
-
                     </div>
+                    <p class="text-m mt-4">*The Kids price only applies to children that are <span class="font-bold">12 yearls old or younger. </span></p>
                 </div>
             </div>
             <!--Map with locations-->
