@@ -10,8 +10,10 @@ class DanceTicket implements \JsonSerializable
     public string $singer;
     public int $totalQuantityOfAvailableTickets;
     public string $sessionType;
+    public string $startTime;
+    public string $endTime;
 
-    public function __construct(int $id, string $dateTime, string $location, float $price, string $singer, int $totalQuantityOfAvailableTickets, string $sessionType)
+    public function __construct(int $id, string $dateTime, string $location, float $price, string $singer, int $totalQuantityOfAvailableTickets, string $sessionType, string $startTime, string $endTime)
     {
         $this->id = $id;
         $this->dateTime = $dateTime;
@@ -20,8 +22,9 @@ class DanceTicket implements \JsonSerializable
         $this->singer = $singer;
         $this->totalQuantityOfAvailableTickets = $totalQuantityOfAvailableTickets;
         $this->sessionType = $sessionType;
+        $this->startTime = $startTime;
+        $this->endTime = $endTime;
     }
-
 
     public function jsonSerialize(): mixed
     {
