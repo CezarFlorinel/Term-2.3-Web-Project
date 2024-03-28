@@ -1,5 +1,5 @@
 <?php
-namespace App\Models\Order_And_Invoice;
+namespace App\Models\Tickets;
 
 class DancePasses implements \JsonSerializable
 {
