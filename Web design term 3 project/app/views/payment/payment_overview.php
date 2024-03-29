@@ -14,8 +14,9 @@ $userID = 1;  // get this from the sesssion as well after login has been done
 
 $order = $paymentService->getOrderByUserId($userID);
 $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
-
-
+$entireTotal = 0;
+$itemsTotal = 0;
+$totalVAT = 0;
 
 ?>
 
@@ -58,8 +59,14 @@ $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
 
                 <!-- Items List -->
                 <div class="space-y-4">
-                    <?php foreach ($orderItems as $orderItem): ?>
-                        <?php $ticket = $ticketsService->returnTypeOfTicket($orderItem); ?>
+                    <?php
+                    end($orderItems);
+                    $lastKey = key($orderItems);
+                    reset($orderItems);
+                    ?>
+                    <?php foreach ($orderItems as $key => $orderItem): ?>
+                        <?php $itemsTotal++;
+                        $ticket = $ticketsService->returnTypeOfTicket($orderItem); ?>
 
                         <?php if (get_class($ticket) == 'App\Models\Tickets\HistoryTicket'): ?>
                             <div class="flex justify-between items-center">
@@ -91,11 +98,10 @@ $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
                                 </div>
                                 <div class="w-1/12 text-right text-sm">
                                     <?php $price = $ticketsService->getHistoryTicketPriceByType($ticket->typeOfTicket);
-                                    if ($price == null) {
-                                        $price = 0;
-                                    }
                                     $quantityOfTicket = $orderItem->quantity;
                                     $subtotal = $quantityOfTicket * $price;
+                                    $entireTotal += $subtotal;
+                                    $totalVAT += $subtotal * (9 / 100);
                                     $formattedSubtotal = number_format($subtotal, 2, '.', '');
                                     echo htmlspecialchars($formattedSubtotal) ?>€
                                 </div>
@@ -105,31 +111,73 @@ $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
 
                             <div class="flex justify-between items-center">
                                 <div class="w-1/4 flex-col items-center">
-                                    <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1"
+                                    <img src="assets/images/Payment_event_images/p1.jpg" alt="Event 1"
                                         class="w-20 h-20 rounded-full mb-2 text-sm">
-                                    Dance
+                                    <?php echo htmlspecialchars($ticket->singer) ?> Concert
                                 </div>
-                                <div class="w-1/4 text-sm">27 Jul<br>21:00-02:00</div>
-                                <div class="w-1/3 text-sm">Lichtfabriek<br>Club</div>
-                                <div class="w-1/12 text-sm">1</div>
-                                <div class="w-1/12 text-right text-sm">70.00€</div>
+                                <?php
+                                $ticket->dateAndTime;
+                                $ticket->startTime;
+                                $ticket->endTime;
+                                $date = new DateTime($ticket->dateAndTime);
+                                $formattedDate = $date->format('d M');
+                                $startTime = new DateTime($ticket->startTime);
+                                $formattedStartTime = $startTime->format('H:i');
+                                $endTime = new DateTime($ticket->endTime);
+                                $formattedEndTime = $endTime->format('H:i');
+                                echo "<div class=\"w-1/4 text-sm\">{$formattedDate}<br>{$formattedStartTime}-{$formattedEndTime}</div>"
+                                    ?>
+
+                                <div class="w-1/3 text-sm">
+                                    <?php echo htmlspecialchars($ticket->location) ?><br>Club
+                                </div>
+                                <div class="w-1/12 text-sm">
+                                    <?php echo htmlspecialchars($orderItem->quantity) ?>
+                                </div>
+                                <div class="w-1/12 text-right text-sm">
+                                    <?php $price = $ticket->price;
+                                    $quantityOfTicket = $orderItem->quantity;
+                                    $subtotal = $quantityOfTicket * $price;
+                                    $entireTotal += $subtotal;
+                                    $totalVAT += $subtotal * (21 / 100);
+                                    $formattedSubtotal = number_format($subtotal, 2, '.', '');
+                                    echo htmlspecialchars($formattedSubtotal) ?>€
+                                </div>
                             </div>
 
                         <?php else: ?> <!-- Add more elseif statements for passes and use else for error  -->
-
                             <div class="flex justify-between items-center">
                                 <div class="w-1/4 flex-col items-center">
-                                    <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1"
+                                    <img src="assets/images/Payment_event_images/p2.jpg" alt="Event 1"
                                         class="w-20 h-20 rounded-full mb-2 text-sm">
-                                    English Tour
+                                    Dance Pass
                                 </div>
-                                <div class="w-1/4 text-sm">27 Jul<br>21:00-02:00</div>
-                                <div class="w-1/3 text-sm">Lichtfabriek<br>Club</div>
-                                <div class="w-1/12 text-sm">1</div>
-                                <div class="w-1/12 text-right text-sm">70.00€</div>
+                                <div class="w-1/4 text-sm">
+                                    <?php if ($ticket->date != null) {
+                                        $dateOfPass = new DateTime($ticket->date);
+                                        $formattedDate = $dateOfPass->format('d M');
+                                        echo htmlspecialchars($formattedDate);
+                                    } else
+                                        echo "All Days" ?>
+                                    </div>
+                                    <div class="w-1/3 text-sm">Multiple</div>
+                                    <div class="w-1/12 text-sm">
+                                    <?php echo htmlspecialchars($orderItem->quantity) ?>
+                                </div>
+                                <div class="w-1/12 text-right text-sm">
+                                    <?php $price = $ticket->price;
+                                    $quantityOfTicket = $orderItem->quantity;
+                                    $subtotal = $quantityOfTicket * $price;
+                                    $entireTotal += $subtotal;
+                                    $totalVAT += $subtotal * (21 / 100);
+                                    $formattedSubtotal = number_format($subtotal, 2, '.', '');
+                                    echo htmlspecialchars($formattedSubtotal) ?>€
+                                </div>
                             </div>
                         <?php endif; ?>
-                        <div class="w-full border-t border-gray-400"></div> <!-- Divider Line, remove for last in array  -->
+                        <?php if ($key !== $lastKey): // Check if not the last item                          ?>
+                            <div class="w-full border-t border-gray-400"></div> <!-- Divider Line, remove for last in array -->
+                        <?php endif; ?>
                     <?php endforeach; ?>
 
 
@@ -138,8 +186,19 @@ $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
 
                 <!-- Total Line -->
                 <div class="pt-4 mt-4 border-t border-gray-300 text-xl font-bold text-center">
-                    You have 6 items in total
-                    <div>Total 162.50€</div>
+                    You have
+                    <?php echo $itemsTotal;
+                    $_SESSION['itemsTotal'] = $itemsTotal; ?> items in total
+
+                    <div>Total VAT:
+                        <?php $_SESSION['totalVAT'] = $totalVAT;
+                        echo $formattedSubtotal = number_format($totalVAT, 2, '.', ''); ?>€
+                    </div>
+                    <div>Total
+                        <?php $_SESSION['totalPrice'] = $entireTotal;
+                        echo $formattedSubtotal = number_format($entireTotal, 2, '.', ''); ?>€
+                    </div>
+
                 </div>
             </div>
 
@@ -192,10 +251,12 @@ $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
             <button type="button" class="button-back" onclick="window.history.back();">&larr; Go Back</button>
 
             <div class="flex justify-center">
-                <button
-                    class="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
-                    NEXT STEP →
-                </button>
+                <a href="Payment/redirectToCheckout">
+                    <button
+                        class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+                        NEXT STEP →
+                    </button>
+                </a>
             </div>
         </div>
     </div>

@@ -34,7 +34,7 @@ class TicketsRepository extends Repository
         );
     }
 
-    public function getHistoryTicketByID($historyTicketID)
+    public function getHistoryTicketByID($historyTicketID): HistoryTicket
     {
         $stmt = $this->connection->prepare('SELECT * FROM HISTORY_TICKET WHERE H_TicketID = :history_ticket_id');
         $stmt->bindParam(':history_ticket_id', $historyTicketID, PDO::PARAM_INT);
@@ -60,7 +60,7 @@ class TicketsRepository extends Repository
         return $result['Price'];
     }
 
-    public function getPassByID($passID)
+    public function getPassByID($passID): DancePasses
     {
         $stmt = $this->connection->prepare('SELECT * FROM DANCE_PASSES WHERE PassesID = :pass_id');
         $stmt->bindParam(':pass_id', $passID, PDO::PARAM_INT);

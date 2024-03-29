@@ -39,23 +39,36 @@ class PaymentController
     public function redirectToCheckout()
     {
         try {
+            session_start();
             require_once '../config/secrets.php';
             \Stripe\Stripe::setApiKey($stripeSecretKey);
             header('Content-Type: application/json');
+
+            $quantity = $_SESSION['itemsTotal'];
+            $total = $_SESSION['totalPrice'];
+            $totalVAT = $_SESSION['totalVAT'];
+            $unit_amount = (int) round($total * 100);
 
             $YOUR_DOMAIN = 'http://localhost';
 
             $checkout_session = \Stripe\Checkout\Session::create([
                 'line_items' => [
                     [
-                        # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
-                        'price' => 'price_1Oz34wLVtBYjQ2Miu1UQkdDD',
+                        'price_data' => [
+                            'currency' => 'eur',
+                            'product_data' => [
+                                'name' => 'Tickets (Quantity: ' . $quantity . ')',
+                                'description' => ' VAT: ' . $totalVAT . '€',
+                            ],
+                            'unit_amount' => (int) $unit_amount,
+                        ],
                         'quantity' => 1,
+
                     ]
                 ],
                 'mode' => 'payment',
-                'success_url' => $YOUR_DOMAIN . '/danceevent',
-                'cancel_url' => $YOUR_DOMAIN . '/yummyevent',
+                'success_url' => $YOUR_DOMAIN . '/paymentSuccess?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => $YOUR_DOMAIN . '/paymentFailed',
             ]);
 
             header("HTTP/1.1 303 See Other");
@@ -68,4 +81,50 @@ class PaymentController
             exit;
         }
     }
+
+    // public function handleWebhook()
+    // {
+    //     // Retrieve the request's body and parse it as JSON
+    //     $payload = @file_get_contents('php://input');
+    //     $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+
+    //     $endpoint_secret = 'your_stripe_endpoint_secret'; // Replace this with your endpoint's secret
+
+    //     try {
+    //         // You can find your endpoint's secret in your webhook settings in the Stripe dashboard
+    //         $event = \Stripe\Webhook::constructEvent(
+    //             $payload,
+    //             $sig_header,
+    //             $endpoint_secret
+    //         );
+
+    //         // Handle the event
+    //         switch ($event->type) {
+    //             case 'payment_intent.succeeded':
+    //                 $paymentIntent = $event->data->object; // contains a StripePaymentIntent
+    //                 // Handle successful payment here
+    //                 break;
+    //             case 'checkout.session.completed':
+    //                 $session = $event->data->object; // contains a StripeCheckoutSession
+    //                 // Handle checkout session completion here
+    //                 break;
+    //             // Add more case statements to handle other event types
+    //             default:
+    //                 echo 'Received unknown event type ' . $event->type;
+    //         }
+
+    //         http_response_code(200); // PHP 5.4 or greater
+    //         echo json_encode(['status' => 'success']);
+    //     } catch (\UnexpectedValueException $e) {
+    //         // Invalid payload
+    //         http_response_code(400); // PHP 5.4 or greater
+    //         echo 'Webhook error while parsing basic request.';
+    //         exit();
+    //     } catch (\Stripe\Exception\SignatureVerificationException $e) {
+    //         // Invalid signature
+    //         http_response_code(400); // PHP 5.4 or greater
+    //         echo 'Webhook error while validating signature.';
+    //         exit();
+    //     }
+    // }
 }
