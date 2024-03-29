@@ -1,4 +1,18 @@
 <?php
+session_start();
+
+use App\Services\PaymentService;
+use App\Services\TicketsService;
+
+$paymentService = new PaymentService();
+$ticketsService = new TicketsService();
+
+$customerData = $_SESSION['customerData'];
+$userID = 1;  // get this from the sesssion as well after login has been done
+
+
+$order = $paymentService->getOrderByUserId($userID);
+$orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
 
 
 
@@ -40,50 +54,57 @@
 
             <div style="height: 20px;"></div>
             <div class="bg-white text-black rounded-lg py-4 px-6">
+
                 <!-- Items List -->
                 <div class="space-y-4">
-                    <!-- Item Rows -->
-                    <!-- Repeat this structure for each item, replace with actual data -->
-                    <div class="flex justify-between items-center">
-                        <div class="w-1/4 flex-col items-center">
-                            <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
-                                class="w-20 h-20 rounded-full mb-2 text-sm">
-                            English Tour
-                        </div>
-                        <div class="w-1/4 text-sm">25 Jul<br>10:00-12:30</div>
-                        <div class="w-1/3 text-sm">Starting Point <br> Near Church<br> Of Saint Bavo</div>
-                        <div class="w-1/12 text-sm">1</div>
-                        <div class="w-1/12 text-right text-sm">17.50€</div>
-                    </div>
+                    <?php foreach ($orderItems as $orderItem): ?>
+                        <?php $ticket = $ticketsService->returnTypeOfTicket($orderItem); ?>
 
-                    <div class="w-full border-t border-gray-400"></div>
+                        <?php if (get_class($ticket) == 'App\Models\Tickets\HistoryTicket'): ?>
+                            <div class="flex justify-between items-center">
+                                <div class="w-1/4 flex-col items-center">
+                                    <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
+                                        class="w-20 h-20 rounded-full mb-2 text-sm"> <!-- change based on type of ticket  -->
+                                    English Tour
+                                </div>
+                                <div class="w-1/4 text-sm">25 Jul<br>10:00-12:30</div>
+                                <div class="w-1/3 text-sm">Starting Point <br> Near Church<br> Of Saint Bavo</div>
+                                <div class="w-1/12 text-sm">1</div>
+                                <div class="w-1/12 text-right text-sm">17.50€</div>
+                            </div>
 
-                    <div class="flex justify-between items-center">
-                        <div class="w-1/4 flex-col items-center">
-                            <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1"
-                                class="w-20 h-20 rounded-full mb-2 text-sm">
-                            English Tour
-                        </div>
-                        <div class="w-1/4 text-sm">27 Jul<br>21:00-02:00</div>
-                        <div class="w-1/3 text-sm">Lichtfabriek<br>Club</div>
-                        <div class="w-1/12 text-sm">1</div>
-                        <div class="w-1/12 text-right text-sm">70.00€</div>
-                    </div>
+                        <?php elseif (get_class($ticket) == 'App\Models\Tickets\DanceTicket'): ?>
 
-                    <div class="w-full border-t border-gray-400"></div>
+                            <div class="flex justify-between items-center">
+                                <div class="w-1/4 flex-col items-center">
+                                    <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1"
+                                        class="w-20 h-20 rounded-full mb-2 text-sm">
+                                    Dance
+                                </div>
+                                <div class="w-1/4 text-sm">27 Jul<br>21:00-02:00</div>
+                                <div class="w-1/3 text-sm">Lichtfabriek<br>Club</div>
+                                <div class="w-1/12 text-sm">1</div>
+                                <div class="w-1/12 text-right text-sm">70.00€</div>
+                            </div>
 
-                    <div class="flex justify-between items-center">
-                        <div class="w-1/4 flex-col items-center">
-                            <img src="assets/images/Payment_event_images/Checkinfo3.png" alt="Event 1"
-                                class="w-20 h-20 rounded-full mb-2 text-sm">
-                            English Tour
-                        </div>
-                        <div class="w-1/4 text-sm">27 Jul<br>13:00-15:30</div>
-                        <div class="w-1/3 text-sm">Starting Point<br>Near Church<br>Of Saint Bavo</div>
-                        <div class="w-1/12 text-sm">4</div>
-                        <div class="w-1/12 text-right text-sm">75.00€</div>
-                    </div>
-                    <!-- Repeat End -->
+                        <?php else: ?>
+
+                            <div class="flex justify-between items-center">
+                                <div class="w-1/4 flex-col items-center">
+                                    <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1"
+                                        class="w-20 h-20 rounded-full mb-2 text-sm">
+                                    English Tour
+                                </div>
+                                <div class="w-1/4 text-sm">27 Jul<br>21:00-02:00</div>
+                                <div class="w-1/3 text-sm">Lichtfabriek<br>Club</div>
+                                <div class="w-1/12 text-sm">1</div>
+                                <div class="w-1/12 text-right text-sm">70.00€</div>
+                            </div>
+                        <?php endif; ?>
+                        <div class="w-full border-t border-gray-400"></div> <!-- Divider Line, remove for last in array  -->
+                    <?php endforeach; ?>
+
+
 
                 </div>
 
@@ -100,20 +121,37 @@
                 <!-- Client Details -->
                 <div class="w-1/2 pr-4">
                     <h3 class="text-lg font-bold mb-2 border-b border-gray-200 pb-2">Client Details:</h3>
-                    <p>Full Name: Vasile Dracula</p>
-                    <p>Email: misterdracula@gmail.com</p>
-                    <p>Phone Number: +40786753421</p>
-                    <p>Payment Method: IDEal (ING)</p>
+                    <p>Full Name:
+                        <?php echo htmlspecialchars($customerData['name']) ?>
+                    </p>
+                    <p>Email:
+                        <?php echo htmlspecialchars($customerData['email']) ?>
+                    </p>
+                    <p>Phone Number:
+                        <?php echo htmlspecialchars($customerData['phoneNumber']) ?>
+                    </p>
                 </div>
 
                 <!-- Billing Information -->
                 <div class="w-1/2 pl-4">
                     <h3 class="text-lg font-bold mb-2 border-b border-gray-200 pb-2">Billing Information:</h3>
-                    <p>Country: Romania</p>
-                    <p>Street: Str. Teiului Nr. 567</p>
-                    <p>City: Alexandria</p>
-                    <p>County: Teleorman</p>
-                    <p>Zip Code: 29874</p>
+                    <p>Country:
+                        <?php echo htmlspecialchars($customerData['country']) ?>
+                    </p>
+                    <p>Street:
+                        <?php echo htmlspecialchars($customerData['address']) ?>
+                    </p>
+                    <p>Extra Address:
+                        <?php echo htmlspecialchars($customerData['extraAddress']) ?>
+                    <p>City:
+                        <?php echo htmlspecialchars($customerData['city']) ?>
+                    </p>
+                    <p>County:
+                        <?php echo htmlspecialchars($customerData['county']) ?>
+                    </p>
+                    <p>Zip Code:
+                        <?php echo htmlspecialchars($customerData['zip']) ?>
+                    </p>
                 </div>
             </div>
 

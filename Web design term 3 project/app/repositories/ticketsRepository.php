@@ -47,4 +47,29 @@ class TicketsRepository extends Repository
         );
     }
 
+    public function getHistoryTicketPriceByType($historyTicketType): float
+    {
+        $stmt = $this->connection->prepare('SELECT Price FROM HISTORY_TICKET WHERE TicketType = :history_ticket_type');
+        $stmt->bindParam(':history_ticket_type', $historyTicketType, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result['Price'];
+    }
+
+    public function getPassByID($passID)
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM DANCE_PASSES WHERE PassesID = :pass_id');
+        $stmt->bindParam(':pass_id', $passID, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return new DancePasses(
+            $result['PassesID'],
+            $result['Price'],
+            $result['Date'],
+            $result['AllDayPass']
+        );
+    }
+
 }

@@ -14,6 +14,8 @@ class PaymentController
 
     public function storeCustomerData()
     {
+        session_start();
+
         if (isset($_POST['extraAddress'], $_POST['country'], $_POST['name'], $_POST['email'], $_POST['phoneNumber'], $_POST['country'], $_POST['address'], $_POST['city'], $_POST['county'], $_POST['zip'])) {
             $this->customerData = [
                 'name' => $_POST['name'],
@@ -26,17 +28,12 @@ class PaymentController
                 'county' => $_POST['county'],
                 'zip' => $_POST['zip']
             ];
+            $_SESSION['customerData'] = $this->customerData;
             header('Location: /PaymentOverview');
 
         } else {
             echo 'Please fill in all the fields';
-
         }
-    }
-
-    public function getCustomerData()
-    {
-        return $this->customerData;
     }
 
     public function redirectToCheckout()

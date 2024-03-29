@@ -3,23 +3,23 @@ namespace App\Models\Order_And_Invoice;
 
 class OrderItem implements \JsonSerializable
 {
-    public int $id;
+    public int $orderItemID;
     public int $quantity;
     public string $typeOfFestival;
-    public ?int $orderFK;
-    public ?int $dancePassFK;
-    public ?int $danceTicketFK;
-    public ?int $historyTicketFK;
+    public ?int $order_FK;
+    public ?int $pass_FK;
+    public ?int $danceTicket_FK;
+    public ?int $historyTicket_FK;
 
     public function __construct(int $id, int $quantity, string $typeOfFestival, ?int $orderFK, ?int $dancePassFK, ?int $danceTicketFK, ?int $historyTicketFK)
     {
-        $this->id = $id;
+        $this->orderItemID = $id;
         $this->quantity = $quantity;
         $this->typeOfFestival = $typeOfFestival;
-        $this->orderFK = $orderFK;
-        $this->dancePassFK = $dancePassFK;
-        $this->danceTicketFK = $danceTicketFK;
-        $this->historyTicketFK = $historyTicketFK;
+        $this->order_FK = $orderFK;
+        $this->pass_FK = $dancePassFK;
+        $this->danceTicket_FK = $danceTicketFK;
+        $this->historyTicket_FK = $historyTicketFK;
     }
 
     public function jsonSerialize(): mixed

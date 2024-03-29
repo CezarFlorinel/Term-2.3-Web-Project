@@ -3,11 +3,11 @@ namespace App\Models\Order_And_Invoice;
 
 class Invoice implements \JsonSerializable
 {
-    public int $id;
+    public int $invoiceID;
     public int $orderId;
     public string $invoiceDate;
     public string $clientName;
-    public string $clientAddress;
+    public string $address;
     public string $phoneNumber;
     public string $email;
     public float $VATamount;
@@ -16,11 +16,11 @@ class Invoice implements \JsonSerializable
 
     public function __construct(int $id, int $orderId, string $invoiceDate, string $clientName, string $clientAddress, string $phoneNumber, string $email, float $VATamount, float $totalAmount, string $paymentDate)
     {
-        $this->id = $id;
+        $this->invoiceID = $id;
         $this->orderId = $orderId;
         $this->invoiceDate = $invoiceDate;
         $this->clientName = $clientName;
-        $this->clientAddress = $clientAddress;
+        $this->address = $clientAddress;
         $this->phoneNumber = $phoneNumber;
         $this->email = $email;
         $this->VATamount = $VATamount;

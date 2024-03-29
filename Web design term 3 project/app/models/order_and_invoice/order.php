@@ -3,7 +3,7 @@ namespace App\Models\Order_And_Invoice;
 
 class Order implements \JsonSerializable
 {
-    public int $id;
+    public int $orderID;
     public int $userId;
     public string $paymentStatus;
     public float $totalAmount;
@@ -12,7 +12,7 @@ class Order implements \JsonSerializable
 
     public function __construct(int $id, int $userId, string $paymentStatus, float $totalAmount, string $paymentMethod, string $paymentDate)
     {
-        $this->id = $id;
+        $this->orderID = $id;
         $this->userId = $userId;
         $this->paymentStatus = $paymentStatus;
         $this->totalAmount = $totalAmount;

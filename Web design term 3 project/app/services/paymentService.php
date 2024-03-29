@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\PaymentRepository;
+use App\Models\Order_And_Invoice\Order;
 
 class PaymentService
 {
@@ -12,7 +13,7 @@ class PaymentService
     {
         $this->repository = new PaymentRepository();
     }
-    public function getOrderByUserId($userId)
+    public function getOrderByUserId($userId): Order
     {
         return $this->repository->getOrderByUserId($userId);
     }
@@ -20,4 +21,5 @@ class PaymentService
     {
         return $this->repository->getOrdersItemsByOrderId($orderId);
     }
+
 }
