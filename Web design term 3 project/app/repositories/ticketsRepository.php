@@ -11,8 +11,11 @@ use App\Models\Tickets\DanceTicket;
 
 class TicketsRepository extends Repository
 {
-    public function getDanceTicketByID($danceTicketID)
+    public function getDanceTicketByID($danceTicketID): DanceTicket
     {
+        error_log(print_r($danceTicketID, true), 3, __DIR__ . '/../file_with_erros_logs'); // Log the input data
+        error_log(print_r("danceTicketID- method called", true), 3, __DIR__ . '/../file_with_erros_logs'); // Log the input data
+
         $stmt = $this->connection->prepare('SELECT * FROM DANCE_TICKET WHERE D_TicketID = :dance_ticket_id');
         $stmt->bindParam(':dance_ticket_id', $danceTicketID, PDO::PARAM_INT);
         $stmt->execute();
@@ -20,7 +23,7 @@ class TicketsRepository extends Repository
 
         return new DanceTicket(
             $result['D_TicketID'],
-            $result['Date'],
+            $result['DateAndTime'],
             $result['Location'],
             $result['Price'],
             $result['Singer'],
@@ -49,7 +52,7 @@ class TicketsRepository extends Repository
 
     public function getHistoryTicketPriceByType($historyTicketType): float
     {
-        $stmt = $this->connection->prepare('SELECT Price FROM HISTORY_TICKET WHERE TicketType = :history_ticket_type');
+        $stmt = $this->connection->prepare('SELECT Price FROM History_ticket_prices WHERE TicketType = :history_ticket_type');
         $stmt->bindParam(':history_ticket_type', $historyTicketType, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

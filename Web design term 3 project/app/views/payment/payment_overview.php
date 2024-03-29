@@ -3,13 +3,14 @@ session_start();
 
 use App\Services\PaymentService;
 use App\Services\TicketsService;
+use App\Services\HistoryService;
 
 $paymentService = new PaymentService();
 $ticketsService = new TicketsService();
+$historyService = new HistoryService();
 
 $customerData = $_SESSION['customerData'];
 $userID = 1;  // get this from the sesssion as well after login has been done
-
 
 $order = $paymentService->getOrderByUserId($userID);
 $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
@@ -64,13 +65,40 @@ $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
                             <div class="flex justify-between items-center">
                                 <div class="w-1/4 flex-col items-center">
                                     <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
-                                        class="w-20 h-20 rounded-full mb-2 text-sm"> <!-- change based on type of ticket  -->
-                                    English Tour
+                                        class="w-20 h-20 rounded-full mb-2 text-sm">
+                                    <?php echo htmlspecialchars($ticket->language) . ' Tour' ?>
                                 </div>
-                                <div class="w-1/4 text-sm">25 Jul<br>10:00-12:30</div>
-                                <div class="w-1/3 text-sm">Starting Point <br> Near Church<br> Of Saint Bavo</div>
-                                <div class="w-1/12 text-sm">1</div>
-                                <div class="w-1/12 text-right text-sm">17.50€</div>
+                                <div class="w-1/4 text-sm">
+                                    <?php
+                                    $ticket->dateAndTime;
+                                    $startDateTime = new DateTime($ticket->dateAndTime);
+                                    $endDateTime = clone $startDateTime;
+                                    $endDateTime->add(new DateInterval('PT2H30M'));
+                                    $output = $startDateTime->format('d M') . '<br>' . $startDateTime->format('H:i') . '-' . $endDateTime->format('H:i');
+                                    echo $output;
+                                    ?>
+                                </div>
+                                <div class="w-1/3 text-sm">Starting Point <br> Near
+                                    <?php $historyFirstRoute = $historyService->getFirstHistoryRoute();
+                                    $string = $historyFirstRoute->locationName;
+                                    if (strpos($string, "1.") === 0) {
+                                        $string = substr($string, 3);
+                                    }
+                                    echo htmlspecialchars($string) ?>
+                                </div>
+                                <div class="w-1/12 text-sm">
+                                    <?php echo htmlspecialchars($orderItem->quantity) ?>
+                                </div>
+                                <div class="w-1/12 text-right text-sm">
+                                    <?php $price = $ticketsService->getHistoryTicketPriceByType($ticket->typeOfTicket);
+                                    if ($price == null) {
+                                        $price = 0;
+                                    }
+                                    $quantityOfTicket = $orderItem->quantity;
+                                    $subtotal = $quantityOfTicket * $price;
+                                    $formattedSubtotal = number_format($subtotal, 2, '.', '');
+                                    echo htmlspecialchars($formattedSubtotal) ?>€
+                                </div>
                             </div>
 
                         <?php elseif (get_class($ticket) == 'App\Models\Tickets\DanceTicket'): ?>
@@ -87,7 +115,7 @@ $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
                                 <div class="w-1/12 text-right text-sm">70.00€</div>
                             </div>
 
-                        <?php else: ?>
+                        <?php else: ?> <!-- Add more elseif statements for passes and use else for error  -->
 
                             <div class="flex justify-between items-center">
                                 <div class="w-1/4 flex-col items-center">

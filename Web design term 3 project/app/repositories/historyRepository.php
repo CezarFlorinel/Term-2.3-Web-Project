@@ -35,7 +35,7 @@ class HistoryRepository extends Repository     // methods for all history relate
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOP_PART]');
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if (!empty ($results)) {
+        if (!empty($results)) {
             $firstItem = $results[0];
             return new HistoryTopPart(
                 $firstItem['InformationID'],
@@ -64,6 +64,22 @@ class HistoryRepository extends Repository     // methods for all history relate
         }, $results);
     }
 
+    public function getFirstHistoryRoute(): HistoryRoute
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_ROUTE]');
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $firstItem = $results[0];
+        return new HistoryRoute(
+            $firstItem['InformationID'],
+            $firstItem['MainImagePath'],
+            $firstItem['LocationName'],
+            $firstItem['LocationDespcription'],
+            $firstItem['LocationImagePath'],
+            $firstItem['WheelchairSupport']
+        );
+    }
+
     public function getHistoryTicketPrices(): array
     {
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TICKET_PRICES]');
@@ -85,7 +101,7 @@ class HistoryRepository extends Repository     // methods for all history relate
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOUR_STARTING_POINT]');
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if (!empty ($results)) {
+        if (!empty($results)) {
             $firstItem = $results[0];
             return new HistoryTourStartingPoint(
                 $firstItem['InformationID'],

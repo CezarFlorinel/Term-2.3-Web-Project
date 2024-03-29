@@ -27,7 +27,6 @@ class TicketsService
 
         return $this->repository->getPassByID($ticketID->pass_FK);
 
-
     }
 
     public function getPassByID($passID)
