@@ -1,21 +1,21 @@
 <?php
-namespace App\Models\Order_And_Invoice;
+namespace App\Models\Tickets;
 
 class UserQrTicket implements \JsonSerializable
 {
-    public int $id;
+    public int $ticketID;
     public ?int $userId;
-    public ?int $orderItemId;
-    public string $dateTime;
+    public ?int $orderItem_FK;
+    public string $date;
     public string $qrCode;
     public bool $scanned;
 
     public function __construct(int $id, ?int $userId, ?int $orderItemId, string $dateTime, string $qrCode, bool $scanned)
     {
-        $this->id = $id;
+        $this->ticketID = $id;
         $this->userId = $userId;
-        $this->orderItemId = $orderItemId;
-        $this->dateTime = $dateTime;
+        $this->orderItem_FK = $orderItemId;
+        $this->date = $dateTime;
         $this->qrCode = $qrCode;
         $this->scanned = $scanned;
     }
