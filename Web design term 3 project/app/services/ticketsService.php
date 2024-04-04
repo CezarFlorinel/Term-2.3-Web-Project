@@ -47,4 +47,14 @@ class TicketsService
     {
         return $this->repository->getHistoryTicketByID($historyTicketID);
     }
+
+    public function addQRTicketToDB($userId, $orderItem_FK, $date, $scanned)
+    {
+        $this->repository->addQRTicketToDB($userId, $orderItem_FK, $date, $scanned);
+    }
+
+    public function getQRTickets($orderID): array
+    {
+        return $this->repository->getQRTickets($orderID);
+    }
 }

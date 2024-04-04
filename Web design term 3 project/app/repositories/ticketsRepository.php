@@ -75,4 +75,34 @@ class TicketsRepository extends Repository
         );
     }
 
+    public function addQRTicketToDB($userId, $orderItem_FK, $date, $scanned)
+    {
+        $stmt = $this->connection->prepare('INSERT INTO USER_QR_TICKET (UserID, OrderItem_FK, Date, Scanned) VALUES (:user_id, :order_item_fk, :date, :scanned)');
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':order_item_fk', $orderItem_FK, PDO::PARAM_INT);
+        $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':scanned', $scanned, PDO::PARAM_BOOL);
+        $stmt->execute();
+    }
+    public function getQRTickets($orderID): array
+    {
+        $stmt = $this->connection->prepare('SELECT UQT.TicketID, UQT.UserID, UQT.OrderItem_FK, UQT.Date, UQT.Scanned
+                                            FROM USER_QR_TICKET UQT
+                                            INNER JOIN ORDER_ITEM OI ON UQT.OrderItem_FK = OI.OrderItemID
+                                            WHERE OI.Order_FK = :order_id;');
+        $stmt->bindParam(':order_id', $orderID, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return array_map(function ($row) {
+            return new UserQrTicket(
+                $row['TicketID'],
+                $row['UserID'],
+                $row['OrderItem_FK'],
+                $row['Date'],
+                $row['Scanned']
+            );
+        }, $result);
+    }
+
+
 }

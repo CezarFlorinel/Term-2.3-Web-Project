@@ -3,20 +3,18 @@ namespace App\Models\Tickets;
 
 class UserQrTicket implements \JsonSerializable
 {
-    public int $ticketID;
+    public string $ticketID;
     public ?int $userId;
     public ?int $orderItem_FK;
     public string $date;
-    public string $qrCode;
     public bool $scanned;
 
-    public function __construct(int $id, ?int $userId, ?int $orderItemId, string $dateTime, string $qrCode, bool $scanned)
+    public function __construct(string $id, ?int $userId, ?int $orderItemId, string $dateTime, bool $scanned)
     {
         $this->ticketID = $id;
         $this->userId = $userId;
         $this->orderItem_FK = $orderItemId;
         $this->date = $dateTime;
-        $this->qrCode = $qrCode;
         $this->scanned = $scanned;
     }
 

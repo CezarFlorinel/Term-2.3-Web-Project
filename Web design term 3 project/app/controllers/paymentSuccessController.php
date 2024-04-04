@@ -12,6 +12,10 @@ use TCPDF;
 use DateTime;
 use DateInterval;
 
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
+
+
 
 class PaymentSuccessController
 {
@@ -21,7 +25,11 @@ class PaymentSuccessController
     private $historyService;
     private $order;
     private $pdf;
+    private $pdfWithTickets;
+    private $clientName = '';
     private $htmlContent = '';
+
+    private $userId = 1; // to be changed for login
 
 
     public function __construct()
@@ -30,9 +38,11 @@ class PaymentSuccessController
         $this->ticketService = new TicketsService();
         $this->historyService = new HistoryService();
         $this->pdf = new TCPDF();
+        $this->pdfWithTickets = new TCPDF();
         session_start();
         $this->getPaymentMethod();
         $this->updateOrderStatus();
+        $this->makeTickets();
     }
 
     public function index()
@@ -67,9 +77,8 @@ class PaymentSuccessController
     }
     private function updateOrderStatus()
     {
-        $userId = 1; /// to be changed for login
         try {
-            $this->order = $this->paymentService->getOrderByUserId($userId);
+            $this->order = $this->paymentService->getOrderByUserId($this->userId);
             $this->paymentService->updateOrderStatus($this->order->orderID, 'Complete', $this->paymentMethod);
             $this->addInvoiceInDB();
         } catch (\Exception $e) {
@@ -82,7 +91,6 @@ class PaymentSuccessController
     {
         try {
             $customerData = $_SESSION['customerData'];
-
             $total = $_SESSION['totalPrice'];
             $totalVAT = $_SESSION['totalVAT'];
             $invoiceDate = date('Y-m-d H:i:s');
@@ -95,13 +103,13 @@ class PaymentSuccessController
         }
     }
 
-
     private function generatePDFInvoice()
     {
         try {
             $invoice = $this->paymentService->getInvoiceByOrderId($this->order->orderID);
             $orderItems = $this->paymentService->getOrdersItemsByOrderId($this->order->orderID);
             $quantity = $_SESSION['itemsTotal'];
+            $this->clientName = $invoice->clientName;
 
             $this->pdf->SetCreator('Haarlem Festival Website');
             $this->pdf->SetAuthor('Haarlem Festival');
@@ -216,7 +224,6 @@ class PaymentSuccessController
         }
     }
 
-
     private function sendEmail($pdfFilePath, $email, $name)
     {
         // Initialize PHPMailer
@@ -285,9 +292,130 @@ class PaymentSuccessController
         unlink($pdfFilePath);
 
     }
-
     private function makeTickets()
+    {
+        $this->addTicketToDB();
+        $this->generateQRCodeTicket();
+
+    }
+
+    private function addTicketToDB()
+    {
+        try {
+            $defaultScanned = false;
+            $orderItems = $this->paymentService->getOrdersItemsByOrderId($this->order->orderID);
+            foreach ($orderItems as $orderItem) {
+                $quantity = $orderItem->quantity;
+                for ($i = 0; $i < $quantity; $i++) {
+                    $this->ticketService->addQRTicketToDB($this->userId, $orderItem->orderItemID, date('Y-m-d H:i:s'), $defaultScanned);
+                }
+            }
+        } catch (\Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    private function generateQRCodeTicket()
+    {
+        $this->pdfWithTickets->SetCreator('Haarlem Festival Website');
+        $this->pdfWithTickets->SetAuthor('Haarlem Festival');
+        $this->pdfWithTickets->SetTitle('Invoice for Tickets');
+        $this->pdfWithTickets->SetSubject('Tickets');
+        $this->pdfWithTickets->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $this->pdfWithTickets->SetKeywords('Invoice, PDF, Tickets');
+        $this->pdfWithTickets->AddPage();
+        $htmlContent = ''; // to fill with the right content
+
+        try {
+            $tickets = $this->ticketService->getQRTickets($this->order->orderID);
+            foreach ($tickets as $ticket) {
+
+                $qrCode = new QrCode($ticket->ticketID);
+
+                // Set advanced options (optional)
+                $qrCode->setSize(300); // Size of the QR code in pixels
+                $qrCode->setMargin(10); // Margin around the QR code
+
+                // Create a QR code writer instance
+                $writer = new PngWriter();
+
+                // Write the QR code to a file
+                $projectRoot = realpath(__DIR__ . '/../../..');
+                $pngFilePath = $projectRoot . '/app/public/png_QR/' . $ticket->ticketID . '.png';
+
+                $writer->write($qrCode)->saveToFile($pngFilePath);
+
+                $orderItem = $this->paymentService->getOrderItemByID($ticket->orderItem_FK);
+                $ticketType = $this->ticketService->returnTypeOfTicket($orderItem);
+                if (get_class($ticketType) == 'App\Models\Tickets\HistoryTicket') {
+                    $historyTicket = $this->ticketService->getHistoryTicketByID($ticketType->historyTicket_FK);
+                    $htmlContent = $this->generateHTMLForTicketHistory('History ' . $historyTicket->language . ' Tour', $historyTicket->dateAndTime, $historyTicket->typeOfTicket);
+                } else if (get_class($ticketType) == 'App\Models\Tickets\DanceTicket') {
+                    $danceTicket = $this->ticketService->getDanceTicketByID($ticketType->danceTicket_FK);
+                    $htmlContent = $this->generateHTMLForTicketDance($danceTicket->singer . ' Concert', $danceTicket->dateAndTime, $danceTicket->startTime, $danceTicket->endTime, $danceTicket->location);
+                } else {
+                    $dancePass = $this->ticketService->getPassByID($ticketType->pass_FK);
+                    $date = new DateTime($dancePass->date);
+                    if ($dancePass->allDayPass == 1) {
+                        $htmlContent = $this->generateHTMLForPass('Dance Pass', 'All days');
+                    } else {
+                        $htmlContent = $this->generateHTMLForPass('Dance Pass', $date->format('d M Y'));
+                    }
+                }
+
+                $this->pdfWithTickets->writeHTML($htmlContent, true, false, true, false, '');
+                $this->pdfWithTickets->Image($pngFilePath, 150, $this->pdfWithTickets->GetY() - 55, 50, 0, 'PNG', '', '', false, 300, '', false, false, 0, false, false, false);
+                $this->pdfWithTickets->SetY($this->pdfWithTickets->GetY() + 25);
+                unlink($pngFilePath);
+                // Save the PDF to a file
+                $projectRoot = realpath(__DIR__ . '/../../..');
+                $pdfFilePath = $projectRoot . '/app/public/pdf/' . $this->order->orderID . '.pdf';
+                // Adjust the path as needed
+                $this->pdfWithTickets->Output($pdfFilePath, 'F');
+
+            }
+        } catch (\Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    private function generateHTMLForTicketDance($eventName, $dateAndTime, $startTime, $endTime, $location)
+    {
+        $htmlContent = "<div style='border: 1px solid black; padding: 10px; margin-bottom: 10px;'>
+                        <h2>{$eventName}</h2>
+                        <p>Date and Time: {$dateAndTime} , {$startTime} - {$endTime}</p>
+                        <p>Location: {$location}</p>
+                        <p>Name: {$this->clientName}</p>
+                        </div>";
+
+        return $htmlContent;
+    }
+    private function generateHTMLForTicketHistory($eventName, $dateAndTime, $typeofTicket)
+    {
+        $htmlContent = "<div style='border: 1px solid black; padding: 10px; margin-bottom: 10px;'>
+                        <h2>{$eventName}</h2>
+                        <p>Date and Time: {$dateAndTime}</p>
+                        <p>Type of Ticket: {$typeofTicket}</p>
+                        <p>Name: {$this->clientName}</p>
+                        </div>";
+
+        return $htmlContent;
+    }
+    private function generateHTMLForPass($eventName, $dateAndTime)
+    {
+        $htmlContent = "<div style='border: 1px solid black; padding: 10px; margin-bottom: 10px;'>
+                        <h2>{$eventName}</h2>  
+                        <p>Date and Time: {$dateAndTime}</p>
+                        <p>Name: {$this->clientName}</p>
+                        </div>";
+
+        return $htmlContent;
+    }
+
+    private function sendTickets()
     {
 
     }
+
+
 }

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\PaymentRepository;
 use App\Models\Order_And_Invoice\Order;
 use App\Models\Order_And_Invoice\Invoice;
+use App\Models\Order_And_Invoice\OrderItem;
 
 class PaymentService
 {
@@ -36,6 +37,11 @@ class PaymentService
     public function getInvoiceByOrderId($orderId): Invoice
     {
         return $this->repository->getInvoiceByOrderId($orderId);
+    }
+
+    public function getOrderItemByID($orderItemID): OrderItem
+    {
+        return $this->repository->getOrderItemByID($orderItemID);
     }
 
 }
