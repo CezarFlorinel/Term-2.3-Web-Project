@@ -27,6 +27,7 @@ class PaymentSuccessController
     private $pdf;
     private $pdfWithTickets;
     private $clientName = '';
+    private $clientEmail = '';
     private $htmlContent = '';
 
     private $userId = 1; // to be changed for login
@@ -110,6 +111,7 @@ class PaymentSuccessController
             $orderItems = $this->paymentService->getOrdersItemsByOrderId($this->order->orderID);
             $quantity = $_SESSION['itemsTotal'];
             $this->clientName = $invoice->clientName;
+            $this->clientEmail = $invoice->email;
 
             $this->pdf->SetCreator('Haarlem Festival Website');
             $this->pdf->SetAuthor('Haarlem Festival');
@@ -296,7 +298,6 @@ class PaymentSuccessController
     {
         $this->addTicketToDB();
         $this->generateQRCodeTicket();
-
     }
 
     private function addTicketToDB()
@@ -348,15 +349,16 @@ class PaymentSuccessController
                 $orderItem = $this->paymentService->getOrderItemByID($ticket->orderItem_FK);
                 $ticketType = $this->ticketService->returnTypeOfTicket($orderItem);
                 if (get_class($ticketType) == 'App\Models\Tickets\HistoryTicket') {
-                    $historyTicket = $this->ticketService->getHistoryTicketByID($ticketType->historyTicket_FK);
-                    $htmlContent = $this->generateHTMLForTicketHistory('History ' . $historyTicket->language . ' Tour', $historyTicket->dateAndTime, $historyTicket->typeOfTicket);
+                    $date = new DateTime($ticketType->dateAndTime);
+                    $htmlContent = $this->generateHTMLForTicketHistory('History ' . $ticketType->language . ' Tour', $date->format('d M Y H:i'), $ticketType->typeOfTicket);
                 } else if (get_class($ticketType) == 'App\Models\Tickets\DanceTicket') {
-                    $danceTicket = $this->ticketService->getDanceTicketByID($ticketType->danceTicket_FK);
-                    $htmlContent = $this->generateHTMLForTicketDance($danceTicket->singer . ' Concert', $danceTicket->dateAndTime, $danceTicket->startTime, $danceTicket->endTime, $danceTicket->location);
+                    $date = new DateTime($ticketType->dateAndTime);
+                    $startTime = new DateTime($ticketType->startTime);
+                    $endTime = new DateTime($ticketType->endTime);
+                    $htmlContent = $this->generateHTMLForTicketDance($ticketType->singer . ' Concert', $date->format('d M Y'), $startTime->format('H:i'), $endTime->format('H:i'), $ticketType->location);
                 } else {
-                    $dancePass = $this->ticketService->getPassByID($ticketType->pass_FK);
-                    $date = new DateTime($dancePass->date);
-                    if ($dancePass->allDayPass == 1) {
+                    $date = new DateTime($ticketType->date);
+                    if ($ticketType->allDayPass == 1) {
                         $htmlContent = $this->generateHTMLForPass('Dance Pass', 'All days');
                     } else {
                         $htmlContent = $this->generateHTMLForPass('Dance Pass', $date->format('d M Y'));
@@ -367,13 +369,20 @@ class PaymentSuccessController
                 $this->pdfWithTickets->Image($pngFilePath, 150, $this->pdfWithTickets->GetY() - 55, 50, 0, 'PNG', '', '', false, 300, '', false, false, 0, false, false, false);
                 $this->pdfWithTickets->SetY($this->pdfWithTickets->GetY() + 25);
                 unlink($pngFilePath);
-                // Save the PDF to a file
-                $projectRoot = realpath(__DIR__ . '/../../..');
-                $pdfFilePath = $projectRoot . '/app/public/pdf/' . $this->order->orderID . '.pdf';
-                // Adjust the path as needed
-                $this->pdfWithTickets->Output($pdfFilePath, 'F');
 
             }
+            // Save the PDF to a file
+            $projectRoot = realpath(__DIR__ . '/../../..');
+            $pdfFilePath = $projectRoot . '/app/public/pdf/' . $this->order->orderID . '.pdf';
+            // Adjust the path as needed
+            $this->pdfWithTickets->Output($pdfFilePath, 'F');
+
+
+            $this->sendEmailWithTickets($pdfFilePath, $this->clientEmail, $this->clientName);
+            unlink($pdfFilePath);
+
+
+
         } catch (\Exception $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -406,14 +415,77 @@ class PaymentSuccessController
         $htmlContent = "<div style='border: 1px solid black; padding: 10px; margin-bottom: 10px;'>
                         <h2>{$eventName}</h2>  
                         <p>Date and Time: {$dateAndTime}</p>
+                        <p>Location: Multiple</p>
                         <p>Name: {$this->clientName}</p>
                         </div>";
 
         return $htmlContent;
     }
 
-    private function sendTickets()
+    private function sendEmailWithTickets($pdfFilePath, $clientEmail, $clientName)
     {
+        // Initialize PHPMailer
+        $mail = new PHPMailer(true);
+        require '../config/emailconfig.php';
+
+        try {
+            // Server settings for Gmail
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = $emailAddress;
+            error_log(print_r("\n" . "------- " . $emailAddress . " ----------", true), 3, __DIR__ . '/../file_with_erros_logs'); // Log the input data
+            $mail->Password = $key; // Replace with your Gmail password or App Password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+
+            // Recipients
+            $mail->setFrom($emailAddress, 'Team Haarlem'); // Replace 'Your Name' with your name
+            $mail->addAddress($clientEmail, $clientName); // Add a recipient
+
+            // Attach the PDF file
+            $mail->addAttachment($pdfFilePath);
+
+            // Email content
+            $mail->isHTML(true);
+            $mail->Subject = 'Hello ' . $clientName . ', here are your tickets for the Haarlem Festival!';
+
+            // HTML email body
+            $mail->Body = '
+             <html>
+             <head>
+             <title>Haarlem Festival Tickets</title>
+             </head>
+             <body>
+             <p>Hello ' . htmlspecialchars($clientName) . ',</p>
+             <p>Thank you for your purchase with Haarlem Festival! Attached to this email, you will find your tickets.</p>
+            <p>Please keep an eye on your inbox, as your invoice will be sent in a separate email. We hope you have a fantastic time enjoying the events you have chosen.</p>
+            <p>Should you have any questions or require further assistance, feel free to contact us.</p>
+            <p>Best regards,<br>The Haarlem Festival Team</p>
+            </body>
+            </html>';
+
+            // Plain text email body (for email clients that do not render HTML)
+            $mail->AltBody = 'Hello ' . $clientName . ",\n\n" .
+                "Thank you for your purchase with Haarlem Festival! Attached to this email, you will find your tickets.\n" .
+                "Please keep an eye on your inbox, as your invoice will be sent in a separate email. We hope you have a fantastic time enjoying the events you have chosen.\n" .
+                "Should you have any questions or require further assistance, feel free to contact us.\n\n" .
+                "Best regards,\nThe Haarlem Festival Team";
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+
+            $mail->SMTPDebug = 0;
+
+            // Send the email
+            $mail->send();
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
 
     }
 
