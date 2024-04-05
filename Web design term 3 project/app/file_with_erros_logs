@@ -1,10 +1,17 @@
 Sending credit card numbers directly to the Stripe API is generally unsafe. We suggest you use test tokens that map to the test card you are using, see https://stripe.com/docs/testing. To enable raw card data APIs in test mode, see https://support.stripe.com/questions/enabling-access-to-raw-card-data-apis.Array
+idtour: 1 lang:English1danceTicketID- method called1danceTicketID- method called1danceTicketID- method calledidtour: 1 lang:English1danceTicketID- method calledidtour: 1 lang:English1danceTicketID- method calledidtour: 1 lang:English1danceTicketID- method called1danceTicketID- method calledticketsReserved 0 total q:
+1danceTicketID- method called
+ticketsReserved 0 total q:
+1danceTicketID- method called
+ticketsReserved 0 total q:
+1danceTicketID- method called
+one day Pass is null 75
 
-Array
-(
-[token] => tok_1Oz28MLVtBYjQ2MiZsoyC09m
-[amount] => 500
-[currency] => eur
-[description] => asdas
-)
-1danceTicketID- method called1danceTicketID- method called1danceTicketID- method called
+one day Pass is null 
+
+ticketsReserved 0 total q:
+1danceTicketID- method called
+one day Pass 75
+
+allDayPass is null 50
+1danceTicketID- method called

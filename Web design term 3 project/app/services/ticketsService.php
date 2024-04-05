@@ -57,4 +57,22 @@ class TicketsService
     {
         return $this->repository->getQRTickets($orderID);
     }
+
+    public function countHistoryTicketsReserved(int $tourID, string $language): int
+    {
+        return $this->repository->countHistoryTicketsReserved($tourID, $language);
+    }
+    public function getMaximumTicketsForHistoryReservation(string $language, int $tourID): int
+    {
+        return $this->repository->getMaximumTicketsForHistoryReservation($language, $tourID);
+    }
+
+    public function countDanceTicketsReserved(int $danceTicketID, int $OrderToIgnoreID): int
+    {
+        return $this->repository->countDanceTicketsReserved($danceTicketID, $OrderToIgnoreID);
+    }
+    public function countMaxPassesReserved(int $passID, int $OrderToIgnoreID): int
+    {
+        return $this->repository->countMaxPassesReserved($passID, $OrderToIgnoreID);
+    }
 }

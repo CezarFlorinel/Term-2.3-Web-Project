@@ -73,7 +73,9 @@ class TicketsRepository extends Repository
             $result['PassesID'],
             $result['Price'],
             $result['Date'],
-            $result['AllDayPass']
+            $result['AllDayPass'],
+            $result['MaxPasses'],
+            $result['MaxAllDayPasses']
         );
     }
 
@@ -108,9 +110,10 @@ class TicketsRepository extends Repository
 
     public function countHistoryTicketsReserved(int $tourID, string $lanuguage): int
     {
+        $stringTypeOfTicket = 'Family Ticket';
         $stmt = $this->connection->prepare('SELECT 
             SUM(CASE 
-                WHEN TypeOfTicket = "Family Ticket" THEN 4 
+                WHEN TypeOfTicket = :type_of_ticket THEN 4 
                 ELSE 1 
                 END) AS TotalTickets
                 FROM HISTORY_TICKET
@@ -119,12 +122,13 @@ class TicketsRepository extends Repository
                 TourID = :tour_id;');
         $stmt->bindParam(':tour_id', $tourID, PDO::PARAM_INT);
         $stmt->bindParam(':language', $lanuguage, PDO::PARAM_STR);
+        $stmt->bindParam(':type_of_ticket', $stringTypeOfTicket, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return (int) $result['TotalTickets'];
     }
 
-    public function getMaximumTicketsForHistoryReservation($language, $tourID): int
+    public function getMaximumTicketsForHistoryReservation(string $language, int $tourID): int
     {
         if ($language == "English") {
 
@@ -164,5 +168,21 @@ class TicketsRepository extends Repository
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return (int) $result['TotalQuantity'];
     }
+
+    public function countMaxPassesReserved(int $passID, int $OrderToIgnoreID): int
+    {
+        $stmt = $this->connection->prepare('SELECT Pass_FK, 
+                                            SUM(Quantity) AS TotalQuantity
+                                            FROM ORDER_ITEM WHERE 
+                                            Pass_FK IS NOT NULL AND Pass_FK = :pass_id AND Order_FK != :order_to_ignore_id
+                                            GROUP BY Pass_FK;');
+        $stmt->bindParam(':pass_id', $passID, PDO::PARAM_INT);
+        $stmt->bindParam(':order_to_ignore_id', $OrderToIgnoreID, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int) $result['TotalQuantity'];
+    }
+
+
 
 }
