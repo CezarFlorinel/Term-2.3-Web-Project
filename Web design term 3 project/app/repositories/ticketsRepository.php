@@ -46,7 +46,9 @@ class TicketsRepository extends Repository
             $result['DateAndTime'],
             $result['Language'],
             $result['TypeOfTicket'],
-            $result['RouteID']
+            $result['RouteID'],
+            $result['TourID']
+
         );
     }
 
@@ -104,5 +106,63 @@ class TicketsRepository extends Repository
         }, $result);
     }
 
+    public function countHistoryTicketsReserved(int $tourID, string $lanuguage): int
+    {
+        $stmt = $this->connection->prepare('SELECT 
+            SUM(CASE 
+                WHEN TypeOfTicket = "Family Ticket" THEN 4 
+                ELSE 1 
+                END) AS TotalTickets
+                FROM HISTORY_TICKET
+                WHERE 
+                [Language] = :language AND 
+                TourID = :tour_id;');
+        $stmt->bindParam(':tour_id', $tourID, PDO::PARAM_INT);
+        $stmt->bindParam(':language', $lanuguage, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int) $result['TotalTickets'];
+    }
+
+    public function getMaximumTicketsForHistoryReservation($language, $tourID): int
+    {
+        if ($language == "English") {
+
+            $stmt = $this->connection->prepare('SELECT maxTicketsEnglish FROM HISTORY_TOURS WHERE InformationID = :info_id;');
+            $stmt->bindParam(':info_id', $tourID, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return (int) $result['maxTicketsEnglish'];
+
+        } else if ($language == "Dutch") {
+
+            $stmt = $this->connection->prepare('SELECT maxTicketsDutch FROM HISTORY_TOURS WHERE InformationID = :info_id;');
+            $stmt->bindParam(':info_id', $tourID, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return (int) $result['maxTicketsDutch'];
+
+        } else {
+            $stmt = $this->connection->prepare('SELECT maxTicketsChinese FROM HISTORY_TOURS WHERE InformationID = :info_id;');
+            $stmt->bindParam(':info_id', $tourID, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return (int) $result['maxTicketsChinese'];
+        }
+    }
+
+    public function countDanceTicketsReserved(int $danceTicketID, int $OrderToIgnoreID): int
+    {
+        $stmt = $this->connection->prepare('SELECT DanceTicket_FK, 
+                                            SUM(Quantity) AS TotalQuantity
+                                            FROM ORDER_ITEM WHERE 
+                                            DanceTicket_FK IS NOT NULL AND DanceTicket_FK = :dance_ticket_id AND Order_FK != :order_to_ignore_id
+                                            GROUP BY DanceTicket_FK;');
+        $stmt->bindParam(':dance_ticket_id', $danceTicketID, PDO::PARAM_INT);
+        $stmt->bindParam(':order_to_ignore_id', $OrderToIgnoreID, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int) $result['TotalQuantity'];
+    }
 
 }

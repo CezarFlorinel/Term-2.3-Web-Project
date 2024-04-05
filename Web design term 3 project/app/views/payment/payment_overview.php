@@ -17,6 +17,9 @@ $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
 $entireTotal = 0;
 $itemsTotal = 0;
 $totalVAT = 0;
+$allowHistory = true;
+$allowDance = true;
+$allowPass = true;
 
 ?>
 
@@ -175,13 +178,10 @@ $totalVAT = 0;
                                 </div>
                             </div>
                         <?php endif; ?>
-                        <?php if ($key !== $lastKey): // Check if not the last item                          ?>
+                        <?php if ($key !== $lastKey): // Check if not the last item    ?>
                             <div class="w-full border-t border-gray-400"></div> <!-- Divider Line, remove for last in array -->
                         <?php endif; ?>
                     <?php endforeach; ?>
-
-
-
                 </div>
 
                 <!-- Total Line -->
