@@ -17,6 +17,10 @@ $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
 $entireTotal = 0;
 $itemsTotal = 0;
 $totalVAT = 0;
+$allowHistory = true;
+$allowDance = true;
+$allowPass = true;
+$whatTicketCantBeReserved = "";
 
 ?>
 
@@ -94,7 +98,14 @@ $totalVAT = 0;
                                     echo htmlspecialchars($string) ?>
                                 </div>
                                 <div class="w-1/12 text-sm">
-                                    <?php echo htmlspecialchars($orderItem->quantity) ?>
+                                    <?php echo htmlspecialchars($orderItem->quantity);
+                                    $ticketsReserved = $ticketsService->countHistoryTicketsReserved($ticket->tourID, $ticket->language);
+                                    $maximumTickets = $ticketsService->getMaximumTicketsForHistoryReservation($ticket->language, $ticket->tourID);
+                                    if ($ticketsReserved + $orderItem->quantity > $maximumTickets) {
+                                        $allowHistory = false;
+                                        $whatTicketCantBeReserved = "The maximum number of tickets for the " . $ticket->language . " tour has been reached.";
+                                    }
+                                    ?>
                                 </div>
                                 <div class="w-1/12 text-right text-sm">
                                     <?php $price = $ticketsService->getHistoryTicketPriceByType($ticket->typeOfTicket);
@@ -132,7 +143,16 @@ $totalVAT = 0;
                                     <?php echo htmlspecialchars($ticket->location) ?><br>Club
                                 </div>
                                 <div class="w-1/12 text-sm">
-                                    <?php echo htmlspecialchars($orderItem->quantity) ?>
+                                    <?php echo htmlspecialchars($orderItem->quantity);
+                                    $ticketsReserved = $ticketsService->countDanceTicketsReserved($ticket->D_TicketID, $order->orderID);
+                                    $totalQuantityOfAvailableTickets = $ticket->totalQuantityOfAvailableTickets;
+                                    $ninetyPercentOfTotal = $totalQuantityOfAvailableTickets * 0.9;
+                                    $ninetyPercentOfTotal = round($ninetyPercentOfTotal);
+                                    if ($ticketsReserved + $orderItem->quantity > $ninetyPercentOfTotal) {
+                                        $allowDance = false;
+                                        $whatTicketCantBeReserved = "The maximum number of tickets for the " . $ticket->singer . " concert has been reached.";
+                                    }
+                                    ?>
                                 </div>
                                 <div class="w-1/12 text-right text-sm">
                                     <?php $price = $ticket->price;
@@ -145,7 +165,7 @@ $totalVAT = 0;
                                 </div>
                             </div>
 
-                        <?php else: ?> <!-- Add more elseif statements for passes and use else for error  -->
+                        <?php else: ?>
                             <div class="flex justify-between items-center">
                                 <div class="w-1/4 flex-col items-center">
                                     <img src="assets/images/Payment_event_images/p2.jpg" alt="Event 1"
@@ -162,7 +182,23 @@ $totalVAT = 0;
                                     </div>
                                     <div class="w-1/3 text-sm">Multiple</div>
                                     <div class="w-1/12 text-sm">
-                                    <?php echo htmlspecialchars($orderItem->quantity) ?>
+                                    <?php echo htmlspecialchars($orderItem->quantity);
+                                    $ticketsReserved = $ticketsService->countMaxPassesReserved($ticket->passesID, $order->orderID);
+                                    $totalQuantityOfAvailableTickets = 0;
+                                    if ($ticket->allDayPass == true) {
+                                        $totalQuantityOfAvailableTickets = $ticket->maxAllDayPasses;
+                                    } else {
+                                        $totalQuantityOfAvailableTickets = $ticket->maxOneDayPasses;
+                                    }
+                                    if ($ticketsReserved + $orderItem->quantity > $totalQuantityOfAvailableTickets) {
+                                        $allowPass = false;
+                                        if ($ticket->date == null)
+                                            $whatTicketCantBeReserved = "The maximum number of passes for the all days dance pass has been reached.";
+                                        else {
+                                            $whatTicketCantBeReserved = "The maximum number of passes for the " . $ticket->date . " dance pass has been reached.";
+                                        }
+                                    }
+                                    ?>
                                 </div>
                                 <div class="w-1/12 text-right text-sm">
                                     <?php $price = $ticket->price;
@@ -175,13 +211,10 @@ $totalVAT = 0;
                                 </div>
                             </div>
                         <?php endif; ?>
-                        <?php if ($key !== $lastKey): // Check if not the last item                          ?>
+                        <?php if ($key !== $lastKey): // Check if not the last item                                                   ?>
                             <div class="w-full border-t border-gray-400"></div> <!-- Divider Line, remove for last in array -->
                         <?php endif; ?>
                     <?php endforeach; ?>
-
-
-
                 </div>
 
                 <!-- Total Line -->
@@ -250,14 +283,20 @@ $totalVAT = 0;
 
             <button type="button" class="button-back" onclick="window.history.back();">&larr; Go Back</button>
 
-            <div class="flex justify-center">
-                <a href="Payment/redirectToCheckout">
-                    <button
-                        class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
-                        NEXT STEP →
-                    </button>
-                </a>
-            </div>
+            <?php if ($allowHistory && $allowDance && $allowPass): ?>
+                <div class="flex justify-center">
+                    <a href="Payment/redirectToCheckout">
+                        <button
+                            class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+                            NEXT STEP →
+                        </button>
+                    </a>
+                </div>
+            <?php else: ?>
+                <div class="flex justify-center">
+                    <?php echo '<p class="text-red-500">There was an error with your order.' . $whatTicketCantBeReserved . '</p>' ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 

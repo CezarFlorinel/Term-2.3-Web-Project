@@ -138,7 +138,10 @@ class HistoryRepository extends Repository     // methods for all history relate
                 $item['StartTime'],
                 $item['EnglishTour'],
                 $item['DutchTour'],
-                $item['ChinesTour']
+                $item['ChinesTour'],
+                $item['maxTicketsEnglish'],
+                $item['maxTicketsDutch'],
+                $item['maxTicketsChinese']
             );
         }, $results);
     }
