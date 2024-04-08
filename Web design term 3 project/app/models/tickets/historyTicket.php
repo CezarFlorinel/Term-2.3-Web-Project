@@ -8,14 +8,16 @@ class HistoryTicket implements \JsonSerializable
     public string $language;
     public string $typeOfTicket;
     public int $routeID;
+    public ?int $tourID;
 
-    public function __construct(int $id, string $dateTime, string $language, string $typeOfTicket, int $routeID)
+    public function __construct(int $id, string $dateTime, string $language, string $typeOfTicket, int $routeID, int $tourID)
     {
         $this->H_TicketID = $id;
         $this->dateAndTime = $dateTime;
         $this->language = $language;
         $this->typeOfTicket = $typeOfTicket;
         $this->routeID = $routeID;
+        $this->tourID = $tourID;
     }
 
     public function jsonSerialize(): mixed

@@ -94,4 +94,22 @@ class PaymentRepository extends Repository
         );
     }
 
+    public function getOrderItemByID($orderItemID): OrderItem
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM ORDER_ITEM WHERE OrderItemID = :order_item_id');
+        $stmt->bindParam(':order_item_id', $orderItemID, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return new OrderItem(
+            $result['OrderItemID'],
+            $result['Quantity'],
+            $result['TypeOfFestival'],
+            $result['Order_FK'],
+            $result['Pass_FK'],
+            $result['DanceTicket_FK'],
+            $result['HistoryTicket_FK']
+        );
+    }
+
 }

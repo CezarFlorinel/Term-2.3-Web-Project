@@ -4,8 +4,6 @@ require __DIR__ . '/../../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-
-
 // Initialize TCPDF
 $pdf = new TCPDF();
 $pdf->SetCreator('My Application');
