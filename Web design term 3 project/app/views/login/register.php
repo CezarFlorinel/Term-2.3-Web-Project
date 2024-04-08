@@ -104,7 +104,7 @@
 </body>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
         const registrationForm = document.getElementById('registrationForm');
         console.log(registrationForm);
 
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const password = document.getElementById('password').value;
             const passwordConfirm = document.getElementById('confirmPassword').value;
 
-            console.log(name,email,password,passwordConfirm);
+            console.log(name, email, password, passwordConfirm);
 
             if (!name || !email || !password || !passwordConfirm) {
                 alert('Please fill in all fields.');
@@ -138,25 +138,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 name: name,
                 email: email,
                 password: password,
-                passwordConfirm: passwordConfirm,
+                //  passwordConfirm: passwordConfirm,
                 userRole: 'Member',
             };
+
+            console.log(formData);
 
             fetch("/api/user/create", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({formData}),
+                body: JSON.stringify({ formData }),
             })
                 .then(response => response.json())
                 .then(data => {
-                    // window.location.href = '/login/index';
+                    window.location.href = '/login/index';
 
                     console.log("fetch success");
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    alert(error);
                 });
         });
 

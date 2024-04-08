@@ -1,111 +1,129 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const registrationForm = document.getElementById('registrationForm');
+document.addEventListener("DOMContentLoaded", function () {
+  const registrationForm = document.getElementById("registrationForm");
 
-    if (registrationForm) {
-        registrationForm.addEventListener('registerButton', function (event) {
-            event.preventDefault();
+  if (registrationForm) {
+    registrationForm.addEventListener("registerButton", function (event) {
+      event.preventDefault();
 
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const passwordConfirm = document.getElementById('confirmPassword').value;
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const passwordConfirm = document.getElementById("confirmPassword").value;
 
-            if (!name || !email || !password || !passwordConfirm) {
-                alert('Please fill in all fields.');
-                return;
-            }
+      if (!name || !email || !password || !passwordConfirm) {
+        alert("Please fill in all fields.");
+        return;
+      }
 
-            if (password !== passwordConfirm) {
-                alert('Passwords do not match.');
-                return;
-            }
+      if (password !== passwordConfirm) {
+        alert("Passwords do not match.");
+        return;
+      }
 
-            const formData = {
-                name: name,
-                email: email,
-                password: password,
-                passwordConfirm: passwordConfirm,
-                userRole: 'Member',
-            };
+      const formData = {
+        name: name,
+        email: email,
+        password: password,
+        passwordConfirm: passwordConfirm,
+        userRole: "Member",
+      };
 
-            fetch('http://localhost/api/user', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    window.location.href = '/login/index';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+      fetch("http://localhost/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          window.location.href = "/login/index";
+        })
+        .catch((error) => {
+          console.error("Error:", error);
         });
-    }
+    });
+  }
 });
 
-// document.addEventListener('DOMContentLoaded', function () {
-//     const userRoles = {
-//         1: 'User',
-//         2: 'Admin'
-//     };
+document.addEventListener("DOMContentLoaded", function () {
+  fetch("/api/user")
+    .then((response) => response.json())
+    .then((data) => {
+      const tableBody = document.querySelector("#userTable tbody");
+      console.log(data);
+      data.data.forEach((user) => {
+        // Parse the registration date string into a Date object
+        const registrationDate = new Date(user.RegistrationDate);
 
-//     fetch('/api/user')
-//         .then(response => response.json())
-//         .then(data => {
-//             const tableBody = document.querySelector('#userTable tbody');
+        // Format the date
+        const formattedRegistrationDate = `${registrationDate
+          .getDate()
+          .toString()
+          .padStart(2, "0")}-${(registrationDate.getMonth() + 1)
+          .toString()
+          .padStart(2, "0")}-${registrationDate.getFullYear()}`;
 
-//             data.data.forEach(user => {
-//                 const row = tableBody.insertRow();
-//                 row.innerHTML = `
-//                     <tr data-userid="${user.id}">
-//                     <td>${user.id}</td>
-//                     <td>${user.email}</td>
-//                     <td>${user.name}</td>
-//                     <td>${user.phone}</td>
-//                     <td>${userRoles[user.user_role_id]}</td>
-//                     <td class="d-flex justify-content-center">
-//                         <a href="/user/edit?id=${user.id}"><button update-userid="${user.id} type="button" class="btn btn-warning btn-sm mx-2">Edit</button></a>
-//                         <button delete-userid="${user.id}" type="button" class="btn btn-danger btn-sm mx-2">Delete</button>
-//                     </td>
-//                     </tr>
-//                 `;
-//             });
+        const row = tableBody.insertRow();
+        row.innerHTML = `
+                <tr data-userid="${user.UserId}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    ${user.UserID}
+                </th>
+                <td class="px-6 py-4">
+                    ${user.Email}
+                </td>
+                <td class="px-6 py-4">
+                    ${user.Role}
+                </td>
+                <td class="px-6 py-4">
+                    ${user.Name}
+                </td>
+                <td class="px-6 py-4">
+                    ${formattedRegistrationDate}
+                </td>
+                <td class="px-6 py-4 d-flex justify-content-center">
+                    <a href="/user/edit?id=${user.UserID}"><button update-userid="${user.id}" type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Edit</button></a>
+                    <button delete-userid="${user.UserID}" type="button" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Delete</button>
+                </td>
+            </tr>
+        `;
+      });
 
-//             const deleteButtons = document.querySelectorAll('#userTable tbody button[delete-userid]');
-//             deleteButtons.forEach(deleteButton => {
-//                 deleteButton.addEventListener('click', function () {
-//                     const userId = this.getAttribute('delete-userid');
-//                     deleteUser(userId);
-//                 });
-//             });
-//         })
-//         .catch(error => console.error('Error fetching data:', error));
+      const deleteButtons = document.querySelectorAll(
+        "#userTable tbody button[delete-userid]"
+      );
+      deleteButtons.forEach((deleteButton) => {
+        deleteButton.addEventListener("click", function () {
+          const userId = this.getAttribute("delete-userid");
+          deleteUser(userId);
+        });
+      });
+    })
+    .catch((error) => console.error("Error fetching data:", error));
 
-//     function deleteUser(userId) {
-//         const confirmDelete = confirm('Are you sure you want to delete this user?');
-//         if (!confirmDelete) {
-//             return;
-//         }
+  function deleteUser(userId) {
+    const confirmDelete = confirm("Are you sure you want to delete this user?");
+    if (!confirmDelete) {
+      return;
+    }
 
-//         fetch(`/api/user?id=${userId}`, {
-//             method: 'DELETE',
-//         })
-//             .then(response => {
-//                 if (response.ok) {
-//                     location.reload()
-//                     console.log('User deleted successfully');
-//                 } else {
-//                     console.error('Error deleting user');
-//                 }
-//             })
-//             .catch(error => {
-//                 console.error('Error:', error);
-//             });
-//     }
-// });
+    fetch(`/api/user?id=${userId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          location.reload();
+          console.log("User deleted successfully");
+        } else {
+          console.error("Error deleting user");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+});
 
 // document.addEventListener('DOMContentLoaded', function () {
 //     const addUserForm = document.getElementById('addUserForm');
@@ -223,5 +241,3 @@ document.addEventListener('DOMContentLoaded', function () {
 //         return userId;
 //     }
 //});
-
-
