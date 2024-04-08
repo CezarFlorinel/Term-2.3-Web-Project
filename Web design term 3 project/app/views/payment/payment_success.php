@@ -27,7 +27,7 @@ $customerEmail = $customerData['email'];
                 <p class="mb-4">Confirmation details and related information have been sent to your email address
                     <?php echo htmlspecialchars($customerEmail) ?>.
                 </p>
-                <p class="mb-6">more Information can be found in your personal program.</p>
+                <p class="mb-6">More information can be found in your personal program.</p>
                 <a href="/personal-program"
                     class="inline-block bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out">
                     BACK TO PERSONAL PROGRAM
