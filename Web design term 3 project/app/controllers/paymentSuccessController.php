@@ -15,8 +15,6 @@ use DateInterval;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 
-
-
 class PaymentSuccessController
 {
     private $paymentMethod = null;
@@ -29,6 +27,7 @@ class PaymentSuccessController
     private $clientName = '';
     private $clientEmail = '';
     private $htmlContent = '';
+    private $projectRoot;
 
     private $userId = 1; // to be changed for login
 
@@ -44,6 +43,7 @@ class PaymentSuccessController
         $this->getPaymentMethod();
         $this->updateOrderStatus();
         $this->makeTickets();
+        $this->projectRoot = realpath(__DIR__ . '/../../..');
     }
 
     public function index()
@@ -113,124 +113,146 @@ class PaymentSuccessController
             $this->clientName = $invoice->clientName;
             $this->clientEmail = $invoice->email;
 
-            $this->pdf->SetCreator('Haarlem Festival Website');
-            $this->pdf->SetAuthor('Haarlem Festival');
-            $this->pdf->SetTitle('Invoice for Tickets');
-            $this->pdf->SetSubject('Invoice for Tickets');
-            $this->pdf->SetKeywords('Invoice, PDF, Tickets');
-            $this->pdf->AddPage();
+            $this->setPDFSettings($this->pdf);
 
+            $this->setHtmlContentForInvoice($invoice, $orderItems, $quantity, $this->htmlContent);
 
-            $htmlContent = '<h1>Invoice for Tickets</h1>';
-            $htmlContent .= '<br>';
-            $htmlContent .= '<h2>Invoice number: ' . $invoice->invoiceID . '</h2>';
-            $htmlContent .= '<h2>Invoice date: ' . $invoice->invoiceDate . '</h2>';
-            $htmlContent .= '<h2>Payment date: ' . $invoice->paymentDate . '</h2>';
-            $htmlContent .= '<br>';
-            $htmlContent = '<h1>Customer Data</h1>';
-            $htmlContent .= '<h2>Client name: ' . $invoice->clientName . '</h2>';
-            $htmlContent .= '<h2>Client address: ' . $invoice->address . '</h2>';
-            $htmlContent .= '<h2>Client phone number: ' . $invoice->phoneNumber . '</h2>';
-            $htmlContent .= '<h2>Client email: ' . $invoice->email . '</h2>';
-            $htmlContent .= '<br>';
-            $htmlContent = '<h1>Products Prices </h1>';
-            foreach ($orderItems as $orderItem) {
-                $ticket = $this->ticketService->returnTypeOfTicket($orderItem);
-                if (get_class($ticket) == 'App\Models\Tickets\HistoryTicket') {
-                    $htmlContent .= '<h2>History ' . $ticket->language . 'Tour</h2>';
+            $this->pdf->writeHTML($this->htmlContent, true, false, true, false, '');
 
-                    $ticket->dateAndTime;
-                    $startDateTime = new DateTime($ticket->dateAndTime);
-                    $endDateTime = clone $startDateTime;
-                    $endDateTime->add(new DateInterval('PT2H30M'));
-                    $output = $startDateTime->format('d M') . '<br>' . $startDateTime->format('H:i') . '-' . $endDateTime->format('H:i');
-                    $htmlContent .= '<p>Date and time: ' . $output . '</p>';
-
-                    $historyFirstRoute = $this->historyService->getFirstHistoryRoute();
-                    $string = $historyFirstRoute->locationName;
-                    if (strpos($string, "1.") === 0) {
-                        $string = substr($string, 3);
-                    }
-                    $htmlContent .= '<p>Starting location: Starting Point Near' . $string . '<p>';
-
-                    $htmlContent .= '<p>Quantity: ' . $orderItem->quantity . '<p>';
-
-                    $price = $this->ticketService->getHistoryTicketPriceByType($ticket->typeOfTicket);
-                    $quantityOfTicket = $orderItem->quantity;
-                    $subtotal = $quantityOfTicket * $price;
-                    $formattedSubtotal = number_format($subtotal, 2, '.', '');
-                    $htmlContent .= '<p>Subtotal: ' . $formattedSubtotal . '€<p>';
-
-                } else if (get_class($ticket) == 'App\Models\Tickets\DanceTicket') {
-                    $htmlContent .= '<h2>' . $ticket->singer . 'Concert</h2>';
-
-                    $ticket->dateAndTime;
-                    $ticket->startTime;
-                    $ticket->endTime;
-                    $date = new DateTime($ticket->dateAndTime);
-                    $formattedDate = $date->format('d M');
-                    $startTime = new DateTime($ticket->startTime);
-                    $formattedStartTime = $startTime->format('H:i');
-                    $endTime = new DateTime($ticket->endTime);
-                    $formattedEndTime = $endTime->format('H:i');
-                    $htmlContent .= '<p>Date: ' . $formattedDate . '</p>';
-                    $htmlContent .= '<p>Time: ' . $formattedStartTime . '-' . $formattedEndTime . '</p>';
-                    $htmlContent .= '<p>Location: ' . $ticket->location . '</p>';
-                    $htmlContent .= '<p>Quantity: ' . $orderItem->quantity . '</p>';
-                    $price = $ticket->price;
-                    $quantityOfTicket = $orderItem->quantity;
-                    $subtotal = $quantityOfTicket * $price;
-                    $formattedSubtotal = number_format($subtotal, 2, '.', '');
-                    $htmlContent .= '<p>Subtotal: ' . $formattedSubtotal . '€<p>';
-
-                } else {
-                    $htmlContent .= '<h2>Dance Pass</h2>';
-                    if ($ticket->date != null) {
-                        $dateOfPass = new DateTime($ticket->date);
-                        $formattedDate = $dateOfPass->format('d M');
-                        $htmlContent .= '<p>Date: ' . $formattedDate . '</p>';
-                    } else {
-                        $htmlContent .= '<p>Date: ' . 'All days' . '</p>';
-                    }
-                    $htmlContent .= '<p>Location: Multiple</p>';
-                    $htmlContent .= '<p>Quantity: ' . $orderItem->quantity . '</p>';
-                    $price = $ticket->price;
-                    $quantityOfTicket = $orderItem->quantity;
-                    $subtotal = $quantityOfTicket * $price;
-                    $formattedSubtotal = number_format($subtotal, 2, '.', '');
-                    $htmlContent .= '<p>Subtotal: ' . $formattedSubtotal . '€</p>';
-                }
-            }
-            $htmlContent .= '<h2>Number of products: ' . $quantity . '</h2>';
-            $formattedVAT = number_format($invoice->VATamount, 2, '.', '');
-            $htmlContent .= '<h2>VAT amount: ' . $formattedVAT . '€</h2>';
-            $formattedTotal = number_format($invoice->totalAmount, 2, '.', '');
-            $htmlContent .= '<h2>Total amount: ' . $formattedTotal . '€</h2>';
-            $htmlContent .= '<br>';
-            $htmlContent .= '<h1>Thank you for your purchase!</h1>';
-            $htmlContent .= '<p>You should receive the tickets in a short time, if you have questions, please contact us.</p>';
-
-            $this->pdf->writeHTML($htmlContent, true, false, true, false, '');
-
-            // Save the PDF to a file
-            $projectRoot = realpath(__DIR__ . '/../../..');
-            $pdfFilePath = $projectRoot . '/app/public/pdf/' . $this->order->orderID . '.pdf';
+            $pdfFilePath = $this->projectRoot . '/app/public/pdf/' . $this->order->orderID . '.pdf';
             // Adjust the path as needed
             $this->pdf->Output($pdfFilePath, 'F');
 
-            $this->sendEmail($pdfFilePath, $invoice->email, $invoice->clientName);
-
+            $this->sendEmail($pdfFilePath, $this->clientEmail, $this->clientName, false);
 
         } catch (\Exception $e) {
             echo "Error: " . $e->getMessage();
         }
     }
 
-    private function sendEmail($pdfFilePath, $email, $name)
+
+    private function setPDFSettings($pdf)
+    {
+        $pdf->SetCreator('Haarlem Festival Website');
+        $pdf->SetAuthor('Haarlem Festival');
+        $pdf->SetTitle('Invoice for Tickets');
+        $pdf->SetSubject('Invoice for Tickets');
+        $pdf->SetKeywords('Invoice, PDF, Tickets');
+        $pdf->AddPage();
+    }
+
+    private function setHtmlContentForInvoice($invoice, $orderItems, $quantity, $htmlContent)
+    {
+        $this->htmlContent = '<h1>Invoice for Tickets</h1>';
+        $this->htmlContent .= '<br>';
+        $this->htmlContent .= '<h2>Invoice number: ' . $invoice->invoiceID . '</h2>';
+        $this->htmlContent .= '<h2>Invoice date: ' . $invoice->invoiceDate . '</h2>';
+        $this->htmlContent .= '<h2>Payment date: ' . $invoice->paymentDate . '</h2>';
+        $this->htmlContent .= '<br>';
+        $this->htmlContent = '<h1>Customer Data</h1>';
+        $this->htmlContent .= '<h2>Client name: ' . $invoice->clientName . '</h2>';
+        $this->htmlContent .= '<h2>Client address: ' . $invoice->address . '</h2>';
+        $this->htmlContent .= '<h2>Client phone number: ' . $invoice->phoneNumber . '</h2>';
+        $this->htmlContent .= '<h2>Client email: ' . $invoice->email . '</h2>';
+        $this->htmlContent .= '<br>';
+        $this->htmlContent = '<h1>Products Prices </h1>';
+        foreach ($orderItems as $orderItem) {
+            $ticket = $this->ticketService->returnTypeOfTicket($orderItem);
+            if (get_class($ticket) == 'App\Models\Tickets\HistoryTicket') {
+                $this->fillForTicketHistoryInvoice($ticket, $orderItem);
+            } else if (get_class($ticket) == 'App\Models\Tickets\DanceTicket') {
+                $this->fillForTicketDanceInvoice($ticket, $orderItem);
+            } else {
+                $this->fillForPassInvoice($ticket, $orderItem);
+            }
+        }
+        $this->htmlContent .= '<h2>Number of products: ' . $quantity . '</h2>';
+        $formattedVAT = number_format($invoice->VATamount, 2, '.', '');
+        $this->htmlContent .= '<h2>VAT amount: ' . $formattedVAT . '€</h2>';
+        $formattedTotal = number_format($invoice->totalAmount, 2, '.', '');
+        $this->htmlContent .= '<h2>Total amount: ' . $formattedTotal . '€</h2>';
+        $this->htmlContent .= '<br>';
+        $this->htmlContent .= '<h1>Thank you for your purchase!</h1>';
+        $this->htmlContent .= '<p>You should receive the tickets in a short time, if you have questions, please contact us.</p>';
+    }
+
+    private function fillForTicketHistoryInvoice($ticket, $orderItem): void
+    {
+        $this->htmlContent .= '<h2>History ' . $ticket->language . 'Tour</h2>';
+
+        $ticket->dateAndTime;
+        $startDateTime = new DateTime($ticket->dateAndTime);
+        $endDateTime = clone $startDateTime;
+        $endDateTime->add(new DateInterval('PT2H30M'));
+        $output = $startDateTime->format('d M') . '<br>' . $startDateTime->format('H:i') . '-' . $endDateTime->format('H:i');
+        $this->htmlContent .= '<p>Date and time: ' . $output . '</p>';
+
+        $historyFirstRoute = $this->historyService->getFirstHistoryRoute();
+        $string = $historyFirstRoute->locationName;
+        if (strpos($string, "1.") === 0) {
+            $string = substr($string, 3);
+        }
+        $this->htmlContent .= '<p>Starting location: Starting Point Near' . $string . '<p>';
+
+        $this->htmlContent .= '<p>Quantity: ' . $orderItem->quantity . '<p>';
+
+        $price = $this->ticketService->getHistoryTicketPriceByType($ticket->typeOfTicket);
+        $quantityOfTicket = $orderItem->quantity;
+        $subtotal = $quantityOfTicket * $price;
+        $formattedSubtotal = number_format($subtotal, 2, '.', '');
+        $this->htmlContent .= '<p>Subtotal: ' . $formattedSubtotal . '€<p>';
+
+    }
+
+    private function fillForTicketDanceInvoice($ticket, $orderItem): void
+    {
+        $this->htmlContent .= '<h2>' . $ticket->singer . 'Concert</h2>';
+
+        $ticket->dateAndTime;
+        $ticket->startTime;
+        $ticket->endTime;
+        $date = new DateTime($ticket->dateAndTime);
+        $formattedDate = $date->format('d M');
+        $startTime = new DateTime($ticket->startTime);
+        $formattedStartTime = $startTime->format('H:i');
+        $endTime = new DateTime($ticket->endTime);
+        $formattedEndTime = $endTime->format('H:i');
+        $this->htmlContent .= '<p>Date: ' . $formattedDate . '</p>';
+        $this->htmlContent .= '<p>Time: ' . $formattedStartTime . '-' . $formattedEndTime . '</p>';
+        $this->htmlContent .= '<p>Location: ' . $ticket->location . '</p>';
+        $this->htmlContent .= '<p>Quantity: ' . $orderItem->quantity . '</p>';
+        $price = $ticket->price;
+        $quantityOfTicket = $orderItem->quantity;
+        $subtotal = $quantityOfTicket * $price;
+        $formattedSubtotal = number_format($subtotal, 2, '.', '');
+        $this->htmlContent .= '<p>Subtotal: ' . $formattedSubtotal . '€<p>';
+
+    }
+
+    private function fillForPassInvoice($ticket, $orderItem): void
+    {
+        $this->htmlContent .= '<h2>Dance Pass</h2>';
+        if ($ticket->date != null) {
+            $dateOfPass = new DateTime($ticket->date);
+            $formattedDate = $dateOfPass->format('d M');
+            $this->htmlContent .= '<p>Date: ' . $formattedDate . '</p>';
+        } else {
+            $this->htmlContent .= '<p>Date: ' . 'All days' . '</p>';
+        }
+        $this->htmlContent .= '<p>Location: Multiple</p>';
+        $this->htmlContent .= '<p>Quantity: ' . $orderItem->quantity . '</p>';
+        $price = $ticket->price;
+        $quantityOfTicket = $orderItem->quantity;
+        $subtotal = $quantityOfTicket * $price;
+        $formattedSubtotal = number_format($subtotal, 2, '.', '');
+        $this->htmlContent .= '<p>Subtotal: ' . $formattedSubtotal . '€</p>';
+    }
+
+    private function sendEmail($pdfFilePath, $email, $name, $typeOfMailTickets)
     {
         // Initialize PHPMailer
         $mail = new PHPMailer(true);
-        require_once '../config/emailconfig.php';
+        require '../config/emailconfig.php';
 
         try {
             // Server settings for Gmail
@@ -251,29 +273,14 @@ class PaymentSuccessController
 
             // Email content
             $mail->isHTML(true);
-            $mail->Subject = 'Hello ' . $name . ', here is your invoice for the Haarlem Festival!';
+            if ($typeOfMailTickets) {
+                $mail->Subject = 'Hello ' . $name . ', here are your tickets for the Haarlem Festival!';
+            } else {
+                $mail->Subject = 'Hello ' . $name . ', here is your invoice for the Haarlem Festival!';
+            }
 
-            // HTML email body
-            $mail->Body = '
-             <html>
-             <head>
-             <title>Haarlem Festival Invoice</title>
-             </head>
-             <body>
-             <p>Hello ' . htmlspecialchars($name) . ',</p>
-             <p>Thank you for your purchase with Haarlem Festival! Attached to this email, you will find your invoice.</p>
-            <p>Please keep an eye on your inbox, as your tickets will be sent in a separate email. We hope you have a fantastic time enjoying the events you have chosen.</p>
-            <p>Should you have any questions or require further assistance, feel free to contact us.</p>
-            <p>Best regards,<br>The Haarlem Festival Team</p>
-            </body>
-            </html>';
-
-            // Plain text email body (for email clients that do not render HTML)
-            $mail->AltBody = 'Hello ' . $name . ",\n\n" .
-                "Thank you for your purchase with Haarlem Festival! Attached to this email, you will find your invoice.\n" .
-                "Please keep an eye on your inbox, as your tickets will be sent in a separate email. We hope you have a fantastic time enjoying the events you have chosen.\n" .
-                "Should you have any questions or require further assistance, feel free to contact us.\n\n" .
-                "Best regards,\nThe Haarlem Festival Team";
+            $mail->Body = $this->setEmailBody($typeOfMailTickets);
+            $mail->AltBody = $this->setMailAltBody($typeOfMailTickets);
 
 
             $mail->SMTPOptions = array(
@@ -294,6 +301,66 @@ class PaymentSuccessController
         unlink($pdfFilePath);
 
     }
+
+    private function setEmailBody($boolTicketsSet)
+    {
+        $name = $this->clientName;
+        $stringSet = '';
+        $stringSetOpposite = '';
+        if ($boolTicketsSet) {
+            $stringSet = 'tickets';
+            $stringSetOpposite = 'invoice';
+        } else {
+            $stringSet = 'invoice';
+            $stringSetOpposite = 'tickets';
+        }
+
+        // HTML email body
+        $body = '
+             <html>
+             <head>
+             <title>Haarlem Festival Invoice</title>
+             </head>
+             <body>
+             <p>Hello ' . htmlspecialchars($name) . ',</p>
+             <p>Thank you for your purchase with Haarlem Festival! Attached to this email, you will find your ' . $stringSet . '.</p>
+            <p>Please keep an eye on your inbox, as your ' . $stringSetOpposite . ' will be sent in a separate email. We hope you have a fantastic time enjoying the events you have chosen.</p>
+            <p>Should you have any questions or require further assistance, feel free to contact us.</p>
+            <p>Best regards,<br>The Haarlem Festival Team</p>
+            </body>
+            </html>';
+
+        return $body;
+
+
+
+    }
+
+    private function setMailAltBody($boolTicketsSet)
+    {
+        $name = $this->clientName;
+        $stringSet = '';
+        $stringSetOpposite = '';
+        if ($boolTicketsSet) {
+            $stringSet = 'tickets';
+            $stringSetOpposite = 'invoice';
+        } else {
+            $stringSet = 'invoice';
+            $stringSetOpposite = 'tickets';
+        }
+
+        // Plain text email body (for email clients that do not render HTML)
+        $altBody = 'Hello ' . $name . ",\n\n" .
+            "Thank you for your purchase with Haarlem Festival! Attached to this email, you will find your " . $stringSet . ".\n" .
+            "Please keep an eye on your inbox, as your " . $stringSetOpposite . " will be sent in a separate email. We hope you have a fantastic time enjoying the events you have chosen.\n" .
+            "Should you have any questions or require further assistance, feel free to contact us.\n\n" .
+            "Best regards,\nThe Haarlem Festival Team";
+
+
+        return $altBody;
+    }
+
+
     private function makeTickets()
     {
         $this->addTicketToDB();
@@ -318,6 +385,51 @@ class PaymentSuccessController
 
     private function generateQRCodeTicket()
     {
+        try {
+
+            $this->setPdfForTickets();
+            $tickets = $this->ticketService->getQRTickets($this->order->orderID);
+            foreach ($tickets as $ticket) {
+
+                $qrCode = new QrCode($ticket->ticketID);
+
+                // set size and margin
+                $qrCode->setSize(300);
+                $qrCode->setMargin(10);
+                // Create a QR code writer instance
+                $writer = new PngWriter();
+
+                $pngFilePath = $this->projectRoot . '/app/public/png_QR/' . $ticket->ticketID . '.png';
+
+                $writer->write($qrCode)->saveToFile($pngFilePath);
+
+                $orderItem = $this->paymentService->getOrderItemByID($ticket->orderItem_FK);
+                $ticketType = $this->ticketService->returnTypeOfTicket($orderItem);
+
+                $this->fillHtmlContentForTicketPdf($ticketType);
+
+
+                $this->pdfWithTickets->writeHTML($this->htmlContent, true, false, true, false, '');
+                $this->pdfWithTickets->Image($pngFilePath, 150, $this->pdfWithTickets->GetY() - 55, 50, 0, 'PNG', '', '', false, 300, '', false, false, 0, false, false, false);
+                $this->pdfWithTickets->SetY($this->pdfWithTickets->GetY() + 25);
+                unlink($pngFilePath);
+
+            }
+
+            $pdfFilePath = $this->projectRoot . '/app/public/pdf/' . $this->order->orderID . '.pdf';
+            // Adjust the path as needed
+            $this->pdfWithTickets->Output($pdfFilePath, 'F');
+
+
+            $this->sendEmail($pdfFilePath, $this->clientEmail, $this->clientName, true);
+
+        } catch (\Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    private function setPdfForTickets()
+    {
         $this->pdfWithTickets->SetCreator('Haarlem Festival Website');
         $this->pdfWithTickets->SetAuthor('Haarlem Festival');
         $this->pdfWithTickets->SetTitle('Invoice for Tickets');
@@ -325,66 +437,26 @@ class PaymentSuccessController
         $this->pdfWithTickets->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
         $this->pdfWithTickets->SetKeywords('Invoice, PDF, Tickets');
         $this->pdfWithTickets->AddPage();
-        $htmlContent = ''; // to fill with the right content
+        $this->htmlContent = ''; // to fill with the right content
+    }
 
-        try {
-            $tickets = $this->ticketService->getQRTickets($this->order->orderID);
-            foreach ($tickets as $ticket) {
-
-                $qrCode = new QrCode($ticket->ticketID);
-
-                // Set advanced options (optional)
-                $qrCode->setSize(300); // Size of the QR code in pixels
-                $qrCode->setMargin(10); // Margin around the QR code
-
-                // Create a QR code writer instance
-                $writer = new PngWriter();
-
-                // Write the QR code to a file
-                $projectRoot = realpath(__DIR__ . '/../../..');
-                $pngFilePath = $projectRoot . '/app/public/png_QR/' . $ticket->ticketID . '.png';
-
-                $writer->write($qrCode)->saveToFile($pngFilePath);
-
-                $orderItem = $this->paymentService->getOrderItemByID($ticket->orderItem_FK);
-                $ticketType = $this->ticketService->returnTypeOfTicket($orderItem);
-                if (get_class($ticketType) == 'App\Models\Tickets\HistoryTicket') {
-                    $date = new DateTime($ticketType->dateAndTime);
-                    $htmlContent = $this->generateHTMLForTicketHistory('History ' . $ticketType->language . ' Tour', $date->format('d M Y H:i'), $ticketType->typeOfTicket);
-                } else if (get_class($ticketType) == 'App\Models\Tickets\DanceTicket') {
-                    $date = new DateTime($ticketType->dateAndTime);
-                    $startTime = new DateTime($ticketType->startTime);
-                    $endTime = new DateTime($ticketType->endTime);
-                    $htmlContent = $this->generateHTMLForTicketDance($ticketType->singer . ' Concert', $date->format('d M Y'), $startTime->format('H:i'), $endTime->format('H:i'), $ticketType->location);
-                } else {
-                    $date = new DateTime($ticketType->date);
-                    if ($ticketType->allDayPass == 1) {
-                        $htmlContent = $this->generateHTMLForPass('Dance Pass', 'All days');
-                    } else {
-                        $htmlContent = $this->generateHTMLForPass('Dance Pass', $date->format('d M Y'));
-                    }
-                }
-
-                $this->pdfWithTickets->writeHTML($htmlContent, true, false, true, false, '');
-                $this->pdfWithTickets->Image($pngFilePath, 150, $this->pdfWithTickets->GetY() - 55, 50, 0, 'PNG', '', '', false, 300, '', false, false, 0, false, false, false);
-                $this->pdfWithTickets->SetY($this->pdfWithTickets->GetY() + 25);
-                unlink($pngFilePath);
-
+    private function fillHtmlContentForTicketPdf($ticketType)
+    {
+        if (get_class($ticketType) == 'App\Models\Tickets\HistoryTicket') {
+            $date = new DateTime($ticketType->dateAndTime);
+            $this->htmlContent = $this->generateHTMLForTicketHistory('History ' . $ticketType->language . ' Tour', $date->format('d M Y H:i'), $ticketType->typeOfTicket);
+        } else if (get_class($ticketType) == 'App\Models\Tickets\DanceTicket') {
+            $date = new DateTime($ticketType->dateAndTime);
+            $startTime = new DateTime($ticketType->startTime);
+            $endTime = new DateTime($ticketType->endTime);
+            $this->htmlContent = $this->generateHTMLForTicketDance($ticketType->singer . ' Concert', $date->format('d M Y'), $startTime->format('H:i'), $endTime->format('H:i'), $ticketType->location);
+        } else {
+            $date = new DateTime($ticketType->date);
+            if ($ticketType->allDayPass == 1) {
+                $this->htmlContent = $this->generateHTMLForPass('Dance Pass', 'All days');
+            } else {
+                $this->htmlContent = $this->generateHTMLForPass('Dance Pass', $date->format('d M Y'));
             }
-            // Save the PDF to a file
-            $projectRoot = realpath(__DIR__ . '/../../..');
-            $pdfFilePath = $projectRoot . '/app/public/pdf/' . $this->order->orderID . '.pdf';
-            // Adjust the path as needed
-            $this->pdfWithTickets->Output($pdfFilePath, 'F');
-
-
-            $this->sendEmailWithTickets($pdfFilePath, $this->clientEmail, $this->clientName);
-            unlink($pdfFilePath);
-
-
-
-        } catch (\Exception $e) {
-            echo "Error: " . $e->getMessage();
         }
     }
 
@@ -422,72 +494,9 @@ class PaymentSuccessController
         return $htmlContent;
     }
 
-    private function sendEmailWithTickets($pdfFilePath, $clientEmail, $clientName)
-    {
-        // Initialize PHPMailer
-        $mail = new PHPMailer(true);
-        require '../config/emailconfig.php';
 
-        try {
-            // Server settings for Gmail
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = $emailAddress;
-            error_log(print_r("\n" . "------- " . $emailAddress . " ----------", true), 3, __DIR__ . '/../file_with_erros_logs'); // Log the input data
-            $mail->Password = $key; // Replace with your Gmail password or App Password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
 
-            // Recipients
-            $mail->setFrom($emailAddress, 'Team Haarlem'); // Replace 'Your Name' with your name
-            $mail->addAddress($clientEmail, $clientName); // Add a recipient
 
-            // Attach the PDF file
-            $mail->addAttachment($pdfFilePath);
-
-            // Email content
-            $mail->isHTML(true);
-            $mail->Subject = 'Hello ' . $clientName . ', here are your tickets for the Haarlem Festival!';
-
-            // HTML email body
-            $mail->Body = '
-             <html>
-             <head>
-             <title>Haarlem Festival Tickets</title>
-             </head>
-             <body>
-             <p>Hello ' . htmlspecialchars($clientName) . ',</p>
-             <p>Thank you for your purchase with Haarlem Festival! Attached to this email, you will find your tickets.</p>
-            <p>Please keep an eye on your inbox, as your invoice will be sent in a separate email. We hope you have a fantastic time enjoying the events you have chosen.</p>
-            <p>Should you have any questions or require further assistance, feel free to contact us.</p>
-            <p>Best regards,<br>The Haarlem Festival Team</p>
-            </body>
-            </html>';
-
-            // Plain text email body (for email clients that do not render HTML)
-            $mail->AltBody = 'Hello ' . $clientName . ",\n\n" .
-                "Thank you for your purchase with Haarlem Festival! Attached to this email, you will find your tickets.\n" .
-                "Please keep an eye on your inbox, as your invoice will be sent in a separate email. We hope you have a fantastic time enjoying the events you have chosen.\n" .
-                "Should you have any questions or require further assistance, feel free to contact us.\n\n" .
-                "Best regards,\nThe Haarlem Festival Team";
-            $mail->SMTPOptions = array(
-                'ssl' => array(
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                    'allow_self_signed' => true
-                )
-            );
-
-            $mail->SMTPDebug = 0;
-
-            // Send the email
-            $mail->send();
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        }
-
-    }
 
 
 }
