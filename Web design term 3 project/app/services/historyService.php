@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\History_event\HistoryPracticalInformation;
 use App\Repositories\HistoryRepository;
+use App\Models\History_event\HistoryRoute;
 
 class HistoryService // manages all the history service
 {
@@ -77,6 +78,11 @@ class HistoryService // manages all the history service
     public function getCurrentImagePathRoute($id)
     {
         return $this->repository->getCurrentImagePathRoute($id);
+    }
+
+    public function getFirstHistoryRoute(): HistoryRoute
+    {
+        return $this->repository->getFirstHistoryRoute();
     }
 
     //edit methods for all history related queries -------------------------------

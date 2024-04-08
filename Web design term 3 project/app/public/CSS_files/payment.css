@@ -1,23 +1,18 @@
-
-
-/* .scale-container {
-    transform-origin: top left;
-    transform: scale(1);
-}
-
-
-@media (max-width: 1200px) {
-    .scale-container {
-        transform: scale(0.8);
-    }
-} */
-
 /* Payment-info-page */
+
+.payment-info-page,
+.space-y-5 {
+    background-image: url('../assets/images/Payment_event_images/background/payment2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 
 .payment-info-page {
     font-family: 'Open Sans', sans-serif;
-    background-color: #000;
-    /* Changed to black */
+    /* background-color: #000; */
+
 }
 
 .payment-info-page .icon-image {
@@ -66,13 +61,15 @@
 }
 
 .payment-info-page .info-text {
-    font-size: 0.75rem; /* Equivalent to 'text-xs' in Tailwind CSS */
-    color: #a0aec0; /* Equivalent to 'text-gray-400' in Tailwind CSS */
+    font-size: 0.75rem;
+    /* Equivalent to 'text-xs' in Tailwind CSS */
+    color: #a0aec0;
+    /* Equivalent to 'text-gray-400' in Tailwind CSS */
     /* Add any additional styles you want for this class */
     margin-left: 20px;
 }
 
-.payment-info-page .button-back {
+.button-back {
     background: blue;
     /* Tailwind Gray-800 */
     color: white;
@@ -102,315 +99,4 @@
 .button-next:hover {
     background: #374151;
     /* Tailwind Gray-700 */
-}
-
- /* -------------------------Payment_Detail_IDeal------------------------- */
- .ideal-page {
-     font-family: 'Playfair Display';
-     background-color: #000;
-     /* Set body background to black */
-     margin: 0;
-     padding: 0;
-     display: block;
-     /* Change to block or keep flex but adjust usage */
-     color: white;
-     /* Set text color to white */
-     font-size: 1.5em;
- }
-
- .ideal-page .payment-method-container {
-     width: 400px;
-     text-align: center;
-     margin: auto;
- }
-
- .ideal-page .payment-method-header {
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     margin-bottom: 20px;
-     color: white ; 
-     text-decoration: underline;
- }
-
- .ideal-page .payment-method-header img {
-     height: 50px;
-     /* Adjust size as necessary */
-     margin-right: 10px;
- }
-
- .ideal-page .payment-option {
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
-     margin-bottom: 10px;
-     background-color: #fff;
-     border-radius: 20px;
-     /* Rounded edges */
-     padding: 10px 15px;
-     cursor: pointer;
-     /* Make it clickable */
-     color: black;
- }
-
- .ideal-page .payment-option img {
-     height: 30px;
-     /* Adjust size as necessary */
- }
-
- .ideal-page .payment-option:hover {
-     background-color: #f2f2f2;
-     /* Hover effect */
- }
-
- .ideal-page .next-button {
-     background-color: #ccc;
-     border: none;
-     padding: 20px 50px;
-     /* Slightly longer button */
-     margin-top: 20px;
-     cursor: pointer;
-     border-radius: 20px;
-     /* Rounded button */
-     font-family: 'Arial';
-     font-size: 0.75em;
- }
-
- .ideal-page .next-button:hover {
-     background-color: #b3b3b3;
-     /* Hover effect */
- }
-
- /* -------------------------Credit Card------------------------- */
- .creditcard-page *, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; /* Include padding and borders in all elements' total width and height */
-}
-
- .creditcard-page {
-    font-family: 'Playfair Display', serif;
-    background-color: #000; /* Black background */
-    color: #ffffff; /* White text for visibility */
-    /* Ensure full width and no margins are applied */
-    width: 100%;
-    margin: 0 auto; /* Center the page content if needed */
-    padding: 0; /* Remove default padding */
- }
-
- .creditcard-page .card-container {
-     display: flex;
-     /* Place card forms next to each other */
-     align-items: flex-start;
-     /* Align cards to the top */
-     justify-content: center;
-     gap: 20px;
-     /* Space between cards */
- }
-
- .creditcard-page .card {
-    background-color: #005792; /* Dark blue background */
-    border-radius: 10px; /* Rounded corners for the card */
-    color: #ffffff; /* White text for visibility */
-    padding: 20px; /* Increase padding for more space inside the card */
-    height: 350px;
-    width: 450px; /* Increased width from 300px to 350px */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    position: relative; /* For absolute positioning inside */
-    margin-bottom: 20px; /* Add space between cards if they wrap */
-}
-
- .creditcard-page .card input {
-     background: transparent;
-     border: none;
-     border-bottom: 2px solid #ffffff;
-     /* White bottom border */
-     color: #ffffff;
-     font-size: 1em;
-     width: 100%;
-     margin-bottom: 20px;
-     padding: 5px 0;
- }
-
- .creditcard-page .card label {
-     display: block;
-     margin-bottom: 10px;
-     font-size: 0.8em;
- }
-
- .creditcard-page .card-back {
-     height: 350px;
-     width: 450px;
-     /* Larger height for the back card */
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     position: relative;
- }
-
- .creditcard-page .card-back::before {
-     content: '';
-     display: block;
-     width: 100%;
-     /* Full width of the card */
-     height: 60px;
-     /* Height of the black line */
-     background-color: #000;
-     /* Black color for the line */
-     position: absolute;
-     top: 20px;
-     /* Position the line at the top of the card-back */
-     left: 0;
- }
-
- .creditcard-page .cvv-box {
-     border-radius: 5px;
-     color: #ffffff;
-     padding: 5px 10px;
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
-     width: 100%;
- }
-
- .creditcard-page .cvv-box input {
-     width: 60px;
-     /* Fixed width for CVV input */
-     border-bottom: 2px solid #ffffff;
-     /* White bottom border */
-     text-align: center;
- }
-
- .creditcard-page .cvv-box .cvv-title {
-     font-size: 1em;
-     margin-right: 10px;
- }
-
- .creditcard-page .cvv-detail {
-     position: absolute;
-     bottom: 10px;
-     right: 20px;
-     font-size: 0.8em;
-     margin-left: 5px; 
- }
-
- .creditcard-page .next-button {
-     background-color: #ccc;
-     border: none;
-     padding: 20px 50px;
-     margin-top: 10px;
-     margin-bottom: 30px;
-     /* Add bottom margin if needed */
-     cursor: pointer;
-     border-radius: 20px;
-     color: white;
-     display: block;
-     /* Set to block to allow margins to center the element */
-     margin-left: auto;
-     margin-right: auto;
-     /* Auto margins center the block-level element */
-     width: fit-content;
-     /* Set width to the content of the button */
-     font-family: 'Arial';
-     font-size: 0.75em;
- }
-
- .creditcard-page main {
-     flex: 1 0 auto;
-     width: 100%;
-     /* Match header/footer width */
-     padding: 20px;
-     box-sizing: border-box;
-     /* Include padding in width calculation */
-     overflow-y: auto;
-     /* Enable vertical scrolling */
- }
-
- .creditcard-page .payment-method-header {
-     align-items: center;
-     justify-content: center;
-     margin-bottom: 30px;
-     color: white ; 
-     font-size: 1.5em; 
-     text-decoration: underline
- }
-
- .creditcard-page .payment-method-header img {
-     height: 50px;
-     /* Adjust size as necessary */
-     margin-right: 10px;
- }
-
- .creditcard-page .payment-method-container {
-    width: 50%; 
-    margin-left: auto; 
-    margin-right: auto
- }
-
- /* -------------------------method------------------------- */
- 
- .method-page {
-    background-color: #000;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    color: white;
-    font-family: 'Playfair Display', serif; /* Added a fallback font */
-    font-size: 1.5em;
-}
-
-.method-page .payment-method-container {
-   flex: 1;
-   width: 600px;
-   text-align: center;
-   margin: auto 0;
-}
-
-.method-page .payment-method-header {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   margin-bottom: 20px;
-   font-size: 1.5em;
-}
-
-.method-page .payment-method-header img {
-   height: 50px;
-   margin-right: 10px;
-}
-
-.method-page .payment-option {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   margin-bottom: 10px;
-   background-color: #fff;
-   border-radius: 20px;
-   padding: 10px 20px;
-   cursor: pointer;
-}
-
-.method-page .payment-option img {
-   height: 30px;
-}
-
-.method-page .payment-option:hover {
-   background-color: #f2f2f2;
-}
-
-.method-page .next-button {
-   background-color: #ccc;
-   border: none;
-   padding: 20px 50px;
-   margin-top: 20px;
-   cursor: pointer;
-   border-radius: 20px;
-   font-family: 'Arial';
-   font-size: 0.75em;
-}
-
-.method-page .next-button:hover {
-   background-color: #b3b3b3;
 }

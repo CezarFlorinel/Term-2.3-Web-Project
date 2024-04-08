@@ -53,7 +53,6 @@ class PatternRouter
             $controllerObj = new $controllerName();
             $controllerObj->$methodName();
         } catch (Error $e) {
-            // For some reason the class/method doesn't work
             echo $e->getMessage();
             http_response_code(500);
         }
