@@ -1,8 +1,8 @@
 <div class="w-64 bg-gray-700 text-white">
     <div class="p-5 bg-gray-900">Administrator</div>
     <ul class="space-y-2">
-        <li><a href="/mainpageadmin" class="block p-5 hover:bg-gray-800">Main</a></li>
-        <li><a href="#" class="block p-5 hover:bg-gray-800">Home</a></li>
+        <li><a href="/mainpageadmin" class="block p-5 hover:bg-gray-800">Home</a></li>
+        <li><a href="/userAdmin" class="block p-5 hover:bg-gray-800">Users</a></li>
         <li><a href="/historyadmin" class="block p-5 hover:bg-gray-800">History</a></li>
         <li><a href="#" class="block p-5 hover:bg-gray-800">Dance</a></li>
         <li><a href="/yummyHomeAdmin" class="block p-5 hover:bg-gray-800">Yummy</a></li>
