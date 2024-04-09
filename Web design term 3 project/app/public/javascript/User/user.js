@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     ${formattedRegistrationDate}
                 </td>
                 <td class="px-6 py-4 d-flex justify-content-center">
-                    <a href="/user/edit?id=${user.UserID}"><button update-userid="${user.id}" type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Edit</button></a>
+                    <a href="/users/editUsers?id=${user.UserID}"><button update-userid="${user.id}" type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Edit</button></a>
                     <button delete-userid="${user.UserID}" type="button" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Delete</button>
                 </td>
             </tr>
