@@ -20,15 +20,17 @@ document.addEventListener("DOMContentLoaded", () => {
     setupImageUploadListener('imageUploadInputTopPart', apiUrlForNewImageCarousel, containerForNewImageCarousel);
 
     document.querySelectorAll("#imageTourPlaceInput").forEach(input => {
-        setupImageUploadListener(input, 'imageTourPlace', apiUrlForImagesTourPlace, this.closest('div[data-id]'));
+        const container = input.closest('div[data-id]');
+        setupImageUploadListener(input, apiUrlForImagesTourPlace, container, 'imageTourPlace');
     });
 
     document.querySelectorAll("#imageTicketPriceInput").forEach(input => {
-        setupImageUploadListener(input, 'imageTicketPrice', apiUrlForImagesTicketPrices, this.closest('div[data-id]'));
+        const container = input.closest('div[data-id]');
+        setupImageUploadListener(input, apiUrlForImagesTicketPrices, container, 'imageTicketPrice');
     });
 
-    setupImageUploadListener('image1Input', 'image1', apiUrlForImagesTourStart, containerForImagesNameTourStart, 'MainImagePath');
-    setupImageUploadListener('image2Input', 'image2', apiUrlForImagesTourStart, containerForImagesNameTourStart, 'SecondaryImagePath');
+    setupImageUploadListener('image1Input', apiUrlForImagesTourStart, containerForImagesNameTourStart, 'image1', 'MainImagePath');
+    setupImageUploadListener('image2Input', apiUrlForImagesTourStart, containerForImagesNameTourStart, 'image2', 'SecondaryImagePath');
 
     // Tour Starting Point Edit button 
     document.querySelectorAll('.edit-tour-starting-btn').forEach(btn => {

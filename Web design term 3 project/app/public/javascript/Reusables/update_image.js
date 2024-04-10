@@ -1,6 +1,12 @@
 
 export function setupImageUploadListener(inputId, api, containerName, imageElementId = '', columnName = '') {
-    document.getElementById(inputId).addEventListener('change', function () {
+    let element = null;
+    if (typeof inputId === 'string') {
+        element = document.getElementById(inputId);
+    } else {
+        element = inputId;
+    }
+    element.addEventListener('change', function () {
         if (this.files && this.files[0]) {
             const container = typeof containerName === 'string' ? document.getElementById(containerName) : containerName;
             const formData = new FormData();

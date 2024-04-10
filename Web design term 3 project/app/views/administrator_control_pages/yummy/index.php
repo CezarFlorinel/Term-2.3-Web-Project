@@ -278,8 +278,7 @@ $restaurantReservations = $yummyService->getAllReservations();
     <?php echo json_encode($sessions); ?>
     </script>
 
-    <!-- <script type="module" src="javascript/Yummy/yummy_home_admin.js"></script> -->
-    <script src="javascript/Yummy/yummy_home_admin.js"></script>
+    <script type="module" src="javascript/Yummy/yummy_home_admin.js"></script>
 
 </body>
 
