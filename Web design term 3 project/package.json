@@ -1,7 +1,7 @@
 {
   "name": "web-design-term-3-project",
   "version": "1.0.0",
-  "description": "This repository demonstrates how the MVC design pattern can be implemented using PHP.",
+  "description": "Haarlem Festival Website",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

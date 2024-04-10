@@ -1,19 +1,80 @@
+import { setupImageUploadListener } from './../Reusables/update_image.js';
 
 // !!! if you do changes to HTML, some issues might occur, because of the names used in here to connect to the divs and the rest of the stuff. !!!
 // check fo such issues if you do changes to the HTML
-// --- remove this problems, used id's instead of classes, so it should be fine now
+
+const apiUrlForImagesTourStart = "/api/historyadmin/uploadAndUpdateImageForTourStartingPoint";
+const containerForImagesNameTourStart = "getTheIdForTourStart";
+const apiUrlForImagesTicketPrices = "/api/historyadmin/updateHistoryTicketPricesImages";
+const apiUrlForImagesTourPlace = "/api/historyadmin/updateHistoryToursImages";
+const apiUrlForNewImageCarousel = "/api/historyadmin/uploadNewImageCarousel";
+const containerForNewImageCarousel = "getTheIdForTopPart";
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    document.getElementById('addImageBtnTopPart').addEventListener('click', function () {
+        // Trigger the hidden file input
+        document.getElementById('imageUploadInputTopPart').click();
+    });
+
+    setupImageUploadListener('imageUploadInputTopPart', apiUrlForNewImageCarousel, containerForNewImageCarousel);
+
+    document.querySelectorAll("#imageTourPlaceInput").forEach(input => {
+        setupImageUploadListener(input, 'imageTourPlace', apiUrlForImagesTourPlace, this.closest('div[data-id]'));
+    });
+
+    document.querySelectorAll("#imageTicketPriceInput").forEach(input => {
+        setupImageUploadListener(input, 'imageTicketPrice', apiUrlForImagesTicketPrices, this.closest('div[data-id]'));
+    });
+
+    setupImageUploadListener('image1Input', 'image1', apiUrlForImagesTourStart, containerForImagesNameTourStart, 'MainImagePath');
+    setupImageUploadListener('image2Input', 'image2', apiUrlForImagesTourStart, containerForImagesNameTourStart, 'SecondaryImagePath');
+
+    // Tour Starting Point Edit button 
+    document.querySelectorAll('.edit-tour-starting-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            handleEditableFields(this, updateHistoryStartingPointDescription);
+        });
+    });
+
+    // Show add form
+    document.querySelector(".add-practical-btn").addEventListener("click", function () {
+        document.getElementById("addForm").classList.toggle("hidden");
+    });
+
+    document.querySelectorAll(".edit-practical-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            handleEditableFieldsForQandA(this, updateHistoryPracticalInformation);
+        });
+    });
+
+    document.querySelectorAll(".edit-ticket-prices-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            handleEditableFieldsForTicketPrices(this, updateHistoryTicketPrices);
+        });
+
+    });
+
+    deleteImageFromCarousel();
+    editTopPart();
+    editTourPlace();
+    addNewQuestionAndAnswer();
+    deletePracticalInformation();
+    editDeparture();
+    editTour();
+
+});
+
+function deleteImageFromCarousel() {
     document.querySelectorAll('.grid .relative button').forEach(button => {
         button.addEventListener('click', function () {
             const container = this.closest('.relative');
-            const imagePath = container.querySelector('img').src.split('/').slice(-3).join('/'); // Adjust according to your image src structure
+            const imagePath = container.querySelector('img').src.split('/').slice(-3).join('/'); // adjusted according to the image src structure
             const id = document.getElementById("getTheIdForTopPart").getAttribute('data-id');
             console.log(id, "aaand", imagePath);
 
             if (confirm('Are you sure you want to delete this image?')) {
-                fetch('/api/historyadmin/deleteImageFromCarousel', { // Adjust the endpoint as necessary
+                fetch('/api/historyadmin/deleteImageFromCarousel', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: id, imagePath: imagePath })
@@ -35,55 +96,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    document.getElementById('addImageBtnTopPart').addEventListener('click', function () {
-        // Trigger the hidden file input
-        document.getElementById('imageUploadInputTopPart').click();
-    });
+}
 
-    document.getElementById('imageUploadInputTopPart').addEventListener('change', function () {
-        if (this.files && this.files[0]) {
-            const formData = new FormData();
-            formData.append('image', this.files[0]);
-
-            // Get the ID from the container of the top part
-            const topPartContainer = document.getElementById("getTheIdForTopPart");
-            const id = topPartContainer.getAttribute('data-id');
-            formData.append('id', id);
-
-            // API endpoint
-            const apiEndpoint = '/api/historyadmin/uploadNewImageCarousel'; // Adjust if necessary
-
-            fetch(apiEndpoint, {
-                method: 'POST',
-                body: formData, // FormData handles the multipart/form-data headers
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Directly access the carousel since it's not a child of 'getTheIdForTopPart'
-                        const gallery = document.getElementById("carouselImages");
-                        const newImgDiv = document.createElement('div');
-                        newImgDiv.className = 'relative';
-                        newImgDiv.innerHTML = `
-                        <img src="${data.imageUrl}" alt="Uploaded Image" class="w-full h-auto">
-                        <button class="absolute top-0 right-0 bg-red-500 text-white px-2 py-1">Delete</button>
-                    `;
-                        gallery.appendChild(newImgDiv); // Add new image to the gallery
-                        alert('Image added successfully.');
-                    } else {
-                        alert(`Failed to upload image: ${data.error}`);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while uploading the image');
-                });
-
-            // Clear the input after upload for potential subsequent uploads
-            this.value = '';
-        }
-    });
-
+function editTopPart() {
     document.getElementById("edit-top-part-btn").addEventListener("click", function () {
         const container = document.getElementById("getTheIdForTopPart");
         const descriptionEl = container.querySelector('[data-type="descriptionTop"]');
@@ -131,20 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
             container.setAttribute('data-editing', 'true');
         }
     });
+}
 
-    document.querySelectorAll(".edit-practical-btn").forEach((btn) => {
-        btn.addEventListener("click", function () {
-            handleEditableFieldsForQandA(this, updateHistoryPracticalInformation);
-        });
-    });
-
-    document.querySelectorAll(".edit-ticket-prices-btn").forEach((btn) => {
-        btn.addEventListener("click", function () {
-            handleEditableFieldsForTicketPrices(this, updateHistoryTicketPrices);
-        });
-
-    });
-
+function editTourPlace() {
     document.querySelectorAll(".edit-tour-place-btn").forEach((btn) => {
         btn.addEventListener("click", function () {
             const container = this.closest('div[data-id]');
@@ -199,122 +203,21 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+}
 
-    document.querySelectorAll("#imageTourPlaceInput").forEach(input => {
-        input.addEventListener("change", function () {
-            if (this.files && this.files[0]) {
-                const formData = new FormData();
-                formData.append('image', this.files[0]); // Assuming 'image' is the field expected by your backend.
-                const id = this.closest('div[data-id]').getAttribute('data-id');
-                formData.append('id', id);
-
-                fetch("/api/historyadmin/updateHistoryToursImages", {
-                    method: "POST",
-                    body: formData, // No headers needed, FormData sets correct multipart headers.
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            document.getElementById("imageTourPlace").src = data.imageUrl;
-                            alert("Image updated successfully.");
-                        } else {
-                            alert("Image upload failed: " + data.error);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        alert("There was an error uploading the image");
-                    });
-            }
-        });
+function addNewQuestionAndAnswer() {
+    document.getElementById("submitNewInfo").addEventListener("click", function () {
+        const question = document.getElementById("newQuestion").value;
+        const answer = document.getElementById("newAnswer").value;
+        if (question && answer) {
+            addHistoryPracticalInformation(question, answer);
+        } else {
+            alert("Please fill in both question and answer");
+        }
     });
+}
 
-    // Tour Starting Point Edit button 
-    document.querySelectorAll('.edit-tour-starting-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-            handleEditableFields(this, updateHistoryStartingPointDescription);
-        });
-    });
-
-    document.querySelectorAll("#imageTicketPriceInput").forEach(input => {
-        input.addEventListener("change", function () {
-            if (this.files && this.files[0]) {
-                const formData = new FormData();
-                formData.append('image', this.files[0]); // Assuming 'image' is the field expected by your backend.
-                const id = this.closest('div[data-id]').getAttribute('data-id');
-                formData.append('id', id);
-
-                fetch("/api/historyadmin/updateHistoryTicketPricesImages", {
-                    method: "POST",
-                    body: formData, // No headers needed, FormData sets correct multipart headers.
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            document.getElementById("imageTicketPrice").src = data.imageUrl;
-                            alert("Image updated successfully.");
-                        } else {
-                            alert("Image upload failed: " + data.error);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        alert("There was an error uploading the image");
-                    });
-            }
-        });
-    });
-
-    document
-        .getElementById("image1Input")
-        .addEventListener("change", function () {
-            if (this.files && this.files[0]) {
-                // Retrieve the tour ID from the data attribute
-                const divElement = document.getElementById('getTheIdForTourStart');
-                const dataId = divElement.getAttribute('data-id');
-                uploadAndUpdateImage(
-                    this.files[0],
-                    "image1",
-                    dataId
-                );
-            }
-        });
-
-
-    document
-        .getElementById("image2Input")
-        .addEventListener("change", function () {
-            if (this.files && this.files[0]) {
-                const divElement = document.getElementById('getTheIdForTourStart');
-                const dataId = divElement.getAttribute('data-id');
-                uploadAndUpdateImage(
-                    this.files[0],
-                    "image2",
-                    dataId
-                );
-            }
-        });
-
-    // Show add form
-    document
-        .querySelector(".add-practical-btn")
-        .addEventListener("click", function () {
-            document.getElementById("addForm").classList.toggle("hidden");
-        });
-
-    // Add new question and answer
-    document
-        .getElementById("submitNewInfo")
-        .addEventListener("click", function () {
-            const question = document.getElementById("newQuestion").value;
-            const answer = document.getElementById("newAnswer").value;
-            if (question && answer) {
-                addHistoryPracticalInformation(question, answer);
-            } else {
-                alert("Please fill in both question and answer");
-            }
-        });
-
+function deletePracticalInformation() {
     document.querySelectorAll(".delete-practical-btn").forEach((btn) => {
         btn.addEventListener("click", function () {
             const container = this.closest("div[data-id]");
@@ -325,7 +228,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+}
 
+function editDeparture() {
     document.querySelectorAll(".edit-departure-btn").forEach((button) => {
         button.addEventListener("click", function () {
             let container = this.closest("div[data-id]");
@@ -348,7 +253,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+}
 
+function editTour() {
     document.querySelectorAll('.edit-tour-btn').forEach(btn => {
         btn.addEventListener('click', function () {
             const container = this.closest('div[data-id]');
@@ -390,7 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-});
+}
 
 function handleEditableFieldsForTicketPrices(button, updateFunction) {
     const container = button.closest("div[data-id]");
@@ -477,13 +384,7 @@ function updateHistoryTourDeparturesTimetable(id, date) {
         });
 }
 
-function updateHistoryTour(
-    id,
-    startTime,
-    englishTour,
-    dutchTour,
-    chineseTour
-) {
+function updateHistoryTour(id, startTime, englishTour, dutchTour, chineseTour) {
     fetch("/api/historyadmin/updateHistoryTour", {
         method: "POST",
         headers: {
@@ -519,13 +420,11 @@ function handleEditableFieldsForQandA(button, updateFunction) {
         let question, answer;
         editableElements.forEach((el, index) => {
             el.contentEditable = false;
-            // Assuming the first editable element is the question and the second is the answer
             if (index === 0) question = el.innerText;
             else if (index === 1) answer = el.innerText;
         });
         button.textContent = "Edit";
         container.removeAttribute("data-editing");
-        // Call the update function with both question and answer
         updateFunction(id, question, answer);
     } else {
         // Enable editing
@@ -562,29 +461,7 @@ function handleEditableFields(button, updateFunction) {
     }
 }
 
-function uploadAndUpdateImage(file, imageId, tourId) {
-    const formData = new FormData();
-    formData.append("image", file);
-    formData.append("id", tourId); // Your tour starting point's ID
-    formData.append("imageId", imageId);
-
-    fetch("/api/historyadmin/uploadAndUpdateImageForTourStartingPoint", {
-        method: "POST",
-        body: formData,
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.success) {
-                document.getElementById(imageId).src = data.imageUrl; // Update the displayed image
-            } else {
-                alert("Image upload failed: " + data.error);
-            }
-        })
-        .catch((error) => console.error("Error uploading image:", error));
-}
-
 function updateHistoryStartingPointDescription(id, description) {
-    console.log(id, description);
     fetch("/api/historyadmin/updateHistoryTourStartingPointDescription", {
         method: "POST",
         headers: {
@@ -601,7 +478,6 @@ function updateHistoryStartingPointDescription(id, description) {
 }
 
 function deleteHistoryPracticalInformation(id) {
-    console.log("Deleting:", id);
     fetch("/api/historyadmin/deleteHistoryPracticalInformation", {
         method: "POST",
         headers: {
@@ -645,7 +521,6 @@ function updateHistoryPracticalInformation(id, question, answer) {
 }
 
 function addHistoryPracticalInformation(question, answer) {
-    console.log(question, answer);
     fetch("/api/historyadmin/createHistoryPracticalInformation", {
         method: "POST",
         headers: {

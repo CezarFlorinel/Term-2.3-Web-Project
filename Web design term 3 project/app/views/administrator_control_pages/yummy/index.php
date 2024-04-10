@@ -5,11 +5,6 @@ $yummyService = new YummyService();
 $homepageDataRestaurant = $yummyService->getHomepageDataRestaurant();
 $restaurantsNameAndId = $yummyService->getRestaurantsNameAndId();
 $restaurantReservations = $yummyService->getAllReservations();
-
-
-
-
-
 ?>
 
 
@@ -277,14 +272,13 @@ $restaurantReservations = $yummyService->getAllReservations();
             </div>
 
         </div>
-
-
     </div>
 
     <script type="application/json" id="sessionData">
     <?php echo json_encode($sessions); ?>
     </script>
 
+    <!-- <script type="module" src="javascript/Yummy/yummy_home_admin.js"></script> -->
     <script src="javascript/Yummy/yummy_home_admin.js"></script>
 
 </body>

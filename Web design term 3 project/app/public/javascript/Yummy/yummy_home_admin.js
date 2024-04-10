@@ -1,7 +1,66 @@
+// import { setupImageUploadListener } from './../Reusables/update_image.js';
 
+const apiUrlForImages = "/api/YummyHomeAdmin/updateHomePageImages";
+const getTheIdForTopPart = "getTheIdForTopPart";
 
 document.addEventListener("DOMContentLoaded", () => {
+    const sessionDropdown = document.getElementById('sessionDropdown');
+    if (sessionDropdown) {
+        sessionDropdown.addEventListener('change', updateSessionTime);
+    }
+    updateSessionTime(); // Update session time on page load
 
+    setupImageUploadListener('imageTopInput', apiUrlForImages, getTheIdForTopPart, 'imageTop', 'ImagePath');
+    setupImageUploadListener('imageLocationsInput', apiUrlForImages, getTheIdForTopPart, 'imageLocation', 'ImagePathHomepage');
+
+    saveReservation();
+    editTopPart();
+    displaySession();
+    createNewReservation();
+});
+
+function saveReservation() {
+    document.querySelectorAll('.save-reservation-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const form = this.closest('form'); // Find the form element that the button belongs to
+            const formData = new FormData(form); // Create FormData object from the form
+            const reservationData = {};
+
+            // Convert FormData entries into a regular object for JSON encoding
+            for (let [key, value] of formData.entries()) {
+                reservationData[key] = value;
+            }
+
+            // Convert 'active' field from string to boolean
+            reservationData['active'] = formData.get('active') === 'on';
+
+            // Send data to API using fetch
+            fetch('/api/YummyHomeAdmin/updateReservation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(reservationData),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data); // Handle success response
+                    alert('Reservation updated successfully');
+                })
+                .catch(error => {
+                    console.error('Error:', error); // Handle errors
+                    alert('Error updating reservation');
+                });
+        });
+    });
+}
+
+function editTopPart() {
     document.getElementById("edit-top-part-btn").addEventListener("click", function () {
         const container = document.getElementById("getTheIdForTopPart");
         const descriptionEl = container.querySelector('[data-type="descriptionTop"]');
@@ -49,109 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
             container.setAttribute('data-editing', 'true');
         }
     });
+}
 
-    document.getElementById('imageTopInput').addEventListener('change', function () {
-        if (this.files && this.files[0]) {
-            const formData = new FormData();
-            formData.append('image', this.files[0]);
-            const id = document.getElementById('getTheIdForTopPart').getAttribute('data-id');
-            formData.append('id', id);
-            formData.append('columnName', 'ImagePath'); // Add this line
-
-            fetch("/api/YummyHomeAdmin/updateHomePageImages", {
-                method: "POST",
-                body: formData,
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById("imageTop").src = data.imageUrl;
-                        alert("Image updated successfully.");
-                    } else {
-                        alert("Image upload failed: " + data.error);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    alert("There was an error uploading the image");
-                });
-        }
-    });
-
-    document.getElementById('imageLocationsInput').addEventListener('change', function () {
-        if (this.files && this.files[0]) {
-            const formData = new FormData();
-            formData.append('image', this.files[0]);
-            const id = document.getElementById('getTheIdForTopPart').getAttribute('data-id');
-            formData.append('id', id);
-            formData.append('columnName', 'LocaionsImagePathHomepage');
-
-            fetch("/api/YummyHomeAdmin/updateHomePageImages", {
-                method: "POST",
-                body: formData,
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById("imageLocation").src = data.imageUrl;
-                        alert("Image updated successfully.");
-                    } else {
-                        alert("Image upload failed: " + data.error);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    alert("There was an error uploading the image");
-                });
-        }
-    });
-
-    const sessionDropdown = document.getElementById('sessionDropdown');
-    if (sessionDropdown) {
-        sessionDropdown.addEventListener('change', updateSessionTime);
-    }
-    updateSessionTime();
-
-
-    document.querySelectorAll('.save-reservation-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            const form = this.closest('form'); // Find the form element that the button belongs to
-            const formData = new FormData(form); // Create FormData object from the form
-            const reservationData = {};
-
-            // Convert FormData entries into a regular object for JSON encoding
-            for (let [key, value] of formData.entries()) {
-                reservationData[key] = value;
-            }
-
-            // Convert 'active' field from string to boolean
-            reservationData['active'] = formData.get('active') === 'on';
-
-            // Send data to API using fetch
-            fetch('/api/YummyHomeAdmin/updateReservation', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(reservationData),
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data); // Handle success response
-                    alert('Reservation updated successfully');
-                })
-                .catch(error => {
-                    console.error('Error:', error); // Handle errors
-                    alert('Error updating reservation');
-                });
-        });
-    });
-
+function displaySession() {
     const restaurantDropdown = document.getElementById('newRestaurantDropdown');
     const newSessionDropdown = document.getElementById('newSessionDropdown');
     const sessionTimeContent = document.getElementById('sessionTimeContent');
@@ -191,8 +150,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 newSessionDropdown.innerHTML = '<option>Error loading sessions</option>';
             });
     });
+}
 
-
+function createNewReservation() {
     const createReservationBtn = document.querySelector('.create-new-reservation-btn');
     createReservationBtn.addEventListener('click', () => {
         const form = document.querySelector('.new-reservation-form');
@@ -231,11 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert('Error creating reservation');
             });
     });
-
-
-
-
-});
+}
 
 function updateSessionTime() {
     const sessionDataElement = document.getElementById('sessionData');
