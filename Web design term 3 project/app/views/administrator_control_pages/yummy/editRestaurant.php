@@ -284,13 +284,11 @@ $cusineTypes = explode(";", $restaurant->cuisineTypes);
                     </div>
                 </div>
             </div>
-
-
-
         </div>
 
 
-        <script src="javascript/Yummy/edit_restaurant_admin.js"></script>
+
+        <script type="module" src="javascript/Yummy/edit_restaurant_admin.js"></script>
 
 </body>
 

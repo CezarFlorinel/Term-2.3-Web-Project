@@ -18,7 +18,6 @@ include __DIR__ . '/../header.php';
 </head>
 
 <body>
-
     <div class="start-image-container" id="carousel">
         <div class="start-image-text">
             <h1 class="text-1-h">HAARLEM</h1>
@@ -62,8 +61,7 @@ include __DIR__ . '/../header.php';
             alt="History Event">
 
         <div id="overlayInfo" class="overlay-info" style="display: none;">
-            <img id="overlayImage" class="detail-image" src="assets/images/history_event/Saint bavo (1).jpg"
-                alt="Detail Image">
+            <img id="overlayImage" class="detail-image" alt="Detail Image">
             <p id="overlayText" class="detail-text">Some information about the location</p>
         </div>
 
@@ -313,7 +311,7 @@ include __DIR__ . '/../header.php';
         document.addEventListener('DOMContentLoaded', (event) => {
             const images = [
                 <?php foreach ($arrayWithImagePathsCarousel as $imagePath): ?>
-                        '<?php echo htmlspecialchars($imagePath); ?>',
+                                        '<?php echo htmlspecialchars($imagePath); ?>',
                 <?php endforeach; ?>
             ];
 
@@ -322,6 +320,9 @@ include __DIR__ . '/../header.php';
             const updateImage = (index) => {
                 carousel.style.backgroundImage = `url('${images[index]}')`;
             };
+
+            // Set initial image immediately on page load
+            updateImage(currentImageIndex);
 
             const nextImage = () => {
                 currentImageIndex = (currentImageIndex + 1) % images.length;

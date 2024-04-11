@@ -213,8 +213,6 @@ class HistoryRepository extends Repository     // methods for all history relate
         // Append the new image path to the existing paths, separated by "; "
         $updatedImagePathString = $currentImagePathString ? $currentImagePathString . " ; " . $newImagePath : $newImagePath;
 
-        // Now update the database with the new combined image path string
-
         $stmt = $this->connection->prepare('UPDATE [HISTORY_TOP_PART] SET ImagePath = :updatedImagePathString WHERE InformationID = :id');
         $stmt->execute([
             'id' => $id,
