@@ -4,6 +4,8 @@ import { displaySession, updateSessionTime } from './modules_yummy_home_admin/se
 
 const apiUrlForImages = "/api/YummyHomeAdmin/updateHomePageImages";
 const getTheIdForTopPart = "getTheIdForTopPart";
+const columnNameTopImage = "ImagePath";
+const columnNameLocationImage = "LocaionsImagePathHomepage";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -15,10 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
         updateSessionTime(dropdown); // Update session time on page load
     });
 
-    sessionDropdowns.forEach(dropdown => updateSessionTime(dropdown)); // Update session time on page load
 
-    setupImageUploadListener('imageTopInput', apiUrlForImages, getTheIdForTopPart, 'imageTop', 'ImagePath');
-    setupImageUploadListener('imageLocationsInput', apiUrlForImages, getTheIdForTopPart, 'imageLocation', 'ImagePathHomepage');
+    setupImageUploadListener('imageTopInput', apiUrlForImages, getTheIdForTopPart, 'imageTop', columnNameTopImage);
+    setupImageUploadListener('imageLocationsInput', apiUrlForImages, getTheIdForTopPart, 'imageLocation', columnNameLocationImage);
 
     saveReservation();
     editTopPart();
