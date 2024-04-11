@@ -40,16 +40,14 @@ export function displaySession() {
     });
 }
 
-
-
-export function updateSessionTime() {
-    const sessionDataElement = document.getElementById('sessionData');
-    const sessions = JSON.parse(sessionDataElement.textContent || sessionDataElement.innerText);
-    const selectedSessionId = document.getElementById('sessionDropdown').value;
+export function updateSessionTime(dropdown) {
+    const sessions = JSON.parse(dropdown.getAttribute('data-sessions') || '[]');
+    const selectedSessionId = dropdown.value.trim(); // Ensure to trim to remove any unwanted spaces
     const session = sessions.find(s => s.sessionID == selectedSessionId);
+
     if (session) {
         const formattedStartTime = session.startTime.substring(0, 5);
         const formattedEndTime = session.endTime.substring(0, 5);
-        document.getElementById('sessionTimeText').textContent = `${formattedStartTime} - ${formattedEndTime}`;
+        dropdown.closest('.card-container').querySelector('.sessionTimeText').textContent = `${formattedStartTime} - ${formattedEndTime}`;
     }
 }

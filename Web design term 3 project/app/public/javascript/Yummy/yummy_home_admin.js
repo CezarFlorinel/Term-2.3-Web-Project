@@ -6,12 +6,16 @@ const apiUrlForImages = "/api/YummyHomeAdmin/updateHomePageImages";
 const getTheIdForTopPart = "getTheIdForTopPart";
 
 document.addEventListener("DOMContentLoaded", () => {
-    const sessionDropdown = document.getElementById('sessionDropdown');
-    if (sessionDropdown) {
-        sessionDropdown.addEventListener('change', updateSessionTime);
-    }
 
-    updateSessionTime(); // Update session time on page load
+    const sessionDropdowns = document.querySelectorAll('.sessionDropdown');
+    sessionDropdowns.forEach(dropdown => {
+        dropdown.addEventListener('change', function () {
+            updateSessionTime(this); // Pass the current dropdown to the function
+        });
+        updateSessionTime(dropdown); // Update session time on page load
+    });
+
+    sessionDropdowns.forEach(dropdown => updateSessionTime(dropdown)); // Update session time on page load
 
     setupImageUploadListener('imageTopInput', apiUrlForImages, getTheIdForTopPart, 'imageTop', 'ImagePath');
     setupImageUploadListener('imageLocationsInput', apiUrlForImages, getTheIdForTopPart, 'imageLocation', 'ImagePathHomepage');
