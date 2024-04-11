@@ -187,4 +187,30 @@ function updateHistoryTourDeparturesTimetable(id, date) {
         });
 }
 
-export { editTour, editTourPlace, handleEditableFields, updateHistoryStartingPointDescription, updateHistoryTourDeparturesTimetable };
+function editDeparture() {
+    document.querySelectorAll(".edit-departure-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+            let container = this.closest("div[data-id]");
+            let dateInput = container.querySelector(".date-editable");
+            let isEditing = container.hasAttribute("data-editing");
+
+            if (isEditing) {
+                // Save changes
+                dateInput.setAttribute("readonly", true);
+                this.textContent = "Edit";
+                container.removeAttribute("data-editing");
+                let id = container.getAttribute("data-id");
+                let date = dateInput.value;
+                updateHistoryTourDeparturesTimetable(id, date);
+            } else {
+                // Enable editing
+                dateInput.removeAttribute("readonly");
+                this.textContent = "Save";
+                container.setAttribute("data-editing", "true");
+            }
+        });
+    });
+}
+
+
+export { editDeparture, editTour, editTourPlace, handleEditableFields, updateHistoryStartingPointDescription, updateHistoryTourDeparturesTimetable };

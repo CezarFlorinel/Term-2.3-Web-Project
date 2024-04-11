@@ -1,7 +1,7 @@
 import { setupImageUploadListener } from './../Reusables/update_image.js';
 import { handleEditableFieldsForQandA, addNewQuestionAndAnswer, updateHistoryPracticalInformation, deletePracticalInformation } from './modules_home_admin/history_practical_information.js';
 import { handleEditableFieldsForTicketPrices, updateHistoryTicketPrices } from './modules_home_admin/ticket_prices.js';
-import { editTour, editTourPlace, handleEditableFields, updateHistoryStartingPointDescription, editDeparture } from './modules_home_admin/history_tour.js';
+import { editDeparture, editTour, editTourPlace, handleEditableFields, updateHistoryStartingPointDescription } from './modules_home_admin/history_tour.js';
 import { deleteImageFromCarousel, editTopPart } from './modules_home_admin/top_part_of_page.js';
 
 // !!! if you do changes to HTML, some issues might occur, because of the names used in here to connect to the divs and the rest of the stuff. !!!

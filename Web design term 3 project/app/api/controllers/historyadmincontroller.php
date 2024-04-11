@@ -3,6 +3,7 @@
 namespace App\Api\Controllers;
 
 use App\Services\HistoryService;
+use Exception;
 
 class HistoryAdminController
 {
@@ -22,6 +23,7 @@ class HistoryAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($data['id'], $data['imagePath'])) {
             $id = $data['id'];
             $imageToDelete = $data['imagePath']; // Assuming this is a relative path from the project root.
+            error_log(print_r("I am DEAD: " . $imageToDelete, true), 3, __DIR__ . '/../../file_with_erros_logs'); // Log the input data
 
             // Remove the image file from the folder
             $projectRoot = realpath(__DIR__ . '/../../..');
@@ -78,39 +80,44 @@ class HistoryAdminController
 
     public function uploadNewImageCarousel()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
-            $image = $_FILES['image'];
-            $id = $_POST['id'];
+        try {
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
+                $image = $_FILES['image'];
+                $id = $_POST['id'];
 
-            $projectRoot = realpath(__DIR__ . '/../../..');
-            $uploadsDir = $projectRoot . '/app/public/assets/images/history_event/top_part';
-            if (!file_exists($uploadsDir)) {
-                mkdir($uploadsDir, 0777, true);
-            }
-            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+                $projectRoot = realpath(__DIR__ . '/../../..');
+                $uploadsDir = $projectRoot . '/app/public/assets/images/history_event/top_part';
+                if (!file_exists($uploadsDir)) {
+                    mkdir($uploadsDir, 0777, true);
+                }
+                $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
 
-            if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
-                $uniqueSuffix = time() . '-' . rand(); // Ensuring unique filename
-                $newFileName = $uniqueSuffix . '-' . basename($image['name']);
-                $destination = $uploadsDir . '/' . $newFileName;
+                if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
+                    $uniqueSuffix = time() . '-' . rand(); // Ensuring unique filename
+                    $newFileName = $uniqueSuffix . '-' . basename($image['name']);
+                    $destination = $uploadsDir . '/' . $newFileName;
 
-                if (move_uploaded_file($image['tmp_name'], $destination)) {
-                    // Construct the new image URL path
-                    $imageUrl = "assets/images/history_event/top_part/$newFileName";
+                    if (move_uploaded_file($image['tmp_name'], $destination)) {
+                        // Construct the new image URL path
+                        $imageUrl = "assets/images/history_event/top_part/$newFileName";
 
-                    // Here, implement the method to update the image path in your database
-                    // This could look something like this:
-                    $this->historyService->editImagePathHistoryTopPart($id, $imageUrl);
+                        // error_log(print_r("id:" . $id . " imageURL: " . $imageUrl, true), 3, __DIR__ . '/../../file_with_erros_logs'); // Log the input data
 
-                    echo json_encode(['success' => true, 'imageUrl' => '/' . $imageUrl]);
+                        $this->historyService->editImagePathHistoryTopPart($id, $imageUrl);
+
+                        echo json_encode(['success' => true, 'imageUrl' => '/' . $imageUrl]);
+                    } else {
+                        echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
+                    }
                 } else {
-                    echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
+                    echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
                 }
             } else {
-                echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
+                echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
             }
-        } else {
-            echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'error' => 'An error occurred while processing the request.']);
+            error_log(print_r($e->getMessage(), true), 3, __DIR__ . '/../../file_with_erros_logs');
         }
     }
 

@@ -2,9 +2,9 @@ function deleteImageFromCarousel() {
     document.querySelectorAll('.grid .relative button').forEach(button => {
         button.addEventListener('click', function () {
             const container = this.closest('.relative');
-            const imagePath = container.querySelector('img').src.split('/').slice(-3).join('/'); // adjusted according to the image src structure
+            // Decode the URL-encoded src path
+            const imagePath = decodeURIComponent(container.querySelector('img').src).split('/').slice(-3).join('/');
             const id = document.getElementById("getTheIdForTopPart").getAttribute('data-id');
-            console.log(id, "aaand", imagePath);
 
             if (confirm('Are you sure you want to delete this image?')) {
                 fetch('/api/historyadmin/deleteImageFromCarousel', {
@@ -28,8 +28,8 @@ function deleteImageFromCarousel() {
             }
         });
     });
-
 }
+
 
 function editTopPart() {
     document.getElementById("edit-top-part-btn").addEventListener("click", function () {
