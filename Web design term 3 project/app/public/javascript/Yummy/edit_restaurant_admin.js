@@ -38,8 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
-
 function editRestaurant() {
     document.getElementById("edit-restaurant-btn").addEventListener("click", function () {
         const container = document.getElementById("container-restaurant-info");

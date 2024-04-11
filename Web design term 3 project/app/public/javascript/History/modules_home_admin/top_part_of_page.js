@@ -1,26 +1,35 @@
-import { setupImageUploadListener } from './../Reusables/update_image.js';
-import { saveReservation, createNewReservation } from './modules_yummy_home_admin/reservation.js';
-import { displaySession, updateSessionTime } from './modules_yummy_home_admin/session.js';
+function deleteImageFromCarousel() {
+    document.querySelectorAll('.grid .relative button').forEach(button => {
+        button.addEventListener('click', function () {
+            const container = this.closest('.relative');
+            const imagePath = container.querySelector('img').src.split('/').slice(-3).join('/'); // adjusted according to the image src structure
+            const id = document.getElementById("getTheIdForTopPart").getAttribute('data-id');
+            console.log(id, "aaand", imagePath);
 
-const apiUrlForImages = "/api/YummyHomeAdmin/updateHomePageImages";
-const getTheIdForTopPart = "getTheIdForTopPart";
+            if (confirm('Are you sure you want to delete this image?')) {
+                fetch('/api/historyadmin/deleteImageFromCarousel', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: id, imagePath: imagePath })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            container.remove(); // Remove the image element
+                            alert(data.message);
+                        } else {
+                            alert(data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while deleting the image');
+                    });
+            }
+        });
+    });
 
-document.addEventListener("DOMContentLoaded", () => {
-    const sessionDropdown = document.getElementById('sessionDropdown');
-    if (sessionDropdown) {
-        sessionDropdown.addEventListener('change', updateSessionTime);
-    }
-
-    updateSessionTime(); // Update session time on page load
-
-    setupImageUploadListener('imageTopInput', apiUrlForImages, getTheIdForTopPart, 'imageTop', 'ImagePath');
-    setupImageUploadListener('imageLocationsInput', apiUrlForImages, getTheIdForTopPart, 'imageLocation', 'ImagePathHomepage');
-
-    saveReservation();
-    editTopPart();
-    displaySession();
-    createNewReservation();
-});
+}
 
 function editTopPart() {
     document.getElementById("edit-top-part-btn").addEventListener("click", function () {
@@ -43,11 +52,11 @@ function editTopPart() {
             const description = descriptionEl.innerText;
             const subheader = subheaderEl.innerText;
 
-            fetch('/api/YummyHomeAdmin/updateTopPartInformation', {
+            fetch('/api/historyadmin/updateTopPartInformation', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    pageID: id,
+                    informationID: id,
                     description: description,
                     subheader: subheader
                 })
@@ -72,7 +81,4 @@ function editTopPart() {
     });
 }
 
-
-
-
-
+export { deleteImageFromCarousel, editTopPart };

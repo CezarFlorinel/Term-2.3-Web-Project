@@ -42,18 +42,13 @@ function updateCuisineDisplay() {
 
 function addCuisineType(newType) {
     if (newType && !cuisineTypes.includes(newType)) {
-        console.log('Adding new type:', newType);
         cuisineTypes.push(newType);
-        for (let i = 0; i < cuisineTypes.length; i++) {
-            console.log(cuisineTypes[i]);
-        }
         updateCuisineDisplay();
         sendCuisineUpdate();
     }
 }
 
 export function deleteCuisineType(cuisineType) {
-    console.log('Deleting type:', cuisineType);
     const index = cuisineTypes.indexOf(cuisineType);
     if (index > -1) {
         cuisineTypes.splice(index, 1);
