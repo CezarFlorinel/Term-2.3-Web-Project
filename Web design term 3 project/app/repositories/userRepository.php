@@ -26,7 +26,7 @@ class UserRepository extends Repository
         try {
             $stmt = $this->connection->prepare("SELECT * FROM [USER] WHERE UserID = ?");
             $stmt->execute([$userId]);
-    
+
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result ? $result : null;
         } catch (PDOException $e) {
@@ -55,11 +55,12 @@ class UserRepository extends Repository
         $stmt->execute([$email]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return($result['count_users'] > 0);
+        return ($result['count_users'] > 0);
     }
     function createUser($user)
     {
         try {
+            //add validation
             $stmt = $this->connection->prepare("INSERT INTO [USER] (Email, Password, Role, Name) VALUES (?, ?, ?, ?)");
 
             $stmt->execute([
@@ -73,7 +74,7 @@ class UserRepository extends Repository
             echo $e;
         }
     }
-    
+
     public function update($user)
     {
         try {
@@ -95,7 +96,7 @@ class UserRepository extends Repository
     {
         try {
             $stmt = $this->connection->prepare("DELETE FROM [USER] WHERE UserID = ?");
-            
+
             $stmt->execute([$userId]);
         } catch (PDOException $e) {
             echo $e;
