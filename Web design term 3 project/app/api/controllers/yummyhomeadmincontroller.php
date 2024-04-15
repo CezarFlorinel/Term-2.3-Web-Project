@@ -3,6 +3,7 @@
 namespace App\Api\Controllers;
 
 use App\Services\YummyService;
+use App\Utilities\ImageEditor;
 
 class YummyHomeAdminController
 {
@@ -11,14 +12,15 @@ class YummyHomeAdminController
     public function __construct()
     {
         $this->yummyService = new YummyService();
+        ImageEditor::initialize();
     }
 
     public function updateTopPartInformation()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['pageID'], $input['subheader'], $input['description'])) {
+            if (isset($input['pageID'], $input['subheader'], $input['description'])) {
                 $id = $input['pageID'];
                 $subheader = $input['subheader'];
                 $description = $input['description'];
@@ -35,35 +37,19 @@ class YummyHomeAdminController
 
     public function updateHomePageImages()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
             $image = $_FILES['image'];
             $id = $_POST['id'];
             $columnName = $_POST['columnName'];
+            $currentImage = $this->yummyService->getCurrentHomepageDataRestaurantImagePath($id, $columnName);
+            $imageUrl = ImageEditor::saveImage('/app/public/assets/images/yummy_event/home_page_top', $image);
 
-            $projectRoot = realpath(__DIR__ . '/../../..');
-            $uploadsDir = $projectRoot . '/app/public/assets/images/yummy_event/home_page_top';
-            if (!file_exists($uploadsDir)) {
-                mkdir($uploadsDir, 0777, true);
-            }
-            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
-
-            if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
-                $currentImage = $this->yummyService->getCurrentHomepageDataRestaurantImagePath($id, $columnName);
-                $tmpName = $image['tmp_name'];
-                $name = uniqid() . '-' . basename($image['name']);
-                $destination = $uploadsDir . '/' . $name;
-
-                if (move_uploaded_file($tmpName, $destination)) {
-                    $imageUrl = "assets/images/yummy_event/home_page_top/$name";
-                    $this->yummyService->editImagePathHomepageDataRestaurant($id, $columnName, $imageUrl);
-
-                    if ($currentImage && $currentImage != $imageUrl) {
-                        @unlink($projectRoot . '/app/public/' . $currentImage);
-                    }
-                    echo json_encode(['success' => true, 'imageUrl' => $imageUrl]);
-                } else {
-                    echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
+            if ($imageUrl !== null) {
+                $this->yummyService->editImagePathHomepageDataRestaurant($id, $columnName, $imageUrl);
+                if ($currentImage && $currentImage != $imageUrl) {
+                    ImageEditor::deleteImage($currentImage);
                 }
+                echo json_encode(['success' => true, 'imageUrl' => $imageUrl]);
             } else {
                 echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
             }
@@ -71,13 +57,12 @@ class YummyHomeAdminController
             echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
         }
     }
-
     public function updateReservation()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PUT") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['reservationId'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'], $input['comment'], $input['active'])) {
+            if (isset($input['reservationId'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'], $input['comment'], $input['active'])) {
                 $id = $input['reservationId'];
                 $firstName = $input['firstName'];
                 $lastName = $input['lastName'];
@@ -99,13 +84,12 @@ class YummyHomeAdminController
             }
         }
     }
-
     public function createReservation()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['restaurantName'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'], $input['comment'], $input['active'])) {
+            if (isset($input['restaurantName'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'], $input['comment'], $input['active'])) {
                 $restaurantName = $input['restaurantName'];
                 $firstName = $input['firstName'];
                 $lastName = $input['lastName'];
@@ -129,15 +113,15 @@ class YummyHomeAdminController
             }
         }
     }
-
     public function getSessionByRestaurantName()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "GET" && isset ($_GET['name'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['name'])) {
             $restaurantName = $_GET['name'];
 
             $sessions = $this->yummyService->getSessionByRestaurantName($restaurantName);
 
-            echo json_encode($sessions); // Send sessions back as JSON
+            header('Content-Type: application/json');
+            echo json_encode($sessions);
         } else {
             http_response_code(400); // Bad Request
             echo json_encode(['message' => 'Missing required parameters']);

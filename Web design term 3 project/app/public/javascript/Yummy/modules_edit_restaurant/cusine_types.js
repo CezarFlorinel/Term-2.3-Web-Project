@@ -39,7 +39,6 @@ function updateCuisineDisplay() {
     });
 }
 
-
 function addCuisineType(newType) {
     if (newType && !cuisineTypes.includes(newType)) {
         cuisineTypes.push(newType);
@@ -70,7 +69,7 @@ function sendCuisineUpdate() {
     });
 
     fetch('/api/restaurantIndividualAdmin/updateRestaurantCuisineTypes', {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
         },

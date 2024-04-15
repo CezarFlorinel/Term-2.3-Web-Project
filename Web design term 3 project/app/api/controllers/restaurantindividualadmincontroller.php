@@ -3,6 +3,8 @@
 namespace App\Api\Controllers;
 
 use App\Services\YummyService;
+use App\Utilities\ImageEditor;
+use App\Utilities\ErrorHandlerMethod;
 
 class RestaurantIndividualAdminController
 {
@@ -11,22 +13,16 @@ class RestaurantIndividualAdminController
     public function __construct()
     {
         $this->yummyService = new YummyService();
+        ImageEditor::initialize();
     }
 
     public function deleteRestaurant()
     {
-        // Retrieve and decode the JSON from the request body
         $data = json_decode(file_get_contents('php://input'), true);
-
-        // Now check if the necessary data is present
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($data['id'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE" && isset($data['id'])) {
             $id = $data['id'];
 
-            // Remove the image files from the folder
-            $projectRoot = realpath(__DIR__ . '/../../..');
-
             $restaurant = $this->yummyService->getRestaurantById($id);
-
             $galleryImages = $this->yummyService->getRestaurantImagePathGallery($id);
             $otherImages2 = [];
             foreach ($galleryImages as $image) {
@@ -39,33 +35,23 @@ class RestaurantIndividualAdminController
             ];
             $images = array_merge($otherImages2, $otherImages);
 
-
             foreach ($images as $image) {
-                $fullImagePath = $projectRoot . '/app/public/' . $image['imagePath'];
-                if (file_exists($fullImagePath)) {
-                    unlink($fullImagePath);
-                }
+                ImageEditor::deleteImage($image['imagePath']);
             }
 
-            // Delete the restaurant from the database
             $this->yummyService->deleteRestaurant($id);
-
-            // Return a success message
             echo json_encode(['success' => true, 'message' => 'Restaurant deleted successfully']);
-
         } else {
             echo json_encode(['success' => false, 'error' => 'Missing ID.']);
         }
-
-
     }
 
     public function updateRestaurantInformation()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['restaurantID'], $input['name'], $input['location'], $input['numberOfSeats'], $input['descriptionTopPart'], $input['descriptionSideOne'], $input['descriptionSideTwo'], $input['rating'])) {
+            if (isset($input['restaurantID'], $input['name'], $input['location'], $input['numberOfSeats'], $input['descriptionTopPart'], $input['descriptionSideOne'], $input['descriptionSideTwo'], $input['rating'])) {
                 $id = $input['restaurantID'];
                 $name = $input['name'];
                 $location = $input['location'];
@@ -88,10 +74,10 @@ class RestaurantIndividualAdminController
 
     public function updateRestaurantCuisineTypes()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['restaurantID'], $input['cuisineTypes'])) {
+            if (isset($input['restaurantID'], $input['cuisineTypes'])) {
                 $id = $input['restaurantID'];
                 $cuisineTypes = $input['cuisineTypes'];
 
@@ -107,35 +93,19 @@ class RestaurantIndividualAdminController
 
     public function updateRestaurantImages()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
             $image = $_FILES['image'];
             $id = $_POST['id'];
             $columnName = $_POST['columnName'];
+            $currentImage = $this->yummyService->getCurrentRestaurantImagePath($id, $columnName);
+            $imageUrl = ImageEditor::saveImage('/app/public/assets/images/yummy_event/individual_resturant', $image);
 
-            $projectRoot = realpath(__DIR__ . '/../../..');
-            $uploadsDir = $projectRoot . '/app/public/assets/images/yummy_event/individual_resturant';
-            if (!file_exists($uploadsDir)) {
-                mkdir($uploadsDir, 0777, true);
-            }
-            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
-
-            if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
-                $currentImage = $this->yummyService->getCurrentRestaurantImagePath($id, $columnName);
-                $tmpName = $image['tmp_name'];
-                $name = uniqid() . '-' . basename($image['name']);
-                $destination = $uploadsDir . '/' . $name;
-
-                if (move_uploaded_file($tmpName, $destination)) {
-                    $imageUrl = "assets/images/yummy_event/individual_resturant/$name";
-                    $this->yummyService->editRestaurantImagePath($id, $columnName, $imageUrl);
-
-                    if ($currentImage && $currentImage != $imageUrl) {
-                        @unlink($projectRoot . '/app/public/' . $currentImage);
-                    }
-                    echo json_encode(['success' => true, 'imageUrl' => $imageUrl]);
-                } else {
-                    echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
+            if ($imageUrl !== null) {
+                $this->yummyService->editRestaurantImagePath($id, $columnName, $imageUrl);
+                if ($currentImage && $currentImage != $imageUrl) {
+                    ImageEditor::deleteImage($currentImage);
                 }
+                echo json_encode(['success' => true, 'imageUrl' => $imageUrl]);
             } else {
                 echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
             }
@@ -146,10 +116,10 @@ class RestaurantIndividualAdminController
 
     public function updateRestaurantSession()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PUT") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['id'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
+            if (isset($input['id'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
                 $id = $input['id'];
                 $availableSeats = $input['availableSeats'];
                 $pricesForAdults = $input['pricesForAdults'];
@@ -170,10 +140,10 @@ class RestaurantIndividualAdminController
 
     public function deleteRestaurantSession()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['id'])) {
+            if (isset($input['id'])) {
                 $id = $input['id'];
 
                 $this->yummyService->deleteRestaurantSession($id);
@@ -191,7 +161,7 @@ class RestaurantIndividualAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['restaurantID'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
+            if (isset($input['restaurantID'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
                 $restaurantID = $input['restaurantID'];
                 $availableSeats = $input['availableSeats'];
                 $pricesForAdults = $input['pricesForAdults'];
@@ -212,10 +182,10 @@ class RestaurantIndividualAdminController
 
     public function deleteReview()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['id'])) {
+            if (isset($input['id'])) {
                 $id = $input['id'];
 
                 $this->yummyService->deleteRestaurantReview($id);
@@ -233,7 +203,7 @@ class RestaurantIndividualAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['restaurantID'], $input['reviewText'], $input['rating'])) {
+            if (isset($input['restaurantID'], $input['reviewText'], $input['rating'])) {
                 $restaurantID = $input['restaurantID'];
                 $review = $input['reviewText'];
                 $rating = $input['rating'];
@@ -250,33 +220,12 @@ class RestaurantIndividualAdminController
 
     public function deleteImageGallery()
     {
-        // Retrieve and decode the JSON from the request body
         $data = json_decode(file_get_contents('php://input'), true);
-
-        // Now check if the necessary data is present
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($data['id'], $data['imagePath'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE" && isset($data['id'], $data['imagePath'])) {
             $id = $data['id'];
             $imageToDelete = $data['imagePath'];
-
-            // Remove the image file from the folder
-            $projectRoot = realpath(__DIR__ . '/../../..');
-            $fullImagePath = $projectRoot . '/app/public/' . $imageToDelete;
-
-            // Check if file exists before trying to delete
-            if (file_exists($fullImagePath)) {
-                if (!unlink($fullImagePath)) {
-                    // File exists but couldn't be deleted
-                    echo json_encode(['success' => false, 'error' => 'Failed to delete the file from the server.']);
-                    return;  // Stop execution if we couldn't delete the file
-                }
-            } else {
-                // File does not exist, might already be deleted or wrong path provided
-                echo json_encode(['success' => false, 'error' => 'File does not exist on the server.']);
-                return;
-            }
+            ImageEditor::deleteImage($imageToDelete);
             $this->yummyService->deleteRestaurantImagePathGallery($id);
-
-            // Return a success message
             echo json_encode(['success' => true, 'message' => 'Image deleted successfully from both the server and the database.']);
 
         } else {
@@ -288,31 +237,18 @@ class RestaurantIndividualAdminController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            if (isset ($_POST['restaurantID'], $_FILES['image'])) {
+            if (isset($_POST['restaurantID'], $_FILES['image'])) {
                 $restaurantID = $_POST['restaurantID'];
                 $image = $_FILES['image'];
-                $projectRoot = realpath(__DIR__ . '/../../..');
-                $uploadsDir = $projectRoot . '/app/public/assets/images/yummy_event/restaurant_gallery';
 
-                if (!file_exists($uploadsDir)) {
-                    mkdir($uploadsDir, 0777, true);
-                }
-                $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+                $imageUrl = ImageEditor::saveImage('/app/public/assets/images/yummy_event/restaurant_gallery', $image);
 
-                if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
-                    $tmpName = $image['tmp_name'];
-                    $name = uniqid() . '-' . basename($image['name']);
-                    $destination = $uploadsDir . '/' . $name;
+                if ($imageUrl !== null) {
+                    $this->yummyService->addRestaurantImagePathGallery($restaurantID, $imageUrl);
+                    $imageId = $this->yummyService->getLastImageGalleryInsertedId();
 
-                    if (move_uploaded_file($tmpName, $destination)) {
-                        $imageUrl = "assets/images/yummy_event/restaurant_gallery/$name";
-                        $this->yummyService->addRestaurantImagePathGallery($restaurantID, $imageUrl);
-                        $imageId = $this->yummyService->getLastImageGalleryInsertedId();
+                    echo json_encode(['success' => true, 'message' => 'Image added successfully', 'imageId' => "$imageId", 'imageUrl' => "$imageUrl"]);
 
-                        echo json_encode(['success' => true, 'message' => 'Image added successfully', 'imageId' => "$imageId", 'imageUrl' => "$imageUrl"]);
-                    } else {
-                        echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
-                    }
                 } else {
                     echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
                 }

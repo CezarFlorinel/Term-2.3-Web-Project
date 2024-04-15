@@ -8,7 +8,7 @@ function deleteImageFromCarousel() {
 
             if (confirm('Are you sure you want to delete this image?')) {
                 fetch('/api/historyadmin/deleteImageFromCarousel', {
-                    method: 'POST',
+                    method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: id, imagePath: imagePath })
                 })
@@ -53,7 +53,7 @@ function editTopPart() {
             const subheader = subheaderEl.innerText;
 
             fetch('/api/historyadmin/updateTopPartInformation', {
-                method: 'POST',
+                method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     informationID: id,
