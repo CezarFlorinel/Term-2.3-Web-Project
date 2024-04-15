@@ -13,7 +13,7 @@ class RestaurantIndividualAdminController
     public function __construct()
     {
         $this->yummyService = new YummyService();
-
+        ImageEditor::initialize();
     }
 
     public function deleteRestaurant()
@@ -35,10 +35,8 @@ class RestaurantIndividualAdminController
             ];
             $images = array_merge($otherImages2, $otherImages);
 
-
             foreach ($images as $image) {
-                $fullImagePath = $projectRoot . '/app/public/' . $image['imagePath'];
-
+                ImageEditor::deleteImage($image['imagePath']);
             }
 
             $this->yummyService->deleteRestaurant($id);
