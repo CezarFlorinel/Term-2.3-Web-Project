@@ -40,7 +40,7 @@ function addNewQuestionAndAnswer() {
 
 function deleteHistoryPracticalInformation(id) {
     fetch("/api/historyadmin/deleteHistoryPracticalInformation", {
-        method: "POST",
+        method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
@@ -79,7 +79,7 @@ function deletePracticalInformation() {
 
 function updateHistoryPracticalInformation(id, question, answer) {
     fetch("/api/historyadmin/updateHistoryPracticalInformation", {
-        method: "POST",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json", // Correct content-type for JSON
         },

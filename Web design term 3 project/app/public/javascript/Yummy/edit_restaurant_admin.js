@@ -53,7 +53,6 @@ function editRestaurant() {
         const isEditing = container.hasAttribute('data-editing');
 
         if (isEditing) {
-            // Currently in edit mode, switch to view mode and save changes
             nameEl.contentEditable = 'false';
             locationEl.contentEditable = 'false';
             descriptionEl.contentEditable = 'false';
@@ -76,7 +75,7 @@ function editRestaurant() {
             const rating = numberStarsEl.value;
 
             fetch('/api/restaurantIndividualAdmin/updateRestaurantInformation', {
-                method: 'POST',
+                method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     restaurantID: id,
@@ -122,7 +121,7 @@ function deleteRestaurant() {
             const id = container.getAttribute('data-id');
 
             fetch('/api/restaurantIndividualAdmin/deleteRestaurant', {
-                method: 'POST',
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },

@@ -46,7 +46,7 @@ class HistoryAdminController
     {
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($data['id'], $data['imagePath'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE" && isset($data['id'], $data['imagePath'])) {
             $id = $data['id'];
             $imageToDelete = $data['imagePath'];
 
@@ -84,7 +84,7 @@ class HistoryAdminController
     }
     public function updateTopPartInformation()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['informationID'], $input['subheader'], $input['description'])) {
@@ -126,7 +126,7 @@ class HistoryAdminController
     }
     public function updateHistoryRouteInformation()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['informationID'], $input['locationName'], $input['locationDescription'], $input['wheelchairSupport'])) {
@@ -146,7 +146,7 @@ class HistoryAdminController
     }
     public function updateHistoryTicketPricesInformation()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['informationID'], $input['type'], $input['price'], $input['description'])) {
@@ -188,7 +188,7 @@ class HistoryAdminController
     }
     public function updateHistoryTourDeparturesTimetable()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['informationID'], $input['date'])) {
@@ -207,7 +207,7 @@ class HistoryAdminController
 
     public function updateHistoryTour()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PUT") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['informationID'], $input['startTime'], $input['englishTour'], $input['dutchTour'], $input['chineseTour'])) {
@@ -253,7 +253,7 @@ class HistoryAdminController
 
     public function updateHistoryTourStartingPointDescription()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PUT") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['informationID'], $input['description'])) {
@@ -272,7 +272,7 @@ class HistoryAdminController
 
     public function updateHistoryPracticalInformation()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PUT") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['informationID'], $input['question'], $input['answer'])) {
@@ -312,7 +312,7 @@ class HistoryAdminController
 
     public function deleteHistoryPracticalInformation()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['informationID'])) {

@@ -19,7 +19,7 @@ export function saveSession() {
             // Add fetch() call to send data to  your API here...
 
             fetch('/api/restaurantIndividualAdmin/updateRestaurantSession', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json', // Assuming your server expects JSON
                 },
@@ -49,7 +49,7 @@ export function deleteSession() {
 
             if (confirmation) {
                 fetch('/api/restaurantIndividualAdmin/deleteRestaurantSession', {
-                    method: 'POST',
+                    method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
                     },

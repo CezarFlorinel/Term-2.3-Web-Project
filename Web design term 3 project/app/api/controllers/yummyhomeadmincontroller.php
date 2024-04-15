@@ -17,7 +17,7 @@ class YummyHomeAdminController
 
     public function updateTopPartInformation()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['pageID'], $input['subheader'], $input['description'])) {
@@ -59,7 +59,7 @@ class YummyHomeAdminController
     }
     public function updateReservation()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PUT") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['reservationId'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'], $input['comment'], $input['active'])) {
@@ -84,7 +84,6 @@ class YummyHomeAdminController
             }
         }
     }
-
     public function createReservation()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -114,7 +113,6 @@ class YummyHomeAdminController
             }
         }
     }
-
     public function getSessionByRestaurantName()
     {
         if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['name'])) {
@@ -122,7 +120,8 @@ class YummyHomeAdminController
 
             $sessions = $this->yummyService->getSessionByRestaurantName($restaurantName);
 
-            echo json_encode($sessions); // Send sessions back as JSON
+            header('Content-Type: application/json');
+            echo json_encode($sessions);
         } else {
             http_response_code(400); // Bad Request
             echo json_encode(['message' => 'Missing required parameters']);

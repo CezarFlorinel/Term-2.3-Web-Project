@@ -19,7 +19,7 @@ class RestaurantIndividualAdminController
     public function deleteRestaurant()
     {
         $data = json_decode(file_get_contents('php://input'), true);
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($data['id'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE" && isset($data['id'])) {
             $id = $data['id'];
 
             $restaurant = $this->yummyService->getRestaurantById($id);
@@ -48,7 +48,7 @@ class RestaurantIndividualAdminController
 
     public function updateRestaurantInformation()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['restaurantID'], $input['name'], $input['location'], $input['numberOfSeats'], $input['descriptionTopPart'], $input['descriptionSideOne'], $input['descriptionSideTwo'], $input['rating'])) {
@@ -74,7 +74,7 @@ class RestaurantIndividualAdminController
 
     public function updateRestaurantCuisineTypes()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['restaurantID'], $input['cuisineTypes'])) {
@@ -116,7 +116,7 @@ class RestaurantIndividualAdminController
 
     public function updateRestaurantSession()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "PUT") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['id'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
@@ -140,7 +140,7 @@ class RestaurantIndividualAdminController
 
     public function deleteRestaurantSession()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['id'])) {
@@ -182,7 +182,7 @@ class RestaurantIndividualAdminController
 
     public function deleteReview()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
             $input = json_decode(file_get_contents('php://input'), true);
 
             if (isset($input['id'])) {
@@ -221,7 +221,7 @@ class RestaurantIndividualAdminController
     public function deleteImageGallery()
     {
         $data = json_decode(file_get_contents('php://input'), true);
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($data['id'], $data['imagePath'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE" && isset($data['id'], $data['imagePath'])) {
             $id = $data['id'];
             $imageToDelete = $data['imagePath'];
             ImageEditor::deleteImage($imageToDelete);
