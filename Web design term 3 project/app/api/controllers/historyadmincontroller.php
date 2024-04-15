@@ -3,62 +3,67 @@
 namespace App\Api\Controllers;
 
 use App\Services\HistoryService;
+use App\Utilities\ImageEditor;
+use App\Utilities\ErrorHandlerMethod;
 use Exception;
 
 class HistoryAdminController
 {
     private $historyService;
+    private $imageEditor;
 
     public function __construct()
     {
         $this->historyService = new HistoryService();
+        ImageEditor::initialize();
+    }
+
+    public function uploadNewImageCarousel()
+    {
+        try {
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
+                $image = $_FILES['image'];
+                $id = $_POST['id'];
+
+                $imageUrl = ImageEditor::saveImage("/app/public/assets/images/history_event/top_part", $image);
+
+                if ($imageUrl !== null) {
+                    $this->historyService->editImagePathHistoryTopPart($id, $imageUrl);
+                    echo json_encode(['success' => true, 'imageUrl' => '/' . $imageUrl]);
+                } else {
+                    echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
+            }
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'error' => 'An error occurred while processing the request.']);
+            error_log(print_r($e->getMessage(), true), 3, __DIR__ . '/../../file_with_erros_logs');
+        }
     }
 
     public function deleteImageFromCarousel()
     {
-        // Retrieve and decode the JSON from the request body
         $data = json_decode(file_get_contents('php://input'), true);
 
-        // Now check if the necessary data is present
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($data['id'], $data['imagePath'])) {
             $id = $data['id'];
-            $imageToDelete = $data['imagePath']; // Assuming this is a relative path from the project root.
-            error_log(print_r("I am DEAD: " . $imageToDelete, true), 3, __DIR__ . '/../../file_with_erros_logs'); // Log the input data
+            $imageToDelete = $data['imagePath'];
 
-            // Remove the image file from the folder
-            $projectRoot = realpath(__DIR__ . '/../../..');
-            $fullImagePath = $projectRoot . '/app/public/assets/images/' . $imageToDelete;
             $pathForSQLdelete = 'assets/images/' . $imageToDelete;
 
-            // Check if file exists before trying to delete
-            if (file_exists($fullImagePath)) {
-                if (!unlink($fullImagePath)) {
-                    // File exists but couldn't be deleted
-                    echo json_encode(['success' => false, 'error' => 'Failed to delete the file from the server.']);
-                    return;  // Stop execution if we couldn't delete the file
-                }
-            } else {
-                // File does not exist, might already be deleted or wrong path provided
-                echo json_encode(['success' => false, 'error' => 'File does not exist on the server.']);
-                return;
-            }
-
+            ImageEditor::deleteImage($pathForSQLdelete);
 
             $resultString = $this->remakeImageCarouselStringForDeletion($pathForSQLdelete);
 
-
-            // Now proceed to remove the image path from the database
             $this->historyService->editImagePathHistoryDelete($id, $resultString);
 
-            // Return a success message
             echo json_encode(['success' => true, 'message' => 'Image deleted successfully from both the server and the database.']);
 
         } else {
             echo json_encode(['success' => false, 'error' => 'Missing ID or imagePath.']);
         }
     }
-
-
     function remakeImageCarouselStringForDeletion($imageToDelete)
     {
         $topPart = $this->historyService->getHistoryTopParts();
@@ -77,51 +82,6 @@ class HistoryAdminController
         return $updatedImagePathString;
 
     }
-
-    public function uploadNewImageCarousel()
-    {
-        try {
-            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
-                $image = $_FILES['image'];
-                $id = $_POST['id'];
-
-                $projectRoot = realpath(__DIR__ . '/../../..');
-                $uploadsDir = $projectRoot . '/app/public/assets/images/history_event/top_part';
-                if (!file_exists($uploadsDir)) {
-                    mkdir($uploadsDir, 0777, true);
-                }
-                $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-
-                if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
-                    $uniqueSuffix = time() . '-' . rand(); // Ensuring unique filename
-                    $newFileName = $uniqueSuffix . '-' . basename($image['name']);
-                    $destination = $uploadsDir . '/' . $newFileName;
-
-                    if (move_uploaded_file($image['tmp_name'], $destination)) {
-                        // Construct the new image URL path
-                        $imageUrl = "assets/images/history_event/top_part/$newFileName";
-
-                        // error_log(print_r("id:" . $id . " imageURL: " . $imageUrl, true), 3, __DIR__ . '/../../file_with_erros_logs'); // Log the input data
-
-                        $this->historyService->editImagePathHistoryTopPart($id, $imageUrl);
-
-                        echo json_encode(['success' => true, 'imageUrl' => '/' . $imageUrl]);
-                    } else {
-                        echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
-                    }
-                } else {
-                    echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
-                }
-            } else {
-                echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
-            }
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'error' => 'An error occurred while processing the request.']);
-            error_log(print_r($e->getMessage(), true), 3, __DIR__ . '/../../file_with_erros_logs');
-        }
-    }
-
-
     public function updateTopPartInformation()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -136,41 +96,26 @@ class HistoryAdminController
 
                 echo json_encode(['message' => 'Top part updated successfully']);
             } else {
-                http_response_code(400); // Bad Request
+                http_response_code(400);
                 echo json_encode(['message' => 'Missing required fields']);
             }
         }
     }
-
     public function updateHistoryToursImages()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
             $image = $_FILES['image'];
             $id = $_POST['id'];
+            $currentImage = $this->historyService->getCurrentImagePathRoute($id);
+            $imageUrl = ImageEditor::saveImage("/app/public/assets/images/history_event/tours", $image);
 
-            $projectRoot = realpath(__DIR__ . '/../../..');
-            $uploadsDir = $projectRoot . '/app/public/assets/images/history_event/Route';
-            if (!file_exists($uploadsDir)) {
-                mkdir($uploadsDir, 0777, true);
-            }
-            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-
-            if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
-                $currentImage = $this->historyService->getCurrentImagePathRoute($id);
-                $tmpName = $image['tmp_name'];
-                $name = uniqid() . '-' . basename($image['name']);
-                $destination = $uploadsDir . '/' . $name;
-
-                if (move_uploaded_file($tmpName, $destination)) {
-                    $imageUrl = "/assets/images/history_event/Route/$name";
+            if ($imageUrl !== null) { {
                     $this->historyService->editImagePathHistoryRoute($id, $imageUrl);
 
                     if ($currentImage && $currentImage != $imageUrl) {
-                        @unlink($projectRoot . '/app/public/' . $currentImage);
+                        ImageEditor::deleteImage($currentImage);
                     }
                     echo json_encode(['success' => true, 'imageUrl' => $imageUrl]);
-                } else {
-                    echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
                 }
             } else {
                 echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
@@ -179,7 +124,6 @@ class HistoryAdminController
             echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
         }
     }
-
     public function updateHistoryRouteInformation()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -200,7 +144,6 @@ class HistoryAdminController
             }
         }
     }
-
     public function updateHistoryTicketPricesInformation()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -221,37 +164,21 @@ class HistoryAdminController
             }
         }
     }
-
     public function updateHistoryTicketPricesImages()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
             $image = $_FILES['image'];
             $id = $_POST['id'];
+            $currentImage = $this->historyService->getCurrentImagePathTicketPrices($id);
+            $imageUrl = ImageEditor::saveImage('/app/public/assets/images/history_event/tickets_types', $image);
 
-            $projectRoot = realpath(__DIR__ . '/../../..');
-            $uploadsDir = $projectRoot . '/app/public/assets/images/history_event/tickets_types';
-            if (!file_exists($uploadsDir)) {
-                mkdir($uploadsDir, 0777, true);
-            }
-            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            if ($imageUrl !== null) {
+                $this->historyService->editImagePathHistoryTicketPrices($id, $imageUrl);
 
-            if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
-                $currentImage = $this->historyService->getCurrentImagePathTicketPrices($id);
-                $tmpName = $image['tmp_name'];
-                $name = uniqid() . '-' . basename($image['name']);
-                $destination = $uploadsDir . '/' . $name;
-
-                if (move_uploaded_file($tmpName, $destination)) {
-                    $imageUrl = "/assets/images/history_event/tickets_types/$name";
-                    $this->historyService->editImagePathHistoryTicketPrices($id, $imageUrl);
-
-                    if ($currentImage && $currentImage != $imageUrl) {
-                        @unlink($projectRoot . '/app/public/' . $currentImage);
-                    }
-                    echo json_encode(['success' => true, 'imageUrl' => $imageUrl]);
-                } else {
-                    echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
+                if ($currentImage && $currentImage != $imageUrl) {
+                    ImageEditor::deleteImage($currentImage);
                 }
+                echo json_encode(['success' => true, 'imageUrl' => $imageUrl]);
             } else {
                 echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
             }
@@ -259,7 +186,6 @@ class HistoryAdminController
             echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
         }
     }
-
     public function updateHistoryTourDeparturesTimetable()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -306,32 +232,17 @@ class HistoryAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
             $image = $_FILES['image'];
             $id = $_POST['id'];
-            $columnName = $_POST['columnName']; // $columnName will be either 'MainImagePath' or 'SecondaryImagePath'
+            $columnName = $_POST['columnName'];
+            $currentImage = $this->historyService->getCurrentImagePathTourStartingPoint($id, $columnName);
+            $imageUrl = ImageEditor::saveImage("/app/public/assets/images/history_event/starting_point", $image);
 
-            $projectRoot = realpath(__DIR__ . '/../../..');
-            $uploadsDir = $projectRoot . '/app/public/assets/images/history_event/starting_point';
-            if (!file_exists($uploadsDir)) {
-                mkdir($uploadsDir, 0777, true);
-            }
-            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            if ($imageUrl !== null) {
+                $this->historyService->editImagePathsTourStartingPoint($id, $imageUrl, $columnName);
 
-            if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
-                $currentImage = $this->historyService->getCurrentImagePathTourStartingPoint($id, $columnName);
-                $tmpName = $image['tmp_name'];
-                $name = uniqid() . '-' . basename($image['name']);
-                $destination = $uploadsDir . '/' . $name;
-
-                if (move_uploaded_file($tmpName, $destination)) {
-                    $imageUrl = "/assets/images/history_event/starting_point/$name";
-                    $this->historyService->editImagePathsTourStartingPoint($id, $imageUrl, $columnName);
-
-                    if ($currentImage && $currentImage != $imageUrl) {
-                        @unlink($projectRoot . '/app/public/' . $currentImage);
-                    }
-                    echo json_encode(['success' => true, 'imageUrl' => $imageUrl]);
-                } else {
-                    echo json_encode(['success' => false, 'error' => 'Failed to save the file.']);
+                if ($currentImage && $currentImage != $imageUrl) {
+                    ImageEditor::deleteImage($currentImage);
                 }
+                echo json_encode(['success' => true, 'imageUrl' => $imageUrl]);
             } else {
                 echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
             }

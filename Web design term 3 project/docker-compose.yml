@@ -16,4 +16,6 @@ services:
         volumes:
             - ./app:/app
             - ./app/config/php.ini:/usr/local/etc/php/php.ini
+             - ./app/error_logs:/var/log/php
+
 

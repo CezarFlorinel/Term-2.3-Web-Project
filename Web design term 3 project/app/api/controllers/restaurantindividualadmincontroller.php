@@ -3,6 +3,8 @@
 namespace App\Api\Controllers;
 
 use App\Services\YummyService;
+use App\Utilities\ImageEditor;
+use App\Utilities\ErrorHandlerMethod;
 
 class RestaurantIndividualAdminController
 {
@@ -11,22 +13,16 @@ class RestaurantIndividualAdminController
     public function __construct()
     {
         $this->yummyService = new YummyService();
+
     }
 
     public function deleteRestaurant()
     {
-        // Retrieve and decode the JSON from the request body
         $data = json_decode(file_get_contents('php://input'), true);
-
-        // Now check if the necessary data is present
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($data['id'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($data['id'])) {
             $id = $data['id'];
 
-            // Remove the image files from the folder
-            $projectRoot = realpath(__DIR__ . '/../../..');
-
             $restaurant = $this->yummyService->getRestaurantById($id);
-
             $galleryImages = $this->yummyService->getRestaurantImagePathGallery($id);
             $otherImages2 = [];
             foreach ($galleryImages as $image) {
@@ -42,22 +38,14 @@ class RestaurantIndividualAdminController
 
             foreach ($images as $image) {
                 $fullImagePath = $projectRoot . '/app/public/' . $image['imagePath'];
-                if (file_exists($fullImagePath)) {
-                    unlink($fullImagePath);
-                }
+
             }
 
-            // Delete the restaurant from the database
             $this->yummyService->deleteRestaurant($id);
-
-            // Return a success message
             echo json_encode(['success' => true, 'message' => 'Restaurant deleted successfully']);
-
         } else {
             echo json_encode(['success' => false, 'error' => 'Missing ID.']);
         }
-
-
     }
 
     public function updateRestaurantInformation()
@@ -65,7 +53,7 @@ class RestaurantIndividualAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['restaurantID'], $input['name'], $input['location'], $input['numberOfSeats'], $input['descriptionTopPart'], $input['descriptionSideOne'], $input['descriptionSideTwo'], $input['rating'])) {
+            if (isset($input['restaurantID'], $input['name'], $input['location'], $input['numberOfSeats'], $input['descriptionTopPart'], $input['descriptionSideOne'], $input['descriptionSideTwo'], $input['rating'])) {
                 $id = $input['restaurantID'];
                 $name = $input['name'];
                 $location = $input['location'];
@@ -91,7 +79,7 @@ class RestaurantIndividualAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['restaurantID'], $input['cuisineTypes'])) {
+            if (isset($input['restaurantID'], $input['cuisineTypes'])) {
                 $id = $input['restaurantID'];
                 $cuisineTypes = $input['cuisineTypes'];
 
@@ -107,7 +95,7 @@ class RestaurantIndividualAdminController
 
     public function updateRestaurantImages()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
             $image = $_FILES['image'];
             $id = $_POST['id'];
             $columnName = $_POST['columnName'];
@@ -149,7 +137,7 @@ class RestaurantIndividualAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['id'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
+            if (isset($input['id'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
                 $id = $input['id'];
                 $availableSeats = $input['availableSeats'];
                 $pricesForAdults = $input['pricesForAdults'];
@@ -173,7 +161,7 @@ class RestaurantIndividualAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['id'])) {
+            if (isset($input['id'])) {
                 $id = $input['id'];
 
                 $this->yummyService->deleteRestaurantSession($id);
@@ -191,7 +179,7 @@ class RestaurantIndividualAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['restaurantID'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
+            if (isset($input['restaurantID'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
                 $restaurantID = $input['restaurantID'];
                 $availableSeats = $input['availableSeats'];
                 $pricesForAdults = $input['pricesForAdults'];
@@ -215,7 +203,7 @@ class RestaurantIndividualAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['id'])) {
+            if (isset($input['id'])) {
                 $id = $input['id'];
 
                 $this->yummyService->deleteRestaurantReview($id);
@@ -233,7 +221,7 @@ class RestaurantIndividualAdminController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $input = json_decode(file_get_contents('php://input'), true);
 
-            if (isset ($input['restaurantID'], $input['reviewText'], $input['rating'])) {
+            if (isset($input['restaurantID'], $input['reviewText'], $input['rating'])) {
                 $restaurantID = $input['restaurantID'];
                 $review = $input['reviewText'];
                 $rating = $input['rating'];
@@ -254,7 +242,7 @@ class RestaurantIndividualAdminController
         $data = json_decode(file_get_contents('php://input'), true);
 
         // Now check if the necessary data is present
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($data['id'], $data['imagePath'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($data['id'], $data['imagePath'])) {
             $id = $data['id'];
             $imageToDelete = $data['imagePath'];
 
@@ -288,7 +276,7 @@ class RestaurantIndividualAdminController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            if (isset ($_POST['restaurantID'], $_FILES['image'])) {
+            if (isset($_POST['restaurantID'], $_FILES['image'])) {
                 $restaurantID = $_POST['restaurantID'];
                 $image = $_FILES['image'];
                 $projectRoot = realpath(__DIR__ . '/../../..');

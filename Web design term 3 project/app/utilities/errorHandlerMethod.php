@@ -8,7 +8,7 @@ class ErrorHandlerMethod
     {
         http_response_code(500);
         echo json_encode(['success' => false, 'error' => "A fatal error has occurred! Please Try Again Later ;D"]);
-        error_log(date('Y-m-d H:i:s') . " - " . $e->getMessage() . "\n", 3, __DIR__ . '/../public/errorLogs/errorLogApis.txt');
+        error_log(date('Y-m-d H:i:s') . " - " . $e->getMessage() . "\n", 3, __DIR__ . '/../error_logs/php_errors.log');
     }
 
     public static function serverIsNotPostMethodCheck($sessionManager, $location, $serverReqestMethod)
