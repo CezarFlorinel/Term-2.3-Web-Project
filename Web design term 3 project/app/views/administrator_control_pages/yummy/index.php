@@ -5,11 +5,6 @@ $yummyService = new YummyService();
 $homepageDataRestaurant = $yummyService->getHomepageDataRestaurant();
 $restaurantsNameAndId = $yummyService->getRestaurantsNameAndId();
 $restaurantReservations = $yummyService->getAllReservations();
-
-
-
-
-
 ?>
 
 
@@ -92,17 +87,19 @@ $restaurantReservations = $yummyService->getAllReservations();
                                 </div>
 
                                 <div class="mb-4">
-                                    <p>Session Time: <span id="sessionTimeText">
+                                    <p>Session Time: <span class="sessionTimeText">
                                         </span></p>
                                     Session:
-                                    <select class="reservation-input bg-gray-200 p-2 rounded" data-field="session"
-                                        name="session" id="sessionDropdown">
+                                    <select class="sessionDropdown reservation-input bg-gray-200 p-2 rounded"
+                                        data-field="session" name="session"
+                                        data-sessions='<?php echo json_encode($sessions); ?>'>
                                         <?php foreach ($sessions as $session): ?>
-                                            <option value="<?php echo htmlspecialchars($session->sessionID); ?>" <?php echo $session->sessionID == $reservation->session ? 'selected' : ''; ?>>
+                                            <option value="<?php echo trim(htmlspecialchars($session->sessionID)); ?>" <?php echo $session->sessionID == $reservation->session ? 'selected' : ''; ?>>
                                                 <?php echo htmlspecialchars($session->sessionID); ?>
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
+
                                 </div>
 
                                 <div class="mb-4">First Name:
@@ -277,15 +274,13 @@ $restaurantReservations = $yummyService->getAllReservations();
             </div>
 
         </div>
-
-
     </div>
 
     <script type="application/json" id="sessionData">
     <?php echo json_encode($sessions); ?>
     </script>
 
-    <script src="javascript/Yummy/yummy_home_admin.js"></script>
+    <script type="module" src="javascript/Yummy/yummy_home_admin.js"></script>
 
 </body>
 

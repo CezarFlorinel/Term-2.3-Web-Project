@@ -1,6 +1,5 @@
 /* The top image section --------------------------------------------------------------------------- */
 .start-image-container {
-    background-image: url('../assets/images/history_event/Amsterdamse_Poort.jpg');
     background-size: cover;
     background-position: center;
     min-height: 100vh;
@@ -58,11 +57,8 @@
     background-size: 1200px 200px;
     background-repeat: no-repeat;
     background-position: center;
-    /* Keeps the image centered */
     height: 300px;
-    /* Adjust the height as needed */
     width: 100%;
-    /* Adjust the width as needed */
 }
 
 .event-info-text-container {

@@ -263,10 +263,10 @@
                 </div>
             </div>
         </div>
-
     </div>
 
-    <script src="javascript/History/admin_part.js"></script>
+    <script type="module" src="javascript/History/admin_part.js"></script>
+
 </body>
 
 
