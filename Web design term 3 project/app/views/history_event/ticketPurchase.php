@@ -10,13 +10,14 @@
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    padding-bottom: 20px;
     background-color: black;
     color: white;
     display: flex;
     flex-direction: column; /* Stack content vertically */
-    min-height: 200vh; /* Adjust to ensure full viewport height is usable */
+    min-height: 200vh;
     width: 100%; /* Changed from 100vw to prevent potential scrollbar issues */
-    overflow-x: hidden; /* Keep to prevent horizontal overflow */
+    overflow-x: hidden;
 }
 
 .main-container {
@@ -60,32 +61,58 @@
         max-width: 1200px; /* Maximum content width */
         margin: 20px auto; /* Center content and add spacing */
     }
-    /* .image-section {
+
+     .image-section {
         margin-right: 20px;
     }
+
     .image-section img {
-        height: 85.5vh;
-        min-width: 100%;
-        width: auto;
-        display: block;
-        max-width: none;
-    } */
+    width: 100%;  /* Ensure width is fully responsive */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 600px; /* Limit maximum size to keep the image reasonable */
+}
+
     .booking-form {
-    padding: 20px; /* Increased padding */
+    padding: 40px; /* Increased padding */
     background-color: #f8f9fa;
     border-radius: 10px;
     margin: 20px auto; /* Added space around the form */
     font-size: 0.9rem; /* Smaller relative font size */
-}
-.booking-form label, .booking-form input, .booking-form button {
+    }
+    .booking-form label, .booking-form input, .booking-form button {
     font-size: 1em; /* Relative size to the .booking-form */
-}
+    }
 
-@media (max-width: 768px){
+    @media (max-width: 1200px) {
+
+        body{
+            min-height: 300vh;
+            padding-bottom: 50px;
+        }
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding-bottom: 20px;
+    }
+
+    .image-section,
     .booking-form {
-        padding: 15px; /* Adjust padding for smaller screens */
-        margin: 10px; /* Ensure it doesn’t touch the borders */
-        font-size: 0.8rem; /* Even smaller font size for very small devices */
+        width: 100%; /* Make both children take full width of their container */
+        max-width: 600px; /* Set a max-width to keep content from getting too wide */
+        margin: 10px auto; /* Centering these elements horizontally */
+    }
+
+    .image-section img {
+        width: 100%; /* Make the image responsive */
+        height: auto; /* Maintain aspect ratio */
+        margin-bottom: 20px; /* Add space between the image and the form */
+    }
+
+    .booking-form {
+        box-sizing: border-box; /* Include padding and border in the width of the element */
+        padding: 20px; /* Ensure there's enough padding inside the form */
     }
 }
 
@@ -94,6 +121,7 @@
     }
     .form-group {
         margin-bottom: 15px;
+        
     }
     .form-group label {
         font-family: "Imprima";
@@ -216,10 +244,12 @@
          Join our immersive tour,<br> where tales of the past come alive in English,
           Dutch, and Chinese, offering a truly multilingual exploration of this enchanting city.</p>
     </div>
-    <!-- <div class="content mx-auto max-w-4xl p-4 flex flex-col md:flex-row items-center justify-center gap-4">
+    
+    <div class="content mx-auto max-w-4xl p-4 flex flex-col md:flex-row items-center justify-center gap-4">
     <div class="image-section w-full md:w-1/2 flex justify-center items-center mb-4 md:mb-0 order-1 md:order-1">
         <img src="assets/images/history_event/history_ticket_purchase/Church-HistoryTicket.png" alt="Saint Bavo" class="max-w-full h-auto">
-    </div> -->
+    </div>
+
     <div class="booking-form w-full md:w-1/2 grid gap-4 order-2 md:order-2">
         <div class="form-group flag-icons flex justify-center items-center gap-2">
             <label class="block text-sm font-medium text-gray-700">Selected Language</label>
