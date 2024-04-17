@@ -2,20 +2,17 @@ export function saveReservation() {
     document.querySelectorAll('.save-reservation-btn').forEach(button => {
         button.addEventListener('click', function () {
             const form = this.closest('form'); // Find the form element that the button belongs to
-            const formData = new FormData(form); // Create FormData object from the form
+            const formData = new FormData(form);
             const reservationData = {};
-
             // Convert FormData entries into a regular object for JSON encoding
             for (let [key, value] of formData.entries()) {
                 reservationData[key] = value;
             }
-
             // Convert 'active' field from string to boolean
             reservationData['active'] = formData.get('active') === 'on';
 
-            // Send data to API using fetch
             fetch('/api/YummyHomeAdmin/updateReservation', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },

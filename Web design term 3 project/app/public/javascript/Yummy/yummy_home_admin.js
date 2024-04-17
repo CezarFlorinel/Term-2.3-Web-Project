@@ -37,7 +37,6 @@ function editTopPart() {
         const isEditing = container.hasAttribute('data-editing');
 
         if (isEditing) {
-            // Currently in edit mode, switch to view mode and save changes
             descriptionEl.contentEditable = 'false';
             subheaderEl.contentEditable = 'false';
             this.textContent = 'Edit';
@@ -49,7 +48,7 @@ function editTopPart() {
             const subheader = subheaderEl.innerText;
 
             fetch('/api/YummyHomeAdmin/updateTopPartInformation', {
-                method: 'POST',
+                method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     pageID: id,

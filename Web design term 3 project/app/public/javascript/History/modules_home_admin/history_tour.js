@@ -1,6 +1,6 @@
 function updateHistoryTour(id, startTime, englishTour, dutchTour, chineseTour) {
     fetch("/api/historyadmin/updateHistoryTour", {
-        method: "POST",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
@@ -84,9 +84,8 @@ function editTourPlace() {
                 const locationDescription = locationDescriptionElement.innerText;
                 const wheelchairSupport = wheelchairSupportCheckbox.checked;
 
-                // Send data to server
                 fetch('/api/historyadmin/updateHistoryRouteInformation', {
-                    method: 'POST',
+                    method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         informationID: id,
@@ -151,7 +150,7 @@ function handleEditableFields(button, updateFunction) {
 
 function updateHistoryStartingPointDescription(id, description) {
     fetch("/api/historyadmin/updateHistoryTourStartingPointDescription", {
-        method: "POST",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
@@ -167,7 +166,7 @@ function updateHistoryStartingPointDescription(id, description) {
 
 function updateHistoryTourDeparturesTimetable(id, date) {
     fetch("/api/historyadmin/updateHistoryTourDeparturesTimetable", {
-        method: "POST",
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
         },

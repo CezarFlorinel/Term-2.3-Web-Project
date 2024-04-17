@@ -4,7 +4,7 @@ export function deleteImageFunction() {
 
     if (confirm('Are you sure you want to delete this image?')) {
         fetch('/api/restaurantIndividualAdmin/deleteImageGallery', {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },

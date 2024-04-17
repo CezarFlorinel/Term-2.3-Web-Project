@@ -37,7 +37,7 @@ function handleEditableFieldsForTicketPrices(button, updateFunction) {
 
 function updateHistoryTicketPrices(id, price, type, description) {
     fetch("/api/historyadmin/updateHistoryTicketPricesInformation", {
-        method: "POST",
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
         },

@@ -9,7 +9,7 @@ export function deleteReview() {
 
             if (confirmation) {
                 fetch('/api/restaurantIndividualAdmin/deleteReview', {
-                    method: 'POST',
+                    method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
                     },

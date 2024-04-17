@@ -44,6 +44,7 @@ class UserController
 
     public function getAllUsers()
     {
+        //implement some kind of protection for methods that should only be accessed by admins
         $users = $this->userService->getAllUsers();
         echo json_encode(['status' => 'success', 'data' => $users]);
     }
@@ -65,15 +66,15 @@ class UserController
         $jsonInput = file_get_contents('php://input');
         $data = json_decode($jsonInput, true);
 
-        
+
         if ($data !== null) {
-        
+
 
 
             $sanitizedData = filter_var_array($data, $this->filters, false);
 
             if ($sanitizedData !== false && !in_array(false, $sanitizedData, true)) {
-                
+
                 $user = new User($sanitizedData);
 
                 $this->userService->createUser($user);

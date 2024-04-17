@@ -3,7 +3,6 @@
 <?php
 include __DIR__ . '/../header.php';
 ?>
-
 <html>
 
 <head>
@@ -18,234 +17,13 @@ include __DIR__ . '/../header.php';
 </head>
 
 <body>
-    <div class="start-image-container" id="carousel">
-        <div class="start-image-text">
-            <h1 class="text-1-h">HAARLEM</h1>
-            <h1 class="text-2-h">Festival</h1>
-            <h1 class="text-3-h">A Stroll Through History</h1>
-        </div>
-        <div class="arrows-images-container">
-            <img class="start-image-arrow" id="arrow-left" src="assets/images/elements/arrow-left 1.png" alt="Previous">
-            <img class="start-image-arrow" id="arrow-right" src="assets/images/elements/arrow-right 1.png" alt="Next">
-        </div>
-    </div>
 
-    <?php
-    if ($historyTopPart !== null): ?>
-        <div class="event-info-container">
-            <h1 class="event-info-header">
-                <?php echo htmlspecialchars($historyTopPart->subheader); ?>
-            </h1>
-            <img class="sound-icon" src="assets/images/elements/Vector.png" alt="Read Aloud" id="read-aloud-button">
-        </div>
-
-        <div class="back-image">
-            <div class="event-info-text-container">
-                <p class="event-info-h" id="text-to-read">
-                    <?php echo htmlspecialchars($historyTopPart->description); ?>
-                </p>
-            </div>
-        </div>
-    <?php endif; ?>
-
-
-
-    <!-- ------------------------------- -->
-    <div class="event-info-container">
-        <h1 class="event-info-header">Route</h1>
-    </div>
-
-
-    <div class="container-route">
-        <img class="route-image" src="<?php echo htmlspecialchars($firstHistoryRoute->mainImagePath); ?>"
-            alt="History Event">
-
-        <div id="overlayInfo" class="overlay-info" style="display: none;">
-            <img id="overlayImage" class="detail-image" alt="Detail Image">
-            <p id="overlayText" class="detail-text">Some information about the location</p>
-        </div>
-
-        <div class="route-info-container">
-            <h1 class="route-info-header">LOCATIONS WE ARE EXPLORING:</h1>
-
-            <?php foreach ($historyRoutes as $historyRoute): ?>
-                <div class="route-text-info"
-                    data-image-url="<?php echo htmlspecialchars($historyRoute->locationImagePath); ?>"
-                    data-info-text="<?php echo htmlspecialchars($historyRoute->locationDescription); ?>">
-
-                    <img class="route-text-sign-arrow" src="assets/images/elements/arrow-route .png" alt="History Event">
-                    <p class="route-text">
-                        <?php echo htmlspecialchars($historyRoute->locationName); ?>
-                    </p>
-                    <?php if ($historyRoute->wheelchairSupport): ?>
-                        <img class="route-text-sign-wheelchair" src="assets/images/elements/MUTCD_D9-6 1.png"
-                            alt="History Event">
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-
-    <div class="The-button">
-
-        <button type="button" class="btn1">Check Festival Schedule</button>
-    </div>
-
-    <!-- ------------------------------- -->
-
-    <div class="event-info-container">
-        <h1 class="event-info-header">Ticket Prices</h1>
-    </div>
-
-    <div class="ticket-price-container">
-
-        <div class="ticket-price-info">
-            <img class="ticket-price-image" src="<?php echo htmlspecialchars($firstHistoryTicket->imagePath); ?>"
-                alt="History Event">
-            <div class="ticket-price-info-text">
-                <h1 class="ticket-price-header">
-                    <?php echo htmlspecialchars($firstHistoryTicket->ticketType); ?>
-                </h1>
-                <p class="ticket-price-text">
-                    <?php echo htmlspecialchars(number_format($firstHistoryTicket->price, 2, '.', '')) . ' €'; ?>
-                </p>
-                <p class="ticket-price-text">
-                    <?php echo htmlspecialchars($firstHistoryTicket->description); ?>
-                </p>
-                <a href="/tickethistory">
-                    <button type="button" class="btn2">Buy Now</button>
-                </a>
-            </div>
-        </div>
-
-        <div class="ticket-price-info-2">
-            <div class="ticket-price-info-text-2">
-                <h1 class="ticket-price-header-2">
-                    <?php echo htmlspecialchars($secondHistoryTicket->ticketType); ?>
-                </h1>
-                <p class="ticket-price-text-2">
-                    <?php echo htmlspecialchars(number_format($secondHistoryTicket->price, 2, '.', '')) . ' €'; ?>
-                </p>
-                <p class="ticket-price-text-2">
-                    <?php echo htmlspecialchars($secondHistoryTicket->description); ?>
-                </p>
-
-                <button type="button" class="btn2">Buy Now</button>
-            </div>
-            <img class="ticket-price-image-2" src="<?php echo htmlspecialchars($secondHistoryTicket->imagePath); ?>"
-                alt="History Event">
-        </div>
-    </div>
-
-    <!-- ------------------------------- -->
-
-    <div class="event-info-container">
-        <h1 class="event-info-header">Tour Departures Timetable</h1>
-    </div>
-
-    <div class="timetables-grid-container">
-
-        <?php foreach ($historyTourDeparturesTimetables as $timetable): ?>
-            <?php
-            // Convert string date to PHP DateTime object
-            $dateObject = new DateTime($timetable->date);
-
-            $day = $dateObject->format('d'); // Day of the month
-            $month = $dateObject->format('M'); // Month as three letters
-            $dayOfWeek = $dateObject->format('l'); // Full name of the day of the week
-            ?>
-            <div class="timetable-day">
-                <h1 class="timetable-day-header">
-                    <?php echo htmlspecialchars($day); ?>
-                </h1>
-                <p class="timetable-day-text1">
-                    <?php echo htmlspecialchars($month); ?>
-                </p>
-                <p class="timetable-day-text2">
-                    <?php echo htmlspecialchars($dayOfWeek); ?>
-                </p>
-            </div>
-        <?php endforeach; ?>
-
-
-
-        <?php foreach ($historyTours as $index => $tour): ?>
-            <div class="timetable-booking-item" id="booking-item-<?php echo $index; ?>">
-                <div class="initial-content">
-                    <p class="timetable-booking-text">Time:
-                        <?php echo htmlspecialchars((new DateTime($tour->startTime))->format('H:i')); ?>
-                    </p>
-                    <?php if ($tour->englishTour > 0): ?>
-                        <div class="booking-item-flagAndText">
-                            <p class="timetable-booking-text">English Tours</p>
-                            <?php for ($i = 0; $i < $tour->englishTour; $i++): ?>
-                                <img class="timetable-booking-image" src="assets/images/elements/Uk-flag-small.png"
-                                    alt="English Tour">
-                            <?php endfor; ?>
-                        </div>
-                    <?php endif; ?>
-                    <?php if ($tour->dutchTour > 0): ?>
-                        <div class="booking-item-flagAndText">
-                            <p class="timetable-booking-text">Dutch Tours</p>
-                            <?php for ($i = 0; $i < $tour->dutchTour; $i++): ?>
-                                <img class="timetable-booking-image" src="assets/images/elements/download 3.png" alt="Dutch Tour">
-                            <?php endfor; ?>
-                        </div>
-                    <?php endif; ?>
-                    <?php if ($tour->chineseTour > 0): ?>
-                        <div class="booking-item-flagAndText">
-                            <p class="timetable-booking-text">Chinese Tours</p>
-                            <?php for ($i = 0; $i < $tour->chineseTour; $i++): ?>
-                                <img class="timetable-booking-image" src="assets/images/elements/download 5.png" alt="Chinese Tour">
-                            <?php endfor; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <button type="button" class="btn3" data-booking-id="<?php echo $index; ?>">Book</button>
-            </div>
-        <?php endforeach; ?>
-
-
-    </div>
-
-    <!-- ------------------------------- -->
-    <div class="event-info-container">
-        <h1 class="event-info-header">Starting Point Of The Tour</h1>
-    </div>
-
-    <div class="map-container">
-        <img class="starting-point-image"
-            src="<?php echo htmlspecialchars($historyTourStartingPoints->mainImagePath); ?>" alt="History Event">
-        <div class="map-info-container">
-            <p class="map-info-text">
-                <?php echo htmlspecialchars($historyTourStartingPoints->description); ?>
-            </p>
-            <img class="map-info-image"
-                src="<?php echo htmlspecialchars($historyTourStartingPoints->secondaryImagePath); ?>"
-                alt="History Event">
-        </div>
-    </div>
-
-
-    <!-- ------------------------------- -->
-    <div class="event-info-container">
-        <h1 class="event-info-header">Practical Information</h1>
-    </div>
-
-    <div class="practical-info-container">
-        <?php foreach ($historyPracticalInformation as $practicalInformation): ?>
-            <div class="practical-info-item">
-                <img class="practical-info-sign toggle-sign" src="assets/images/elements/+ sign.png" alt="Toggle Answer"
-                    data-toggle="closed">
-                <p class="practical-info-text">
-                    <?php echo htmlspecialchars($practicalInformation->question); ?>
-                </p>
-            </div>
-            <div class="practical-info-answer" style="display:none;">
-                <?php echo htmlspecialchars($practicalInformation->answer); ?>
-            </div>
-        <?php endforeach; ?>
-    </div>
+    <?php include __DIR__ . '/../../components/festival/history_event/topDescriptionAndCarousel.php'; ?>
+    <?php include __DIR__ . '/../../components/festival/history_event/route.php'; ?>
+    <?php include __DIR__ . '/../../components/festival/history_event/ticketPrices.php'; ?>
+    <?php include __DIR__ . '/../../components/festival/history_event/tourDeparturesTimetable.php'; ?>
+    <?php include __DIR__ . '/../../components/festival/history_event/startingPoint.php'; ?>
+    <?php include __DIR__ . '/../../components/festival/history_event/practicalInformation.php'; ?>
 
     <!-- ------------------------------- -->
     <div class="event-info-container">
@@ -311,7 +89,7 @@ include __DIR__ . '/../header.php';
         document.addEventListener('DOMContentLoaded', (event) => {
             const images = [
                 <?php foreach ($arrayWithImagePathsCarousel as $imagePath): ?>
-                                        '<?php echo htmlspecialchars($imagePath); ?>',
+                                                                '<?php echo htmlspecialchars($imagePath); ?>',
                 <?php endforeach; ?>
             ];
 
