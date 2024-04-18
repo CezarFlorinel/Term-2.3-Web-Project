@@ -23,7 +23,7 @@ class HistoryAdminController
         try {
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
                 $image = $_FILES['image'];
-                $id = $_POST['id'];
+                $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
 
                 $imageUrl = ImageEditor::saveImage("/app/public/assets/images/history_event/top_part", $image);
 
@@ -48,7 +48,7 @@ class HistoryAdminController
         try {
             $data = json_decode(file_get_contents('php://input'), true);
             if ($_SERVER["REQUEST_METHOD"] == "DELETE" && isset($data['id'], $data['imagePath'])) {
-                $id = $data['id'];
+                $id = filter_var($data['id'], FILTER_VALIDATE_INT);
                 $imageToDelete = $data['imagePath'];
 
                 $pathForSQLdelete = 'assets/images/' . $imageToDelete;
@@ -93,9 +93,9 @@ class HistoryAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['informationID'], $input['subheader'], $input['description'])) {
-                    $id = $input['informationID'];
-                    $subheader = $input['subheader'];
-                    $description = $input['description'];
+                    $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
+                    $subheader = htmlspecialchars($input['subheader']);
+                    $description = htmlspecialchars($input['description']);
 
                     $this->historyService->editHistoryTopPart($id, $subheader, $description);
 
@@ -117,7 +117,7 @@ class HistoryAdminController
         try {
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
                 $image = $_FILES['image'];
-                $id = $_POST['id'];
+                $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
                 $currentImage = $this->historyService->getCurrentImagePathRoute($id);
                 $imageUrl = ImageEditor::saveImage("/app/public/assets/images/history_event/tours", $image);
 
@@ -148,14 +148,14 @@ class HistoryAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['informationID'], $input['locationName'], $input['locationDescription'], $input['wheelchairSupport'])) {
-                    $id = $input['informationID'];
-                    $locationName = $input['locationName'];
-                    $locationDescription = $input['locationDescription'];
-                    $wheelchairSupport = $input['wheelchairSupport'];
+                    $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
+                    $locationName = htmlspecialchars($input['locationName']);
+                    $locationDescription = htmlspecialchars($input['locationDescription']);
+                    $wheelchairSupport = filter_var($input['wheelchairSupport'], FILTER_VALIDATE_BOOLEAN);  // MAY CAUSE AN ERROR
 
                     $this->historyService->editHistoryRoute($id, $locationName, $locationDescription, $wheelchairSupport);
 
-                    echo json_encode(['message' => 'Route updated successfully']);
+                    echo json_encode(['success' => true, 'message' => 'Route updated successfully']);
                 } else {
                     http_response_code(400);
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
@@ -172,10 +172,10 @@ class HistoryAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['informationID'], $input['type'], $input['price'], $input['description'])) {
-                    $id = $input['informationID'];
-                    $ticketType = $input['type'];
-                    $price = $input['price'];
-                    $description = $input['description'];
+                    $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
+                    $ticketType = htmlspecialchars($input['type']);
+                    $price = filter_var($input['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                    $description = htmlspecialchars($input['description']);
 
                     $this->historyService->editHistoryTicketPrices($id, $ticketType, $price, $description);
 
@@ -195,7 +195,7 @@ class HistoryAdminController
         try {
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'])) {
                 $image = $_FILES['image'];
-                $id = $_POST['id'];
+                $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
                 $currentImage = $this->historyService->getCurrentImagePathTicketPrices($id);
                 $imageUrl = ImageEditor::saveImage('/app/public/assets/images/history_event/tickets_types', $image);
 
@@ -225,8 +225,8 @@ class HistoryAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['informationID'], $input['date'])) {
-                    $id = $input['informationID'];
-                    $date = $input['date'];
+                    $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
+                    $date = htmlspecialchars($input['date']);
 
                     $this->historyService->editHistoryTourDeparturesTimetables($id, $date);
 
@@ -248,11 +248,11 @@ class HistoryAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['informationID'], $input['startTime'], $input['englishTour'], $input['dutchTour'], $input['chineseTour'])) {
-                    $id = $input['informationID'];
-                    $startTime = $input['startTime'];
-                    $englishTour = $input['englishTour'];
-                    $dutchTour = $input['dutchTour'];
-                    $chineseTour = $input['chineseTour'];
+                    $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
+                    $startTime = htmlspecialchars($input['startTime']);
+                    $englishTour = filter_var($input['englishTour'], FILTER_VALIDATE_INT);
+                    $dutchTour = filter_var($input['dutchTour'], FILTER_VALIDATE_INT);
+                    $chineseTour = filter_var($input['chineseTour'], FILTER_VALIDATE_INT);
 
                     $this->historyService->editHistoryTours($id, $startTime, $englishTour, $dutchTour, $chineseTour);
 
@@ -273,8 +273,8 @@ class HistoryAdminController
         try {
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
                 $image = $_FILES['image'];
-                $id = $_POST['id'];
-                $columnName = $_POST['columnName'];
+                $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
+                $columnName = htmlspecialchars($_POST['columnName']);
                 $currentImage = $this->historyService->getCurrentImagePathTourStartingPoint($id, $columnName);
                 $imageUrl = ImageEditor::saveImage("/app/public/assets/images/history_event/starting_point", $image);
 
@@ -305,8 +305,8 @@ class HistoryAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['informationID'], $input['description'])) {
-                    $id = $input['informationID'];
-                    $description = $input['description'];
+                    $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
+                    $description = htmlspecialchars($input['description']);
 
                     $this->historyService->editHistoryTourStartingPoint($id, $description);
 
@@ -328,9 +328,9 @@ class HistoryAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['informationID'], $input['question'], $input['answer'])) {
-                    $id = $input['informationID'];
-                    $question = $input['question'];
-                    $answer = $input['answer'];
+                    $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
+                    $question = htmlspecialchars($input['question']);
+                    $answer = htmlspecialchars($input['answer']);
 
                     $this->historyService->editHistoryPracticalInformation($id, $question, $answer);
 
@@ -352,8 +352,8 @@ class HistoryAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['question'], $input['answer'])) {
-                    $question = $input['question'];
-                    $answer = $input['answer'];
+                    $question = htmlspecialchars($input['question']);
+                    $answer = htmlspecialchars($input['answer']);
 
                     $this->historyService->addHistoryPracticalInformation($question, $answer);
 
@@ -376,7 +376,7 @@ class HistoryAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['informationID'])) {
-                    $id = $input['informationID'];
+                    $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
 
                     $this->historyService->deleteHistoryPracticalInformation($id);
 

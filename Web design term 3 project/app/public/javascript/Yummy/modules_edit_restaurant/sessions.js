@@ -4,7 +4,7 @@ export function saveSession() {
         button.addEventListener('click', function () {
             const card = this.closest('.card-container'); // Correctly target the closest card container
             const sessionId = card.getAttribute('data-id');
-            // Gather data from all fields...
+
             const payload = {
                 id: sessionId,
                 availableSeats: card.querySelector('[data-field="availableSeats"]').value,
@@ -14,21 +14,18 @@ export function saveSession() {
                 startTime: card.querySelector('[data-field="startTime"]').value,
                 endTime: card.querySelector('[data-field="endTime"]').value,
             };
-            // Post payload to server...
-            console.log('Saving session', payload);
-            // Add fetch() call to send data to  your API here...
 
             fetch('/api/restaurantIndividualAdmin/updateRestaurantSession', {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json', // Assuming your server expects JSON
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(payload),
             })
                 .then(response => response.json())
                 .then(data => {
                     alert('Session updated successfully.');
-                    console.log('Success:', data); // You can remove or modify this line based on your needs
+                    console.log('Success:', data);
                 })
                 .catch(error => {
                     console.error('Error:', error);

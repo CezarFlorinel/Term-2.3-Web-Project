@@ -15,10 +15,8 @@
                 </p>
             </div>
             <div class="flex items-start">
-                <!-- Edit Button -->
                 <button
                     class="edit-practical-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Edit</button>
-                <!-- Delete Button -->
                 <button
                     class="delete-practical-btn ml-2 py-2 px-4 bg-red-500 text-white rounded hover:bg-red-700 transition duration-150">Delete</button>
             </div>

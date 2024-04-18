@@ -1,10 +1,10 @@
 <!-- Reservations Section ------------------------------------------------------- -->
 <h1 class="text-3xl text-center mb-6">Reservations</h1>
-<div class="flex flex-wrap -mx-4"> <!-- Container for the cards -->
+<div class="flex flex-wrap -mx-4"> <!-- container for the cards -->
     <?php foreach ($restaurantReservations as $reservation): ?>
         <?php $sessions = $yummyService->getRestaurantSession($reservation->restaurantID) ?>
         <div class="card-container p-4 md:w-1/2 lg:w-1/3">
-            <div class="bg-white shadow-md rounded-lg overflow-hidden p-6"> <!-- Card styling -->
+            <div class="bg-white shadow-md rounded-lg overflow-hidden p-6">
                 <form class="reservation-form">
 
                     <div class="mb-4">
@@ -73,10 +73,10 @@
                     </div>
                     <div class="mb-4">
                         <p class="activeCheckboxParagraph">Is Reservation Active:</p>
-                        <input type="checkbox" class="reservation-input large-checkbox" <?php echo $reservation->isActive ? 'checked' : ''; ?> data-field="active" name="active">
+                        <input type="checkbox" class="reservation-input large-checkbox" <?php echo htmlspecialchars($reservation->isActive) ? 'checked' : ''; ?> data-field="active" name="active">
                     </div>
 
-                    <input type="hidden" name="reservationId" value="<?php echo $reservation->ID; ?>">
+                    <input type="hidden" name="reservationId" value="<?php echo htmlspecialchars($reservation->ID); ?>">
                     <button type="button"
                         class="save-reservation-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Save</button>
                 </form>

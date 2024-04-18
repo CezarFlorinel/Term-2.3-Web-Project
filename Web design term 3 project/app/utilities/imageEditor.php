@@ -7,7 +7,7 @@ class ImageEditor
     private static $projectRoot;
     private static $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
     private static $substringToRemove = "/app/public/";
-    private const ImageSizeLimit = 10000000; // 10MB
+    private static const ImageSizeLimit = 10000000; // 10MB
 
     public static function initialize() // initialize this before use
     {

@@ -21,7 +21,7 @@ class RestaurantIndividualAdminController
         try {
             $data = json_decode(file_get_contents('php://input'), true);
             if ($_SERVER["REQUEST_METHOD"] == "DELETE" && isset($data['id'])) {
-                $id = $data['id'];
+                $id = filter_var($data['id'], FILTER_VALIDATE_INT);
 
                 $restaurant = $this->yummyService->getRestaurantById($id);
                 $galleryImages = $this->yummyService->getRestaurantImagePathGallery($id);
@@ -58,14 +58,14 @@ class RestaurantIndividualAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['restaurantID'], $input['name'], $input['location'], $input['numberOfSeats'], $input['descriptionTopPart'], $input['descriptionSideOne'], $input['descriptionSideTwo'], $input['rating'])) {
-                    $id = $input['restaurantID'];
-                    $name = $input['name'];
-                    $location = $input['location'];
-                    $numberOfSeats = $input['numberOfSeats'];
-                    $descriptionTopPart = $input['descriptionTopPart'];
-                    $descriptionSideOne = $input['descriptionSideOne'];
-                    $descriptionSideTwo = $input['descriptionSideTwo'];
-                    $rating = $input['rating'];
+                    $id = filter_var($input['restaurantID'], FILTER_VALIDATE_INT);
+                    $name = htmlspecialchars($input['name']);
+                    $location = htmlspecialchars($input['location']);
+                    $numberOfSeats = filter_var($input['numberOfSeats'], FILTER_VALIDATE_INT);
+                    $descriptionTopPart = htmlspecialchars($input['descriptionTopPart']);
+                    $descriptionSideOne = htmlspecialchars($input['descriptionSideOne']);
+                    $descriptionSideTwo = htmlspecialchars($input['descriptionSideTwo']);
+                    $rating = filter_var($input['rating'], FILTER_VALIDATE_INT);
 
                     $this->yummyService->editRestaurant($id, $name, $location, $numberOfSeats, $rating, $descriptionTopPart, $descriptionSideOne, $descriptionSideTwo);
 
@@ -90,8 +90,8 @@ class RestaurantIndividualAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['restaurantID'], $input['cuisineTypes'])) {
-                    $id = $input['restaurantID'];
-                    $cuisineTypes = $input['cuisineTypes'];
+                    $id = filter_var($input['restaurantID'], FILTER_VALIDATE_INT);
+                    $cuisineTypes = htmlspecialchars($input['cuisineTypes']);
 
                     $this->yummyService->editRestaurantTypeOfCuisine($id, $cuisineTypes);
 
@@ -114,8 +114,8 @@ class RestaurantIndividualAdminController
         try {
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
                 $image = $_FILES['image'];
-                $id = $_POST['id'];
-                $columnName = $_POST['columnName'];
+                $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
+                $columnName = htmlspecialchars($_POST['columnName']);
                 $currentImage = $this->yummyService->getCurrentRestaurantImagePath($id, $columnName);
                 $imageUrl = ImageEditor::saveImage('/app/public/assets/images/yummy_event/individual_resturant', $image);
 
@@ -145,13 +145,13 @@ class RestaurantIndividualAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['id'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
-                    $id = $input['id'];
-                    $availableSeats = $input['availableSeats'];
-                    $pricesForAdults = $input['pricesForAdults'];
-                    $pricesForChildren = $input['pricesForChildren'];
-                    $reservationFee = $input['reservationFee'];
-                    $startTime = $input['startTime'];
-                    $endTime = $input['endTime'];
+                    $id = filter_var($input['id'], FILTER_VALIDATE_INT);
+                    $availableSeats = filter_var($input['availableSeats'], FILTER_VALIDATE_INT);
+                    $pricesForAdults = filter_var($input['pricesForAdults'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                    $pricesForChildren = filter_var($input['pricesForChildren'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                    $reservationFee = filter_var($input['reservationFee'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                    $startTime = htmlspecialchars($input['startTime']);
+                    $endTime = htmlspecialchars($input['endTime']);
 
                     $this->yummyService->editRestaurantSession($id, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime);
 
@@ -176,7 +176,7 @@ class RestaurantIndividualAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['id'])) {
-                    $id = $input['id'];
+                    $id = filter_var($input['id'], FILTER_VALIDATE_INT);
 
                     $this->yummyService->deleteRestaurantSession($id);
 
@@ -201,13 +201,13 @@ class RestaurantIndividualAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['restaurantID'], $input['availableSeats'], $input['pricesForAdults'], $input['pricesForChildren'], $input['reservationFee'], $input['startTime'], $input['endTime'])) {
-                    $restaurantID = $input['restaurantID'];
-                    $availableSeats = $input['availableSeats'];
-                    $pricesForAdults = $input['pricesForAdults'];
-                    $pricesForChildren = $input['pricesForChildren'];
-                    $reservationFee = $input['reservationFee'];
-                    $startTime = $input['startTime'];
-                    $endTime = $input['endTime'];
+                    $restaurantID = filter_var($input['restaurantID'], FILTER_VALIDATE_INT);
+                    $availableSeats = filter_var($input['availableSeats'], FILTER_VALIDATE_INT);
+                    $pricesForAdults = filter_var($input['pricesForAdults'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                    $pricesForChildren = filter_var($input['pricesForChildren'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                    $reservationFee = filter_var($input['reservationFee'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                    $startTime = htmlspecialchars($input['startTime']);
+                    $endTime = htmlspecialchars($input['endTime']);
 
                     $this->yummyService->addRestaurantSession($restaurantID, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime);
 
@@ -232,7 +232,7 @@ class RestaurantIndividualAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['id'])) {
-                    $id = $input['id'];
+                    $id = filter_var($input['id'], FILTER_VALIDATE_INT);
 
                     $this->yummyService->deleteRestaurantReview($id);
 
@@ -257,9 +257,9 @@ class RestaurantIndividualAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['restaurantID'], $input['reviewText'], $input['rating'])) {
-                    $restaurantID = $input['restaurantID'];
-                    $review = $input['reviewText'];
-                    $rating = $input['rating'];
+                    $restaurantID = filter_var($input['restaurantID'], FILTER_VALIDATE_INT);
+                    $review = htmlspecialchars($input['reviewText']);
+                    $rating = filter_var($input['rating'], FILTER_VALIDATE_INT);
 
                     $this->yummyService->addRestaurantReview($restaurantID, $rating, $review);
 
@@ -282,7 +282,7 @@ class RestaurantIndividualAdminController
         try {
             $data = json_decode(file_get_contents('php://input'), true);
             if ($_SERVER["REQUEST_METHOD"] == "DELETE" && isset($data['id'], $data['imagePath'])) {
-                $id = $data['id'];
+                $id = filter_var($data['id'], FILTER_VALIDATE_INT);
                 $imageToDelete = $data['imagePath'];
                 ImageEditor::deleteImage($imageToDelete);
                 $this->yummyService->deleteRestaurantImagePathGallery($id);
@@ -303,7 +303,7 @@ class RestaurantIndividualAdminController
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if (isset($_POST['restaurantID'], $_FILES['image'])) {
-                    $restaurantID = $_POST['restaurantID'];
+                    $restaurantID = filter_var($_POST['restaurantID'], FILTER_VALIDATE_INT);
                     $image = $_FILES['image'];
                     $imageUrl = ImageEditor::saveImage('/app/public/assets/images/yummy_event/restaurant_gallery', $image);
 
