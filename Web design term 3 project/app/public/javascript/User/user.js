@@ -1,3 +1,6 @@
+
+//Registration form
+
 document.addEventListener("DOMContentLoaded", function () {
   const registrationForm = document.getElementById("registrationForm");
 
@@ -46,12 +49,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+
+//Filling the table with users
+
 document.addEventListener("DOMContentLoaded", function () {
   fetch("/api/user")
     .then((response) => response.json())
     .then((data) => {
       const tableBody = document.querySelector("#userTable tbody");
-      console.log(data);
+      
       data.data.forEach((user) => {
         // Parse the registration date string into a Date object
         const registrationDate = new Date(user.RegistrationDate);
@@ -66,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const row = tableBody.insertRow();
         row.innerHTML = `
-                <tr data-userid="${user.UserId}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr data-userid="${user.UserID}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     ${user.UserID}
                 </th>
@@ -83,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     ${formattedRegistrationDate}
                 </td>
                 <td class="px-6 py-4 d-flex justify-content-center">
-                    <a href="/user/edit?id=${user.UserID}"><button update-userid="${user.id}" type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Edit</button></a>
+                    <a href="/userAdmin/editUsers?id=${user.UserID}"><button update-userid="${user.UserID}" type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Edit</button></a>
                     <button delete-userid="${user.UserID}" type="button" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Delete</button>
                 </td>
             </tr>
@@ -124,6 +130,71 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 });
+
+
+//Edit users 
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const editUserForm = document.getElementById('editUserForm');
+
+  if (editUserForm) {
+      const userId = getUserIdFromUrl();
+
+      fetch(`/api/user?id=${userId}`)
+          .then(response => response.json())
+          .then(data => {
+              document.getElementById('editName').value = data.data.Name;
+              document.getElementById('editEmail').value = data.data.Email;
+              document.getElementById('editRole').value = data.data.Role;
+          })
+          .catch(error => console.error('Error fetching user data:', error));
+          console.log(data);
+      editUserForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+
+          const name = document.getElementById('editName').value;
+          const email = document.getElementById('editEmail').value;
+          const role = document.getElementById('editRole').value;
+
+          const formData = {
+              Name: name,
+              Email: email,
+              Role: role,
+          };
+
+          fetch(`/api/user?id=${userId}`, {
+              method: 'PUT',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData),
+          })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.status === 'success') {
+                      window.location.href = '/userAdmin';
+                  } else {
+                      console.error('Error updating user:', data.message);
+                  }
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+              });
+      });
+  }
+
+  function getUserIdFromUrl() {
+      const url = new URL(window.location.href);
+
+      const userId = url.searchParams.get('id');
+
+      return userId;
+  }
+});
+
+
+//Add users
 
 // document.addEventListener('DOMContentLoaded', function () {
 //     const addUserForm = document.getElementById('addUserForm');
@@ -179,65 +250,3 @@ document.addEventListener("DOMContentLoaded", function () {
 //     }
 // });
 
-// document.addEventListener('DOMContentLoaded', function () {
-//     const editUserForm = document.getElementById('editUserForm');
-
-//     if (editUserForm) {
-//         const userId = getUserIdFromUrl();
-
-//         fetch(`/api/user?id=${userId}`)
-//             .then(response => response.json())
-//             .then(data => {
-//                 document.getElementById('editName').value = data.data.name;
-//                 document.getElementById('editEmail').value = data.data.email;
-//                 document.getElementById('editPhone').value = data.data.phone;
-//                 document.getElementById('editRole').value = data.data.user_role_id;
-//             })
-//             .catch(error => console.error('Error fetching user data:', error));
-
-//         editUserForm.addEventListener('submit', function (event) {
-//             event.preventDefault();
-
-//             const name = document.getElementById('editName').value;
-//             const email = document.getElementById('editEmail').value;
-//             const phone = document.getElementById('editPhone').value;
-//             const role = document.getElementById('editRole').value;
-
-//             console.log(document.getElementById('editRole').value);
-
-//             const formData = {
-//                 name: name,
-//                 email: email,
-//                 phone: phone,
-//                 user_role_id: role,
-//             };
-
-//             fetch(`/api/user?id=${userId}`, {
-//                 method: 'PUT',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify(formData),
-//             })
-//                 .then(response => response.json())
-//                 .then(data => {
-//                     if (data.status === 'success') {
-//                         window.location.href = '/user';
-//                     } else {
-//                         console.error('Error updating user:', data.message);
-//                     }
-//                 })
-//                 .catch(error => {
-//                     console.error('Error:', error);
-//                 });
-//         });
-//     }
-
-//     function getUserIdFromUrl() {
-//         const url = new URL(window.location.href);
-
-//         const userId = url.searchParams.get('id');
-
-//         return userId;
-//     }
-//});
