@@ -1,5 +1,5 @@
 function deleteImageFromCarousel() {
-    document.querySelectorAll('.grid .relative button').forEach(button => {
+    document.querySelectorAll('.grid .relative button').forEach(button => {  // change this to an id or something
         button.addEventListener('click', function () {
             const container = this.closest('.relative');
             // Decode the URL-encoded src path

@@ -27,7 +27,7 @@
                             <div class="wheelchair-support-edit">
                                 <p> Checkbox for wheelchair support:</p>
                                 <input type="checkbox" class="wheelchair-support-checkbox transform scale-125" disabled
-                                    <?php echo $route->wheelchairSupport ? 'checked' : ''; ?>>
+                                    <?php echo htmlspecialchars($route->wheelchairSupport) ? 'checked' : ''; ?>>
                             </div>
 
                             <div>

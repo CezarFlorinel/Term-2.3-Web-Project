@@ -18,7 +18,7 @@ function updateCuisineDisplay() {
         // Create the paragraph element for displaying the type
         const typeParagraph = document.createElement('p');
         typeParagraph.className = 'cuisine-type text-lg font-semibold text-black-500 bg-gray-300 rounded-full px-2 py-1 m-1';
-        typeParagraph.textContent = type;
+        typeParagraph.textContent = DOMPurify.sanitize(type);  // may cause an error if DOMPurify is not imported via CDN
 
         // Create the delete button
         const deleteButton = document.createElement('button');

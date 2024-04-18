@@ -14,7 +14,7 @@ class ErrorHandlerForJsController
                     $error = htmlspecialchars($input['error']);
                     $methodeName = htmlspecialchars($input['methodeName']);
                     $className = htmlspecialchars($input['className']);
-                    error_log(date('Y-m-d H:i:s') . " - " . $className . " - " . $methodeName . " - " . $error . "\n", 3, __DIR__ . '/../../public/errorLogs/errorLogJavascriptCode.txt');
+                    error_log(date('Y-m-d H:i:s') . " - " . $className . " - " . $methodeName . " - " . $error . "\n", 3, __DIR__ . '/../../error_logs/error_log_javascript.log');
                     echo json_encode(['success' => true, 'message' => 'Error has been stored']);
                 } else {
                     http_response_code(400);
@@ -25,7 +25,7 @@ class ErrorHandlerForJsController
                 echo json_encode(['success' => false, 'message' => 'Only POST method is supported']);
             }
         } catch (\Exception $e) {
-            ErrorHandlerMethod::handleErrorApiController($e); // how ironic if this happens XD
+            ErrorHandlerMethod::handleErrorApiController($e);
         }
 
     }

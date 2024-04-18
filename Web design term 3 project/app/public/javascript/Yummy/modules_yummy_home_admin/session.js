@@ -4,17 +4,16 @@ export function displaySession() {
     const sessionTimeContent = document.getElementById('sessionTimeContent');
 
     restaurantDropdown.addEventListener('change', function () {
-        const restaurantName = this.value; // Assuming the value is the restaurant name
+        const restaurantName = DOMPurify.sanitize(this.value);
         fetch(`/api/YummyHomeAdmin/getSessionByRestaurantName?name=${encodeURIComponent(restaurantName)}`)
             .then(response => response.json())
             .then(data => {
-                // Assuming 'data' is an array of sessions for the selected restaurant
                 newSessionDropdown.innerHTML = ''; // Clear existing options
                 sessionTimeContent.textContent = 'Session Time: '; // Reset session time content
                 data.forEach(session => {
                     const option = document.createElement('option');
-                    option.value = session.sessionID;
-                    option.textContent = `${session.sessionID}`; // Display session ID in dropdown
+                    option.value = DOMPurify.sanitize(session.sessionID);
+                    option.textContent = DOMPurify.sanitize(`${session.sessionID}`); // Display session ID in dropdown
                     newSessionDropdown.appendChild(option);
                 });
 
@@ -23,7 +22,7 @@ export function displaySession() {
                     const selectedSession = data.find(s => s.sessionID == newSessionDropdown.value);
                     if (selectedSession) {
                         const startTime = selectedSession.startTime.substring(0, 5); // Format startTime to HH:MM
-                        const endTime = selectedSession.endTime.substring(0, 5); // Format endTime to HH:MM
+                        const endTime = selectedSession.endTime.substring(0, 5);
                         sessionTimeContent.textContent = `Session Time: ${startTime} - ${endTime}`; // Update text content
                     }
                 };

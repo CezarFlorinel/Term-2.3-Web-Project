@@ -178,7 +178,6 @@ function updateHistoryTourDeparturesTimetable(id, date) {
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
-            // You can handle success or failure here, e.g., by showing a message to the user
         })
         .catch((error) => {
             console.error("Error:", error);
