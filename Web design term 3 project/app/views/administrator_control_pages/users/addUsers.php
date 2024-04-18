@@ -17,7 +17,7 @@
 
                 <!-- Add user form -->
                 <div class="relative overflow-x-auto">
-                <form id="addUserForm" class="max-w-md mx-auto mt-8">
+                    <form id="addUserForm" class="max-w-md mx-auto mt-8">
                         <div class="mb-4">
                             <label for="addName" class="block">Name:</label>
                             <input type="text"
