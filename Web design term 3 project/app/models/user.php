@@ -16,9 +16,9 @@ class User
 
     public function __construct(array $userData)
     {
-        $this->setEmail($userData['email' ?? '']);
-        $this->setName($userData['name' ?? '']);
-        $this->setPassword($userData['password' ?? '']);
+        $this->setEmail($userData['email'] ?? '');
+        $this->setName($userData['name'] ?? '');
+        $this->setPassword($userData['password'] ?? '');
         if(isset($userData['role'])) {
             $validRoles = [UserRole::Admin, UserRole::Member, UserRole::Employee];
             $this->setUserRole(in_array($userData['role'], $validRoles) ? $userData['role'] : UserRole::Member);

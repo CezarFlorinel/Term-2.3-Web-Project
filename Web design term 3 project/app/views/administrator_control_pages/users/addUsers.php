@@ -33,22 +33,24 @@
                         </div>
 
                         <div class="mb-4">
+                        <div class="relative">
                             <label for="addRole" class="block">Role:</label>
                             <select
                                 class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="editRole" required>
-                                <option value="1">Member</option>
-                                <option value="2">Admin</option>
-                                <option value="3">Employee</option>
+                                <option value="Member">Member</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Employee">Employee</option>
                             </select>
-                            <div
-                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path
-                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                </svg>
-                            </div>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                                    style="top: 40%;">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </div>
+                        </div>
                         </div>
 
                         <div class="mb-4">
@@ -76,7 +78,7 @@
         </div>
     </div>
 
-    <script src="javascript/User/user.js"></script>
+    <script src="../javascript/User/user.js"></script>
 </body>
 
 </html>
