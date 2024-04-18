@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((response) => response.json())
     .then((data) => {
       const tableBody = document.querySelector("#userTable tbody");
-      
+
       data.data.forEach((user) => {
         // Parse the registration date string into a Date object
         const registrationDate = new Date(user.RegistrationDate);
@@ -67,12 +67,12 @@ document.addEventListener("DOMContentLoaded", function () {
           .getDate()
           .toString()
           .padStart(2, "0")}-${(registrationDate.getMonth() + 1)
-          .toString()
-          .padStart(2, "0")}-${registrationDate.getFullYear()}`;
+            .toString()
+            .padStart(2, "0")}-${registrationDate.getFullYear()}`;
 
-        const row = tableBody.insertRow();
+        const row = tableBody.insertRow(); // schimba aici daca nu merge sanitarizeaza cu DOMPurify.sanitize
         row.innerHTML = `
-                <tr data-userid="${user.UserID}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr data-userid="${DOMPurify.sanitize(user.UserID)}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     ${user.UserID}
                 </th>
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     ${formattedRegistrationDate}
                 </td>
                 <td class="px-6 py-4 d-flex justify-content-center">
-                    <a href="/userAdmin/editUsers?id=${user.UserID}"><button update-userid="${user.UserID}" type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Edit</button></a>
+                    <a href="/userEditAdmin/index?id=${user.UserID}"><button update-userid="${user.UserID}" type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Edit</button></a>
                     <button delete-userid="${user.UserID}" type="button" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Delete</button>
                 </td>
             </tr>
@@ -137,59 +137,63 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener('DOMContentLoaded', function () {
   const editUserForm = document.getElementById('editUserForm');
+  console.log('this is loaded');
 
   if (editUserForm) {
-      const userId = getUserIdFromUrl();
+    const userId = getUserIdFromUrl();
+    console.log(userId);
 
-      fetch(`/api/user?id=${userId}`)
-          .then(response => response.json())
-          .then(data => {
-              document.getElementById('editName').value = data.data.Name;
-              document.getElementById('editEmail').value = data.data.Email;
-              document.getElementById('editRole').value = data.data.Role;
-          })
-          .catch(error => console.error('Error fetching user data:', error));
-          console.log(data);
-      editUserForm.addEventListener('submit', function (event) {
-          event.preventDefault();
+    fetch(`/api/user?id=${userId}`)
 
-          const name = document.getElementById('editName').value;
-          const email = document.getElementById('editEmail').value;
-          const role = document.getElementById('editRole').value;
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('editName').value = data.data.Name;
+        document.getElementById('editEmail').value = data.data.Email;
+        document.getElementById('editRole').value = data.data.Role;
+      })
+      .catch(error => console.error('Error fetching user data:', error));
+    console.log(data);
 
-          const formData = {
-              Name: name,
-              Email: email,
-              Role: role,
-          };
+    editUserForm.addEventListener('submit', function (event) {
+      event.preventDefault();
 
-          fetch(`/api/user?id=${userId}`, {
-              method: 'PUT',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(formData),
-          })
-              .then(response => response.json())
-              .then(data => {
-                  if (data.status === 'success') {
-                      window.location.href = '/userAdmin';
-                  } else {
-                      console.error('Error updating user:', data.message);
-                  }
-              })
-              .catch(error => {
-                  console.error('Error:', error);
-              });
-      });
+      const name = document.getElementById('editName').value;
+      const email = document.getElementById('editEmail').value;
+      const role = document.getElementById('editRole').value;
+
+      const formData = {
+        Name: name,
+        Email: email,
+        Role: role,
+      };
+
+      fetch(`/api/user?id=${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            window.location.href = '/userAdmin';
+          } else {
+            console.error('Error updating user:', data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    });
   }
 
   function getUserIdFromUrl() {
-      const url = new URL(window.location.href);
+    const url = new URL(window.location.href);
 
-      const userId = url.searchParams.get('id');
+    const userId = url.searchParams.get('id');
 
-      return userId;
+    return userId;
   }
 });
 

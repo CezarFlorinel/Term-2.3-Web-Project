@@ -3,6 +3,7 @@
 <?php
 require __DIR__ . '/../../../components/admin/header.php';
 $userId = isset($_GET['id']) ? $_GET['id'] : null;
+
 ?>
 
 <head>
