@@ -1,4 +1,4 @@
-import ErrorHandler from './../Reusables/error_handler_class.js';
+import ErrorHandler from './error_handler_class.js';
 const errorHandler = new ErrorHandler();
 const imageSizeLimit = 10000000; // 10MB
 
