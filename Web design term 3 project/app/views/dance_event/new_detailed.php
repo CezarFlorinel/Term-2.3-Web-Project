@@ -156,60 +156,74 @@
             </div>
         </section>
 
-        <section class="text-white">
-            <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center my-8 sm:my-12">Appearances In The Festival</h1>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Start of day block, repeat this block for each day -->
-                    <div class="day p-4 sm:p-6 text-center rounded-lg bg-gray-800 bg-opacity-50">
-                        <div class="text-7xl sm:text-8xl md:text-9xl font-bold">26</div>
-                        <div class="text-3xl sm:text-4xl">Jul</div>
-                        <div class="text-lg sm:text-xl mb-4 sm:mb-6">Friday</div>
-                        <div class="event p-4 sm:p-6 rounded-lg">
-                            <div class="bg-white py-0 px-4 rounded w-full">
-                                <div class="text-lg sm:text-xl mb-2 text-black">23:00 - 00:30</div>
+        <section class="bg-black py-8 items-center">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center my-8 sm:my-12">Appearances In The Festival</h1>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded-lg border-4">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+                    <!-- Panel 1 -->
+                    <div class="bg-black rounded-lg shadow-md overflow-hidden col-span-2 md:col-span-1 flex flex-col">
+                        <div class="text-center py-2">
+                            <div class="text-7xl sm:text-8xl md:text-9xl font-bold">26</div>
+                            <div class="text-3xl sm:text-4xl">Jul</div>
+                            <div class="text-lg sm:text-xl mb-2">Friday</div>
+                            <div class="rounded-lg border">
+                                <div class="relative">
+                                    <div class="top-0 left-0 w-full h-7 bg-white text-black text-lg font-bold rounded">23:00 - 00:30</div>
+                                </div>
+                                <div class="text-white text-lg font-bold mt-1">Hardwell</div>
+                                <img src="https://placehold.co/150x225" alt="Man" class="w-full h-auto rounded-lg shadow-lg" style="max-width: 100%;">
                             </div>
-                            <div class="text-2xl sm:text-3xl font-bold mb-2">HARDWELL</div>
-                            <img class="mx-auto mt-4 mb-2 w-32 sm:w-40 md:w-48" src="https://placehold.co/150x150" alt="HARDWELL performing">
-                            <div class="text-s sm:text-sm mb-4 sm:mb-6 text-left">Jopenkerk</div>
-                            <label class="flex items-center space-x-2 justify-center w-full">
-                                <input type="checkbox" class="text-red-600 focus:ring-red-500 border-gray-300 rounded">
-                                <span class="text-white">€60,00</span>
-                            </label>
+                        </div>
+                        <div class="text-white text-sm mt-0 ml-2">Jopenkerk</div>
+                        <div class="flex items-center mt-1 ml-2">
+                            <input type="checkbox" id="price_panel1" name="price" value="60.00">
+                            <label for="price_panel1" class="ml-1 text-white text-m">€60.00</label>
                         </div>
                     </div>
-                    <div class="day p-4 sm:p-6 text-center rounded-lg bg-gray-800 bg-opacity-50">
-                        <div class="text-7xl sm:text-8xl md:text-9xl font-bold">27</div>
-                        <div class="text-3xl sm:text-4xl">Jul</div>
-                        <div class="text-lg sm:text-xl mb-4 sm:mb-6">Saturday</div>
-                        <div class="event p-4 sm:p-6 rounded-lg">
-                            <div class="bg-white py-0 px-4 rounded w-full">
-                                <div class="text-lg sm:text-xl mb-2 text-black">23:00 - 00:30</div>
+                    <!-- Panel 2 -->
+                    <div class="bg-black rounded-lg shadow-md overflow-hidden col-span-4 md:col-span-3 flex flex-col">
+                        <div class="text-center py-2">
+                            <div class="text-7xl sm:text-8xl md:text-9xl font-bold">27</div>
+                            <div class="text-3xl sm:text-4xl">Jul</div>
+                            <div class="text-lg sm:text-xl mb-2">Saturday</div>
+                            <div class="rounded-lg border">
+                                <div class="relative">
+                                    <div class="top-0 left-0 w-full h-7 bg-white text-black text-lg font-bold rounded">14:00 - 22:00</div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div class="text-white text-lg font-bold mt-1 text-center">Armin van Buren</div>
+                                    <div class="text-white text-lg font-bold mt-1 text-center">Hardwell</div>
+                                    <div class="text-white text-lg font-bold mt-1 text-center">Martin Garrix</div>
+                                    <img src="https://placehold.co/300x450" alt="Man" class="w-full h-auto rounded-lg shadow-lg" style="max-width: 100%;">
+                                    <img src="https://placehold.co/300x450" alt="Man" class="w-full h-auto rounded-lg shadow-lg" style="max-width: 100%;">
+                                    <img src="https://placehold.co/300x450" alt="Man" class="w-full h-auto rounded-lg shadow-lg" style="max-width: 100%;">
+                                </div>
                             </div>
-                            <div class="text-2xl sm:text-3xl font-bold mb-2">HARDWELL</div>
-                            <img class="mx-auto mt-4 mb-2 w-32 sm:w-40 md:w-48" src="https://placehold.co/150x150" alt="HARDWELL performing">
-                            <div class="text-s sm:text-sm mb-4 sm:mb-6 text-left">Caprera Openlucht Theatre</div>
-                            <label class="flex items-center space-x-2 justify-center w-full">
-                                <input type="checkbox" class="text-red-600 focus:ring-red-500 border-gray-300 rounded">
-                                <span class="text-white">€110,00</span>
-                            </label>
+                        </div>
+                        <div class="text-white text-sm mt-0 ml-2">Caprera Openlucht Teatre</div>
+                        <div class="flex items-center mt-1 ml-2">
+                            <input type="checkbox" id="price_panel2" name="price" value="110.00">
+                            <label for="price_panel2" class="ml-1 text-white text-m">€110.00</label>
                         </div>
                     </div>
-                    <div class="day p-4 sm:p-6 text-center rounded-lg bg-gray-800 bg-opacity-50">
-                        <div class="text-7xl sm:text-8xl md:text-9xl font-bold">28</div>
-                        <div class="text-3xl sm:text-4xl">Jul</div>
-                        <div class="text-lg sm:text-xl mb-4 sm:mb-6">Sunday</div>
-                        <div class="event p-4 sm:p-6 rounded-lg">
-                            <div class="bg-white py-0 px-4 rounded w-full">
-                                <div class="text-lg sm:text-xl mb-2 text-black">23:00 - 00:30</div>
+                    <!-- Panel 3 -->
+                    <div class="bg-black rounded-lg shadow-md overflow-hidden col-span-2 md:col-span-1 flex flex-col">
+                        <div class="text-center py-2">
+                            <div class="text-7xl sm:text-8xl md:text-9xl font-bold">28</div>
+                            <div class="text-3xl sm:text-4xl">Jul</div>
+                            <div class="text-lg sm:text-xl mb-2">Sunday</div>
+                            <div class="rounded-lg border">
+                                <div class="relative">
+                                    <div class="top-0 left-0 w-full h-7 bg-white text-black text-lg font-bold rounded">21:00 - 22:30</div>
+                                </div>
+                                <div class="text-white text-lg font-bold mt-1">Hardwell</div>
+                                <img src="https://placehold.co/150x225" alt="Man" class="w-full h-auto rounded-lg shadow-lg" style="max-width: 100%;">
                             </div>
-                            <div class="text-2xl sm:text-3xl font-bold mb-2">HARDWELL</div>
-                            <img class="mx-auto mt-4 mb-2 w-32 sm:w-40 md:w-48" src="https://placehold.co/150x150" alt="HARDWELL performing">
-                            <div class="text-s sm:text-sm mb-4 sm:mb-6 text-left">XO The Club</div>
-                            <label class="flex items-center space-x-2 justify-center w-full">
-                                <input type="checkbox" class="text-red-600 focus:ring-red-500 border-gray-300 rounded">
-                                <span class="text-white">€90,00</span>
-                            </label>
+                        </div>
+                        <div class="text-white text-sm mt-0 ml-2">XO the club</div>
+                        <div class="flex items-center mt-1 ml-2">
+                            <input type="checkbox" id="price_panel3" name="price" value="90.00">
+                            <label for="price_panel3" class="ml-1 text-white text-m">€90.00</label>
                         </div>
                     </div>
                 </div>
@@ -219,6 +233,10 @@
                 </div>
             </div>
         </section>
+
+
+
+
     </main>
 </body>
 
