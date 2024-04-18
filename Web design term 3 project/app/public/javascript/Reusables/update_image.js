@@ -1,5 +1,5 @@
-import { checkImageSizeAndFileType, handleApiResponse } from './../Reusables/handle_data_checks.js';
-import ErrorHandler from './../Reusables/error_handler_class.js';
+import { checkImageSizeAndFileType, handleApiResponse } from '../Utilities/handle_data_checks.js';
+import ErrorHandler from '../Utilities/error_handler_class.js';
 const errorHandler = new ErrorHandler();
 
 export function setupImageUploadListener(inputId, api, containerName, imageElementId = '', columnName = '') {

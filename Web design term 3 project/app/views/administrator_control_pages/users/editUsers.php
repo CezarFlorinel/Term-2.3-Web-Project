@@ -66,7 +66,7 @@ $userId = isset($_GET['id']) ? $_GET['id'] : null;
         </div>
     </div>
 
-    <script src="javascript/User/user.js"></script>
+    <script src="../javascript/User/user.js"></script>
 </body>
 
 </html>

@@ -1,8 +1,8 @@
 import { setupImageUploadListener } from './../Reusables/update_image.js';
 import { saveReservation, createNewReservation } from './modules_yummy_home_admin/reservation.js';
 import { displaySession, updateSessionTime } from './modules_yummy_home_admin/session.js';
-import { handleApiResponse, checkText } from './../Reusables/handle_data_checks.js';
-import ErrorHandler from './../Reusables/error_handler_class.js';
+import { handleApiResponse, checkText } from '../Utilities/handle_data_checks.js';
+import ErrorHandler from '../Utilities/error_handler_class.js';
 const errorHandler = new ErrorHandler();
 
 const apiUrlForImages = "/api/YummyHomeAdmin/updateHomePageImages";
