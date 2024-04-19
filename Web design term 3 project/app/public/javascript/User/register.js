@@ -2,12 +2,10 @@
 
 document.addEventListener("DOMContentLoaded", function () {
   const registrationForm = document.getElementById("registrationForm");
-  console.log("this is working");
 
   if (registrationForm) {
     registrationForm.addEventListener("submit", function (event) {
       event.preventDefault();
-      console.log("this is working --2")
       const name = document.getElementById("name").value;
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
@@ -30,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
         passwordConfirm: passwordConfirm,
         role: "Member",
       };
-      console.log(formData);
 
       fetch('api/user/create', {
         method: "POST",
