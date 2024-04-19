@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         passwordConfirm: passwordConfirm,
         userRole: "Member",
       };
+      console.log(formData);
 
       fetch("http://localhost/api/user", {
         method: "POST",
@@ -137,7 +138,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener('DOMContentLoaded', function () {
   const editUserForm = document.getElementById('editUserForm');
-  console.log('this is loaded');
 
   if (editUserForm) {
     const userId = getUserIdFromUrl();
