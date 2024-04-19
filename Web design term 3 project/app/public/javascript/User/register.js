@@ -1,4 +1,6 @@
-//Registration form
+import { handleApiResponse, checkText, checkNumber, checkReviewStarNumber } from '../Utilities/handle_data_checks.js';
+import ErrorHandler from '../Utilities/error_handler_class.js';
+const errorHandler = new ErrorHandler();
 
 document.addEventListener("DOMContentLoaded", function () {
   const registrationForm = document.getElementById("registrationForm");
@@ -11,13 +13,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const password = document.getElementById("password").value;
       const passwordConfirm = document.getElementById("confirmPassword").value;
 
-      if (!name || !email || !password || !passwordConfirm) {
-        alert("Please fill in all fields.");
+      if (!checkText({ name, email, password, passwordConfirm })) {
+        errorHandler.showAlert("Please fill in all fields.");
         return;
       }
 
       if (password !== passwordConfirm) {
-        alert("Passwords do not match.");
+        errorHandler.showAlert("Passwords do not match.");
         return;
       }
 
@@ -36,18 +38,18 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         body: JSON.stringify(formData),
       })
-        .then((response) => response.json())
+        .then(handleApiResponse)
         .then((data) => {
           if (data.success) {
             window.location.href = "/login";
           }
-          else {
-            alert("Registration failed. Please try again.");
+          else if (data.error) {
+            errorHandler.showAlert(data.error);
           }
-
         })
         .catch((error) => {
-          console.error("Error:", error);
+          errorHandler.logError(error, "registrationForm", "register.js");
+          errorHandler.showAlert("An error occurred while registering, please try again later!");
         });
     });
   }

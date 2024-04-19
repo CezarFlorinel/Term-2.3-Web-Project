@@ -49,13 +49,13 @@ class UserRepository extends Repository
             return null;
         }
     }
-    private function checkIfEmailExists($email): bool
+    public function checkIfEmailExists($email): bool
     {
         $stmt = $this->connection->prepare("SELECT COUNT(*) as count_users FROM [USER] WHERE email = ?");
         $stmt->execute([$email]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return ($result['count_users'] > 0);
+        return $result['count_users'] > 0;
     }
     function createUser($user)
     {

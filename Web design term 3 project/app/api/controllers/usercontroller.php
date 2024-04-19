@@ -85,7 +85,6 @@ class UserController
                 $emailExists = $this->userService->checkIfEmailExists($sanitizedData['email']);
 
                 if ($emailExists) {
-                    http_response_code(400);
                     echo json_encode(['success' => false, 'error' => 'Email already exists']);
                     return;
                 }
@@ -97,11 +96,11 @@ class UserController
                 echo json_encode(['success' => true, 'message' => 'User created successfully']);
             } else {
                 http_response_code(400);
-                echo json_encode(['status' => 'error', 'message' => 'Invalid input data']);
+                echo json_encode(['success' => false, 'error' => 'Invalid input data']);
             }
         } else {
             http_response_code(400);
-            echo json_encode(['status' => 'error', 'message' => 'Invalid JSON data']);
+            echo json_encode(['success' => false, 'error' => 'Invalid JSON data']);
         }
     }
 
