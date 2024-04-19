@@ -9,7 +9,6 @@
         href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
@@ -63,8 +62,8 @@
 
                     <p class="mt-10 text-center text-sm text-gray-500">
                         You don't have an account yet?
-                        <a href="/register"
-                            class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Create one</a>
+                        <a href="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Create
+                            one</a>
                     </p>
                 </div>
             </div>
