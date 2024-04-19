@@ -16,21 +16,23 @@ class User
 
     public function __construct(array $userData)
     {
-        $this->setEmail($userData['email'] ?? '');
-        $this->setName($userData['name'] ?? '');
-        $this->setPassword($userData['password'] ?? '');
-
-        $this->setUserRole($userData['role'] ?? '');
+        $this->setId($userData['UserID'] ?? 0);
+        $this->setEmail($userData['Email'] ?? '');
+        $this->setName($userData['Name'] ?? '');
+        $this->setPassword($userData['Password'] ?? '');
+        $this->setUserRole($userData['Role'] ?? '');
+        $this->registrationDate = new \DateTime($userData['RegistrationDate'] ?? 'now');
         // $this->setProfilePicture($userData['user_profile_picture'] ?? '');
     }
     public function toArray(): array
     {
         return [
-            'email' => $this->email,
-            'name' => $this->name,
-            'password' => $this->password,
-            'role' => $this->role,
-            'registrationDate' => $this->registrationDate->format('Y-m-d'),
+
+            'Email' => $this->email,
+            'Name' => $this->name,
+            'Password' => $this->password,
+            'Role' => $this->role,
+            'RegistrationDate' => $this->registrationDate->format('Y-m-d'),
         ];
     }
 
@@ -74,7 +76,7 @@ class User
     }
     public function getUserRole(): string
     {
-        return $this->role->name;
+        return $this->role->value;
     }
 
     public function getPassword(): string
@@ -83,7 +85,7 @@ class User
     }
     public function setPassword(string $password): self
     {
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->password = $password;
         return $this;
     }
     public function getRegistrationDate(): \DateTime

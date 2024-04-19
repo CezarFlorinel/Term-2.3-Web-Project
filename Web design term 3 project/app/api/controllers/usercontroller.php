@@ -17,7 +17,6 @@ class UserController
         'password' => FILTER_SANITIZE_FULL_SPECIAL_CHARS
     ];
 
-
     function __construct()
     {
         $this->userService = new UserService();
@@ -39,6 +38,45 @@ class UserController
             $this->update();
         } elseif ($_SERVER["REQUEST_METHOD"] == "DELETE") {
             $this->delete();
+        }
+    }
+
+    public function logIn()
+    {
+        session_start();
+        $inputJSON = file_get_contents('php://input');
+        $input = json_decode($inputJSON, TRUE); //convert JSON into array
+
+        if (isset($input['email']) && isset($input['password'])) {
+            $email = $input['email'];
+            $password = $input['password'];
+            // $hasedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            $user = new User($this->userService->getByEmail($email));
+
+            if ($user && password_verify($password, $user->getPassword())) {
+
+                $_SESSION['userId'] = $user->getId();
+                $_SESSION['userEmail'] = $user->getEmail();
+                $_SESSION['userName'] = $user->getName();
+                $_SESSION['userRole'] = $user->getUserRole();
+
+                if ($user->getUserRole() == 'Member' || $user->getUserRole() == 'Employee') {
+                    $redirectTo = '/';
+                } else {
+                    $redirectTo = '/admin';
+                }
+
+                echo json_encode(['status' => 'success', 'message' => 'Logged in successfully', 'redirectTo' => $redirectTo]);
+            } else {
+                http_response_code(401);
+                echo json_encode(['status' => 'error', 'message' => 'Invalid email or password']);
+                exit();
+            }
+        } else {
+            http_response_code(400);
+            echo json_encode(['status' => 'error', 'message' => 'Missing email or password']);
+            exit();
         }
     }
 
@@ -100,7 +138,7 @@ class UserController
             if ($sanitizedData !== false && !in_array(false, $sanitizedData, true)) {
 
 
-                $emailExists = $this->userService->checkIfEmailExists($sanitizedData['email']);
+                $emailExists = $this->userService->checkIfEmailExists($sanitizedData['Email']);
 
                 if ($emailExists) {
                     echo json_encode(['success' => false, 'error' => 'Email already exists']);
@@ -117,6 +155,7 @@ class UserController
                     return;
                 }
 
+                $sanitizedData['Password'] = password_hash($sanitizedData['Password'], PASSWORD_DEFAULT);
                 $user = new User($sanitizedData);
 
                 $this->userService->createUser($user);
