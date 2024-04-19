@@ -38,9 +38,9 @@ class UserRepository extends Repository
     function getByEmail($email)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM user WHERE email = ?");
-            $stmt->execute([$email]);
-
+            $stmt = $this->connection->prepare("SELECT * FROM [USER] WHERE [Email] = :email");
+            $stmt->bindValue(':email', $email);
+            $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             return $result ? $result : null;

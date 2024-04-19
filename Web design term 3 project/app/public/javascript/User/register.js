@@ -31,9 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const formData = {
-      name: name,
-      email: email,
-      password: password,
+      Name: name,
+      Email: email,
+      Password: password,
       passwordConfirm: passwordConfirm,
       recaptchaToken: token  // Include the token
     };
