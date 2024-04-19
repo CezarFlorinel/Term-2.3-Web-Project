@@ -40,8 +40,8 @@ function checkText(texts = {}) {
     return true;
 }
 
-function checkMoney(money) {
-    if (isNaN(money) || money < 0 || !money) {
+function checkNumber(number) {
+    if (isNaN(number) || number < 0 || !number) {
         errorHandler.showAlert('Please enter a valid number');
         return false;
     }
@@ -57,5 +57,6 @@ function checkReviewStarNumber(numberOfStars) {
 }
 
 
-export { handleApiResponse, checkImageSizeAndFileType, checkText, checkMoney, checkReviewStarNumber };
+
+export { handleApiResponse, checkImageSizeAndFileType, checkText, checkNumber, checkReviewStarNumber };
 

@@ -94,8 +94,8 @@ class HistoryAdminController
 
                 if (isset($input['informationID'], $input['subheader'], $input['description'])) {
                     $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
-                    $subheader = htmlspecialchars($input['subheader']);
-                    $description = htmlspecialchars($input['description']);
+                    $subheader = $input['subheader'];
+                    $description = $input['description'];
 
                     $this->historyService->editHistoryTopPart($id, $subheader, $description);
 
@@ -149,8 +149,8 @@ class HistoryAdminController
 
                 if (isset($input['informationID'], $input['locationName'], $input['locationDescription'], $input['wheelchairSupport'])) {
                     $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
-                    $locationName = htmlspecialchars($input['locationName']);
-                    $locationDescription = htmlspecialchars($input['locationDescription']);
+                    $locationName = $input['locationName'];
+                    $locationDescription = $input['locationDescription'];
                     $wheelchairSupport = filter_var($input['wheelchairSupport'], FILTER_VALIDATE_BOOLEAN);  // MAY CAUSE AN ERROR
 
                     $this->historyService->editHistoryRoute($id, $locationName, $locationDescription, $wheelchairSupport);
@@ -173,9 +173,9 @@ class HistoryAdminController
 
                 if (isset($input['informationID'], $input['type'], $input['price'], $input['description'])) {
                     $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
-                    $ticketType = htmlspecialchars($input['type']);
+                    $ticketType = $input['type'];
                     $price = filter_var($input['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-                    $description = htmlspecialchars($input['description']);
+                    $description = $input['description'];
 
                     $this->historyService->editHistoryTicketPrices($id, $ticketType, $price, $description);
 
@@ -226,7 +226,7 @@ class HistoryAdminController
 
                 if (isset($input['informationID'], $input['date'])) {
                     $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
-                    $date = htmlspecialchars($input['date']);
+                    $date = $input['date'];
 
                     $this->historyService->editHistoryTourDeparturesTimetables($id, $date);
 
@@ -249,7 +249,7 @@ class HistoryAdminController
 
                 if (isset($input['informationID'], $input['startTime'], $input['englishTour'], $input['dutchTour'], $input['chineseTour'])) {
                     $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
-                    $startTime = htmlspecialchars($input['startTime']);
+                    $startTime = $input['startTime'];
                     $englishTour = filter_var($input['englishTour'], FILTER_VALIDATE_INT);
                     $dutchTour = filter_var($input['dutchTour'], FILTER_VALIDATE_INT);
                     $chineseTour = filter_var($input['chineseTour'], FILTER_VALIDATE_INT);
@@ -274,7 +274,7 @@ class HistoryAdminController
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
                 $image = $_FILES['image'];
                 $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
-                $columnName = htmlspecialchars($_POST['columnName']);
+                $columnName = $_POST['columnName'];
                 $currentImage = $this->historyService->getCurrentImagePathTourStartingPoint($id, $columnName);
                 $imageUrl = ImageEditor::saveImage("/app/public/assets/images/history_event/starting_point", $image);
 
@@ -306,7 +306,7 @@ class HistoryAdminController
 
                 if (isset($input['informationID'], $input['description'])) {
                     $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
-                    $description = htmlspecialchars($input['description']);
+                    $description = $input['description'];
 
                     $this->historyService->editHistoryTourStartingPoint($id, $description);
 
@@ -329,8 +329,8 @@ class HistoryAdminController
 
                 if (isset($input['informationID'], $input['question'], $input['answer'])) {
                     $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
-                    $question = htmlspecialchars($input['question']);
-                    $answer = htmlspecialchars($input['answer']);
+                    $question = $input['question'];
+                    $answer = $input['answer'];
 
                     $this->historyService->editHistoryPracticalInformation($id, $question, $answer);
 
@@ -352,8 +352,8 @@ class HistoryAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['question'], $input['answer'])) {
-                    $question = htmlspecialchars($input['question']);
-                    $answer = htmlspecialchars($input['answer']);
+                    $question = $input['question'];
+                    $answer = $input['answer'];
 
                     $this->historyService->addHistoryPracticalInformation($question, $answer);
 

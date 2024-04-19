@@ -37,8 +37,8 @@ export function setupImageUploadListener(inputId, api, containerName, imageEleme
                     }
                 })
                 .catch((error) => {
-                    errorHandler.logError(error, 'addToFavourites', 'guns.js');
-                    errorHandler.showAlert('A error occured, please try again later!');
+                    errorHandler.logError(error, 'setupImageUploadListener', 'update_image.js');
+                    errorHandler.showAlert('An error occured, please try again later!');
                 });
         }
     });

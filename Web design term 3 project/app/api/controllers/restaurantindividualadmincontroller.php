@@ -59,12 +59,12 @@ class RestaurantIndividualAdminController
 
                 if (isset($input['restaurantID'], $input['name'], $input['location'], $input['numberOfSeats'], $input['descriptionTopPart'], $input['descriptionSideOne'], $input['descriptionSideTwo'], $input['rating'])) {
                     $id = filter_var($input['restaurantID'], FILTER_VALIDATE_INT);
-                    $name = htmlspecialchars($input['name']);
-                    $location = htmlspecialchars($input['location']);
+                    $name = $input['name'];
+                    $location = $input['location'];
                     $numberOfSeats = filter_var($input['numberOfSeats'], FILTER_VALIDATE_INT);
-                    $descriptionTopPart = htmlspecialchars($input['descriptionTopPart']);
-                    $descriptionSideOne = htmlspecialchars($input['descriptionSideOne']);
-                    $descriptionSideTwo = htmlspecialchars($input['descriptionSideTwo']);
+                    $descriptionTopPart = $input['descriptionTopPart'];
+                    $descriptionSideOne = $input['descriptionSideOne'];
+                    $descriptionSideTwo = $input['descriptionSideTwo'];
                     $rating = filter_var($input['rating'], FILTER_VALIDATE_INT);
 
                     $this->yummyService->editRestaurant($id, $name, $location, $numberOfSeats, $rating, $descriptionTopPart, $descriptionSideOne, $descriptionSideTwo);
@@ -91,7 +91,7 @@ class RestaurantIndividualAdminController
 
                 if (isset($input['restaurantID'], $input['cuisineTypes'])) {
                     $id = filter_var($input['restaurantID'], FILTER_VALIDATE_INT);
-                    $cuisineTypes = htmlspecialchars($input['cuisineTypes']);
+                    $cuisineTypes = $input['cuisineTypes'];
 
                     $this->yummyService->editRestaurantTypeOfCuisine($id, $cuisineTypes);
 
@@ -115,7 +115,7 @@ class RestaurantIndividualAdminController
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
                 $image = $_FILES['image'];
                 $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
-                $columnName = htmlspecialchars($_POST['columnName']);
+                $columnName = $_POST['columnName'];
                 $currentImage = $this->yummyService->getCurrentRestaurantImagePath($id, $columnName);
                 $imageUrl = ImageEditor::saveImage('/app/public/assets/images/yummy_event/individual_resturant', $image);
 
@@ -150,8 +150,8 @@ class RestaurantIndividualAdminController
                     $pricesForAdults = filter_var($input['pricesForAdults'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                     $pricesForChildren = filter_var($input['pricesForChildren'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                     $reservationFee = filter_var($input['reservationFee'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-                    $startTime = htmlspecialchars($input['startTime']);
-                    $endTime = htmlspecialchars($input['endTime']);
+                    $startTime = $input['startTime'];
+                    $endTime = $input['endTime'];
 
                     $this->yummyService->editRestaurantSession($id, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime);
 
@@ -206,8 +206,8 @@ class RestaurantIndividualAdminController
                     $pricesForAdults = filter_var($input['pricesForAdults'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                     $pricesForChildren = filter_var($input['pricesForChildren'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                     $reservationFee = filter_var($input['reservationFee'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-                    $startTime = htmlspecialchars($input['startTime']);
-                    $endTime = htmlspecialchars($input['endTime']);
+                    $startTime = $input['startTime'];
+                    $endTime = $input['endTime'];
 
                     $this->yummyService->addRestaurantSession($restaurantID, $availableSeats, $pricesForAdults, $pricesForChildren, $reservationFee, $startTime, $endTime);
 
@@ -258,7 +258,7 @@ class RestaurantIndividualAdminController
 
                 if (isset($input['restaurantID'], $input['reviewText'], $input['rating'])) {
                     $restaurantID = filter_var($input['restaurantID'], FILTER_VALIDATE_INT);
-                    $review = htmlspecialchars($input['reviewText']);
+                    $review = $input['reviewText'];
                     $rating = filter_var($input['rating'], FILTER_VALIDATE_INT);
 
                     $this->yummyService->addRestaurantReview($restaurantID, $rating, $review);

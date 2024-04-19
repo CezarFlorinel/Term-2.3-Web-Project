@@ -41,7 +41,7 @@ export function displaySession() {
 
 export function updateSessionTime(dropdown) {
     const sessions = JSON.parse(dropdown.getAttribute('data-sessions') || '[]');
-    const selectedSessionId = dropdown.value.trim(); // Ensure to trim to remove any unwanted spaces
+    const selectedSessionId = dropdown.value.trim();
     const session = sessions.find(s => s.sessionID == selectedSessionId);
 
     if (session) {
