@@ -1,4 +1,6 @@
-
+import { handleApiResponse, checkText, checkReviewStarNumber } from "../../Utilities/handle_data_checks.js";
+import ErrorHandler from "../../Utilities/error_handler_class.js";
+const errorHandler = new ErrorHandler();
 
 export function deleteReview() {
     document.querySelectorAll('.delete-review-btn').forEach(button => {
@@ -15,15 +17,16 @@ export function deleteReview() {
                     },
                     body: JSON.stringify({ id: reviewId }),
                 })
-                    .then(response => response.json())
+                    .then(handleApiResponse)
                     .then(data => {
-                        alert('Review deleted successfully.');
-                        console.log('Delete successful:', data);
-                        this.closest('.review-container').remove();
+                        if (data.success) {
+                            errorHandler.showAlert('Review deleted successfully', { title: 'Success', icon: 'success' });
+                            this.closest('.review-container').remove();
+                        }
                     })
                     .catch(error => {
-                        console.error('Error:', error);
-                        alert('There was an error deleting the Review');
+                        errorHandler.logError(error, 'deleteReview', 'review.js');
+                        errorHandler.showAlert('An error occurred while deleting the review, please try again later!');
                     });
             }
         });
@@ -39,6 +42,13 @@ export function createReview() {
         const restaurantContainer = document.getElementById("container-restaurant-info");
         const restaurantID = restaurantContainer.getAttribute('data-id');
 
+        if (!checkText({ reviewText })) {
+            return;
+        }
+        else if (!checkReviewStarNumber(reviewRating)) {
+            return;
+        }
+
         const payload = {
             restaurantID: restaurantID,
             reviewText: reviewText,
@@ -52,15 +62,16 @@ export function createReview() {
             },
             body: JSON.stringify(payload),
         })
-            .then(response => response.json())
+            .then(handleApiResponse)
             .then(data => {
-                alert('Review created successfully.');
-                console.log('Success:', data);
-                location.reload();
+                if (data.success) {
+                    location.reload();
+                    errorHandler.showAlert('Review created successfully', { title: 'Success', icon: 'success' });
+                }
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error creating the review');
+                errorHandler.logError(error, 'createReview', 'review.js');
+                errorHandler.showAlert('An error occurred while creating the review, please try again later!');
             });
     });
 }

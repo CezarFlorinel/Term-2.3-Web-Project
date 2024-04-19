@@ -3,6 +3,9 @@ import { deleteReview, createReview } from './modules_edit_restaurant/review.js'
 import { initializeCuisineTypes, addCuisine, deleteCuisineType } from './modules_edit_restaurant/cusine_types.js';
 import { saveSession, deleteSession, createSession } from './modules_edit_restaurant/sessions.js';
 import { deleteImageFunction, impageUploadGallery } from './modules_edit_restaurant/image_restaurant.js';
+import { handleApiResponse, checkText, checkNumber, checkReviewStarNumber } from '../Utilities/handle_data_checks.js';
+import ErrorHandler from '../Utilities/error_handler_class.js';
+const errorHandler = new ErrorHandler();
 
 const apiUrlForImages = "/api/restaurantIndividualAdmin/updateRestaurantImages";
 const containerForImagesName = "container-restaurant-info"
@@ -64,7 +67,7 @@ function editRestaurant() {
             this.textContent = 'Edit';
             container.removeAttribute('data-editing');
 
-            // Collect data and send it to the server
+            // collect data and send it to the server
             const id = container.getAttribute('data-id');
             const name = nameEl.innerText;
             const location = locationEl.innerText;
@@ -74,30 +77,8 @@ function editRestaurant() {
             const numberOfSeats = numberSeatsEl.value;
             const rating = numberStarsEl.value;
 
-            fetch('/api/restaurantIndividualAdmin/updateRestaurantInformation', {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    restaurantID: id,
-                    name: name,
-                    location: location,
-                    descriptionTopPart: description,
-                    descriptionSideOne: descriptionSideOne,
-                    descriptionSideTwo: descriptionSideTwo,
-                    numberOfSeats: numberOfSeats,
-                    rating: rating
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        alert(data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while updating the restaurant information');
-                });
+            runChecksBeforeSendingData(id, name, location, description, descriptionSideOne, descriptionSideTwo, numberOfSeats, rating);
+
         } else {
             // Currently in view mode, switch to edit mode
             nameEl.contentEditable = 'true';
@@ -114,6 +95,46 @@ function editRestaurant() {
     });
 }
 
+function runChecksBeforeSendingData(id, name, location, description, descriptionSideOne, descriptionSideTwo, numberOfSeats, rating) {
+    if (!checkText({ name, location, description, descriptionSideOne, descriptionSideTwo })) {
+        return;
+    }
+    else if (!checkNumber(numberOfSeats) || !checkNumber(rating)) {
+        return;
+    }
+    else if (!checkReviewStarNumber(rating)) {
+        return;
+    }
+    else {
+        fetchRestaurantData(id, name, location, description, descriptionSideOne, descriptionSideTwo, numberOfSeats, rating);
+    }
+
+}
+
+function fetchRestaurantData(id, name, location, description, descriptionSideOne, descriptionSideTwo, numberOfSeats, rating) {
+    fetch('/api/restaurantIndividualAdmin/updateRestaurantInformation', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            restaurantID: id,
+            name: name,
+            location: location,
+            descriptionTopPart: description,
+            descriptionSideOne: descriptionSideOne,
+            descriptionSideTwo: descriptionSideTwo,
+            numberOfSeats: numberOfSeats,
+            rating: rating
+        })
+    })
+        .then(handleApiResponse)
+        .catch(error => {
+            errorHandler.logError(error, 'fetchRestaurantData', 'edit_restaurant_admin.js');
+            errorHandler.showAlert('An error occurred while updating the restaurant information, please try again later!');
+        });
+
+}
+
+
 function deleteRestaurant() {
     document.getElementById('delete-restaurant-btn').addEventListener('click', function () {
         if (confirm('Are you sure you want to delete this restaurant?')) {
@@ -127,18 +148,15 @@ function deleteRestaurant() {
                 },
                 body: JSON.stringify({ id: id }),
             })
-                .then(response => response.json())
+                .then(handleApiResponse)
                 .then(data => {
                     if (data.success) {
-                        alert('Restaurant deleted successfully.');
                         window.location.href = '/yummyHomeAdmin';
-                    } else {
-                        alert('Failed to delete restaurant: ' + data.error);
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('There was an error deleting the restaurant');
+                    errorHandler.logError(error, 'deleteRestaurant', 'edit_restaurant_admin.js');
+                    errorHandler.showAlert('An error occurred while deleting the restaurant, please try again later!');
                 });
         }
     });

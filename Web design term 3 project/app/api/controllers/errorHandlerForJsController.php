@@ -11,9 +11,9 @@ class ErrorHandlerForJsController
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $input = json_decode(file_get_contents('php://input'), true);
                 if (isset($input['error'], $input['methodeName'], $input['className'])) {
-                    $error = htmlspecialchars($input['error']);
-                    $methodeName = htmlspecialchars($input['methodeName']);
-                    $className = htmlspecialchars($input['className']);
+                    $error = $input['error'];
+                    $methodeName = $input['methodeName'];
+                    $className = $input['className'];
                     error_log(date('Y-m-d H:i:s') . " - " . $className . " - " . $methodeName . " - " . $error . "\n", 3, __DIR__ . '/../../error_logs/error_log_javascript.log');
                     echo json_encode(['success' => true, 'message' => 'Error has been stored']);
                 } else {

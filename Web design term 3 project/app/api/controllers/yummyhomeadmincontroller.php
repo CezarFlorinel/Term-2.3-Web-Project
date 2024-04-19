@@ -24,8 +24,8 @@ class YummyHomeAdminController
 
                 if (isset($input['pageID'], $input['subheader'], $input['description'])) {
                     $id = filter_var($input['pageID'], FILTER_VALIDATE_INT);
-                    $subheader = htmlspecialchars($input['subheader']);
-                    $description = htmlspecialchars($input['description']);
+                    $subheader = $input['subheader'];
+                    $description = $input['description'];
 
                     $this->yummyService->editHomepageDataRestaurant($id, $subheader, $description);
 
@@ -49,7 +49,7 @@ class YummyHomeAdminController
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
                 $image = $_FILES['image'];
                 $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
-                $columnName = htmlspecialchars($_POST['columnName']);
+                $columnName = $_POST['columnName'];
                 $currentImage = $this->yummyService->getCurrentHomepageDataRestaurantImagePath($id, $columnName);
                 $imageUrl = ImageEditor::saveImage('/app/public/assets/images/yummy_event/home_page_top', $image);
 
@@ -81,15 +81,15 @@ class YummyHomeAdminController
 
                 if (isset($input['reservationId'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'], $input['comment'], $input['active'])) {
                     $id = filter_var($input['reservationId'], FILTER_VALIDATE_INT);
-                    $firstName = htmlspecialchars($input['firstName']);
-                    $lastName = htmlspecialchars($input['lastName']);
-                    $email = htmlspecialchars($input['email']);
-                    $phoneNumber = htmlspecialchars($input['phoneNumber']);
+                    $firstName = $input['firstName'];
+                    $lastName = $input['lastName'];
+                    $email = $input['email'];
+                    $phoneNumber = $input['phoneNumber'];
                     $session = filter_var($input['session'], FILTER_VALIDATE_INT);
-                    $date = htmlspecialchars($input['date']);
+                    $date = $input['date'];
                     $numberOfAdults = filter_var((int) $input['numberOfAdults'], FILTER_VALIDATE_INT);
                     $numberOfChildren = filter_var((int) $input['numberOfChildren'], FILTER_VALIDATE_INT);
-                    $comment = htmlspecialchars($input['comment']);
+                    $comment = $input['comment'];
                     $active = filter_var($input['active'], FILTER_VALIDATE_BOOL); // MAY GIVE ERROR
 
                     $this->yummyService->editReservation($id, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active);
@@ -114,16 +114,16 @@ class YummyHomeAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['restaurantName'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'], $input['comment'], $input['active'])) {
-                    $restaurantName = htmlspecialchars($input['restaurantName']);
-                    $firstName = htmlspecialchars($input['firstName']);
-                    $lastName = htmlspecialchars($input['lastName']);
-                    $email = htmlspecialchars($input['email']);
-                    $phoneNumber = htmlspecialchars($input['phoneNumber']);
+                    $restaurantName = $input['restaurantName'];
+                    $firstName = $input['firstName'];
+                    $lastName = $input['lastName'];
+                    $email = $input['email'];
+                    $phoneNumber = $input['phoneNumber'];
                     $session = filter_var($input['session'], FILTER_VALIDATE_INT);
-                    $date = htmlspecialchars($input['date']);
+                    $date = $input['date'];
                     $numberOfAdults = filter_var((int) $input['numberOfAdults'], FILTER_VALIDATE_INT);
                     $numberOfChildren = filter_var((int) $input['numberOfChildren'], FILTER_VALIDATE_INT);
-                    $comment = htmlspecialchars($input['comment']);
+                    $comment = $input['comment'];
                     $active = filter_var($input['active'], FILTER_VALIDATE_BOOL);
 
 
@@ -147,7 +147,7 @@ class YummyHomeAdminController
     {
         try {
             if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['name'])) {
-                $restaurantName = htmlspecialchars($_GET['name']);
+                $restaurantName = $_GET['name'];
 
                 $sessions = $this->yummyService->getSessionByRestaurantName($restaurantName);
 

@@ -25,7 +25,7 @@ $cusineTypes = explode(";", $restaurant->cuisineTypes);
         <div class="flex-grow p-6">
 
             <h1 class="text-5xl font-bold text-center mb-6 text-red-900">
-                <?php echo ($restaurant->name); ?>
+                <?php echo htmlspecialchars($restaurant->name); ?>
             </h1>
 
             <?php include __DIR__ . '/../../../components/admin/yummy/edit_restaurant/restaurantInformation.php'; ?>

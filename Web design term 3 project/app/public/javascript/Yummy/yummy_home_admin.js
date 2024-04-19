@@ -54,10 +54,7 @@ function editTopPart() {
                 location.reload();
                 return;
             }
-
             editTopPartFetch(id, description, subheader);
-
-
 
         } else {
             // Currently in view mode, switch to edit mode
@@ -79,8 +76,8 @@ function editTopPart() {
             })
         }).then(handleApiResponse)
             .catch((error) => {
-                errorHandler.logError(error, 'addToFavourites', 'guns.js');
-                errorHandler.showAlert('A error occured, please try again later!');
+                errorHandler.logError(error, 'editTopPart', 'yummy_home_admin.js');
+                errorHandler.showAlert('An error occured, please try again later!');
             });
     }
 }

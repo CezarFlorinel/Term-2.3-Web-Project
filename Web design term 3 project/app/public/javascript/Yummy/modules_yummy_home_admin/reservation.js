@@ -1,3 +1,7 @@
+import { handleApiResponse, checkText, checkNumber } from "../../Utilities/handle_data_checks.js";
+import ErrorHandler from "../../Utilities/error_handler_class.js";
+const errorHandler = new ErrorHandler();
+
 export function saveReservation() {
     document.querySelectorAll('.save-reservation-btn').forEach(button => {
         button.addEventListener('click', function () {
@@ -10,6 +14,13 @@ export function saveReservation() {
             }
             // Convert 'active' field from string to boolean
             reservationData['active'] = formData.get('active') === 'on';
+            if (!checkText(reservationData['firstName'], reservationData['lastName'], reservationData['email'], reservationData['phoneNumber'], reservationData['date'])) {
+                return;
+            }
+            else if (!checkNumber(reservationData['numberOfAdults'], reservationData['numberOfChildren'])) {
+                return;
+            }
+
 
             fetch('/api/YummyHomeAdmin/updateReservation', {
                 method: 'PUT',
@@ -18,19 +29,10 @@ export function saveReservation() {
                 },
                 body: JSON.stringify(reservationData),
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data); // Handle success response
-                    alert('Reservation updated successfully');
-                })
-                .catch(error => {
-                    console.error('Error:', error); // Handle errors
-                    alert('Error updating reservation');
+                .then(handleApiResponse)
+                .catch((error) => {
+                    errorHandler.logError(error, 'saveReservation', 'reservation.js');
+                    errorHandler.showAlert('An error occured, please try again later!');
                 });
         });
     });
@@ -52,6 +54,13 @@ export function createNewReservation() {
             }
         });
 
+        if (!checkText(jsonData['firstName'], jsonData['lastName'], jsonData['email'], jsonData['phoneNumber'], jsonData['date'])) {
+            return;
+        }
+        else if (!checkNumber(jsonData['numberOfAdults'], jsonData['numberOfChildren'])) {
+            return;
+        }
+
         fetch('/api/YummyHomeAdmin/createReservation', {
             method: 'POST',
             headers: {
@@ -59,20 +68,16 @@ export function createNewReservation() {
             },
             body: JSON.stringify(jsonData)
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(handleApiResponse)
             .then(data => {
-                console.log(data); // Handle success response
-                alert('Reservation created successfully');
-                location.reload();
+                if (data.success) {
+                    location.reload();
+                    errorHandler.showAlert('Reservation created successfully.', { title: 'Success', icon: 'success' });
+                }
             })
-            .catch(error => {
-                console.error('Error:', error); // Handle errors
-                alert('Error creating reservation');
+            .catch((error) => {
+                errorHandler.logError(error, 'createNewReservation', 'reservation.js');
+                errorHandler.showAlert('An error occured, please try again later!');
             });
     });
 }
