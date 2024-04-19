@@ -137,8 +137,7 @@ class UserController
 
             if ($sanitizedData !== false && !in_array(false, $sanitizedData, true)) {
 
-
-                $emailExists = $this->userService->checkIfEmailExists($sanitizedData['Email']);
+                $emailExists = $this->userService->checkIfEmailExists($sanitizedData['email']);
 
                 if ($emailExists) {
                     echo json_encode(['success' => false, 'error' => 'Email already exists']);
@@ -155,7 +154,7 @@ class UserController
                     return;
                 }
 
-                $sanitizedData['Password'] = password_hash($sanitizedData['Password'], PASSWORD_DEFAULT);
+                $sanitizedData['password'] = password_hash($sanitizedData['password'], PASSWORD_DEFAULT);
                 $user = new User($sanitizedData);
 
                 $this->userService->createUser($user);
