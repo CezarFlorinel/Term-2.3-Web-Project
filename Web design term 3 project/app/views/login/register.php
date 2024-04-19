@@ -103,7 +103,7 @@
 
 </body>
 
-<script src="javascript/User/register.js"></script>
+<script type="module" src="javascript/User/register.js"></script>
 
 </html>
 <?php include __DIR__ . '/../footer.php'; ?>
