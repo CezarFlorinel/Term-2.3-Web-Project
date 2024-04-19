@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         email: email,
         password: password,
         passwordConfirm: passwordConfirm,
-        userRole: "Member",
+        role: "Member",
       };
       console.log(formData);
 
@@ -41,7 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
       })
         .then((response) => response.json())
         .then((data) => {
-          //window.location.href = "/login/index";
+          if (data.success) {
+            window.location.href = "/login";
+          }
+          else {
+            alert("Registration failed. Please try again.");
+          }
+
         })
         .catch((error) => {
           console.error("Error:", error);

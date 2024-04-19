@@ -63,13 +63,9 @@ class UserController
 
     public function create()
     {
-        $jsonInput = file_get_contents('php://input');
-        $data = json_decode($jsonInput, true);
-
+        $data = json_decode(file_get_contents('php://input'), true);
 
         if ($data !== null) {
-
-
 
             $sanitizedData = filter_var_array($data, $this->filters, false);
 
@@ -79,7 +75,7 @@ class UserController
 
                 $this->userService->createUser($user);
 
-                echo json_encode(['status' => 'success', 'message' => 'User created successfully']);
+                echo json_encode(['success' => true, 'message' => 'User created successfully']);
             } else {
                 http_response_code(400);
                 echo json_encode(['status' => 'error', 'message' => 'Invalid input data']);
