@@ -60,6 +60,16 @@ class UserController
             echo json_encode(['status' => 'error', 'message' => 'User not found']);
         }
     }
+    public function getByEmail($email)
+    {
+        $user = $this->userService->getByEmail($email);
+        if ($user) {
+            echo json_encode(['status' => 'success', 'data' => $user]);
+        } else {
+            http_response_code(404);
+            echo json_encode(['status' => 'error', 'message' => 'User not found']);
+        }
+    }
 
     public function create()
     {
