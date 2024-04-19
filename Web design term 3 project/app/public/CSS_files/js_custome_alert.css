@@ -1,0 +1,19 @@
+.custom-swal-title {
+    color: #000 !important;
+    font-family: 'Keania One', sans-serif !important;
+}
+
+.custom-swal-content {
+    color: #333 !important;
+    font-family: 'Khand', sans-serif;
+}
+
+.custom-swal-confirm-button {
+    background-color: #000 !important;
+    color: #fff !important;
+    border: none;
+}
+
+.swal2-icon {
+    color: #000 !important;
+}

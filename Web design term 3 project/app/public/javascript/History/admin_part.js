@@ -4,6 +4,7 @@ import { handleEditableFieldsForTicketPrices, updateHistoryTicketPrices } from '
 import { editDeparture, editTour, editTourPlace, handleEditableFields, updateHistoryStartingPointDescription } from './modules_home_admin/history_tour.js';
 import { deleteImageFromCarousel, editTopPart } from './modules_home_admin/top_part_of_page.js';
 
+
 // !!! if you do changes to HTML, some issues might occur, because of the names used in here to connect to the divs and the rest of the stuff. !!!
 // check for such issues if you do changes to the HTML
 

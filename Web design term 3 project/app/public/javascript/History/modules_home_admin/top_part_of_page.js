@@ -1,5 +1,5 @@
 function deleteImageFromCarousel() {
-    document.querySelectorAll('.grid .relative button').forEach(button => {
+    document.querySelectorAll('.grid .relative button').forEach(button => {  // change this to an id or something
         button.addEventListener('click', function () {
             const container = this.closest('.relative');
             // Decode the URL-encoded src path
@@ -8,7 +8,7 @@ function deleteImageFromCarousel() {
 
             if (confirm('Are you sure you want to delete this image?')) {
                 fetch('/api/historyadmin/deleteImageFromCarousel', {
-                    method: 'POST',
+                    method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: id, imagePath: imagePath })
                 })
@@ -53,7 +53,7 @@ function editTopPart() {
             const subheader = subheaderEl.innerText;
 
             fetch('/api/historyadmin/updateTopPartInformation', {
-                method: 'POST',
+                method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     informationID: id,

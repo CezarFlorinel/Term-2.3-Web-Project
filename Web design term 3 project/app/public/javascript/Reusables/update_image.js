@@ -1,3 +1,6 @@
+import { checkImageSizeAndFileType, handleApiResponse } from '../Utilities/handle_data_checks.js';
+import ErrorHandler from '../Utilities/error_handler_class.js';
+const errorHandler = new ErrorHandler();
 
 export function setupImageUploadListener(inputId, api, containerName, imageElementId = '', columnName = '') {
     let element = null;
@@ -14,12 +17,13 @@ export function setupImageUploadListener(inputId, api, containerName, imageEleme
             formData.append('id', container.getAttribute('data-id'));
 
             if (columnName) { formData.append('columnName', columnName); }
+            if (!checkImageSizeAndFileType(this.files[0])) { return; }
 
             fetch(api, {
                 method: "POST",
                 body: formData,
             })
-                .then(response => response.json())
+                .then(handleApiResponse)
                 .then(data => {
                     if (data.success) {
                         if (imageElementId) {
@@ -29,15 +33,12 @@ export function setupImageUploadListener(inputId, api, containerName, imageEleme
                             updateImageCarousel(data.imageUrl);
                             this.value = ''; // Clear the input field after image upload
                         }
-
-                        alert("Image updated successfully.");
-                    } else {
-                        alert("Image upload failed: " + data.error);
+                        errorHandler.showAlert('Image updated successfully.', { title: 'Success', icon: 'success' });
                     }
                 })
-                .catch(error => {
-                    console.error("Error:", error);
-                    alert("There was an error uploading the image");
+                .catch((error) => {
+                    errorHandler.logError(error, 'setupImageUploadListener', 'update_image.js');
+                    errorHandler.showAlert('An error occured, please try again later!');
                 });
         }
     });

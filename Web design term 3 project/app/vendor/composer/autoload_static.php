@@ -30,10 +30,12 @@ class ComposerStaticInitfdbf34b9944a7abd3eceb56cc305c687
         'A' => 
         array (
             'App\\Views\\' => 10,
+            'App\\Utilities\\' => 14,
             'App\\Services\\' => 13,
             'App\\Repositories\\' => 17,
             'App\\Models\\' => 11,
             'App\\Controllers\\' => 16,
+            'App\\Api\\Controllers\\' => 20,
             'App\\' => 4,
         ),
     );
@@ -63,6 +65,10 @@ class ComposerStaticInitfdbf34b9944a7abd3eceb56cc305c687
         array (
             0 => __DIR__ . '/../..' . '/views',
         ),
+        'App\\Utilities\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/utilities',
+        ),
         'App\\Services\\' => 
         array (
             0 => __DIR__ . '/../..' . '/services',
@@ -78,6 +84,10 @@ class ComposerStaticInitfdbf34b9944a7abd3eceb56cc305c687
         'App\\Controllers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/controllers',
+        ),
+        'App\\Api\\Controllers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/api/controllers',
         ),
         'App\\' => 
         array (

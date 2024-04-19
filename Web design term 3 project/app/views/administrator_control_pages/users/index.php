@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
 </head>
 
 <body class="bg-gray-200">
@@ -18,7 +17,8 @@
 
                 <!-- users table -->
                 <div class="relative overflow-x-auto">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" id="userTable">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                        id="userTable">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
@@ -39,11 +39,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                           
+
                         </tbody>
                     </table>
                 </div>
-
+                <a href="/userAddAdmin"><button type="button"
+                        class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Add
+                        new user</button></a>
 
             </div>
         </div>

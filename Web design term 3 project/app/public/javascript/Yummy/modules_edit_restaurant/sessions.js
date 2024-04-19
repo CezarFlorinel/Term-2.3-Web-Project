@@ -1,10 +1,14 @@
+import { handleApiResponse, checkText, checkReviewStarNumber, checkNumber } from "../../Utilities/handle_data_checks.js";
+import ErrorHandler from "../../Utilities/error_handler_class.js";
+const errorHandler = new ErrorHandler();
+
 
 export function saveSession() {
     document.querySelectorAll('.save-session-btn').forEach(button => {
         button.addEventListener('click', function () {
             const card = this.closest('.card-container'); // Correctly target the closest card container
             const sessionId = card.getAttribute('data-id');
-            // Gather data from all fields...
+
             const payload = {
                 id: sessionId,
                 availableSeats: card.querySelector('[data-field="availableSeats"]').value,
@@ -14,25 +18,22 @@ export function saveSession() {
                 startTime: card.querySelector('[data-field="startTime"]').value,
                 endTime: card.querySelector('[data-field="endTime"]').value,
             };
-            // Post payload to server...
-            console.log('Saving session', payload);
-            // Add fetch() call to send data to  your API here...
+
+            if (!checkSessionData(payload.availableSeats, payload.pricesForAdults, payload.pricesForChildren, payload.reservationFee, payload.startTime, payload.endTime)) {
+                return;
+            }
 
             fetch('/api/restaurantIndividualAdmin/updateRestaurantSession', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json', // Assuming your server expects JSON
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(payload),
             })
-                .then(response => response.json())
-                .then(data => {
-                    alert('Session updated successfully.');
-                    console.log('Success:', data); // You can remove or modify this line based on your needs
-                })
+                .then(handleApiResponse)
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('There was an error updating the session');
+                    errorHandler.logError(error, 'saveSession', 'sessions.js');
+                    errorHandler.showAlert('An error occurred while updating the session, please try again later!');
                 });
 
 
@@ -49,21 +50,21 @@ export function deleteSession() {
 
             if (confirmation) {
                 fetch('/api/restaurantIndividualAdmin/deleteRestaurantSession', {
-                    method: 'POST',
+                    method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ id: sessionId }),
                 })
-                    .then(response => response.json())
+                    .then(handleApiResponse)
                     .then(data => {
-                        alert('Session deleted successfully.');
-                        console.log('Delete successful:', data); // Again, adjust as needed
-                        this.closest('.card-container').remove();
+                        if (data.success) {
+                            this.closest('.card-container').remove();
+                        }
                     })
                     .catch(error => {
-                        console.error('Error:', error);
-                        alert('There was an error deleting the session');
+                        errorHandler.logError(error, 'deleteSession', 'sessions.js');
+                        errorHandler.showAlert('An error occurred while deleting the session, please try again later!');
                     });
             }
         });
@@ -86,6 +87,10 @@ export function createSession() {
             endTime: container.querySelector('[data-new-field="endTime"]').value,
         };
 
+        if (!checkSessionData(payload.availableSeats, payload.pricesForAdults, payload.pricesForChildren, payload.reservationFee, payload.startTime, payload.endTime)) {
+            return;
+        }
+
         fetch('/api/restaurantIndividualAdmin/addRestaurantSession', {
             method: 'POST',
             headers: {
@@ -93,15 +98,25 @@ export function createSession() {
             },
             body: JSON.stringify(payload),
         })
-            .then(response => response.json())
+            .then(handleApiResponse)
             .then(data => {
-                alert('New session created successfully.');
-                console.log('Success:', data);
-                location.reload();
+                if (data.success) {
+                    location.reload();
+                }
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error creating the new session');
+                errorHandler.logError(error, 'createSession', 'sessions.js');
+                errorHandler.showAlert('An error occurred while creating the session, please try again later!');
             });
     });
+}
+
+function checkSessionData(availableSeats, pricesForAdults, pricesForChildren, reservationFee, startTime, endTime) {
+    if (!checkNumber(availableSeats) || !checkNumber(pricesForAdults) || !checkNumber(pricesForChildren) || !checkNumber(reservationFee)) {
+        return false;
+    }
+    else if (!checkText(startTime) || !checkText(endTime)) {
+        return false;
+    }
+    return true;
 }

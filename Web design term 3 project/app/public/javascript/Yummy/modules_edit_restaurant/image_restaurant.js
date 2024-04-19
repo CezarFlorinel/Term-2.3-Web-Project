@@ -1,27 +1,30 @@
+import { handleApiResponse, checkImageSizeAndFileType } from "../../Utilities/handle_data_checks.js";
+import ErrorHandler from "../../Utilities/error_handler_class.js";
+const errorHandler = new ErrorHandler();
+
+
 export function deleteImageFunction() {
     const imageId = this.getAttribute('data-image-id');
     const imagePath = this.getAttribute('data-image-path');
 
     if (confirm('Are you sure you want to delete this image?')) {
         fetch('/api/restaurantIndividualAdmin/deleteImageGallery', {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ id: imageId, imagePath: imagePath }),
         })
-            .then(response => response.json())
+            .then(handleApiResponse)
             .then(data => {
                 if (data.success) {
                     this.closest('.relative').remove();
-                    alert('Image deleted successfully.');
-                } else {
-                    alert('Failed to delete image: ' + data.error);
+                    errorHandler.showAlert('Image deleted successfully', { title: 'Success', icon: 'success' });
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error deleting the image');
+                errorHandler.logError(error, 'deleteImageFunction', 'image_restaurant.js');
+                errorHandler.showAlert('An error occurred while deleting the image, please try again later!');
             });
     }
 }
@@ -36,16 +39,17 @@ export function impageUploadGallery() {
             const id = restaurantContainer.getAttribute('data-id');
             formData.append('restaurantID', id);  // Add restaurant ID to formData
 
-            // API endpoint
+            if (!checkImageSizeAndFileType(this.files[0])) {
+                return;
+            }
+
             const apiEndpoint = '/api/restaurantIndividualAdmin/addRestaurantImagePathGallery';
 
             fetch(apiEndpoint, {
                 method: 'POST',
                 body: formData,
             })
-                .then(response => {
-                    return response.json(); // This parses the JSON body of the response (but can throw if not valid JSON)
-                })
+                .then(handleApiResponse)
                 .then(data => {
                     if (data.success) {
                         const imagesGallery = document.getElementById('imagesGallery');
@@ -60,14 +64,12 @@ export function impageUploadGallery() {
                         // Attach event listener for deletion to the new delete button
                         newImageDiv.querySelector('.delete-image-btn').addEventListener('click', deleteImageFunction);
 
-                        alert('Image uploaded successfully');
-                    } else {
-                        alert(`Failed to upload image: ${data.error}`);
+                        errorHandler.showAlert('Image uploaded successfully', { title: 'Success', icon: 'success' });
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while uploading the image');
+                    errorHandler.logError(error, 'impageUploadGallery', 'image_restaurant.js');
+                    errorHandler.showAlert('An error occurred while uploading the image, please try again later!');
                 });
 
             // Clear the input after upload for potential subsequent uploads

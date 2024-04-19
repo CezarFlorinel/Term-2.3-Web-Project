@@ -1,3 +1,7 @@
+import { handleApiResponse, checkText } from "../../Utilities/handle_data_checks.js";
+import ErrorHandler from "../../Utilities/error_handler_class.js";
+const errorHandler = new ErrorHandler();
+
 
 function handleEditableFieldsForQandA(button, updateFunction) {
     const container = button.closest("div[data-id]");
@@ -30,17 +34,15 @@ function addNewQuestionAndAnswer() {
     document.getElementById("submitNewInfo").addEventListener("click", function () {
         const question = document.getElementById("newQuestion").value;
         const answer = document.getElementById("newAnswer").value;
-        if (question && answer) {
+        if (!checkText({ question, answer })) {
             addHistoryPracticalInformation(question, answer);
-        } else {
-            alert("Please fill in both question and answer");
         }
     });
 }
 
 function deleteHistoryPracticalInformation(id) {
     fetch("/api/historyadmin/deleteHistoryPracticalInformation", {
-        method: "POST",
+        method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
@@ -78,8 +80,11 @@ function deletePracticalInformation() {
 }
 
 function updateHistoryPracticalInformation(id, question, answer) {
+    if (!checkText({ question, answer })) {
+        return;
+    }
     fetch("/api/historyadmin/updateHistoryPracticalInformation", {
-        method: "POST",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json", // Correct content-type for JSON
         },
@@ -89,9 +94,11 @@ function updateHistoryPracticalInformation(id, question, answer) {
             answer: answer,
         }),
     })
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error("Error:", error));
+        .then(handleApiResponse)
+        .catch((error) => {
+            errorHandler.logError(error, "updateHistoryPracticalInformation", "history_practical_information.js");
+            errorHandler.showAlert("An error occurred while updating the information, please try again later!");
+        });
 }
 
 function addHistoryPracticalInformation(question, answer) {
@@ -105,19 +112,15 @@ function addHistoryPracticalInformation(question, answer) {
             answer: answer,
         }),
     })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json();
-        })
+        .then(handleApiResponse)
         .then((data) => {
-            console.log(data);
-            location.reload(); // Reload the page to see the new entry
+            if (data.success) {
+                location.reload();
+            }
         })
         .catch((error) => {
-            console.error("Error:", error);
-            alert("There was an error adding the information");
+            errorHandler.logError(error, "addHistoryPracticalInformation", "history_practical_information.js");
+            errorHandler.showAlert("An error occurred while adding the information, please try again later!");
         });
 }
 
