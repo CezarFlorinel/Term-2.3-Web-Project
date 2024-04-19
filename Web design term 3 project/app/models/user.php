@@ -16,23 +16,23 @@ class User
 
     public function __construct(array $userData)
     {
-        $this->setId($userData['UserID'] ?? 0);
-        $this->setEmail($userData['Email'] ?? '');
-        $this->setName($userData['Name'] ?? '');
-        $this->setPassword($userData['Password'] ?? '');
-        $this->setUserRole($userData['Role'] ?? '');
-        $this->registrationDate = new \DateTime($userData['RegistrationDate'] ?? 'now');
+        $this->setId($userData['userID'] ?? 0);
+        $this->setEmail($userData['email'] ?? '');
+        $this->setName($userData['name'] ?? '');
+        $this->setPassword($userData['password'] ?? '');
+        $this->setUserRole($userData['role'] ?? '');
+        $this->registrationDate = new \DateTime($userData['registrationDate'] ?? 'now');
         // $this->setProfilePicture($userData['user_profile_picture'] ?? '');
     }
     public function toArray(): array
     {
         return [
 
-            'Email' => $this->email,
-            'Name' => $this->name,
-            'Password' => $this->password,
-            'Role' => $this->role,
-            'RegistrationDate' => $this->registrationDate->format('Y-m-d'),
+            'email' => $this->email,
+            'name' => $this->name,
+            'password' => $this->password,
+            'role' => $this->role,
+            'registrationDate' => $this->registrationDate->format('Y-m-d'),
         ];
     }
 

@@ -39,16 +39,35 @@ class UserRepository extends Repository
     {
         try {
             $stmt = $this->connection->prepare("SELECT * FROM [USER] WHERE [Email] = :email");
-            $stmt->bindValue(':email', $email);
+            $stmt->bindValue(':email', $email, PDO::PARAM_STR);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            return $result ? $result : null;
+            if ($result) {
+                $resultArray = $this->convertKeysToCamelCase($result);
+                return $resultArray;
+            } else {
+                return null;
+            }
         } catch (PDOException $e) {
-            echo $e;
+            echo "Error: " . $e->getMessage();
             return null;
         }
     }
+
+
+    private function convertKeysToCamelCase($array)
+    {
+        $camelCaseArray = [];
+        foreach ($array as $key => $value) {
+            // Convert first character to lowercase
+            $camelCaseKey = lcfirst($key);
+            $camelCaseArray[$camelCaseKey] = $value;
+        }
+        return $camelCaseArray;
+    }
+
+
     public function checkIfEmailExists($email): bool
     {
         $stmt = $this->connection->prepare("SELECT COUNT(*) as count_users FROM [USER] WHERE email = ?");
