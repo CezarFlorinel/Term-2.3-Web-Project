@@ -1,3 +1,7 @@
+import { handleApiResponse, checkText, checkReviewStarNumber, checkNumber } from "../../Utilities/handle_data_checks.js";
+import ErrorHandler from "../../Utilities/error_handler_class.js";
+const errorHandler = new ErrorHandler();
+
 
 export function saveSession() {
     document.querySelectorAll('.save-session-btn').forEach(button => {
@@ -15,6 +19,10 @@ export function saveSession() {
                 endTime: card.querySelector('[data-field="endTime"]').value,
             };
 
+            if (!checkSessionData(payload.availableSeats, payload.pricesForAdults, payload.pricesForChildren, payload.reservationFee, payload.startTime, payload.endTime)) {
+                return;
+            }
+
             fetch('/api/restaurantIndividualAdmin/updateRestaurantSession', {
                 method: 'PUT',
                 headers: {
@@ -22,14 +30,10 @@ export function saveSession() {
                 },
                 body: JSON.stringify(payload),
             })
-                .then(response => response.json())
-                .then(data => {
-                    alert('Session updated successfully.');
-                    console.log('Success:', data);
-                })
+                .then(handleApiResponse)
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('There was an error updating the session');
+                    errorHandler.logError(error, 'saveSession', 'sessions.js');
+                    errorHandler.showAlert('An error occurred while updating the session, please try again later!');
                 });
 
 
@@ -52,15 +56,15 @@ export function deleteSession() {
                     },
                     body: JSON.stringify({ id: sessionId }),
                 })
-                    .then(response => response.json())
+                    .then(handleApiResponse)
                     .then(data => {
-                        alert('Session deleted successfully.');
-                        console.log('Delete successful:', data); // Again, adjust as needed
-                        this.closest('.card-container').remove();
+                        if (data.success) {
+                            this.closest('.card-container').remove();
+                        }
                     })
                     .catch(error => {
-                        console.error('Error:', error);
-                        alert('There was an error deleting the session');
+                        errorHandler.logError(error, 'deleteSession', 'sessions.js');
+                        errorHandler.showAlert('An error occurred while deleting the session, please try again later!');
                     });
             }
         });
@@ -83,6 +87,10 @@ export function createSession() {
             endTime: container.querySelector('[data-new-field="endTime"]').value,
         };
 
+        if (!checkSessionData(payload.availableSeats, payload.pricesForAdults, payload.pricesForChildren, payload.reservationFee, payload.startTime, payload.endTime)) {
+            return;
+        }
+
         fetch('/api/restaurantIndividualAdmin/addRestaurantSession', {
             method: 'POST',
             headers: {
@@ -90,15 +98,25 @@ export function createSession() {
             },
             body: JSON.stringify(payload),
         })
-            .then(response => response.json())
+            .then(handleApiResponse)
             .then(data => {
-                alert('New session created successfully.');
-                console.log('Success:', data);
-                location.reload();
+                if (data.success) {
+                    location.reload();
+                }
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error creating the new session');
+                errorHandler.logError(error, 'createSession', 'sessions.js');
+                errorHandler.showAlert('An error occurred while creating the session, please try again later!');
             });
     });
+}
+
+function checkSessionData(availableSeats, pricesForAdults, pricesForChildren, reservationFee, startTime, endTime) {
+    if (!checkNumber(availableSeats) || !checkNumber(pricesForAdults) || !checkNumber(pricesForChildren) || !checkNumber(reservationFee)) {
+        return false;
+    }
+    else if (!checkText(startTime) || !checkText(endTime)) {
+        return false;
+    }
+    return true;
 }
