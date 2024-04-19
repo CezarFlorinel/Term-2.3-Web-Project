@@ -152,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('editRole').value = data.data.Role;
       })
       .catch(error => console.error('Error fetching user data:', error));
-    console.log(data);
 
     editUserForm.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -162,9 +161,9 @@ document.addEventListener('DOMContentLoaded', function () {
       const role = document.getElementById('editRole').value;
 
       const formData = {
-        Name: name,
-        Email: email,
-        Role: role,
+        name: name,
+        email: email,
+        role: role,
       };
 
       fetch(`/api/user?id=${userId}`, {
@@ -184,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => {
           console.error('Error:', error);
+          console.log(error);
         });
     });
   }
@@ -200,57 +200,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //Add users
 
-// document.addEventListener('DOMContentLoaded', function () {
-//     const addUserForm = document.getElementById('addUserForm');
+document.addEventListener('DOMContentLoaded', function () {
+    const addUserForm = document.getElementById('addUserForm');
 
-//     if (addUserForm) {
-//         addUserForm.addEventListener('submit', function (event) {
-//             event.preventDefault();
+    if (addUserForm) {
+        addUserForm.addEventListener('submit', function (event) {
+            event.preventDefault();
 
-//             const name = document.getElementById('addName').value;
-//             const email = document.getElementById('addEmail').value;
-//             const phone = document.getElementById('addPhone').value;
-//             const role = document.getElementById('addRole').value;
-//             const pass = document.getElementById('addPassword').value;
-//             const repeatPass = document.getElementById('addRepeatPassword').value;
+            const name = document.getElementById('addName').value;
+            const email = document.getElementById('addEmail').value;
+            const role = document.getElementById('addRole').value;
+            const pass = document.getElementById('addPassword').value;
+            const repeatPass = document.getElementById('addRepeatPassword').value;
 
-//             if (pass.length < 8) {
-//                 alert('Password must be at least 8 characters long.');
-//                 return;
-//             }
+            if (pass.length < 8) {
+                alert('Password must be at least 8 characters long.');
+                return;
+            }
 
-//             if (pass !== repeatPass) {
-//                 alert('Passwords do not match.');
-//                 return;
-//             }
+            if (pass !== repeatPass) {
+                alert('Passwords do not match.');
+                return;
+            }
 
-//             const formData = {
-//                 name: name,
-//                 email: email,
-//                 phone: phone,
-//                 user_role_id: role,
-//                 password: pass,
-//             };
+            const formData = {
+                name: name,
+                email: email,
+                role: role,
+                password: pass,
+            };
 
-//             fetch('/api/user', {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify(formData),
-//             })
-//                 .then(response => response.json())
-//                 .then(data => {
-//                     if (data.status === 'success') {
-//                         window.location.href = '/user';
-//                     } else {
-//                         console.error('Error updating user:', data.message);
-//                     }
-//                 })
-//                 .catch(error => {
-//                     console.error('Error:', error);
-//                 });
-//         });
-//     }
-// });
+            fetch('/api/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        window.location.href = '/user';
+                    } else {
+                        console.error('Error updating user:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    }
+});
 
