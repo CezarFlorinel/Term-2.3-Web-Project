@@ -1,3 +1,6 @@
+<?php include __DIR__ . '/../../config/recaptchaKeys.php'; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +12,10 @@
         href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script
+        src="https://www.google.com/recaptcha/enterprise.js?render=6LfbGsEpAAAAAJ2RLoJCUfirLF4BxU7B8lR0xtWX"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfbGsEpAAAAAJ2RLoJCUfirLF4BxU7B8lR0xtWX"></script>
+
 </head>
 
 <body>
@@ -25,7 +32,8 @@
                 </div>
 
                 <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form class="space-y-6" id="registrationForm" role="form">
+                    <form class="space-y-6" id="registrationForm" role="form"
+                        onsubmit="event.preventDefault(); validateCaptcha();">
                         <div>
                             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email
                                 address</label>
@@ -84,11 +92,20 @@
                         </div>
 
                         <div>
+                            <!-- Existing Input Fields -->
+                            <button
+                                class="g-recaptcha flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"" data-sitekey="
+                                6LfbGsEpAAAAAJ2RLoJCUfirLF4BxU7B8lR0xtWX" data-callback='onSubmit' data-action='submit'>
+                                Sign up
+                            </button>
+                        </div>
+
+                        <!-- <div>
                             <button type="submit" id="registerButton"
                                 class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 Sign up
                             </button>
-                        </div>
+                        </div> -->
                     </form>
 
                     <p class="mt-10 text-center text-sm text-gray-500">
@@ -100,6 +117,13 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function onSubmit(token) {
+            console.log('token:', token);
+            document.getElementById("registrationForm").submit();
+        }
+    </script>
 
 </body>
 
