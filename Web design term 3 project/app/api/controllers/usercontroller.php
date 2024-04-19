@@ -71,6 +71,24 @@ class UserController
         }
     }
 
+    private function checkCaptcha($responseKey)
+    {
+        include __DIR__ . '/../../config/recaptchaKeys.php';
+
+        $userIP = $_SERVER['REMOTE_ADDR'];
+        $key = $secretKey;
+
+        $url = "https://www.google.com/recaptcha/api/siteverify";
+        $response = file_get_contents("$url?secret=$key&response=$responseKey&remoteip=$userIP");
+        $response = json_decode($response);
+
+        if ($response->success) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function create()
     {
         $data = json_decode(file_get_contents('php://input'), true);
@@ -86,6 +104,16 @@ class UserController
 
                 if ($emailExists) {
                     echo json_encode(['success' => false, 'error' => 'Email already exists']);
+                    return;
+                }
+
+                $captchaResponse = $data['recaptchaToken'];
+                if ($captchaResponse === null || !$this->checkCaptcha($captchaResponse)) {
+                    if ($captchaResponse === null) {
+                        echo json_encode(['success' => false, 'error' => 'Missing captcha']);
+                    } else {
+                        echo json_encode(['success' => false, 'error' => 'Invalid captcha captcha: ' . $captchaResponse]);
+                    }
                     return;
                 }
 
