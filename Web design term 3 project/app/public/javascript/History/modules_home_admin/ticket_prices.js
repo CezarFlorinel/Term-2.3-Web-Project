@@ -1,3 +1,7 @@
+import { handleApiResponse, checkText, checkNumber } from "../../Utilities/handle_data_checks.js";
+import ErrorHandler from "../../Utilities/error_handler_class.js";
+const errorHandler = new ErrorHandler();
+
 function handleEditableFieldsForTicketPrices(button, updateFunction) {
     const container = button.closest("div[data-id]");
     const editableTextElements = container.querySelectorAll(".editable");
@@ -36,6 +40,11 @@ function handleEditableFieldsForTicketPrices(button, updateFunction) {
 }
 
 function updateHistoryTicketPrices(id, price, type, description) {
+
+    if (!checkNumber(price) || !checkText({ type, description })) {
+        return;
+    }
+
     fetch("/api/historyadmin/updateHistoryTicketPricesInformation", {
         method: "PATCH",
         headers: {
@@ -48,14 +57,10 @@ function updateHistoryTicketPrices(id, price, type, description) {
             description: description,
         }),
     })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            // You can handle success or failure here, e.g., by showing a message to the user
-        })
+        .then(handleApiResponse)
         .catch((error) => {
-            console.error("Error:", error);
-            alert("There was an error updating the ticket price");
+            errorHandler.logError(error, "updateHistoryTicketPrices", "ticket_prices.js");
+            errorHandler.showAlert("An error occurred while updating the tickets. Please try again later.");
         });
 
 }

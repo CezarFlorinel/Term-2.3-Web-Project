@@ -1,3 +1,8 @@
+import { handleApiResponse, checkText, checkNumber } from "../../Utilities/handle_data_checks.js";
+import ErrorHandler from "../../Utilities/error_handler_class.js";
+const errorHandler = new ErrorHandler();
+
+
 function updateHistoryTour(id, startTime, englishTour, dutchTour, chineseTour) {
     fetch("/api/historyadmin/updateHistoryTour", {
         method: "PUT",
@@ -12,14 +17,10 @@ function updateHistoryTour(id, startTime, englishTour, dutchTour, chineseTour) {
             chineseTour: chineseTour,
         }),
     })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            // You can handle success or failure here, e.g., by showing a message to the user
-        })
+        .then(handleApiResponse)
         .catch((error) => {
-            console.error("Error:", error);
-            alert("There was an error updating the tour");
+            errorHandler.logError(error, "updateHistoryTour", "history_tour.js");
+            errorHandler.showError("An error occurred while updating the tour.");
         });
 }
 
@@ -44,12 +45,11 @@ function editTour() {
                 container.removeAttribute('data-editing');
 
                 // Collecting all updated fields
-                let startTime = container.querySelector('input[type="time"]').value; // Corrected for time input
+                let startTime = container.querySelector('input[type="time"]').value;
                 let englishTour = container.querySelector('input[name="englishTour"]').value;
                 let dutchTour = container.querySelector('input[name="dutchTour"]').value;
                 let chineseTour = container.querySelector('input[name="chineseTour"]').value;
 
-                // Update tour information
                 updateHistoryTour(id, startTime, englishTour, dutchTour, chineseTour);
             } else {
                 // Enable editing
@@ -75,7 +75,6 @@ function editTourPlace() {
             const locationNameElement = container.querySelector('.editable[data-type="locationName"]');
             const locationDescriptionElement = container.querySelector('.editable[data-type="locationDescription"]');
             const wheelchairSupportCheckbox = container.querySelector('.wheelchair-support-checkbox');
-
             const isEditing = container.hasAttribute('data-editing');
 
             if (isEditing) {
@@ -84,26 +83,7 @@ function editTourPlace() {
                 const locationDescription = locationDescriptionElement.innerText;
                 const wheelchairSupport = wheelchairSupportCheckbox.checked;
 
-                fetch('/api/historyadmin/updateHistoryRouteInformation', {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        informationID: id,
-                        locationName: locationName,
-                        locationDescription: locationDescription,
-                        wheelchairSupport: wheelchairSupport
-                    }),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.message) {
-                            alert(data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('An error occurred while updating the route');
-                    });
+                fetchUpdateHistoryRouteInformation(id, locationName, locationDescription, wheelchairSupport);
 
                 // Toggle editing mode off
                 this.textContent = 'Edit';
@@ -121,6 +101,35 @@ function editTourPlace() {
             }
         });
     });
+}
+
+function fetchUpdateHistoryRouteInformation(id, locationName, locationDescription, wheelchairSupport) {
+
+    if (!checkText({ locationName, locationDescription })) {
+        return;
+    }
+
+    fetch('/api/historyadmin/updateHistoryRouteInformation', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            informationID: id,
+            locationName: locationName,
+            locationDescription: locationDescription,
+            wheelchairSupport: wheelchairSupport
+        }),
+    })
+        .then(handleApiResponse)
+        .then(data => {
+            if (data.message) {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            errorHandler.logError(error, 'fetchUpdateHistoryRouteInformation', 'history_tour.js');
+            errorHandler.showError('An error occurred while updating the tour place.');
+        });
+
 }
 
 function handleEditableFields(button, updateFunction) {
@@ -149,6 +158,11 @@ function handleEditableFields(button, updateFunction) {
 }
 
 function updateHistoryStartingPointDescription(id, description) {
+
+    if (!checkText({ description })) {
+        return;
+    }
+
     fetch("/api/historyadmin/updateHistoryTourStartingPointDescription", {
         method: "PUT",
         headers: {
@@ -159,12 +173,20 @@ function updateHistoryStartingPointDescription(id, description) {
             description: description,
         }),
     })
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error("Error:", error));
+        .then(handleApiResponse)
+        .catch((error) => {
+            errorHandler.logError(error, "updateHistoryStartingPointDescription", "history_tour.js");
+            errorHandler.showError("An error occurred while updating the starting point description.");
+        });
 }
 
 function updateHistoryTourDeparturesTimetable(id, date) {
+
+    if (!date) {
+        errorHandler.showError("Please enter a date");
+        return;
+    }
+
     fetch("/api/historyadmin/updateHistoryTourDeparturesTimetable", {
         method: "PATCH",
         headers: {
@@ -175,13 +197,10 @@ function updateHistoryTourDeparturesTimetable(id, date) {
             date: date,
         }),
     })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-        })
+        .then(handleApiResponse)
         .catch((error) => {
-            console.error("Error:", error);
-            alert("There was an error updating the timetable");
+            errorHandler.logError(error, "updateHistoryTourDeparturesTimetable", "history_tour.js");
+            errorHandler.showError("An error occurred while updating the tour departure timetable.");
         });
 }
 
