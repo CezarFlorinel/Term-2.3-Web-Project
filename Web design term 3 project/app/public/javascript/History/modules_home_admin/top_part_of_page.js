@@ -1,7 +1,6 @@
-import { handleApiResponse, checkText, checkNumber } from "../../Utilities/handle_data_checks.js";
+import { handleApiResponse, checkText } from "../../Utilities/handle_data_checks.js";
 import ErrorHandler from "../../Utilities/error_handler_class.js";
 const errorHandler = new ErrorHandler();
-
 
 function deleteImageFromCarousel() {
     document.querySelectorAll('.grid .relative button').forEach(button => {  // change this to an id or something
@@ -67,6 +66,10 @@ function editTopPart() {
 }
 
 function fetchEditTopPart(id, description, subheader) {
+
+    if (!checkText({ description, subheader })) {
+        return;
+    }
 
     fetch('/api/historyadmin/updateTopPartInformation', {
         method: 'PATCH',
