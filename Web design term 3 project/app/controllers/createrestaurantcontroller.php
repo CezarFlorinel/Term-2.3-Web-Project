@@ -5,6 +5,7 @@ use App\Services\YummyService;
 use App\Utilities\ImageEditor;
 use App\Utilities\ErrorHandlerMethod;
 use App\Utilities\SessionManager;
+use App\Utilities\HandleDataCheck;
 
 class CreateRestaurantController
 {
@@ -20,12 +21,14 @@ class CreateRestaurantController
     {
         $this->yummyService = new YummyService();
         $this->sessionManager = new SessionManager();
+        ImageEditor::initialize();
     }
 
     public function createRestaurant()
     {
         try {
             session_start();
+
             ErrorHandlerMethod::serverIsNotPostMethodCheck($this->sessionManager, '/createRestaurant', $_SERVER['REQUEST_METHOD']);
 
             if (isset($_POST['cuisineType'], $_POST['numberOfStars'], $_POST['name'], $_POST['location'], $_POST['description'], $_POST['descriptionLeft'], $_POST['descriptionRight'], $_POST['numberOfSeats'], $_FILES['imageTop'], $_FILES['imageLocation'], $_FILES['imageChef'])) {
@@ -41,13 +44,18 @@ class CreateRestaurantController
                 $imageChef = $_FILES['imageChef'];
                 $cuisineType = $_POST['cuisineType'];
 
+                HandleDataCheck::checkText([$name, $location, $description, $descriptionLeft, $descriptionRight, $cuisineType], $this->sessionManager, '/createRestaurant');
+                HandleDataCheck::checkNumber($numberOfSeats, $this->sessionManager, '/createRestaurant');
+                HandleDataCheck::checkReviewNumber($numberOfStars, $this->sessionManager, '/createRestaurant');
+                HandleDataCheck::checkImageSizeAndType([$imageTop, $imageLocation, $imageChef], $this->sessionManager, '/createRestaurant');
 
-                $imageUrlTop = $this->storeImage($imageTop);
-                $imageUrlLocation = $this->storeImage($imageLocation);
-                $imageUrlChef = $this->storeImage($imageChef);
-                if ($imageUrlTop === '' || $imageUrlLocation === '' || $imageUrlChef === '') {
+                $imageUrlTop = ImageEditor::saveImage('/app/public/assets/images/yummy_event/individual_resturant', $imageTop);
+                $imageUrlLocation = ImageEditor::saveImage('/app/public/assets/images/yummy_event/individual_resturant', $imageLocation);
+                $imageUrlChef = ImageEditor::saveImage('/app/public/assets/images/yummy_event/individual_resturant', $imageChef);
+
+                if ($imageUrlTop == null || $imageUrlLocation == null || $imageUrlChef == null) {
                     $this->sessionManager->setError("Error in the image upload");
-                    return;
+                    exit;
                 }
 
                 $this->yummyService->createNewRestaurant($name, $location, $description, $descriptionLeft, $descriptionRight, $numberOfSeats, $numberOfStars, $cuisineType, $imageUrlTop, $imageUrlLocation, $imageUrlChef);
@@ -55,35 +63,11 @@ class CreateRestaurantController
 
             } else {
                 $this->sessionManager->setError("Error in the form fields. Please fill all the fields.");
+                exit;
             }
         } catch (\Exception $e) {
             ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/createRestaurant');
         }
-    }
-
-    private function storeImage($image): string
-    {
-        $projectRoot = realpath(__DIR__ . '/../../..');
-        $uploadsDir = $projectRoot . '/app/public/assets/images/yummy_event/individual_resturant';
-
-        if (!file_exists($uploadsDir)) {
-            mkdir($uploadsDir, 0777, true);
-        }
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
-
-        if ($image['error'] === UPLOAD_ERR_OK && in_array($image['type'], $allowedTypes)) {
-            $tmpName = $image['tmp_name'];
-            $name = uniqid() . '-' . basename($image['name']);
-            $destination = $uploadsDir . '/' . $name;
-
-            if (move_uploaded_file($tmpName, $destination)) {
-                $imageUrl = "assets/images/yummy_event/individual_resturant/$name";
-                return $imageUrl;
-            } else {
-                return '';
-            }
-        }
-        return '';
     }
 
 }

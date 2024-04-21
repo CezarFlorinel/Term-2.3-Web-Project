@@ -27,4 +27,5 @@ class ErrorHandlerMethod
         header('Location: ' . $location);
         exit();
     }
+
 }

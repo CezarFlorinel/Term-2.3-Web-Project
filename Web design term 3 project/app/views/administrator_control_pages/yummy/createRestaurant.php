@@ -19,7 +19,7 @@ $yummyService = new YummyService();
             <!-- Restaurant Table Info Section ------------------------------------------------------- -->
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-3xl">Restaurant Information</h1>
-                <a href="/createRestaurant">
+                <a href="/yummyHomeAdmin">
                     <button id="cancel-restaurant-btn"
                         class="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-150">Cancel</button>
                 </a>
