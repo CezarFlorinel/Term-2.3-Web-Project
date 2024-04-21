@@ -13,7 +13,12 @@
     <link rel="stylesheet" type="text/css" href="/CSS_files/js_custome_alert.css">
 </head>
 
+<?php include "../components/general/modalSet.php" ?>
+
 <body>
+
+    <?php include "../components/general/modalBoxCreate.php" ?>
+
     <main>
         <header class="header">
             <a href="/" class="logoLink">

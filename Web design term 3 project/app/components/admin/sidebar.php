@@ -1,3 +1,7 @@
+<?php include '../../components/general/modalSet.php'; ?>
+<?php include '../../components/general/modalBoxCreate.php'; ?>
+
+
 <div class="w-64 bg-gray-700 text-white">
     <div class="p-5 bg-gray-900">Administrator</div>
     <ul class="space-y-2">

@@ -2,10 +2,14 @@
 namespace App\Controllers;
 
 use App\Services\YummyService;
+use App\Utilities\ImageEditor;
+use App\Utilities\ErrorHandlerMethod;
+use App\Utilities\SessionManager;
 
 class CreateRestaurantController
 {
     private $yummyService;
+    private $sessionManager;
 
     public function index()
     {
@@ -15,20 +19,23 @@ class CreateRestaurantController
     public function __construct()
     {
         $this->yummyService = new YummyService();
+        $this->sessionManager = new SessionManager();
     }
 
     public function createRestaurant()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        try {
+            session_start();
+            ErrorHandlerMethod::serverIsNotPostMethodCheck($this->sessionManager, '/createRestaurant', $_SERVER['REQUEST_METHOD']);
 
-            if (isset ($_POST['cuisineType'], $_POST['numberOfStars'], $_POST['name'], $_POST['location'], $_POST['description'], $_POST['descriptionLeft'], $_POST['descriptionRight'], $_POST['numberOfSeats'], $_FILES['imageTop'], $_FILES['imageLocation'], $_FILES['imageChef'])) {
+            if (isset($_POST['cuisineType'], $_POST['numberOfStars'], $_POST['name'], $_POST['location'], $_POST['description'], $_POST['descriptionLeft'], $_POST['descriptionRight'], $_POST['numberOfSeats'], $_FILES['imageTop'], $_FILES['imageLocation'], $_FILES['imageChef'])) {
                 $name = $_POST['name'];
                 $location = $_POST['location'];
                 $description = $_POST['description'];
                 $descriptionLeft = $_POST['descriptionLeft'];
                 $descriptionRight = $_POST['descriptionRight'];
-                $numberOfSeats = $_POST['numberOfSeats'];
-                $numberOfStars = $_POST['numberOfStars'];
+                $numberOfSeats = filter_var($_POST['numberOfSeats'], FILTER_VALIDATE_INT);
+                $numberOfStars = filter_var($_POST['numberOfStars'], FILTER_VALIDATE_INT);
                 $imageTop = $_FILES['imageTop'];
                 $imageLocation = $_FILES['imageLocation'];
                 $imageChef = $_FILES['imageChef'];
@@ -39,7 +46,7 @@ class CreateRestaurantController
                 $imageUrlLocation = $this->storeImage($imageLocation);
                 $imageUrlChef = $this->storeImage($imageChef);
                 if ($imageUrlTop === '' || $imageUrlLocation === '' || $imageUrlChef === '') {
-                    echo "Error in the image upload";
+                    $this->sessionManager->setError("Error in the image upload");
                     return;
                 }
 
@@ -47,12 +54,11 @@ class CreateRestaurantController
                 header('Location: /yummyHomeAdmin');
 
             } else {
-                echo "Error in the form fields. Please fill all the fields.";
+                $this->sessionManager->setError("Error in the form fields. Please fill all the fields.");
             }
-        } else {
-            echo "Error, Invalid Request"; // error handling
+        } catch (\Exception $e) {
+            ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/createRestaurant');
         }
-
     }
 
     private function storeImage($image): string
