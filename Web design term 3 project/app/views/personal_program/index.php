@@ -77,10 +77,11 @@
                                 <button class="px-1 py-0.5 text-xs border">+</button>
                             </div>
                             <div class="flex flex-col items-center">
-                                <div class="flex items-center mt-[-8px]">
-                                    <input type="checkbox" class="form-checkbox h-3 w-3 text-gray-600">
-                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-3 h-3 ml-2">
+                                <div class="flex items-center mt-[-26px]">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
+                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
                                 </div>
+                                <div style="height: 20px;"></div>
                                 <div class="text-sm text-gray-500">--€</div>
                             </div>
                         </div>
@@ -101,11 +102,12 @@
                                 <button class="px-1 py-0.5 text-xs border">+</button>
                             </div>
                             <div class="flex flex-col items-center">
-                                <div class="flex items-center mt-[-8px]">
+                                <div class="flex items-center mt-[-26px]">
                                     <!-- This negative margin pulls the checkbox and bin icon up -->
-                                    <input type="checkbox" class="form-checkbox h-3 w-3 text-gray-600">
-                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-3 h-3 ml-2">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
+                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
                                 </div>
+                                <div style="height: 20px;"></div>
                                 <div class="text-sm text-gray-500">--€</div>
                             </div>
                         </div>
@@ -126,11 +128,12 @@
                                 <button class="px-1 py-0.5 text-xs border">+</button>
                             </div>
                             <div class="flex flex-col items-center">
-                                <div class="flex items-center mt-[-8px]">
+                                <div class="flex items-center mt-[-26px]">
                                     <!-- This negative margin pulls the checkbox and bin icon up -->
-                                    <input type="checkbox" class="form-checkbox h-3 w-3 text-gray-600">
-                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-3 h-3 ml-2">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
+                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
                                 </div>
+                                <div style="height: 20px;"></div>
                                 <div class="text-sm text-gray-700">--€</div>
                             </div>
 
@@ -187,11 +190,12 @@
                                 <div>4</div>
                             </div>
                             <div class="flex flex-col items-center">
-                                <div class="flex items-center mt-[-8px]">
+                                <div class="flex items-center mt-[-26px]">
                                     <!-- This negative margin pulls the checkbox and bin icon up -->
-                                    <input type="checkbox" class="form-checkbox h-3 w-3 text-gray-600">
-                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-3 h-3 ml-2">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
+                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
                                 </div>
+                                <div style="height: 20px;"></div>
                                 <div class="text-sm text-gray-500">--€</div>
                             </div>
 
@@ -212,11 +216,12 @@
                                 <div>1</div>
                             </div>
                             <div class="flex flex-col items-center">
-                                <div class="flex items-center mt-[-8px]">
+                                <div class="flex items-center mt-[-26px]">
                                     <!-- This negative margin pulls the checkbox and bin icon up -->
-                                    <input type="checkbox" class="form-checkbox h-3 w-3 text-gray-600">
-                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-3 h-3 ml-2">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
+                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
                                 </div>
+                                <div style="height: 20px;"></div>
                                 <div class="text-sm text-gray-500">--€</div>
                             </div>
 
@@ -237,11 +242,12 @@
                                 <div>1</div>
                             </div>
                             <div class="flex flex-col items-center">
-                                <div class="flex items-center mt-[-8px]">
+                                <div class="flex items-center mt-[-26px]">
                                     <!-- This negative margin pulls the checkbox and bin icon up -->
-                                    <input type="checkbox" class="form-checkbox h-3 w-3 text-gray-600">
-                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-3 h-3 ml-2">
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
+                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
                                 </div>
+                                <div style="height: 20px;"></div>
                                 <div class="text-sm text-gray-500">--€</div>
                             </div>
 
