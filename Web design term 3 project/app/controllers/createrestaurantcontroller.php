@@ -63,6 +63,7 @@ class CreateRestaurantController
 
             } else {
                 $this->sessionManager->setError("Error in the form fields. Please fill all the fields.");
+                header('Location: /createRestaurant');
                 exit;
             }
         } catch (\Exception $e) {
