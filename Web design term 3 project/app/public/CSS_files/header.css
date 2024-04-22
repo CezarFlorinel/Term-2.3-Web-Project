@@ -24,10 +24,21 @@
 .nav-link {
     color: black;
     text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 5px; 
+    transition: background-color 0.3s ease; 
 }
 
 .nav-link:hover {
-    color: red; /* Changes the text color to red on hover */
+    background-color: #f0f0f0;
+    cursor: pointer; 
+    color: crimson;
+}
+
+/* Style for active link */
+.nav-link.active {
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .language-switcher{

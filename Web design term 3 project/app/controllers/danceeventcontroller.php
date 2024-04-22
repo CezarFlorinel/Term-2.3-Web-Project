@@ -5,6 +5,6 @@ class DanceEventController
 {
     public function index()
     {
-        require __DIR__ . '/../views/dance_event/new_detailed.php';
+        require __DIR__ . '/../views/dance_event/index.php';
     }
 }
