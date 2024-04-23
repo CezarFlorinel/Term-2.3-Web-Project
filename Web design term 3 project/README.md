@@ -22,6 +22,11 @@ If you want to stop the containers, press Ctrl+C.
 docker-compose down
 
 
+## Log in
 
+user account:
+
+email: jane.white@email.com  
+password: 12345678
 
 ```
