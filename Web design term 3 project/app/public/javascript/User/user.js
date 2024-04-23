@@ -1,6 +1,6 @@
-
-
-
+import { handleApiResponse, checkText } from '../Utilities/handle_data_checks.js';
+import ErrorHandler from '../Utilities/error_handler_class.js';
+const errorHandler = new ErrorHandler();
 
 //Filling the table with users
 
@@ -26,19 +26,19 @@ document.addEventListener("DOMContentLoaded", function () {
         row.innerHTML = `
                 <tr data-userid="${DOMPurify.sanitize(user.UserID)}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    ${user.UserID}
+                    ${DOMPurify.sanitize(user.UserID)}
                 </th>
                 <td class="px-6 py-4">
-                    ${user.Email}
+                    ${DOMPurify.sanitize(user.Email)}
                 </td>
                 <td class="px-6 py-4">
-                    ${user.Role}
+                    ${DOMPurify.sanitize(user.Role)}
                 </td>
                 <td class="px-6 py-4">
-                    ${user.Name}
+                    ${DOMPurify.sanitize(user.Name)}
                 </td>
                 <td class="px-6 py-4">
-                    ${formattedRegistrationDate}
+                    ${DOMPurify.sanitize(formattedRegistrationDate)}
                 </td>
                 <td class="px-6 py-4 d-flex justify-content-center">
                     <a href="/userEditAdmin/index?id=${user.UserID}"><button update-userid="${user.UserID}" type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Edit</button></a>
@@ -58,7 +58,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       });
     })
-    .catch((error) => console.error("Error fetching data:", error));
+    .catch((error) => {
+      errorHandler.logError(error, "button[delete-userid]", "user.js");
+      errorHandler.showAlert("An error occurred while trying to delete the user. Please try again later.");
+    });
 
   function deleteUser(userId) {
     const confirmDelete = confirm("Are you sure you want to delete this user?");
@@ -74,11 +77,11 @@ document.addEventListener("DOMContentLoaded", function () {
           location.reload();
           console.log("User deleted successfully");
         } else {
-          console.error("Error deleting user");
+          errorHandler.showAlert("An error occurred while trying to delete the user. Please try again later.");
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
+        errorHandler.logError(error, "button[delete-userid]", "user.js");
       });
   }
 });
@@ -102,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('editEmail').value = data.data.Email;
         document.getElementById('editRole').value = data.data.Role;
       })
-      .catch(error => console.error('Error fetching user data:', error));
+      .catch(error => errorHandler.logError('Error fetching user data:', error));
 
     editUserForm.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -129,13 +132,13 @@ document.addEventListener('DOMContentLoaded', function () {
           if (data.status === 'success') {
             window.location.href = '/userAdmin';
           } else {
-            console.error('Error updating user:', data.message);
+            errorHandler.logError('Error updating user:', data.message);
           }
         })
         .catch(error => {
-          console.error('Error:', error);
-          console.log(error);
-        });
+          errorHandler.logError(error, "editUserForm", "user.js");
+          errorHandler.showAlert("An error occurred while trying to edit the user. Please try again later!");
+      });
     });
   }
 
@@ -165,12 +168,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const repeatPass = document.getElementById('addRepeatPassword').value;
 
             if (pass.length < 8) {
-                alert('Password must be at least 8 characters long.');
+                errorHandler.showAlert('Password must be at least 8 characters long.');
                 return;
             }
 
             if (pass !== repeatPass) {
-                alert('Passwords do not match.');
+              errorHandler.showAlert('Passwords do not match.');
                 return;
             }
 
@@ -193,11 +196,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (data.status === 'success') {
                         window.location.href = '/user';
                     } else {
-                        console.error('Error updating user:', data.message);
+                        errorHandler.logError('Error updating user:', data.message);
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                  errorHandler.logError(error, "addUserForm", "user.js");
+                  errorHandler.showAlert("An error occurred while trying to add a new user. Please try again later!");
                 });
         });
     }

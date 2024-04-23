@@ -67,15 +67,15 @@ class UserController
                     $redirectTo = '/admin';
                 }
 
-                echo json_encode(['status' => 'success', 'message' => 'Logged in successfully', 'redirectTo' => $redirectTo]);
+                echo json_encode(['success' => true, 'message' => 'Logged in successfully', 'redirectTo' => $redirectTo]);
             } else {
                 http_response_code(401);
-                echo json_encode(['status' => 'error', 'message' => 'Invalid email or password']);
+                echo json_encode(['success' => false, 'message' => 'Invalid email or password']);
                 exit();
             }
         } else {
             http_response_code(400);
-            echo json_encode(['status' => 'error', 'message' => 'Missing email or password']);
+            echo json_encode(['success' => false, 'message' => 'Missing email or password']);
             exit();
         }
     }
@@ -84,7 +84,7 @@ class UserController
     {
         //implement some kind of protection for methods that should only be accessed by admins
         $users = $this->userService->getAllUsers();
-        echo json_encode(['status' => 'success', 'data' => $users]);
+        echo json_encode(['success' => true, 'data' => $users]);
     }
 
     public function getById($userId)
@@ -92,20 +92,20 @@ class UserController
         $user = $this->userService->getById($userId);
 
         if ($user) {
-            echo json_encode(['status' => 'success', 'data' => $user]);
+            echo json_encode(['success' => true, 'data' => $user]);
         } else {
             http_response_code(404);
-            echo json_encode(['status' => 'error', 'message' => 'User not found']);
+            echo json_encode(['success' => false, 'message' => 'User not found']);
         }
     }
     public function getByEmail($email)
     {
         $user = $this->userService->getByEmail($email);
         if ($user) {
-            echo json_encode(['status' => 'success', 'data' => $user]);
+            echo json_encode(['success' => true, 'data' => $user]);
         } else {
             http_response_code(404);
-            echo json_encode(['status' => 'error', 'message' => 'User not found']);
+            echo json_encode(['success' => false, 'message' => 'User not found']);
         }
     }
 
@@ -192,22 +192,22 @@ class UserController
                         $this->userService->update($updatedUser);
 
                         http_response_code(200);
-                        echo json_encode(['status' => 'success', 'message' => 'User updated successfully', 'user' => $updatedUser->toArray()]);
+                        echo json_encode(['success' => true, 'message' => 'User updated successfully', 'user' => $updatedUser->toArray()]);
                     } else {
                         http_response_code(400);
-                        echo json_encode(['status' => 'error', 'message' => 'Invalid input data']);
+                        echo json_encode(['success' => false, 'message' => 'Invalid input data']);
                     }
                 } else {
                     http_response_code(400);
-                    echo json_encode(['status' => 'error', 'message' => 'Invalid JSON data']);
+                    echo json_encode(['success' => false, 'message' => 'Invalid JSON data']);
                 }
             } else {
                 http_response_code(404);
-                echo json_encode(['status' => 'error', 'message' => 'User not found']);
+                echo json_encode(['success' => false, 'message' => 'User not found']);
             }
         } else {
             http_response_code(400);
-            echo json_encode(['status' => 'error', 'message' => 'Missing User ID']);
+            echo json_encode(['success' => false, 'message' => 'Missing User ID']);
         }
     }
 
@@ -222,15 +222,15 @@ class UserController
 
             if ($existingUser) {
                 http_response_code(204);
-                echo json_encode(['status' => 'success', 'message' => 'User deleted successfully']);
+                echo json_encode(['success' => true, 'message' => 'User deleted successfully']);
                 $existingUser = null;
             } else {
                 http_response_code(404);
-                echo json_encode(['status' => 'error', 'message' => 'User not found or already deleted']);
+                echo json_encode(['success' => false, 'message' => 'User not found or already deleted']);
             }
         } else {
             http_response_code(400);
-            echo json_encode(['status' => 'error', 'message' => 'Missing user ID']);
+            echo json_encode(['success' => false, 'message' => 'Missing user ID']);
         }
     }
 }
