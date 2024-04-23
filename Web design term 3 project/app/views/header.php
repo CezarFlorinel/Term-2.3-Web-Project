@@ -19,14 +19,12 @@
             <a href="/" class="logoLink">
                 <img class="logo" src="assets/images/Logos/Logo-Festival.png" alt="Logo">
             </a>
-
             <nav class="navigation">
-
-                <a href="/mainpageadmin" class="nav-link">Admin</a>
-                <a href="/" class="nav-link">Home</a>
-                <a href="/yummyevent" class="nav-link">Yummy</a>
-                <a href="/danceevent" class="nav-link">Dance!</a>
-                <a href="/historyevent" class="nav-link">History Tour</a>
+                <a href="/mainpageadmin" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/mainpageadmin') echo 'active'; ?>">Admin</a>
+                <a href="/" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/') echo 'active'; ?>">Home</a>
+                <a href="/yummyevent" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/yummyevent') echo 'active'; ?>">Yummy</a>
+                <a href="/danceevent" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/danceevent') echo 'active'; ?>">Dance!</a>
+                <a href="/historyevent" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/historyevent') echo 'active'; ?>">History Tour</a>
                 <a href="/payment">
                     <img class="icon0" src="assets/images/elements/Shopping cart.png" alt="Logo">
                 </a>
