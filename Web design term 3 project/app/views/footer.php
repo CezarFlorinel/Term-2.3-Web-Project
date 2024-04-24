@@ -30,7 +30,10 @@
 
             <div class="footer-item4">
                 <a class="nav-type-1-footer" href="/">The Festival</a>
-                <a class="nav-type-1-footer" href="/">A Stroll Through History</a>
+                <a class="nav-type-1-footer" href="/">Stroll Through History</a>               
+            </div>
+
+            <div class="footer-item7">                
                 <a class="nav-type-1-footer" href="/">Dance!</a>
                 <a class="nav-type-1-footer" href="/">Yummy!</a>
             </div>

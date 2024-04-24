@@ -1,3 +1,7 @@
+import { handleApiResponse, checkText } from "../../Utilities/handle_data_checks.js";
+import ErrorHandler from "../../Utilities/error_handler_class.js";
+const errorHandler = new ErrorHandler();
+
 function deleteImageFromCarousel() {
     document.querySelectorAll('.grid .relative button').forEach(button => {  // change this to an id or something
         button.addEventListener('click', function () {
@@ -12,18 +16,15 @@ function deleteImageFromCarousel() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: id, imagePath: imagePath })
                 })
-                    .then(response => response.json())
+                    .then(handleApiResponse)
                     .then(data => {
                         if (data.success) {
                             container.remove(); // Remove the image element
-                            alert(data.message);
-                        } else {
-                            alert(data.error);
                         }
                     })
                     .catch(error => {
-                        console.error('Error:', error);
-                        alert('An error occurred while deleting the image');
+                        errorHandler.logError(error, 'deleteImageFromCarousel', 'top_part_of_page.js');
+                        errorHandler.showError('An error occurred while deleting the image');
                     });
             }
         });
@@ -52,25 +53,8 @@ function editTopPart() {
             const description = descriptionEl.innerText;
             const subheader = subheaderEl.innerText;
 
-            fetch('/api/historyadmin/updateTopPartInformation', {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    informationID: id,
-                    description: description,
-                    subheader: subheader
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        alert(data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while updating the top part');
-                });
+            fetchEditTopPart(id, description, subheader);
+
         } else {
             // Currently in view mode, switch to edit mode
             descriptionEl.contentEditable = 'true';
@@ -79,6 +63,28 @@ function editTopPart() {
             container.setAttribute('data-editing', 'true');
         }
     });
+}
+
+function fetchEditTopPart(id, description, subheader) {
+
+    if (!checkText({ description, subheader })) {
+        return;
+    }
+
+    fetch('/api/historyadmin/updateTopPartInformation', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            informationID: id,
+            description: description,
+            subheader: subheader
+        })
+    })
+        .then(handleApiResponse)
+        .catch(error => {
+            errorHandler.logError(error, 'fetchEditTopPart', 'top_part_of_page.js');
+            errorHandler.showError('An error occurred while updating the top part information');
+        });
 }
 
 export { deleteImageFromCarousel, editTopPart };

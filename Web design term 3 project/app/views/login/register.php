@@ -1,3 +1,6 @@
+<?php include __DIR__ . '/../../config/recaptchaKeys.php'; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,12 +12,15 @@
         href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="login.css">
+    <script
+        src="https://www.google.com/recaptcha/enterprise.js?render=6LfbGsEpAAAAAJ2RLoJCUfirLF4BxU7B8lR0xtWX"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfbGsEpAAAAAJ2RLoJCUfirLF4BxU7B8lR0xtWX"></script>
+
 </head>
 
 <body>
 
-    <!-- <?php include __DIR__ . '/../header.php'; ?> -->
+    <?php include __DIR__ . '/../header.php'; ?>
 
     <section class="flex justify-center items-center h-screen bg-black">
         <div class="max-w-md w-full bg-white rounded p-6 space-y-4">
@@ -26,7 +32,8 @@
                 </div>
 
                 <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form class="space-y-6" id="registrationForm" role="form">
+                    <form class="space-y-6" id="registrationForm" role="form"
+                        onsubmit="event.preventDefault(); validateCaptcha();">
                         <div>
                             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email
                                 address</label>
@@ -85,10 +92,17 @@
                         </div>
 
                         <div>
-                            <button type="submit" id="registerButton"
-                                class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
-                                up</button>
+
+                            <button
+                                class="g-recaptcha flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                data-sitekey="
+                                6LfbGsEpAAAAAJ2RLoJCUfirLF4BxU7B8lR0xtWX" data-callback='onSubmit'
+                                data-action='submit'>
+                                Sign up
+                            </button>
                         </div>
+
+
                     </form>
 
                     <p class="mt-10 text-center text-sm text-gray-500">
@@ -101,70 +115,16 @@
         </div>
     </section>
 
+    <script>
+        function onSubmit(token) {
+            console.log('token:', token);
+            document.getElementById("registrationForm").submit();
+        }
+    </script>
+
 </body>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const registrationForm = document.getElementById('registrationForm');
-        console.log(registrationForm);
-
-
-        const button = document.getElementById('registerButton');
-        if (button != null || button != '') {
-            console.log("button is present");
-        }
-        button.addEventListener("click", function () {
-            event.preventDefault();
-            console.log("method is being called");
-
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const passwordConfirm = document.getElementById('confirmPassword').value;
-
-            console.log(name, email, password, passwordConfirm);
-
-            if (!name || !email || !password || !passwordConfirm) {
-                alert('Please fill in all fields.');
-                return;
-            }
-
-            if (password !== passwordConfirm) {
-                alert('Passwords do not match.');
-                return;
-            }
-
-            const formData = {
-                name: name,
-                email: email,
-                password: password,
-                //  passwordConfirm: passwordConfirm,
-                userRole: 'Member',
-            };
-
-            console.log(formData);
-
-            fetch("/api/user/create", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ formData }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    window.location.href = '/login/index';
-
-                    console.log("fetch success");
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert(error);
-                });
-        });
-
-    });
-</script>
+<script type="module" src="javascript/User/register.js"></script>
 
 </html>
-<!-- <?php include __DIR__ . '/../footer.php'; ?> test-->
+<?php include __DIR__ . '/../footer.php'; ?>

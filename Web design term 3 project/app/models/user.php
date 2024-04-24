@@ -16,22 +16,18 @@ class User
 
     public function __construct(array $userData)
     {
+        $this->setId($userData['userID'] ?? 0);
         $this->setEmail($userData['email'] ?? '');
         $this->setName($userData['name'] ?? '');
         $this->setPassword($userData['password'] ?? '');
-        if(isset($userData['role'])) {
-            $validRoles = [UserRole::Admin, UserRole::Member, UserRole::Employee];
-            $this->setUserRole(in_array($userData['role'], $validRoles) ? $userData['role'] : UserRole::Member);
-        } 
-        // if (isset($userData['registrationDate'])) {
-        //     // Assuming registration date is in 'Y-m-d' format, otherwise adjust the format accordingly
-        //     $this->registrationDate = new \DateTime($userData['registrationDate']);
-        // }
+        $this->setUserRole($userData['role'] ?? '');
+        $this->registrationDate = new \DateTime($userData['registrationDate'] ?? 'now');
         // $this->setProfilePicture($userData['user_profile_picture'] ?? '');
     }
     public function toArray(): array
     {
         return [
+
             'email' => $this->email,
             'name' => $this->name,
             'password' => $this->password,
@@ -39,6 +35,18 @@ class User
             'registrationDate' => $this->registrationDate->format('Y-m-d'),
         ];
     }
+
+    private function setUserRole(string $role): void
+    {
+        if ($role === 'Admin') {
+            $this->role = UserRole::Admin;
+        } else if ($role === 'Employee') {
+            $this->role = UserRole::Employee;
+        } else {
+            $this->role = UserRole::Member;
+        }
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -68,20 +76,16 @@ class User
     }
     public function getUserRole(): string
     {
-        return $this->role->name;
+        return $this->role->value;
     }
-    public function setUserRole(UserRole $role): self
-    {
-        $this->role = $role;
-        return $this;
-    }
+
     public function getPassword(): string
     {
         return $this->password;
     }
     public function setPassword(string $password): self
     {
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->password = $password;
         return $this;
     }
     public function getRegistrationDate(): \DateTime

@@ -3,36 +3,51 @@ namespace App\Controllers;
 
 require __DIR__ . '/../../app/vendor/autoload.php';
 
+use App\Utilities\HandleDataCheck;
+use App\Utilities\SessionManager;
+use App\Utilities\ErrorHandlerMethod;
+
 class PaymentController
 {
     private $customerData;
+    private $sessionManager;
 
     public function index()
     {
         require __DIR__ . '/../views/payment/index.php';
     }
+    public function __construct()
+    {
+        $this->sessionManager = new SessionManager();
+    }
 
     public function storeCustomerData()
     {
-        session_start();
+        try {
+            session_start();
+            ErrorHandlerMethod::serverIsNotPostMethodCheck($this->sessionManager, '/PaymentOverview', $_SERVER['REQUEST_METHOD']);
 
-        if (isset($_POST['extraAddress'], $_POST['country'], $_POST['name'], $_POST['email'], $_POST['phoneNumber'], $_POST['country'], $_POST['address'], $_POST['city'], $_POST['county'], $_POST['zip'])) {
-            $this->customerData = [
-                'name' => $_POST['name'],
-                'email' => $_POST['email'],
-                'phoneNumber' => $_POST['phoneNumber'],
-                'country' => $_POST['country'],
-                'address' => $_POST['address'],
-                'extraAddress' => $_POST['extraAddress'],
-                'city' => $_POST['city'],
-                'county' => $_POST['county'],
-                'zip' => $_POST['zip']
-            ];
-            $_SESSION['customerData'] = $this->customerData;
-            header('Location: /PaymentOverview');
+            if (isset($_POST['extraAddress'], $_POST['country'], $_POST['name'], $_POST['email'], $_POST['phoneNumber'], $_POST['country'], $_POST['address'], $_POST['city'], $_POST['county'], $_POST['zip'])) {
 
-        } else {
-            echo 'Please fill in all the fields';
+                $this->customerData = [
+                    'name' => $_POST['name'],
+                    'email' => $_POST['email'],
+                    'phoneNumber' => $_POST['phoneNumber'],
+                    'country' => $_POST['country'],
+                    'address' => $_POST['address'],
+                    'extraAddress' => $_POST['extraAddress'],
+                    'city' => $_POST['city'],
+                    'county' => $_POST['county'],
+                    'zip' => $_POST['zip']
+                ];
+                $_SESSION['customerData'] = $this->customerData;
+                header('Location: /PaymentOverview');
+
+            } else {
+                echo 'Please fill in all the fields';
+            }
+        } catch (\Exception $e) {
+            echo 'Error: ' . $e->getMessage();
         }
     }
 
@@ -82,49 +97,4 @@ class PaymentController
         }
     }
 
-    // public function handleWebhook()
-    // {
-    //     // Retrieve the request's body and parse it as JSON
-    //     $payload = @file_get_contents('php://input');
-    //     $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
-
-    //     $endpoint_secret = 'your_stripe_endpoint_secret'; // Replace this with your endpoint's secret
-
-    //     try {
-    //         // You can find your endpoint's secret in your webhook settings in the Stripe dashboard
-    //         $event = \Stripe\Webhook::constructEvent(
-    //             $payload,
-    //             $sig_header,
-    //             $endpoint_secret
-    //         );
-
-    //         // Handle the event
-    //         switch ($event->type) {
-    //             case 'payment_intent.succeeded':
-    //                 $paymentIntent = $event->data->object; // contains a StripePaymentIntent
-    //                 // Handle successful payment here
-    //                 break;
-    //             case 'checkout.session.completed':
-    //                 $session = $event->data->object; // contains a StripeCheckoutSession
-    //                 // Handle checkout session completion here
-    //                 break;
-    //             // Add more case statements to handle other event types
-    //             default:
-    //                 echo 'Received unknown event type ' . $event->type;
-    //         }
-
-    //         http_response_code(200); // PHP 5.4 or greater
-    //         echo json_encode(['status' => 'success']);
-    //     } catch (\UnexpectedValueException $e) {
-    //         // Invalid payload
-    //         http_response_code(400); // PHP 5.4 or greater
-    //         echo 'Webhook error while parsing basic request.';
-    //         exit();
-    //     } catch (\Stripe\Exception\SignatureVerificationException $e) {
-    //         // Invalid signature
-    //         http_response_code(400); // PHP 5.4 or greater
-    //         echo 'Webhook error while validating signature.';
-    //         exit();
-    //     }
-    // }
 }

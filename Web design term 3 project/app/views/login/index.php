@@ -9,7 +9,6 @@
         href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
@@ -28,7 +27,8 @@
                 </div>
 
                 <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form class="space-y-6" action="#" method="POST">
+                    <form class="space-y-6" id="loginForm" action="#" method="POST">
+
                         <div>
                             <label for="emailInput" class="block text-sm font-medium leading-6 text-gray-900">Email
                                 address</label>
@@ -55,24 +55,26 @@
                         </div>
                         <small class="text-red-500" id="error-combination"></small>
                         <div>
-                            <button onclick="logIn();" type="button"
-                                class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
-                                in</button>
+                            <button type="submit" id="submit"
+                                class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                Sign in
+                            </button>
                         </div>
                     </form>
 
                     <p class="mt-10 text-center text-sm text-gray-500">
                         You don't have an account yet?
-                        <a href="/login/register"
-                            class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Create one</a>
+                        <a href="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Create
+                            one</a>
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
+    <script type="module" src="javascript/User/log_in.js"></script>
 </body>
-<script src="javascript/login/login.js"></script>
+
 
 </html>
 <?php include __DIR__ . '/../footer.php'; ?>
