@@ -11,7 +11,7 @@ class ErrorHandlerMethod
         error_log(date('Y-m-d H:i:s') . " - " . $e->getMessage() . "\n", 3, __DIR__ . '/../error_logs/error_log_api_controller.log');
     }
 
-    public static function serverIsNotPostMethodCheck($sessionManager, $location, $serverReqestMethod) // do we need this method?
+    public static function serverIsNotPostMethodCheck($sessionManager, $location, $serverReqestMethod)
     {
         if ($serverReqestMethod !== 'POST') {
             $sessionManager->setError("Invalid request. Please try again.");
@@ -20,7 +20,7 @@ class ErrorHandlerMethod
         }
     }
 
-    public static function handleErrorController($e, $sessionManager, $location)  // do we need this method?
+    public static function handleErrorController($e, $sessionManager, $location)
     {
         $sessionManager->setError("An error occurred. Please try again.");
         error_log(date('Y-m-d H:i:s') . " - " . $e->getMessage() . "\n", 3, __DIR__ . '/../error_logs/error_log_controller.log');

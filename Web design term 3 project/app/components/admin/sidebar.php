@@ -1,5 +1,5 @@
-<?php include '../../components/general/modalSet.php'; ?>
-<?php include '../../components/general/modalBoxCreate.php'; ?>
+<?php require __DIR__ . '/../general/modalSet.php'; ?>
+<?php require __DIR__ . '/../general/modalBoxCreate.php'; ?>
 
 
 <div class="w-64 bg-gray-700 text-white">

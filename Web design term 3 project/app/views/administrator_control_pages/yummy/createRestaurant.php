@@ -15,6 +15,7 @@ $yummyService = new YummyService();
 
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
 
+
         <div class="flex-grow p-6">
             <!-- Restaurant Table Info Section ------------------------------------------------------- -->
             <div class="flex justify-between items-center mb-6">
@@ -28,7 +29,7 @@ $yummyService = new YummyService();
                 <p class="text-orange-700">You need to fill only a part of the fields, afterwards you can add more in
                     the edit section.</p>
 
-                <form action="/createRestaurant/createRestaurant" method="POST" id="create-restaurant-form"
+                <form action="/createRestaurant/createRestaurant" method="DELETE" id="create-restaurant-form"
                     enctype="multipart/form-data">
                     <div class="mb-4">
                         <label for="restaurantName" class="block text-2xl text-blue-500">Name of restaurant:</label>
