@@ -55,7 +55,6 @@ class UserController
             $user = new User($this->userService->getByEmail($email));
 
             if ($user && password_verify($password, $user->getPassword())) {
-
                 $_SESSION['userId'] = $user->getId();
                 $_SESSION['userEmail'] = $user->getEmail();
                 $_SESSION['userName'] = $user->getName();
@@ -67,7 +66,7 @@ class UserController
                     $redirectTo = '/admin';
                 }
 
-                echo json_encode(['success' => true, 'message' => 'Logged in successfully', 'redirectTo' => $redirectTo]);
+               echo json_encode(['success' => true, 'message' => 'Logged in successfully', 'redirectTo' => $redirectTo]);
             } else {
                 http_response_code(401);
                 echo json_encode(['success' => false, 'message' => 'Invalid email or password']);
