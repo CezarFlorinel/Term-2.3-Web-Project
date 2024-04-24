@@ -64,7 +64,7 @@ class PaymentController
             $totalVAT = $_SESSION['totalVAT'];
             $unit_amount = (int) round($total * 100);
 
-            $YOUR_DOMAIN = 'http://localhost';
+            $YOUR_DOMAIN = 'http://localhost';  // change this to your domain
 
             $checkout_session = \Stripe\Checkout\Session::create([
                 'line_items' => [

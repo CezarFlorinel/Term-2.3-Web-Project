@@ -12,8 +12,13 @@ class Modal
         $this->content = $content;
     }
 
-    public function render()
+    public function render($isSucess = false)
     {
+        $display = '<h5 class="modal-title text-xl font-bold text-green-700">Success</h5>';
+        if (!$isSucess) {
+            $display = '<h5 class="modal-title text-xl font-bold text-red-700">Error</h5>';
+        }
+
         echo <<<HTML
         <style>
             .modal {
@@ -25,12 +30,15 @@ class Modal
                 transform: translateY(0);
                 opacity: 1;
             }
+            .modal_box_container {
+                color:black;
+            }
         </style>
-        <div id="{$this->id}" class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" role="dialog">
+        <div id="{$this->id}" class="modal_box_container modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" role="dialog">
             <div class="modal-dialog relative top-1/4 mx-auto p-5 border w-1/3 shadow-lg rounded-md bg-white">
                 <div class="modal-content">
                     <div class="modal-header flex justify-between items-center p-5 border-b">
-                        <h5 class="modal-title text-xl font-bold">Error</h5>
+                        {$display}
                         <button type="button" class="close text-red-500 text-2xl leading-none" onclick="this.closest('.modal').classList.add('hidden');" aria-label="Close">
                             &times;
                         </button>
