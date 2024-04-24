@@ -15,25 +15,37 @@ class Modal
     public function render()
     {
         echo <<<HTML
-            <div id="{$this->id}" class="modal" tabindex="-1" role="dialog" style="display:none;">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close text-danger" data-bs-dismiss="modal" aria-label="Close" style="float:left;">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h5 class="modal-title">Error</h5>
-                        </div>
-                        <div class="modal-body">
-                            <p>{$this->content}</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
-                        </div>
+        <style>
+            .modal {
+                transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            .modal:not(.hidden) {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        </style>
+        <div id="{$this->id}" class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" role="dialog">
+            <div class="modal-dialog relative top-1/4 mx-auto p-5 border w-1/3 shadow-lg rounded-md bg-white">
+                <div class="modal-content">
+                    <div class="modal-header flex justify-between items-center p-5 border-b">
+                        <h5 class="modal-title text-xl font-bold">Error</h5>
+                        <button type="button" class="close text-red-500 text-2xl leading-none" onclick="this.closest('.modal').classList.add('hidden');" aria-label="Close">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body p-5">
+                        <p>{$this->content}</p>
+                    </div>
+                    <div class="modal-footer flex justify-end p-5 border-t">
+                        <button type="button" class="btn btn-success py-2 px-4 bg-green-500 text-white font-semibold rounded hover:bg-green-700" onclick="this.closest('.modal').classList.add('hidden');">OK</button>
                     </div>
                 </div>
             </div>
-        HTML;
+        </div>
+    HTML;
     }
+
 
 }

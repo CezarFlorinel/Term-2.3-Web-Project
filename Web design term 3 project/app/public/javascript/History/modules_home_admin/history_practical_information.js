@@ -2,7 +2,6 @@ import { handleApiResponse, checkText } from "../../Utilities/handle_data_checks
 import ErrorHandler from "../../Utilities/error_handler_class.js";
 const errorHandler = new ErrorHandler();
 
-
 function handleEditableFieldsForQandA(button, updateFunction) {
     const container = button.closest("div[data-id]");
     const editableElements = container.querySelectorAll(".editable");
@@ -50,19 +49,15 @@ function deleteHistoryPracticalInformation(id) {
             informationID: id,
         }),
     })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json();
-        })
+        .then(handleApiResponse)
         .then((data) => {
-            console.log(data);
-            location.reload(); // Reload the page to remove the deleted item
+            if (data.success) {
+                location.reload();
+            }
         })
         .catch((error) => {
-            console.error("Error:", error);
-            alert("There was an error deleting the information");
+            errorHandler.logError(error, "deleteHistoryPracticalInformation", "history_practical_information.js");
+            errorHandler.showAlert("An error occurred while deleting the information, please try again later!");
         });
 }
 
