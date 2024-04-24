@@ -1,8 +1,7 @@
-<?php include __DIR__ . '/../header.php'; ?>
-
 <html>
 
 <head>
+    <?php include __DIR__ . '/../header.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haarlem Festival</title>
@@ -59,7 +58,7 @@
                 <div class="flex flex-col md:flex-row items-center p-6">
                     <div class="flex flex-col w-full md:w-2/3 items-start md:items-center">
                         <h2 class="text-3xl font-bold mb-3 text-left md:text-left">Musical beginnings (2002-2009)</h2>
-                        <div class="bg-pink-300 p-6 rounded-lg shadow-lg w-full md:max-w-3xl">
+                        <div class="bg-pink-300 p-6 rounded-lg shadow-lg w-full md:max-w-3xl mb-2">
                             <p class="text-lg text-center md:text-left text-black">
                                 At the age of 12, he produced his first song in the field of electro, while performing as
                                 a hip-hop DJ. Through his participation in various competitions, he became known in
@@ -83,7 +82,7 @@
                     <div class="flex flex-col w-full md:w-2/3 items-start md:items-center md:ml-6">
                         <!-- Added md:ml-6 to maintain the spacing when the layout changes -->
                         <h2 class="text-3xl font-bold mb-3 text-left md:text-left">Awards and Recognitions (2010-2017)</h2>
-                        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:max-w-3xl">
+                        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:max-w-3xl mb-2">
                             <p class="text-lg text-center md:text-left text-black">
                                 At the age of 12, he produced his first song in the field of electro, while performing as
                                 a hip-hop DJ. Through his participation in various competitions, he became known in
@@ -105,7 +104,7 @@
                 <div class="flex flex-col md:flex-row items-center p-6">
                     <div class="flex flex-col w-full md:w-2/3 items-start md:items-center">
                         <h2 class="text-3xl font-bold mb-3 text-left md:text-left">Exploring new Horizons (2018-2021)</h2>
-                        <div class="bg-blue-300 p-6 rounded-lg shadow-lg w-full md:max-w-3xl">
+                        <div class="bg-blue-300 p-6 rounded-lg shadow-lg w-full md:max-w-3xl mb-2">
                             <p class="text-lg text-center md:text-left text-black">
                                 After getting nominated 2 times World No.1 DJ and winning numerous awards, in 2018, after
                                 more than a decade of playing on the most significant stages on the planet, Hardwell announced
@@ -123,11 +122,9 @@
         <section>
             <div class="flex justify-center items-center">
                 <div class="flex flex-col md:flex-row-reverse items-center p-6">
-                    <!-- Changed to flex-row-reverse -->
                     <div class="flex flex-col w-full md:w-2/3 items-start md:items-center md:ml-6">
-                        <!-- Added md:ml-6 to maintain the spacing when the layout changes -->
                         <h2 class="text-3xl font-bold mb-3 text-left md:text-left">Musical Renaissance (2022-now)</h2>
-                        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:max-w-3xl">
+                        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:max-w-3xl mb-2">
                             <p class="text-lg text-center md:text-left text-black">
                                 In 2022, Hardwell returned to Miami’s Ultra Music Festival to perform a surprise closing set,
                                 officially returning to the dance scene with a new style of music, which has been described as
@@ -145,27 +142,22 @@
 
         <section class="flex items-center justify-center pt-8 px-4 lg:px-8">
             <div class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4 w-full max-w-4xl">
-                <!-- Left Panel -->
                 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/3V255hE9vdJhkGx5DlhP2K?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-
-                <!-- Middle Panel -->
                 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/5OU4esREA0HLwNekPigYeZ?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-
-                <!-- Right Panel -->
                 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/5OU4esREA0HLwNekPigYeZ?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
         </section>
 
-        <section class="bg-black py-8 items-center">
+        <section class="bg-black py-8 sm:py-12 items-center">
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center my-8 sm:my-12">Appearances In The Festival</h1>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded-lg border-4">
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
                     <!-- Panel 1 -->
-                    <div class="bg-black rounded-lg shadow-md overflow-hidden col-span-2 md:col-span-1 flex flex-col">
+                    <div class="bg-black rounded-lg shadow-md overflow-hidden col-span-4 md:col-span-1 flex flex-col">
                         <div class="text-center py-2">
-                            <div class="text-7xl sm:text-8xl md:text-9xl font-bold">26</div>
-                            <div class="text-3xl sm:text-4xl">Jul</div>
-                            <div class="text-lg sm:text-xl mb-2">Friday</div>
+                            <div class="text-4xl sm:text-5xl md:text-6xl font-bold">26</div>
+                            <div class="text-xl sm:text-2xl">Jul</div>
+                            <div class="text-base sm:text-lg mb-2">Friday</div>
                             <div class="rounded-lg border">
                                 <div class="relative">
                                     <div class="top-0 left-0 w-full h-7 bg-white text-black text-lg font-bold rounded">23:00 - 00:30</div>
@@ -183,9 +175,9 @@
                     <!-- Panel 2 -->
                     <div class="bg-black rounded-lg shadow-md overflow-hidden col-span-4 md:col-span-3 flex flex-col">
                         <div class="text-center py-2">
-                            <div class="text-7xl sm:text-8xl md:text-9xl font-bold">27</div>
-                            <div class="text-3xl sm:text-4xl">Jul</div>
-                            <div class="text-lg sm:text-xl mb-2">Saturday</div>
+                            <div class="text-4xl sm:text-5xl md:text-6xl font-bold">27</div>
+                            <div class="text-xl sm:text-2xl">Jul</div>
+                            <div class="text-base sm:text-lg mb-2">Saturday</div>
                             <div class="rounded-lg border">
                                 <div class="relative">
                                     <div class="top-0 left-0 w-full h-7 bg-white text-black text-lg font-bold rounded">14:00 - 22:00</div>
@@ -207,11 +199,11 @@
                         </div>
                     </div>
                     <!-- Panel 3 -->
-                    <div class="bg-black rounded-lg shadow-md overflow-hidden col-span-2 md:col-span-1 flex flex-col">
+                    <div class="bg-black rounded-lg shadow-md overflow-hidden col-span-4 md:col-span-1 flex flex-col">
                         <div class="text-center py-2">
-                            <div class="text-7xl sm:text-8xl md:text-9xl font-bold">28</div>
-                            <div class="text-3xl sm:text-4xl">Jul</div>
-                            <div class="text-lg sm:text-xl mb-2">Sunday</div>
+                            <div class="text-4xl sm:text-5xl md:text-6xl font-bold">28</div>
+                            <div class="text-xl sm:text-2xl">Jul</div>
+                            <div class="text-base sm:text-lg mb-2">Sunday</div>
                             <div class="rounded-lg border">
                                 <div class="relative">
                                     <div class="top-0 left-0 w-full h-7 bg-white text-black text-lg font-bold rounded">21:00 - 22:30</div>
@@ -233,19 +225,11 @@
                 </div>
             </div>
         </section>
-
-
-
-
     </main>
 </body>
-
 <footer>
-
+    <?php include __DIR__ . '/../footer.php'; ?>
 </footer>
-<!-- JavaScript Files -->
 </body>
 
 </html>
-
-<?php include __DIR__ . '/../footer.php'; ?>

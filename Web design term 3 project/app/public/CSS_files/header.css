@@ -1,5 +1,5 @@
 .header {
-    position: relative; /* This makes child absolute positioning relative to this container */
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -7,7 +7,7 @@
     font-family: 'Georgia', serif;
     font-weight: 500;
     font-size: 15px;
-    border-radius: 0px 0px 15px 15px; /* Top corners rounded */
+    border-radius: 0px 0px 15px 15px; 
 }
 
 .logo {
@@ -24,10 +24,21 @@
 .nav-link {
     color: black;
     text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 5px; 
+    transition: background-color 0.3s ease; 
 }
 
 .nav-link:hover {
-    color: red; /* Changes the text color to red on hover */
+    background-color: #f0f0f0;
+    cursor: pointer; 
+    color: crimson;
+}
+
+/* Style for active link */
+.nav-link.active {
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .language-switcher{
@@ -36,17 +47,81 @@
     height: 50px;
 }
 
-.icon0{
-    width: 35px;
-    height: 32px;
+.icons {
+    display: flex;
+    align-items: center;
 }
 
-.icon1{
-    width: 35px;
+.icon {
+    width: 30px;
     height: 30px;
+    margin-left: 10px;
 }
 
-.icon2{
-    width: 35px;
-    height: 35px;
+.icon:hover {
+    cursor: pointer;
+    background-color: #f0f0f0;
+}
+
+.menu-icon {
+    display: none;
+}
+
+/* Small Screens */
+@media screen and (max-width: 768px) {
+    .navigation {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        padding: 10px 0;
+        flex-direction: column;
+    }
+
+    .navigation.active {
+        display: flex;
+    }
+
+    .menu-icon {
+        display: block;
+        margin-left: auto; 
+    }
+
+    .menu-icon:hover {
+        background-color: #f0f0f0;
+        cursor: pointer; 
+    }
+
+    .icons {
+        display: flex;
+        align-items: center;
+        margin-right: 10px; 
+    }
+
+    .icon {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+    }
+
+    .icon:hover {
+        cursor: pointer;
+        background-color: #f0f0f0;
+    }
+
+    .navigation.active + .menu-icon {
+        display: none;
+    }
+}
+
+/* Hide checkbox input */
+.menu-toggle {
+    display: none;
+}
+
+/* Show navigation when checkbox/menu icon is checked */
+.menu-toggle:checked + .menu-icon + .navigation {
+    display: flex;
 }
