@@ -47,11 +47,11 @@ function logIn() {
         })
         .then(data => {
             console.log('Login successful:', data);
-            // You might want to redirect the user or do something else on successful login
             window.location.href = data.redirectTo;
         })
         .catch(error => {
-            console.error('Error:', error);
+            errorHandler.showAlert('Something unexpected happened while trying to log in. Please get in contact with the administrator or try again later.')
+            errorHandler.logError('Cannot log in right now: ', error);
             errorMessageElement.textContent = error.message;
         });
 }

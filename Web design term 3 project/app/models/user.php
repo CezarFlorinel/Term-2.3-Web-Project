@@ -38,9 +38,9 @@ class User
 
     private function setUserRole(string $role): void
     {
-        if ($role === 'admin') {
+        if ($role === 'Admin') {
             $this->role = UserRole::Admin;
-        } else if ($role === 'employee') {
+        } else if ($role === 'Employee') {
             $this->role = UserRole::Employee;
         } else {
             $this->role = UserRole::Member;
