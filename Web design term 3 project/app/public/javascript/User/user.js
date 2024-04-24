@@ -76,13 +76,12 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => {
         if (response.ok) {
           location.reload();
-          errorHandler.showAlert("User deleted successfully");
-        } else {
-          errorHandler.showAlert("An error occurred while trying to delete the user. Please try again later.");
+          errorHandler.showAlert("User deleted successfully", { title: 'Success', icon: 'success' });
         }
       })
       .catch((error) => {
         errorHandler.logError(error, "button[delete-userid]", "user.js");
+        errorHandler.showAlert("An error occurred while trying to delete the user. Please try again later.");
       });
   }
 });

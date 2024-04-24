@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.validateCaptcha = function () {
     grecaptcha.ready(function () {
       grecaptcha
-        .execute("6LfbGsEpAAAAAJ2RLoJCUfirLF4BxU7B8lR0xtWX", {
+        .execute("6LfbGsEpAAAAAJ2RLoJCUfirLF4BxU7B8lR0xtWX", { // maybe store this somewhere else for security
           action: "submit",
         })
         .then(function (token) {
@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const passwordConfirm = document.getElementById("addRepeatPassword").value;
 
     if (!checkText({ name, email, role, password, passwordConfirm })) {
-        errorHandler.showAlert("Please fill in all fields.");
-        return;
+      errorHandler.showAlert("Please fill in all fields.");
+      return;
     }
 
     if (password.length < 8) {
@@ -72,5 +72,5 @@ document.addEventListener("DOMContentLoaded", function () {
           "An error occurred while trying to add a new user. Please try again later!"
         );
       });
-    }
+  }
 });
