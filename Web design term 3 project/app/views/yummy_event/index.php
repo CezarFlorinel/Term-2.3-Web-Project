@@ -1,3 +1,21 @@
+<?php
+use App\Services\YummyService;
+
+$yummyService = new YummyService();
+
+$featuredRestaurants = $yummyService->getFeaturedRestaurants(); // Get featured restaurants
+$carouselImages = $yummyService->getCarouselImagePaths(); // Get carousel images for the homepage
+$restaurantMenus = $yummyService->getRestaurantMenus(); // Get all restaurant menus
+$firstMenu = $restaurantMenus[0]; // Get the first menu
+$restaurantLocations = $yummyService->getRestaurantLocations(); // Get restaurant locations
+$reservationsToday = $yummyService->getTodayReservations(); // Get today's reservations
+$firstReservation = $reservationsToday[0]; // Get the first reservation
+$upcomingEvents = $yummyService->getUpcomingEvents(); // Get upcoming events at restaurants
+$featuredDishes = $yummyService->getFeaturedDishes(); // Get featured dishes
+$restaurantReviews = $yummyService->getRestaurantReviews(); // Get reviews for a specific restaurant
+
+?>
+
 <?php include __DIR__ . '/../header.php'; ?>
 
 <html>
