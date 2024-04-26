@@ -32,6 +32,12 @@ class YummyService
 
     //--------------------Restaurant Part ------------------
 
+
+    public function getAllRestaurants(): array
+    {
+        return $this->yummyRepository->getAllRestaurants();
+    }
+
     public function getRestaurantById($id): Restaurant
     {
         return $this->yummyRepository->getRestaurantById($id);

@@ -19,6 +19,7 @@ class PaymentController
     public function __construct()
     {
         $this->sessionManager = new SessionManager();
+        session_start();
     }
 
     public function storeCustomerData()
@@ -44,10 +45,11 @@ class PaymentController
                 header('Location: /PaymentOverview');
 
             } else {
-                echo 'Please fill in all the fields';
+                $this->sessionManager->setError('Please fill in all the fields');
+                header('Location: /Payment');
             }
         } catch (\Exception $e) {
-            echo 'Error: ' . $e->getMessage();
+            ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
         }
     }
 
@@ -64,7 +66,12 @@ class PaymentController
             $totalVAT = $_SESSION['totalVAT'];
             $unit_amount = (int) round($total * 100);
 
-            $YOUR_DOMAIN = 'http://localhost';
+            if ($quantity == null || $total == null || $totalVAT == null || $unit_amount == null) {
+                $this->sessionManager->setError('Something went wrong, please try again.');
+                header('Location: /Payment');
+            }
+
+            $YOUR_DOMAIN = 'http://localhost';  // change this to your domain
 
             $checkout_session = \Stripe\Checkout\Session::create([
                 'line_items' => [
@@ -89,10 +96,10 @@ class PaymentController
             header("HTTP/1.1 303 See Other");
             header("Location: " . $checkout_session->url);
         } catch (\Stripe\Exception\ApiErrorException $e) {
-            echo "Stripe API error: " . $e->getMessage();
+            ErrorHandlerMethod::handleErrorController("Stripe API error: " . $e, $this->sessionManager, '/Payment');
             exit;
         } catch (\Exception $e) {
-            echo "General error: " . $e->getMessage();
+            ErrorHandlerMethod::handleErrorController("Stripe API error: " . $e, $this->sessionManager, '/Payment');
             exit;
         }
     }

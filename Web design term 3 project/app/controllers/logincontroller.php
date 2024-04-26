@@ -19,7 +19,6 @@ class LoginController
         require __DIR__ . '/../views/login/index.php';
     }
 
-
     public function logout()
     {
         session_destroy();
