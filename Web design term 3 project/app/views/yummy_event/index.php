@@ -4,7 +4,8 @@ use App\Services\YummyService;
 $yummyService = new YummyService();
 
    $homepageyummy = $yummyService->getHomepageDataRestaurant();
-      
+   $yummyrestaurants = $yummyService->getAllRestaurants();
+   $yummyPrices = $yummyService->getRestaurantSession($id); 
 ?>
 
 <?php include __DIR__ . '/../header.php'; ?>
@@ -55,215 +56,82 @@ $yummyService = new YummyService();
     </div>
 </section>
 
-        <section id="restaurants" class="py-8">
-            <div class="Union-restaurant">
-                <div class="text-container">
-                    <p class="info-h">Participating Restaurants</p>
+<section id="restaurants" class="py-8">
+    <div class="Union-restaurant">
+        <div class="text-container">
+            <p class="info-h">Participating Restaurants</p>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4">
+        <?php foreach ($yummyrestaurants as $restaurant): ?>
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <img class="w-full h-56 object-cover object-center" src="<?= htmlspecialchars($restaurant->imagePathHomepage) ?>" alt="<?= htmlspecialchars($restaurant->name) ?>">
+                <div class="p-4 flex justify-between items-center">
+                    <h3 class="text-xl font-semibold text-black"><?= htmlspecialchars($restaurant->name) ?></h3>
+                    <div class="flex items-center">
+                        <?php for ($i = 0; $i < 5; $i++): ?>
+                            <?php if ($i < $restaurant->Rating): ?>
+                                <i class="fas fa-star rating-star"></i>
+                            <?php else: ?>
+                                <i class="far fa-star rating-star"></i>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                    </div>
+                </div>
+                <div class="px-4 pb-4 relative">
+                    <p class="text-sm text-black">
+                        <?= nl2br(htmlspecialchars($restaurant->cuisineTypes)) ?>
+                    </p>
+                    <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4">
-                <!-- Restaurant 1 -->
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/roemer.png" alt="Cafe de Roemer">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Cafe de Roemer</h3>
-                        <div class="flex items-center">
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="far fa-star rating-star"></i>
-                        </div>
-                    </div>
-                    <div class="px-4 pb-4 relative">
-                        <p class="text-sm text-black">Seafood<br>Dutch<br>European</p>
-                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
-                    </div>
-                </div>
-                <!-- Restaurant 2 -->
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/ratat_res.png" alt="Restaurant Ratatouille">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Restaurant Ratatouille</h3>
-                        <div class="flex items-center">
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="far fa-star rating-star"></i>
-                        </div>
-                    </div>
-                    <div class="px-4 pb-4 relative">
-                        <p class="text-sm text-black">Seafood<br>French<br>European</p>
-                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
-                    </div>
-                </div>
-                <!-- Restaurant 3 -->
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/res_ml.png" alt="Restaurant ML">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Restaurant ML</h3>
-                        <div class="flex items-center">
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                        </div>
-                    </div>
-                    <div class="px-4 pb-4 relative">
-                        <p class="text-sm text-black">Seafood<br>Dutch<br>European</p>
-                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
-                    </div>
-                </div>
-                <!-- Restaurant 4 -->
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/fris.png" alt="Restaurant Fris">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Restaurant Fris</h3>
-                        <div class="flex items-center">
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                        </div>
-                    </div>
-                    <div class="px-4 pb-4 relative">
-                        <p class="text-sm text-black">French<br>Dutch<br>European</p>
-                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
-                    </div>
-                </div>
-                <!-- Restaurant 5 -->
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/spektakel.png" alt="Cafe Spektakel">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Cafe Spektakel</h3>
-                        <div class="flex items-center">
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="far fa-star rating-star"></i>
-                            <i class="far fa-star rating-star"></i>
-                        </div>
-                    </div>
-                    <div class="px-4 pb-4 relative">
-                        <p class="text-sm text-black">Seafood<br>Dutch<br>European</p>
-                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
-                    </div>
-                </div>
-                <!-- Restaurant 6 -->
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/brinkman.png" alt="Grand Cafe Brinkman">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Grand Cafe Brinkman</h3>
-                        <div class="flex items-center">
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="far fa-star rating-star"></i>
-                        </div>
-                    </div>
-                    <div class="px-4 pb-4 relative">
-                        <p class="text-sm text-black">International<br>Asian<br>European</p>
-                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
-                    </div>
-                </div>
-                <!-- Restaurant 7 -->
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img class="w-full h-56 object-cover object-center" src="assets/images/yummy_event/bistro_tour.png" alt="Urban French Bistro Tours">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold text-black">Urban French Bistro Tours</h3>
-                        <div class="flex items-center">
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                            <i class="fas fa-star rating-star"></i>
-                        </div>
-                    </div>
-                    <div class="px-4 pb-4 relative">
-                        <p class="text-sm text-black">Seafood<br>French<br>European</p>
-                        <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
-                    </div>
-                </div>
-                <!-- CTA Section -->
-                <div class="md:col-span-3 bg-black text-white p-8 flex flex-col items-center justify-center text-center">
-                    <div class="mb-2">
-                        <!-- Reduced margin-bottom from mb-4 to mb-2 for less space -->
-                        <h1 style="font-size: 35px; font-family: 'Playfair Display', serif; text-align: center; font-weight: bold">Click on "More Info" to make a reservation!</h1>
-                    </div>
-                    <button class="info-h bg-red-500 hover:bg-red-700 text-white text-align: center; py-2 px-4 rounded">
-                        Check festival schedule
-                    </button>
-                </div>
-            </div>
-    </section>
+        <?php endforeach; ?>
+    </div>
+</section>
 
-            <!-- Special Prices Section -->
-            <div class="bg-black py-8">
-                <div class="max-w-4xl mx-auto px-4">
-                    <h1 style="font-size: 45px; font-family: 'Playfair Display', serif; text-align: center; font-weight: bold">Festival Menus at Special Prices</h1>
-                    <div class="bg-yellow-200 p-4 rounded-lg">
-                        <table class="table-auto w-full" style="font-family: 'Playfair Display', serif;">
-                            <thead>
-                                <tr>
-                                    <th class="text-left text-2xl font-bold py-4 px-4 text-white rounded">
-                                        <span class="bg-red-500 px-4 py-2 rounded">Restaurant</span>
-                                    </th>
-                                    <th class="text-left text-2xl font-bold py-4 px-4 text-white rounded">
-                                        <span class="bg-red-500 px-4 py-2 rounded">Price</span>
-                                    </th>
-                                    <th class="text-left text-2xl font-bold py-4 px-4 text-white rounded">
-                                        <span class="bg-red-500 px-4 py-2 rounded">Kids price</span>
-                                    </th>
-                                </tr>
-                            </thead>
-
-                            <tbody class="text-black">
-                                <tr>
-                                    <td class="py-2 px-4 border-b border-gray-700">Cafe De Roemer</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">35.00€</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">17.50€</td>
-                                </tr>
-                                <!-- Repeat rows for each restaurant -->
-                                <tr>
-                                    <td class="py-2 px-4 border-b border-gray-700">Ratatouille</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">45.00€</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">22.50€</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b border-gray-700">Restaurant ML</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">45.00€</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">22.50€</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b border-gray-700">Urban French Bistro</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">35.00€</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">17.50€</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b border-gray-700">Restaurant Fris</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">45.00€</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">22.50€</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b border-gray-700">Grand Cafe Brinkman</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">35.00€</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">17.50€</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b border-gray-700">Spektakel</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">35.00€</td>
-                                    <td class="py-2 px-4 border-b border-gray-700">17.50€</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="text-m mt-4">*The Kids price only applies to children that are <span class="font-bold">12 yearls old or younger. </span></p>
-                </div>
+<section>
+    <!-- Special Prices Section -->
+    <div class="bg-black py-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <h1 style="font-size: 45px; font-family: 'Playfair Display', serif; text-align: center; font-weight: bold">Festival Menus at Special Prices</h1>
+            <div class="bg-yellow-200 p-4 rounded-lg">
+                <table class="table-auto w-full" style="font-family: 'Playfair Display', serif;">
+                    <thead>
+                        <tr>
+                            <th class="text-left text-2xl font-bold py-4 px-4 text-white rounded">
+                                <span class="bg-red-500 px-4 py-2 rounded">Restaurant</span>
+                            </th>
+                            <th class="text-left text-2xl font-bold py-4 px-4 text-white rounded">
+                                <span class="bg-red-500 px-4 py-2 rounded">Price</span>
+                            </th>
+                            <th class="text-left text-2xl font-bold py-4 px-4 text-white rounded">
+                                <span class="bg-red-500 px-4 py-2 rounded">Kids price</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-black">
+                        <?php foreach ($restaurantIDs as $id): ?>
+                            <?php
+                            // Fetch session prices for each restaurant
+                            $sessions = $yummyService->getRestaurantSession($id);
+                            if (!empty($sessions)):
+                                foreach ($sessions as $session): ?>
+                                    <tr>
+                                        <td class="py-2 px-4 border-b border-gray-700"><?= htmlspecialchars($session->getName()) ?></td>
+                                        <td class="py-2 px-4 border-b border-gray-700"><?= htmlspecialchars($session->PricesForAdults) ?>€</td>
+                                        <td class="py-2 px-4 border-b border-gray-700"><?= htmlspecialchars($session->PricesForChildren) ?>€</td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
+            <p class="text-m mt-4">*The Kids price only applies to children that are <span class="font-bold">12 years old or younger.</span></p>
+        </div>
+    </div>
+</section>
+
             <!--Map with locations-->
             <div class="bg-black py-8">
                 <div class="max-w-4xl mx-auto px-4">
@@ -275,11 +143,9 @@ $yummyService = new YummyService();
                     </div>
                 </div>
             </div>
+    
     </main>
-
-    <footer>
-
-    </footer>
+    
     <!-- JavaScript Files -->
 </body>
 
