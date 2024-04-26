@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use PDO;
@@ -78,7 +79,6 @@ class YummyRepository extends Repository  //methods for getting, updating and de
             );
         }
         return $restaurants;
-
     }
 
     public function getRestaurantById($id): Restaurant
@@ -102,6 +102,14 @@ class YummyRepository extends Repository  //methods for getting, updating and de
             $result['ImagePathChef']
         );
     }
+
+    public function getAllRestaurantIDs(): array
+    {
+        $stmt = $this->connection->query('SELECT RestaurantID FROM RESTAURANT');
+        $results = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        return $results;
+    }
+
 
     public function getRestaurantReviews($id): array
     {
@@ -158,7 +166,6 @@ class YummyRepository extends Repository  //methods for getting, updating and de
             );
         }
         return $sessions;
-
     }
 
     public function getCurrentRestaurantImagePath($id, $columnName): string
@@ -403,7 +410,6 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt->bindParam(':imagePathLocation', $imagePathLocation);
         $stmt->bindParam(':imagePathChef', $imagePathChef);
         $stmt->execute();
-
     }
 
     //-------------------- Reservation Part ------------------
@@ -424,7 +430,4 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt->bindParam(':active', $active);
         $stmt->execute();
     }
-
-
-
 }
