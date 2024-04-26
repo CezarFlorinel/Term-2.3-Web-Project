@@ -43,6 +43,34 @@ class UserService
     {
         return $this->userRepository->delete($userId);
     }
+
+    public function insertKeyUnique($userId): int
+    {
+        return $this->userRepository->insertKeyUnique($userId);
+    }
+
+    public function deleteKey($key)
+    {
+        return $this->userRepository->deleteKey($key);
+    }
+
+    public function returnUserKey($userID): ?int
+    {
+        return $this->userRepository->returnUserKey($userID);
+    }
+
+    public function changePassword($userID, $password)
+    {
+        return $this->userRepository->changePassword($userID, $password);
+    }
+
+    public function checkIfKeyExists($key): bool
+    {
+        return $this->userRepository->checkIfKeyExists($key);
+    }
+
+
+
 }
 
 ?>

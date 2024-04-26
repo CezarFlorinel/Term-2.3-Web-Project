@@ -22,7 +22,7 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt = $this->connection->prepare('SELECT * FROM HOMEPAGE_DATA_RESTAURANT');
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if (!empty ($result)) {
+        if (!empty($result)) {
             $firstItem = $result[0];
             return new HomepageDataRestaurant(
                 $firstItem['PageID'],
@@ -53,6 +53,33 @@ class YummyRepository extends Repository  //methods for getting, updating and de
     }
 
     //--------------------  Restaurant Part ------------------
+
+
+    public function getAllRestaurants(): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM RESTAURANT');
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $restaurants = [];
+        foreach ($results as $result) {
+            $restaurants[] = new Restaurant(
+                $result['RestaurantID'],
+                $result['Name'],
+                $result['Location'],
+                $result['CuisineTypes'],
+                $result['NumberofSeats'],
+                $result['Rating'],
+                $result['ImagePathHomepage'],
+                $result['DescriptionTopPart'],
+                $result['ImagePathLocation'],
+                $result['DescriptionSideOne'],
+                $result['DescriptionSideTwo'],
+                $result['ImagePathChef']
+            );
+        }
+        return $restaurants;
+
+    }
 
     public function getRestaurantById($id): Restaurant
     {
