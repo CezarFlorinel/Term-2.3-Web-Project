@@ -3,17 +3,8 @@ use App\Services\YummyService;
 
 $yummyService = new YummyService();
 
-$featuredRestaurants = $yummyService->getFeaturedRestaurants(); // Get featured restaurants
-$carouselImages = $yummyService->getCarouselImagePaths(); // Get carousel images for the homepage
-$restaurantMenus = $yummyService->getRestaurantMenus(); // Get all restaurant menus
-$firstMenu = $restaurantMenus[0]; // Get the first menu
-$restaurantLocations = $yummyService->getRestaurantLocations(); // Get restaurant locations
-$reservationsToday = $yummyService->getTodayReservations(); // Get today's reservations
-$firstReservation = $reservationsToday[0]; // Get the first reservation
-$upcomingEvents = $yummyService->getUpcomingEvents(); // Get upcoming events at restaurants
-$featuredDishes = $yummyService->getFeaturedDishes(); // Get featured dishes
-$restaurantReviews = $yummyService->getRestaurantReviews(); // Get reviews for a specific restaurant
-
+   $homepageyummy = $yummyService->getHomepageDataRestaurant();
+      
 ?>
 
 <?php include __DIR__ . '/../header.php'; ?>
@@ -54,17 +45,15 @@ $restaurantReviews = $yummyService->getRestaurantReviews(); // Get reviews for a
         </div>
 
         <section class="section-bg py-10 px-10">
-            <div class="text-center mb-8 text-white">
+        <div class="text-center mb-8 text-white">
                 <div class="flex items-center justify-center bg-no-repeat bg-center bg-contain h-72 md:h-96 
                             lg:min-h-[300px] px-12 py-10 lg:bg-[url('assets/images/elements/Union.png')]">
-                    <p class="text-base font-normal text-white rounded-lg lg:text-black">
-                        Discover the hidden gems of Haarlem's vibrant culinary scene as we bring you a feast for<br>
-                        the senses. While Haarlem may not be a global culinary icon, our city is home to a diverse<br>
-                        array of restaurants that are sure to captivate your taste buds. Dive into a world of gastronomic <br>
-                        delights, where each bite tells a unique story.
-                    </p>
-                </div>
-        </section>
+            <p class="text-base font-normal text-white rounded-lg lg:text-black">
+                <?= nl2br(htmlspecialchars($homepageyummy->description)) ?>
+            </p>
+        </div>
+    </div>
+</section>
 
         <section id="restaurants" class="py-8">
             <div class="Union-restaurant">
@@ -209,9 +198,8 @@ $restaurantReviews = $yummyService->getRestaurantReviews(); // Get reviews for a
                         Check festival schedule
                     </button>
                 </div>
-
-
             </div>
+    </section>
 
             <!-- Special Prices Section -->
             <div class="bg-black py-8">
@@ -287,7 +275,6 @@ $restaurantReviews = $yummyService->getRestaurantReviews(); // Get reviews for a
                     </div>
                 </div>
             </div>
-
     </main>
 
     <footer>
