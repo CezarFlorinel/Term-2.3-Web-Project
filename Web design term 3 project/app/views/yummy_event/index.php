@@ -6,7 +6,6 @@ $yummyService = new YummyService();
 
 $homepageyummy = $yummyService->getHomepageDataRestaurant();
 $yummyrestaurants = $yummyService->getAllRestaurants();
-$yummyPrices = $yummyService->getRestaurantSession($id);
 
 ?>
 
@@ -86,8 +85,12 @@ $yummyPrices = $yummyService->getRestaurantSession($id);
                             </div>
                         </div>
                         <div class="px-4 pb-4 relative">
+
                             <p class="text-sm text-black">
-                                <?= nl2br(htmlspecialchars($restaurant->cuisineTypes)) ?>
+                                <?php
+                                $allCuisineTypes = explode(';', $restaurant->cuisineTypes);
+                                echo implode('<br>', $allCuisineTypes);
+                                ?>
                             </p>
                             <a href="/yummyevent/detailed_page"
                                 class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More
@@ -121,25 +124,23 @@ $yummyPrices = $yummyService->getRestaurantSession($id);
                                 </tr>
                             </thead>
                             <tbody class="text-black">
-                                <?php if (isset($restaurantIDs) && is_array($restaurantIDs)): ?>
-                                    <?php foreach ($restaurantIDs as $id): ?>
-                                        <?php
-                                        // Fetch session prices for each restaurant
-                                        $sessions = $yummyService->getRestaurantSession($id);
-                                        if (!empty($sessions)):
-                                            foreach ($sessions as $session): ?>
-                                                <tr>
-                                                    <td class="py-2 px-4 border-b border-gray-700">
-                                                        <?= htmlspecialchars($session->getName()) ?></td>
-                                                    <td class="py-2 px-4 border-b border-gray-700">
-                                                        <?= htmlspecialchars($session->PricesForAdults) ?>€</td>
-                                                    <td class="py-2 px-4 border-b border-gray-700">
-                                                        <?= htmlspecialchars($session->PricesForChildren) ?>€</td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                <?php foreach ($yummyrestaurants as $restaurant): ?>
+                                    <?php
+                                    // Fetch session prices for each restaurant
+                                    $sessions = $yummyService->getRestaurantSession($restaurant->restaurantID);
+                                    $firstSession = $sessions[0]; ?>
+                                    <tr>
+                                        <td class="py-2 px-4 border-b border-gray-700">
+                                            <?= htmlspecialchars($restaurant->name) ?>
+                                        </td>
+                                        <td class="py-2 px-4 border-b border-gray-700">
+                                            <?= $formattedSubtotal = number_format($firstSession->pricesForAdults, 2, '.', ''); ?>€
+                                        </td>
+                                        <td class="py-2 px-4 border-b border-gray-700">
+                                            <?= $formattedSubtotal = number_format($firstSession->pricesForChildren, 2, '.', ''); ?>€
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
