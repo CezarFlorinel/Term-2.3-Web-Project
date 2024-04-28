@@ -47,7 +47,7 @@
                 <a href="/payment">
                     <img class="icon" src="assets/images/elements/Shopping cart.png" alt="Shopping Cart">
                 </a>
-                <a href="/">
+                <a href="/personalProgramListView">
                     <img class="icon" src="assets/images/elements/Wishlist.png" alt="Wishlist">
                 </a>
                 <a href="/login">

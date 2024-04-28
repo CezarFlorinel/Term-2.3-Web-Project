@@ -1,3 +1,28 @@
+<?php
+session_start();
+
+use App\Services\PaymentService;
+use App\Services\TicketsService;
+use App\Services\HistoryService;
+
+$paymentService = new PaymentService();
+$ticketsService = new TicketsService();
+$historyService = new HistoryService();
+
+$userId = 1; // Replace with actual user ID
+
+$order = $paymentService->getOrderByUserId($userId);
+$orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
+//$pairdOrderItems = null;
+$itemsTotal = 0;
+$totalPrice = 0;
+
+$arraySelectedTickets = null;
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,88 +88,36 @@
                     <div class="space-y-4">
                         <!-- Item Rows -->
                         <!-- Repeat this structure for each item, replace with actual data -->
-                        <div class="flex justify-between items-center" style="font-family: imprima">
-                            <div class="flex flex-col sm:flex-row items-center">
-                                <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
-                                    class="w-20 h-20 mr-2">
-                                <span>English <br> Tour</span>
-                            </div>
-                            <div>25 Jul<br>10:00-12:30</div>
-                            <div>Starting Point <br> Near Church<br> Of Saint Bavo</div>
-                            <div class="flex items-center">
-                                <button class="px-1 py-0.5 text-xs border">-</button>
-                                <input type="text" class="w-6 h-6 text-xs text-center border-t border-b" value="1">
-                                <button class="px-1 py-0.5 text-xs border">+</button>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="flex items-center mt-[-26px]">
-                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
-                                </div>
-                                <div style="height: 20px;"></div>
-                                <div class="text-sm text-gray-500">--€</div>
-                            </div>
-                        </div>
+                        <?php
+                        end($orderItems);
+                        $lastKey = key($orderItems);
+                        reset($orderItems);
+                        ?>
+                        <?php foreach ($orderItems as $key => $orderItem): ?>
+                            <?php $itemsTotal++;
+                            $ticket = $ticketsService->returnTypeOfTicket($orderItem); ?>
 
-                        <div class="border-t border-gray-400"></div>
+                            <?php if (get_class($ticket) == 'App\Models\Tickets\HistoryTicket'): ?>
+                                <?php require __DIR__ . '/../../components/personal_program/historyTicketDisplay.php'; ?>
+                            <?php elseif (get_class($ticket) == 'App\Models\Tickets\DanceTicket'): ?>
+                                <?php require __DIR__ . '/../../components/personal_program/danceTicketDisplay.php'; ?>
+                            <?php else: ?>
+                                <?php require __DIR__ . '/../../components/personal_program/dancePassDisplay.php'; ?>
+                            <?php endif; ?>
 
-                        <div class="flex justify-between items-center" style="font-family: imprima">
-                            <div class="flex flex-col sm:flex-row items-center">
-                                <img src="assets/images/Payment_event_images/Checkinfo2.png" alt="Event 1"
-                                    class="w-20 h-20 mr-2">
-                                <span>Tiësto <br> Concert</span>
-                            </div>
-                            <div>25 Jul<br>10:00-12:30</div>
-                            <div>Starting Point <br> Near Church<br> Of Saint Bavo</div>
-                            <div class="flex items-center">
-                                <button class="px-1 py-0.5 text-xs border">-</button>
-                                <input type="text" class="w-6 h-6 text-xs text-center border-t border-b" value="1">
-                                <button class="px-1 py-0.5 text-xs border">+</button>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="flex items-center mt-[-26px]">
-                                    <!-- This negative margin pulls the checkbox and bin icon up -->
-                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
-                                </div>
-                                <div style="height: 20px;"></div>
-                                <div class="text-sm text-gray-500">--€</div>
-                            </div>
-                        </div>
-
-                        <div class="border-t border-gray-400"></div>
-
-                        <div class="flex justify-between items-center" style="font-family: imprima">
-                            <div class="flex flex-col sm:flex-row items-center">
-                                <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
-                                    class="w-20 h-20 mr-2">
-                                <span>English <br> Tour</span>
-                            </div>
-                            <div>25 Jul<br>10:00-12:30</div>
-                            <div>Starting Point <br> Near Church<br> Of Saint Bavo</div>
-                            <div class="flex items-center">
-                                <button class="px-1 py-0.5 text-xs border">-</button>
-                                <input type="text" class="w-6 h-6 text-xs text-center border-t border-b" value="1">
-                                <button class="px-1 py-0.5 text-xs border">+</button>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="flex items-center mt-[-26px]">
-                                    <!-- This negative margin pulls the checkbox and bin icon up -->
-                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
-                                </div>
-                                <div style="height: 20px;"></div>
-                                <div class="text-sm text-gray-700">--€</div>
-                            </div>
-
-                        </div>
-
-                        <!-- Repeat End -->
+                            <?php if ($key !== $lastKey): // Check if not the last item        ?>
+                                <div class="border-t border-gray-400"></div><!-- Divider Line, remove for last in array -->
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                     </div>
+
                     <div class="pt-4 mt-4 border-t border-gray-500 flex justify-between items-center text-xl font-bold">
-                        <div>You have 6 items in total</div>
-                        <div>Total 145.00€</div>
+                        <div> You have <?php echo $itemsTotal; ?> items in total</div>
+                        <div>Total
+                            <?php echo $formattedSubtotal = number_format($totalPrice, 2, '.', ''); ?>€
+                        </div>
                     </div>
+
                 </div>
                 <div class="mt-10 flex justify-end gap-4">
 
