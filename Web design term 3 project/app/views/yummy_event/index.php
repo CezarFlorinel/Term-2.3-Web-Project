@@ -18,7 +18,9 @@ $yummyPrices = $yummyService->getRestaurantSession($id);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haarlem Festival</title>
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
@@ -66,16 +68,18 @@ $yummyPrices = $yummyService->getRestaurantSession($id);
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4">
-                <?php foreach ($yummyrestaurants as $restaurant) : ?>
+                <?php foreach ($yummyrestaurants as $restaurant): ?>
                     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                        <img class="w-full h-56 object-cover object-center" src="<?= htmlspecialchars($restaurant->imagePathHomepage) ?>" alt="<?= htmlspecialchars($restaurant->name) ?>">
+                        <img class="w-full h-56 object-cover object-center"
+                            src="<?= htmlspecialchars($restaurant->imagePathHomepage) ?>"
+                            alt="<?= htmlspecialchars($restaurant->name) ?>">
                         <div class="p-4 flex justify-between items-center">
                             <h3 class="text-xl font-semibold text-black"><?= htmlspecialchars($restaurant->name) ?></h3>
                             <div class="flex items-center">
-                                <?php for ($i = 0; $i < 5; $i++) : ?>
-                                    <?php if ($i < $restaurant->Rating) : ?>
+                                <?php for ($i = 0; $i < 5; $i++): ?>
+                                    <?php if ($i < $restaurant->rating): ?>
                                         <i class="fas fa-star rating-star"></i>
-                                    <?php else : ?>
+                                    <?php else: ?>
                                         <i class="far fa-star rating-star"></i>
                                     <?php endif; ?>
                                 <?php endfor; ?>
@@ -85,7 +89,9 @@ $yummyPrices = $yummyService->getRestaurantSession($id);
                             <p class="text-sm text-black">
                                 <?= nl2br(htmlspecialchars($restaurant->cuisineTypes)) ?>
                             </p>
-                            <a href="/yummyevent/detailed_page" class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More Info</a>
+                            <a href="/yummyevent/detailed_page"
+                                class="absolute bottom-2 right-4 inline-block bg-blue-200 rounded-lg px-3 py-1 mt-2 text-indigo-500 hover:text-indigo-600 hover:bg-blue-300">More
+                                Info</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -96,7 +102,9 @@ $yummyPrices = $yummyService->getRestaurantSession($id);
             <!-- Special Prices Section -->
             <div class="bg-black py-8">
                 <div class="max-w-4xl mx-auto px-4">
-                    <h1 style="font-size: 45px; font-family: 'Playfair Display', serif; text-align: center; font-weight: bold">Festival Menus at Special Prices</h1>
+                    <h1
+                        style="font-size: 45px; font-family: 'Playfair Display', serif; text-align: center; font-weight: bold">
+                        Festival Menus at Special Prices</h1>
                     <div class="bg-yellow-200 p-4 rounded-lg">
                         <table class="table-auto w-full" style="font-family: 'Playfair Display', serif;">
                             <thead>
@@ -113,17 +121,20 @@ $yummyPrices = $yummyService->getRestaurantSession($id);
                                 </tr>
                             </thead>
                             <tbody class="text-black">
-                                <?php if (isset($restaurantIDs) && is_array($restaurantIDs)) : ?>
-                                    <?php foreach ($restaurantIDs as $id) : ?>
+                                <?php if (isset($restaurantIDs) && is_array($restaurantIDs)): ?>
+                                    <?php foreach ($restaurantIDs as $id): ?>
                                         <?php
                                         // Fetch session prices for each restaurant
                                         $sessions = $yummyService->getRestaurantSession($id);
-                                        if (!empty($sessions)) :
-                                            foreach ($sessions as $session) : ?>
+                                        if (!empty($sessions)):
+                                            foreach ($sessions as $session): ?>
                                                 <tr>
-                                                    <td class="py-2 px-4 border-b border-gray-700"><?= htmlspecialchars($session->getName()) ?></td>
-                                                    <td class="py-2 px-4 border-b border-gray-700"><?= htmlspecialchars($session->PricesForAdults) ?>€</td>
-                                                    <td class="py-2 px-4 border-b border-gray-700"><?= htmlspecialchars($session->PricesForChildren) ?>€</td>
+                                                    <td class="py-2 px-4 border-b border-gray-700">
+                                                        <?= htmlspecialchars($session->getName()) ?></td>
+                                                    <td class="py-2 px-4 border-b border-gray-700">
+                                                        <?= htmlspecialchars($session->PricesForAdults) ?>€</td>
+                                                    <td class="py-2 px-4 border-b border-gray-700">
+                                                        <?= htmlspecialchars($session->PricesForChildren) ?>€</td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
@@ -132,7 +143,8 @@ $yummyPrices = $yummyService->getRestaurantSession($id);
                             </tbody>
                         </table>
                     </div>
-                    <p class="text-m mt-4">*The Kids price only applies to children that are <span class="font-bold">12 years old or younger.</span></p>
+                    <p class="text-m mt-4">*The Kids price only applies to children that are <span class="font-bold">12
+                            years old or younger.</span></p>
                 </div>
             </div>
         </section>
@@ -141,9 +153,12 @@ $yummyPrices = $yummyService->getRestaurantSession($id);
         <div class="bg-black py-8">
             <div class="max-w-4xl mx-auto px-4">
                 <div class="relative text-center">
-                    <h2 style="font-size: 45px; font-family: 'Playfair Display', serif; text-align: center; font-weight: bold">Location of Restaurants</h2>
+                    <h2
+                        style="font-size: 45px; font-family: 'Playfair Display', serif; text-align: center; font-weight: bold">
+                        Location of Restaurants</h2>
                     <div class="inline-block">
-                        <img class="w-full h-auto rounded-lg shadow-lg" src="assets/images/yummy_event/map.png" alt="Placeholder for restaurant location map">
+                        <img class="w-full h-auto rounded-lg shadow-lg" src="assets/images/yummy_event/map.png"
+                            alt="Placeholder for restaurant location map">
                     </div>
                 </div>
             </div>
