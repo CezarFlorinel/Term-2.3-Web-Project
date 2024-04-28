@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" type="text/css" href="/CSS_files/js_custome_alert.css">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:500|Zen+Antique|Allerta+Stencil&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:500|Zen+Antique|Allerta+Stencil&display=swap"
+        rel="stylesheet">
 </head>
 
 <?php include "../components/general/modalSet.php" ?>
@@ -30,11 +31,17 @@
                 <img src="assets/images/elements/hamburger_Icon.jpg" alt="Menu">
             </label>
             <nav class="navigation">
-                <a href="/" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/') echo 'active'; ?>">Home</a>
-                <a href="/yummyevent" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/yummyevent') echo 'active'; ?>">Yummy</a>
-                <a href="/danceevent" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/danceevent') echo 'active'; ?>">Dance</a>
-                <a href="/historyevent" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/historyevent') echo 'active'; ?>">Stroll Through History</a>
-                <a href="/mainpageadmin" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/mainpageadmin') echo 'active'; ?>">Admin</a>
+                <a href="/" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/')
+                    echo 'active'; ?>">Home</a>
+                <a href="/yummyevent" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/yummyevent')
+                    echo 'active'; ?>">Yummy</a>
+                <a href="/danceevent" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/danceevent')
+                    echo 'active'; ?>">Dance</a>
+                <a href="/historyevent" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/historyevent')
+                    echo 'active'; ?>">Stroll
+                    Through History</a>
+                <a href="/mainpageadmin" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/mainpageadmin')
+                    echo 'active'; ?>">Admin</a>
             </nav>
             <div class="icons">
                 <a href="/payment">
