@@ -13,10 +13,20 @@ $userId = 1; // Replace with actual user ID
 
 $order = $paymentService->getOrderByUserId($userId);
 $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
-//$pairdOrderItems = null;
+
+$paidOrders = $paymentService->getPaidOrdersByUserId($userId);
+$paidOrderItemsAll = [];
+
+// Loop through each paid order
+foreach ($paidOrders as $paidOrder) {
+    // Retrieve order items by order ID and merge them into the paidOrderItems array
+    $paidOrderItems = $paymentService->getOrdersItemsByOrderId($paidOrder->orderID);
+    $paidOrderItemsAll = array_merge($paidOrderItemsAll, $paidOrderItems);
+}
+
+$displayCheckBoxAndQuantityButtons = false;
 $itemsTotal = 0;
 $totalPrice = 0;
-
 $arraySelectedTickets = null;
 
 ?>
@@ -112,8 +122,12 @@ $arraySelectedTickets = null;
                     </div>
 
                     <div class="pt-4 mt-4 border-t border-gray-500 flex justify-between items-center text-xl font-bold">
-                        <div> You have <?php echo $itemsTotal; ?> items in total</div>
-                        <div>Total
+                        <div id="js_total-items" data-id-total-items="<?php echo $itemsTotal; ?>"> You have
+                            <?php echo $itemsTotal; ?> items in total
+                        </div>
+                        <div id="js_total-price"
+                            data-id-total-price="<?php echo $formattedSubtotal = number_format($totalPrice, 2, '.', ''); ?>">
+                            Total
                             <?php echo $formattedSubtotal = number_format($totalPrice, 2, '.', ''); ?>€
                         </div>
                     </div>
@@ -148,95 +162,87 @@ $arraySelectedTickets = null;
                 <div class="bg-white text-black rounded-lg py-4 px-6 text-sm">
                     <!-- Items List -->
                     <div class="space-y-4">
-                        <!-- Item Rows -->
-                        <!-- Repeat this structure for each item, replace with actual data -->
-                        <div class="flex justify-between items-center" style="font-family: imprima">
+                        <?php
+                        $displayCheckBoxAndQuantityButtons = true;
+                        $orderItems = $paidOrderItemsAll;
+                        $itemsTotal = 0;
+                        $totalPrice = 0;
+                        end($orderItems);
+                        $lastKey = key($orderItems);
+                        reset($orderItems);
+                        ?>
+                        <?php foreach ($orderItems as $key => $orderItem): ?>
+                            <?php $itemsTotal++;
+                            $ticket = $ticketsService->returnTypeOfTicket($orderItem); ?>
 
-                            <div class="flex flex-col sm:flex-row items-center">
-                                <img src="assets/images/Payment_event_images/Checkinfo1.png" alt="Event 1"
-                                    class="w-20 h-20 mr-2">
-                                <span>Dutch <br> Tour</span>
-                            </div>
-                            <div>25 Jul<br>10:00-12:30</div>
-                            <div>Starting Point <br> Near Church<br> Of Saint Bavo</div>
-                            <div class="flex items-center">
-                                <div>4</div>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="flex items-center mt-[-26px]">
-                                    <!-- This negative margin pulls the checkbox and bin icon up -->
-                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
-                                </div>
-                                <div style="height: 20px;"></div>
-                                <div class="text-sm text-gray-500">--€</div>
-                            </div>
+                            <?php if (get_class($ticket) == 'App\Models\Tickets\HistoryTicket'): ?>
+                                <?php require __DIR__ . '/../../components/personal_program/historyTicketDisplay.php'; ?>
+                            <?php elseif (get_class($ticket) == 'App\Models\Tickets\DanceTicket'): ?>
+                                <?php require __DIR__ . '/../../components/personal_program/danceTicketDisplay.php'; ?>
+                            <?php else: ?>
+                                <?php require __DIR__ . '/../../components/personal_program/dancePassDisplay.php'; ?>
+                            <?php endif; ?>
 
-                        </div>
+                            <?php if ($key !== $lastKey): // Check if not the last item        ?>
+                                <div class="border-t border-gray-400"></div><!-- Divider Line, remove for last in array -->
+                            <?php endif; ?>
+                        <?php endforeach; ?>
 
-                        <div class="border-t border-gray-400"></div>
-
-
-                        <div class="flex justify-between items-center" style="font-family: imprima">
-                            <div class="flex flex-col sm:flex-row items-center">
-                                <img src="assets\images\Payment_event_images\Hardwell-returns-to-Ushuaia-Ibiza-2016 1.png"
-                                    alt="Event 1" class="w-20 h-20 mr-2">
-                                <span>Hardwell <br> Concert</span>
-                            </div>
-                            <div>25 Jul<br>10:00-12:30</div>
-                            <div>Starting Point <br> Near Church<br> Of Saint Bavo</div>
-                            <div class="flex items-center">
-                                <div>1</div>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="flex items-center mt-[-26px]">
-                                    <!-- This negative margin pulls the checkbox and bin icon up -->
-                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
-                                </div>
-                                <div style="height: 20px;"></div>
-                                <div class="text-sm text-gray-500">--€</div>
-                            </div>
-
-                        </div>
-
-                        <div class="border-t border-gray-400"></div>
-
-
-                        <div class="flex justify-between items-center" style="font-family: imprima">
-                            <div class="flex flex-col sm:flex-row items-center">
-                                <img src="assets\images\Payment_event_images\Multiple-Artists-Concert.png" alt="Event 1"
-                                    class="w-20 h-20 mr-2">
-                                <span>Multiple <br> Artists <br> Concert</span>
-                            </div>
-                            <div>25 Jul<br>10:00-12:30</div>
-                            <div>Starting Point <br> Near Church<br> Of Saint Bavo</div>
-                            <div class="flex items-center">
-                                <div>1</div>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="flex items-center mt-[-26px]">
-                                    <!-- This negative margin pulls the checkbox and bin icon up -->
-                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                                    <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
-                                </div>
-                                <div style="height: 20px;"></div>
-                                <div class="text-sm text-gray-500">--€</div>
-                            </div>
-
-                        </div>
                         <!-- Repeat End -->
                         <div
                             class="pt-4 mt-4 border-t border-gray-700 flex justify-between items-center text-xl font-bold">
-
-                            <div>You have 6 items in total</div>
-                            <div>Total 145.00€</div>
+                            <div> You have <?php echo $itemsTotal; ?> items in total</div>
+                            <div>Total
+                                <?php echo $formattedSubtotal = number_format($totalPrice, 2, '.', ''); ?>€
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <?php include __DIR__ . '/../footer.php'; ?>
+
+        <script>
+            document.querySelectorAll('.increment, .decrement').forEach(button => {
+                button.addEventListener('click', function (e) {
+                    const itemId = this.dataset.itemId;
+                    const isIncrement = this.classList.contains('increment');
+                    const input = document.querySelector(`input[data-item-id="${itemId}"]`);
+                    const currentTotalQuantity = parseInt(document.getElementById('js_total-items').getAttribute('data-id-total-items'));
+                    const currentTotalPrice = parseFloat(document.getElementById('js_total-price').getAttribute('data-id-total-price'));
+                    let currentQuantity = parseInt(input.value);
+                    currentQuantity = isIncrement ? currentQuantity + 1 : (currentQuantity > 1 ? currentQuantity - 1 : 1);
+                    input.value = currentQuantity;  // Update the input field
+
+                    console.log('Current quantity:', currentQuantity);
+                    console.log('Current total quantity:', currentTotalQuantity);
+                    console.log('Current total price:', currentTotalPrice);
+                    console.log('Item ID:', itemId);
+
+
+                    // Update subtotal and total on the server
+                    fetch('/api/PersonalProgramListView/updateQuantityAndTotals', {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            quantity: currentQuantity,
+                            orderItemID: itemId,
+                            currentTotalPrice: currentTotalPrice,
+                            currentTotalQuantity: currentTotalQuantity
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);  // delete after no use
+                            document.querySelector(`#subtotal-${itemId}`).textContent = `${data.subtotal}€`;
+                            document.getElementById('js_total-price').textContent = `Total ${data.totalPrice}€`;
+                            document.getElementById('js_total-items').textContent = `You have ${data.totalItems} items in total`;
+                        })
+                        .catch(error => console.error('Error updating quantity:', error));
+                });
+            });
+        </script>
+
 </body>
 
 </html>

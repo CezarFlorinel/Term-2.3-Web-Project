@@ -24,9 +24,19 @@ class PaymentService
         return $this->repository->getOrdersItemsByOrderId($orderId);
     }
 
+    public function getPaidOrdersByUserId($userId): array
+    {
+        return $this->repository->getPaidOrdersByUserId($userId);
+    }
+
     public function updateOrderStatus($orderID, $paymentStatus, $paymentMethod)
     {
         $this->repository->updateOrderStatus($orderID, $paymentStatus, $paymentMethod);
+    }
+
+    public function updateOrderItemQuantity($orderItemID, $quantity)
+    {
+        $this->repository->updateOrderItemQuantity($orderItemID, $quantity);
     }
 
     public function addInvoiceInDB($orderID, $invoiceDate, $clientName, $phoneNumber, $address, $email, $VAT, $total, $paymentDate)

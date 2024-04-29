@@ -29,6 +29,27 @@ class PaymentRepository extends Repository
 
     }
 
+    public function getPaidOrdersByUserId($userId): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM [ORDER] WHERE UserID = :user_id AND PaymentStatus = :payment_status');
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $paymentStatus = "Complete"; // ------------------------- maybe to be made in enum
+        $stmt->bindParam(':payment_status', $paymentStatus, PDO::PARAM_STR);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(function ($result) {
+            return new Order(
+                $result['OrderID'],
+                $result['UserID'],
+                $result['PaymentStatus'],
+                $result['TotalAmount'],
+                $result['PaymentMethod'],
+                $result['PaymentDate']
+            );
+        }, $results);
+    }
+
     public function getOrdersItemsByOrderId($orderId): array
     {
         $stmt = $this->connection->prepare('SELECT * FROM ORDER_ITEM WHERE Order_FK = :order_id');
@@ -55,6 +76,14 @@ class PaymentRepository extends Repository
         $stmt->bindParam(':order_id', $orderID, PDO::PARAM_INT);
         $stmt->bindParam(':payment_status', $paymentStatus, PDO::PARAM_STR);
         $stmt->bindParam(':payment_method', $paymentMethod, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public function updateOrderItemQuantity($orderItemID, $quantity)
+    {
+        $stmt = $this->connection->prepare('UPDATE ORDER_ITEM SET Quantity = :quantity WHERE OrderItemID = :order_item_id');
+        $stmt->bindParam(':order_item_id', $orderItemID, PDO::PARAM_INT);
+        $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
         $stmt->execute();
     }
 
