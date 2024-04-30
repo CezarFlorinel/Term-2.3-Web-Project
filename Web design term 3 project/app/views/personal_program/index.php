@@ -16,7 +16,13 @@ $userId = 1; // Replace with actual user ID
 
 $order = $paymentService->getOrderByUserId($userId);
 $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
-$reservations = $yummyService->getReservationsByUserId($userId);
+$allReservations = $yummyService->getReservationsByUserId($userId);
+$reservations = [];
+foreach ($allReservations as $reservation) {
+    if ($reservation->isActive) {
+        $reservations[] = $reservation;
+    }
+}
 
 $paidOrders = $paymentService->getPaidOrdersByUserId($userId);
 $paidOrderItemsAll = [];
@@ -188,18 +194,29 @@ $arraySelectedTickets = null;
                                 <?php require __DIR__ . '/../../components/personal_program/dancePassDisplay.php'; ?>
                             <?php endif; ?>
 
-                            <?php if ($key !== $lastKey): // Check if not the last item        ?>
-                                <div class="border-t border-gray-400"></div><!-- Divider Line, remove for last in array -->
+                            <?php if (!empty($reservations)): ?>
+                                <div class="border-t border-gray-400"></div>
+                            <?php elseif ($key !== $lastKey): ?>
+                                <div class="border-t border-gray-400"></div>
                             <?php endif; ?>
                         <?php endforeach; ?>
 
                         <!-- The Reservations -->
-                        <?php foreach ($reservations as $reservation): ?>
+                        <?php
+                        end($reservations);
+                        $lastKeyReservations = key($reservations);
+                        reset($reservations);
+                        ?>
+
+                        <?php foreach ($reservations as $key => $reservation): ?>
                             <?php
                             $restaurant = $yummyService->getRestaurantById($reservation->restaurantID);
                             $session = $yummyService->getSessionByRestaurantName($restaurant->name);
                             require __DIR__ . '/../../components/personal_program/yummyReservationDisplay.php';
                             ?>
+                            <?php if ($key !== $lastKeyReservations): ?>
+                                <div class="border-t border-gray-400"></div>
+                            <?php endif; ?>
                         <?php endforeach; ?>
 
                         <div
@@ -249,6 +266,75 @@ $arraySelectedTickets = null;
                 });
             });
         </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const deleteOrderItemAPI = '/api/PersonalProgramListView/deleteOrderItem';
+                const deleteReservationAPI = '/api/PersonalProgramListView/deleteReservation';
+                const deletePaidResText = 'Are you sure you want to delete this reservation ? You will NOT receive a refund, and the ticket will become useless (if applicable) ! You cannot reverse this changes.';
+                const deleteUnpaidResText = 'Are you sure you want to delete this reservation?';
+                const theDataTypeOrderItem = "data-type-order-item-id";
+                const theDataTypeReservation = "data-type-reservation-item-id";
+
+                var deleteIcons = document.querySelectorAll('.js_delete-icon');
+                deleteIcons.forEach(function (icon) {
+                    var typeOfReservation = icon.dataset.typeOfReservation;
+                    if (typeOfReservation === 'res_paid') {
+                        showConfirmationPopup(icon, deleteOrderItemAPI, deletePaidResText, theDataTypeOrderItem);
+                    }
+                    else if (typeOfReservation === 'res_unpaid') {
+                        showConfirmationPopup(icon, deleteOrderItemAPI, deleteUnpaidResText, theDataTypeOrderItem);
+                    }
+                    else if (typeOfReservation === 'restaurant_res') {
+                        showConfirmationPopup(icon, deleteReservationAPI, deletePaidResText, theDataTypeReservation);
+                    }
+
+
+                });
+            });
+
+            function showConfirmationPopup(icon, API, text, dataType) {
+                icon.addEventListener('click', function (event) {
+                    var itemId = this.closest(`[${dataType}]`).getAttribute(`${dataType}`);
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: text,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            deleteItem(itemId, API);
+                        }
+                    });
+                });
+
+            }
+
+            function deleteItem(itemId, API) {
+                // Example: send a DELETE request to your server
+                fetch(`${API}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ID: itemId
+                    })
+
+                }).then(response => response.json())
+                    .then(data => {
+                        this.location.reload();
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        </script>
+
+
+
+
 
 </body>
 

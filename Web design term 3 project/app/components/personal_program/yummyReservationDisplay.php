@@ -25,13 +25,16 @@
     <!-- Quantity section -->
     <div class="flex items-center">
         <span><?php
-        echo htmlspecialchars($numberOfPersons = $reservation->numberOfAdults + $reservation->numberOfChildren);
+        $numberOfPersons = $reservation->numberOfAdults + $reservation->numberOfChildren;
+        $itemsTotal += $numberOfPersons;
+        echo htmlspecialchars($numberOfPersons);
         ?> persons</span>
     </div>
 
     <div class="flex flex-col items-center">
         <div class="flex items-center mt-[-26px]">
-            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
+            <img src="assets/images/Logos/bin.png" data-type-of-reservation="restaurant_res" alt="Delete"
+                class="js_delete-icon w-5 h-5 ml-2">
         </div>
         <div style="height: 20px;"></div>
         <div class="text-sm text-gray-500">

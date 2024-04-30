@@ -58,4 +58,14 @@ class PaymentService
         return $this->repository->getOrderItemByID($orderItemID);
     }
 
+    public function deleteReservationByID($reservationID): void
+    {
+        $this->repository->deleteReservationByID($reservationID);
+    }
+
+    public function deleteOrderItemByID($orderItemID): void
+    {
+        $this->repository->deleteOrderItemByID($orderItemID);
+    }
+
 }

@@ -86,7 +86,6 @@ class PaymentRepository extends Repository
             );
         }, $results);
     }
-
     public function updateOrderStatus($orderID, $paymentStatus, $paymentMethod)
     {
         $stmt = $this->connection->prepare('UPDATE [ORDER] SET PaymentStatus = :payment_status, PaymentMethod = :payment_method WHERE OrderID = :order_id');
@@ -156,6 +155,22 @@ class PaymentRepository extends Repository
             $result['DanceTicket_FK'],
             $result['HistoryTicket_FK']
         );
+    }
+
+    public function deleteOrderItemByID($orderItemID): void
+    {
+        $stmt = $this->connection->prepare('DELETE FROM ORDER_ITEM WHERE OrderItemID = :order_item_id');
+        $stmt->bindParam(':order_item_id', $orderItemID, PDO::PARAM_INT);
+        $stmt->execute();
+
+    }
+
+    public function deleteReservationByID($reservationID): void
+    {
+
+        $stmt = $this->connection->prepare('DELETE FROM [RESTAURANT_RESERVATIONS] WHERE ID = :reservation_id');
+        $stmt->bindParam(':reservation_id', $reservationID, PDO::PARAM_INT);
+        $stmt->execute();
     }
 
 }

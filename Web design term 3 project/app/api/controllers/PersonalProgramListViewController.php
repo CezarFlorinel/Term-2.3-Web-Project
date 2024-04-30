@@ -18,6 +18,60 @@ class PersonalProgramListViewController
         $this->ticketsService = new TicketsService();
     }
 
+    public function deleteOrderItem()
+    {
+        try {
+            if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+                $input = json_decode(file_get_contents('php://input'), true);
+
+                if (isset($input['ID'])) {
+                    $orderItemID = filter_var($input['ID'], FILTER_VALIDATE_INT);
+
+                    // Delete the order item
+                    $this->paymentService->deleteOrderItemByID($orderItemID);
+
+                    echo json_encode(['success' => true, 'message' => 'Order item deleted successfully']);
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'error' => 'Missing required fields']);
+                }
+            } else {
+                http_response_code(405);
+                echo json_encode(['success' => false, 'error' => 'Method not allowed']);
+            }
+        } catch (\Exception $e) {
+            ErrorHandlerMethod::handleErrorApiController($e);
+        }
+
+    }
+
+    public function deleteReservation()
+    {
+        try {
+            if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+                $input = json_decode(file_get_contents('php://input'), true);
+
+                if (isset($input['ID'])) {
+                    $reservationID = filter_var($input['ID'], FILTER_VALIDATE_INT);
+
+                    // Delete the reservation
+                    $this->paymentService->deleteReservationByID($reservationID);
+
+                    echo json_encode(['success' => true, 'message' => 'Reservation deleted successfully']);
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'error' => 'Missing required fields']);
+                }
+            } else {
+                http_response_code(405);
+                echo json_encode(['success' => false, 'error' => 'Method not allowed']);
+            }
+        } catch (\Exception $e) {
+            ErrorHandlerMethod::handleErrorApiController($e);
+        }
+
+    }
+
 
     public function updateQuantityAndTotals()
     {

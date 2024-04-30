@@ -38,8 +38,12 @@
         <div class="flex items-center mt-[-26px]">
             <?php if ($displayCheckBoxAndQuantityButtons == false): ?>
                 <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
+                <img src="assets/images/Logos/bin.png" alt="Delete" data-type-of-reservation="res_unpaid" alt="Delete"
+                    class="js_delete-icon w-5 h-5 ml-2">
+            <?php else: ?>
+                <img src="assets/images/Logos/bin.png" alt="Delete" data-type-of-reservation="res_paid" alt="Delete"
+                    class="js_delete-icon w-5 h-5 ml-2">
             <?php endif; ?>
-            <img src="assets/images/Logos/bin.png" alt="Delete" class="w-5 h-5 ml-2">
         </div>
         <div style="height: 20px;"></div>
         <div class="text-sm text-gray-500" id="subtotal-<?php echo $orderItem->orderItemID; ?>">
