@@ -47,6 +47,7 @@
             $price = $ticket->price;
             $quantityOfTicket = $orderItem->quantity;
             $subtotal = $quantityOfTicket * $price;
+            $itemsTotal += $quantityOfTicket - 1; // because the 1 is already added
             $totalPrice += $subtotal;
             $formattedSubtotal = number_format($subtotal, 2, '.', '');
             echo htmlspecialchars($formattedSubtotal);

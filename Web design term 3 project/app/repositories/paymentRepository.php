@@ -29,6 +29,23 @@ class PaymentRepository extends Repository
 
     }
 
+    public function getOrderByOrderItem($orderItemID): Order
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM [ORDER] WHERE OrderID = (SELECT Order_FK FROM ORDER_ITEM WHERE OrderItemID = :order_item_id)');
+        $stmt->bindParam(':order_item_id', $orderItemID, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return new Order(
+            $result['OrderID'],
+            $result['UserID'],
+            $result['PaymentStatus'],
+            $result['TotalAmount'],
+            $result['PaymentMethod'],
+            $result['PaymentDate']
+        );
+    }
+
     public function getPaidOrdersByUserId($userId): array
     {
         $stmt = $this->connection->prepare('SELECT * FROM [ORDER] WHERE UserID = :user_id AND PaymentStatus = :payment_status');

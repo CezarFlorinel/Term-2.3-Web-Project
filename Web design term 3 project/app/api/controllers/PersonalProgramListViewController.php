@@ -25,13 +25,9 @@ class PersonalProgramListViewController
             if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
                 $input = json_decode(file_get_contents('php://input'), true);
 
-                if (isset($input['orderItemID'], $input['quantity'], $input['currentTotalPrice'], $input['currentTotalQuantity'])) {
+                if (isset($input['orderItemID'], $input['quantity'])) {
                     $orderItemID = filter_var($input['orderItemID'], FILTER_VALIDATE_INT);
                     $quantity = filter_var($input['quantity'], FILTER_VALIDATE_INT);
-                    $currentTotalPrice = filter_var($input['currentTotalPrice'], FILTER_VALIDATE_FLOAT);
-                    $currentTotalQuantity = filter_var($input['currentTotalQuantity'], FILTER_VALIDATE_INT);
-
-                    //error_log(print_r("\n this is orderItemId: " . $orderItemID . "\nquantity: " . $quantity . "\ncurrentTotalPrice: " . $currentTotalPrice . "\ncurrentTotalQuantiy: " . $currentTotalQuantity, true), 3, __DIR__ . '/../../file_with_erros_logs'); // Log the input data
 
                     // Update the order item quantity
                     $this->paymentService->updateOrderItemQuantity($orderItemID, $quantity);
@@ -40,11 +36,10 @@ class PersonalProgramListViewController
                     // Recalculate subtotal for the updated item
 
                     $subtotal = $this->returnSubtotal($orderItem);
-                    $totalItems = $currentTotalQuantity + $quantity;
-                    $totalPrice = $currentTotalPrice + $subtotal;
+                    $totals = $this->calculateTotals($orderItem);
 
-                    //error_log(print_r("\n subottal PS: " . $subtotal . "\ntotalItems: " . $totalItems . "\n totalPrice: " . $totalPrice, true), 3, __DIR__ . '/../../file_with_erros_logs'); // Log the input data
-
+                    $totalItems = $totals[1];
+                    $totalPrice = $totals[0];
 
                     echo json_encode([
                         'success' => true,
@@ -93,6 +88,54 @@ class PersonalProgramListViewController
         }
         return $subtotal;
 
+    }
+
+    private function calculateTotals($orderItem): array
+    {
+        $totalPrice = 0;
+        $totalItems = 0;
+        $totals = [];
+
+        $order = $this->paymentService->getOrderByOrderItem($orderItem->orderItemID);
+        $orderItems = $this->paymentService->getOrdersItemsByOrderId($order->orderID);
+
+        try {
+            foreach ($orderItems as $orderItem) {
+                $ticket = $this->ticketsService->returnTypeOfTicket($orderItem);
+
+                if (get_class($ticket) == 'App\Models\Tickets\HistoryTicket') {
+                    $price = $this->ticketsService->getHistoryTicketPriceByType($ticket->typeOfTicket); // store the price
+                    $quantityOfTicket = $orderItem->quantity;
+                    $totalItems += $quantityOfTicket;
+                    $subtotal = $quantityOfTicket * $price;
+                    $totalPrice += $subtotal;
+
+
+                } else if (get_class($ticket) == 'App\Models\Tickets\DanceTicket') {
+                    $price = $ticket->price;
+                    $quantityOfTicket = $orderItem->quantity;
+                    $totalItems += $quantityOfTicket;
+                    $subtotal = $quantityOfTicket * $price;
+                    $totalPrice += $subtotal;
+
+                } else {
+                    $price = $ticket->price;
+                    $quantityOfTicket = $orderItem->quantity;
+                    $totalItems += $quantityOfTicket;
+                    $subtotal = $quantityOfTicket * $price;
+                    $totalPrice += $subtotal;
+
+                }
+
+            }
+
+            $totals = [$totalPrice, $totalItems];
+
+
+        } catch (\Exception $e) {
+            ErrorHandlerMethod::handleErrorApiController($e);
+        }
+        return $totals;
     }
 
 

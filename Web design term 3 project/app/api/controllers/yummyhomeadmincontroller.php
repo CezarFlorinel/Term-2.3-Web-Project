@@ -149,7 +149,7 @@ class YummyHomeAdminController
             if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['name'])) {
                 $restaurantName = $_GET['name'];
 
-                $sessions = $this->yummyService->getSessionByRestaurantName($restaurantName);
+                $sessions = $this->yummyService->getSessionsByRestaurantName($restaurantName);
 
                 header('Content-Type: application/json');
                 echo json_encode($sessions);

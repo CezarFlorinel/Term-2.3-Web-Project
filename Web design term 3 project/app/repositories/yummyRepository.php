@@ -178,7 +178,7 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         return $result ? (int) $result['MaxId'] : 0;
     }
 
-    public function getSessionByRestaurantName($restaurantName): array
+    public function getSessionsByRestaurantName($restaurantName): array
     {
         $stmt = $this->connection->prepare('SELECT * FROM SESSION WHERE RestaurantID = (SELECT RestaurantID FROM RESTAURANT WHERE Name = :name)');
         $stmt->bindParam(':name', $restaurantName);
@@ -199,6 +199,25 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         }
         return $sessions;
     }
+
+    public function getSessionByRestaurantName($restaurantName): Session
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM SESSION WHERE RestaurantID = (SELECT RestaurantID FROM RESTAURANT WHERE Name = :name)');
+        $stmt->bindParam(':name', $restaurantName);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Session(
+            $result['SessionID'],
+            $result['RestaurantID'],
+            $result['AvailableSeats'],
+            $result['PricesForAdults'],
+            $result['PricesForChildren'],
+            $result['ReservationFee'],
+            $result['StartTime'],
+            $result['EndTime']
+        );
+    }
+
 
     public function getRestaurantIdByName($restaurantName): int
     {
@@ -230,10 +249,39 @@ class YummyRepository extends Repository  //methods for getting, updating and de
                 $result['NumberOfAdults'],
                 $result['NumberOfChildren'],
                 $result['Comment'],
-                $result['Active']
+                $result['Active'],
+                $result['UserId']
             );
         }
         return $reservations;
+    }
+
+    public function getReservationsByUserId($userID): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM RESTAURANT_RESERVATIONS WHERE UserID = :userID');
+        $stmt->bindParam(':userID', $userID);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $reservations = [];
+        foreach ($results as $result) {
+            $reservations[] = new Reservation(
+                $result['ID'],
+                $result['RestaurantID'],
+                $result['FirstName'],
+                $result['LastName'],
+                $result['Email'],
+                $result['PhoneNumber'],
+                $result['Session'],
+                $result['Date'],
+                $result['NumberOfAdults'],
+                $result['NumberOfChildren'],
+                $result['Comment'],
+                $result['Active'],
+                $result['UserId']
+            );
+        }
+        return $reservations;
+
     }
 
     //-------------------- EDIT METHODS --------------------------------------------------------
@@ -408,9 +456,9 @@ class YummyRepository extends Repository  //methods for getting, updating and de
 
     //-------------------- Reservation Part ------------------
 
-    public function addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active)
+    public function addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active, $userID)
     {
-        $stmt = $this->connection->prepare('INSERT INTO RESTAURANT_RESERVATIONS (RestaurantID, FirstName, LastName, Email, PhoneNumber, Session, Date, NumberOfAdults, NumberOfChildren, Comment, Active) VALUES (:restaurantID, :firstName, :lastName, :email, :phoneNumber, :session, :date, :numberOfAdults, :numberOfChildren, :comment, :active)');
+        $stmt = $this->connection->prepare('INSERT INTO RESTAURANT_RESERVATIONS (RestaurantID, FirstName, LastName, Email, PhoneNumber, Session, Date, NumberOfAdults, NumberOfChildren, Comment, Active) VALUES (:restaurantID, :firstName, :lastName, :email, :phoneNumber, :session, :date, :numberOfAdults, :numberOfChildren, :comment, :active, :userID)');
         $stmt->bindParam(':restaurantID', $restaurantID);
         $stmt->bindParam(':firstName', $firstName);
         $stmt->bindParam(':lastName', $lastName);
@@ -422,6 +470,7 @@ class YummyRepository extends Repository  //methods for getting, updating and de
         $stmt->bindParam(':numberOfChildren', $numberOfChildren);
         $stmt->bindParam(':comment', $comment);
         $stmt->bindParam(':active', $active);
+        $stmt->bindParam(':userID', $userID);
         $stmt->execute();
     }
 

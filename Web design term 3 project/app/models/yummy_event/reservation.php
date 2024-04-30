@@ -15,8 +15,9 @@ class Reservation implements \JsonSerializable
     public int $numberOfChildren;
     public string $comment;
     public bool $isActive;
+    public ?int $UserID;
 
-    public function __construct($ID, $restaurantID, $firstName, $lastName, $email, $phone, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive)
+    public function __construct($ID, $restaurantID, $firstName, $lastName, $email, $phone, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive, $UserID)
     {
         $this->ID = $ID;
         $this->restaurantID = $restaurantID;
@@ -30,6 +31,7 @@ class Reservation implements \JsonSerializable
         $this->numberOfChildren = $numberOfChildren;
         $this->comment = $comment;
         $this->isActive = $isActive;
+        $this->UserID = $UserID;
     }
 
     public function jsonSerialize(): mixed

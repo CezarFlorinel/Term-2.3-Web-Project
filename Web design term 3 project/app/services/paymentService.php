@@ -23,6 +23,10 @@ class PaymentService
     {
         return $this->repository->getOrdersItemsByOrderId($orderId);
     }
+    public function getOrderByOrderItem($orderItemID): Order
+    {
+        return $this->repository->getOrderByOrderItem($orderItemID);
+    }
 
     public function getPaidOrdersByUserId($userId): array
     {

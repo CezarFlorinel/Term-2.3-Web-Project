@@ -4,15 +4,19 @@ session_start();
 use App\Services\PaymentService;
 use App\Services\TicketsService;
 use App\Services\HistoryService;
+use App\Services\YummyService;
 
 $paymentService = new PaymentService();
 $ticketsService = new TicketsService();
 $historyService = new HistoryService();
+$yummyService = new YummyService();
+
 
 $userId = 1; // Replace with actual user ID
 
 $order = $paymentService->getOrderByUserId($userId);
 $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
+$reservations = $yummyService->getReservationsByUserId($userId);
 
 $paidOrders = $paymentService->getPaidOrdersByUserId($userId);
 $paidOrderItemsAll = [];
@@ -119,6 +123,7 @@ $arraySelectedTickets = null;
                                 <div class="border-t border-gray-400"></div><!-- Divider Line, remove for last in array -->
                             <?php endif; ?>
                         <?php endforeach; ?>
+
                     </div>
 
                     <div class="pt-4 mt-4 border-t border-gray-500 flex justify-between items-center text-xl font-bold">
@@ -188,7 +193,15 @@ $arraySelectedTickets = null;
                             <?php endif; ?>
                         <?php endforeach; ?>
 
-                        <!-- Repeat End -->
+                        <!-- The Reservations -->
+                        <?php foreach ($reservations as $reservation): ?>
+                            <?php
+                            $restaurant = $yummyService->getRestaurantById($reservation->restaurantID);
+                            $session = $yummyService->getSessionByRestaurantName($restaurant->name);
+                            require __DIR__ . '/../../components/personal_program/yummyReservationDisplay.php';
+                            ?>
+                        <?php endforeach; ?>
+
                         <div
                             class="pt-4 mt-4 border-t border-gray-700 flex justify-between items-center text-xl font-bold">
                             <div> You have <?php echo $itemsTotal; ?> items in total</div>
@@ -208,15 +221,11 @@ $arraySelectedTickets = null;
                     const itemId = this.dataset.itemId;
                     const isIncrement = this.classList.contains('increment');
                     const input = document.querySelector(`input[data-item-id="${itemId}"]`);
-                    const currentTotalQuantity = parseInt(document.getElementById('js_total-items').getAttribute('data-id-total-items'));
-                    const currentTotalPrice = parseFloat(document.getElementById('js_total-price').getAttribute('data-id-total-price'));
                     let currentQuantity = parseInt(input.value);
                     currentQuantity = isIncrement ? currentQuantity + 1 : (currentQuantity > 1 ? currentQuantity - 1 : 1);
                     input.value = currentQuantity;  // Update the input field
 
                     console.log('Current quantity:', currentQuantity);
-                    console.log('Current total quantity:', currentTotalQuantity);
-                    console.log('Current total price:', currentTotalPrice);
                     console.log('Item ID:', itemId);
 
 
@@ -226,9 +235,7 @@ $arraySelectedTickets = null;
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             quantity: currentQuantity,
-                            orderItemID: itemId,
-                            currentTotalPrice: currentTotalPrice,
-                            currentTotalQuantity: currentTotalQuantity
+                            orderItemID: itemId
                         })
                     })
                         .then(response => response.json())

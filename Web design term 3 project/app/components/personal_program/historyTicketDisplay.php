@@ -60,6 +60,7 @@
             <?php
             $price = $ticketsService->getHistoryTicketPriceByType($ticket->typeOfTicket); // store the price
             $quantityOfTicket = $orderItem->quantity;
+            $itemsTotal += $quantityOfTicket - 1; // because the 1 is already added
             $subtotal = $quantityOfTicket * $price;
             $totalPrice += $subtotal;
             $formattedSubtotal = number_format($subtotal, 2, '.', '');
