@@ -146,10 +146,15 @@ $arraySelectedTickets = null;
                 </div>
                 <div class="mt-10 flex justify-end gap-4">
 
-                    <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                        Purchase All Tickets
-                    </button>
-                    <button class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                    <a href="/payment">
+                        <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            Purchase All Tickets
+                        </button>
+                    </a>
+
+
+                    <button id="js_purchase-selected-tickets"
+                        class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                         Purchase Selected Tickets
                     </button>
                 </div>
@@ -265,6 +270,39 @@ $arraySelectedTickets = null;
                         .catch(error => console.error('Error updating quantity:', error));
                 });
             });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const purchaseSelectedTicketsButton = document.getElementById('js_purchase-selected-tickets');
+                purchaseSelectedTicketsButton.addEventListener('click', function () {
+                    const selectedCheckboxes = document.querySelectorAll('.js_form-checkbox:checked');
+                    const selectedOrderItemIDs = Array.from(selectedCheckboxes).map(checkbox => {
+                        return checkbox.closest('[data-type-order-item-id]').getAttribute('data-type-order-item-id');
+                    });
+
+                    // don't do anything if no checkboxes are selected, or throw error message
+
+                    console.log('Selected Order Item IDs:', selectedOrderItemIDs);
+
+                    // Purchase selected tickets
+                    fetch('/api/PersonalProgramListView/storeSelectedOrderItemsInSession', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            orderItemIDs: selectedOrderItemIDs
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);  // delete after no use
+                            // location.reload();
+                        })
+                        .catch(error => console.error('Error purchasing selected tickets:', error));
+                });
+            });
+
+
         </script>
 
         <script>

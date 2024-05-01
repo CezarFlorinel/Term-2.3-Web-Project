@@ -18,6 +18,35 @@ class PersonalProgramListViewController
         $this->ticketsService = new TicketsService();
     }
 
+    public function storeSelectedOrderItemsInSession()
+    {
+        try {
+            session_start();
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $input = json_decode(file_get_contents('php://input'), true);
+
+                if (isset($input['orderItemIDs'])) {
+                    $orderItemIDs = $input['orderItemIDs'];
+
+                    if ($this->checkIfTheseAreAllTicketsInOrder($orderItemIDs) == false) {
+                        $_SESSION['orderItemIDs'] = $orderItemIDs;
+                    }
+
+                    echo json_encode(['success' => true, 'message' => 'Order item stored successfully']);
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'error' => 'Missing required fields']);
+                }
+            } else {
+                http_response_code(405);
+                echo json_encode(['success' => false, 'error' => 'Method not allowed']);
+            }
+        } catch (\Exception $e) {
+            ErrorHandlerMethod::handleErrorApiController($e);
+        }
+
+    }
+
     public function deleteOrderItem()
     {
         try {
@@ -71,8 +100,6 @@ class PersonalProgramListViewController
         }
 
     }
-
-
     public function updateQuantityAndTotals()
     {
         try {
@@ -149,11 +176,11 @@ class PersonalProgramListViewController
         $totalPrice = 0;
         $totalItems = 0;
         $totals = [];
-
-        $order = $this->paymentService->getOrderByOrderItem($orderItem->orderItemID);
-        $orderItems = $this->paymentService->getOrdersItemsByOrderId($order->orderID);
-
         try {
+
+            $order = $this->paymentService->getOrderByOrderItem($orderItem->orderItemID);
+            $orderItems = $this->paymentService->getOrdersItemsByOrderId($order->orderID);
+
             foreach ($orderItems as $orderItem) {
                 $ticket = $this->ticketsService->returnTypeOfTicket($orderItem);
 
@@ -191,6 +218,29 @@ class PersonalProgramListViewController
         }
         return $totals;
     }
+
+    private function checkIfTheseAreAllTicketsInOrder($arrayIDs): bool
+    {
+        $order = $this->paymentService->getOrderByOrderItem($arrayIDs[0]);
+        $orderItems = $this->paymentService->getOrdersItemsByOrderId($order->orderID);
+        $count = 0;
+
+        foreach ($orderItems as $orderItem) {
+            foreach ($arrayIDs as $id) {
+                if ($orderItem->orderItemID == $id) {
+                    $count++;
+                }
+            }
+        }
+
+        if ($count == count($orderItems)) {
+            return true;
+        }
+        return false;
+
+    }
+
+
 
 
 }
