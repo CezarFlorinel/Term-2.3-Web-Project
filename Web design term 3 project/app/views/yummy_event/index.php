@@ -123,6 +123,7 @@ $yummyrestaurants = $yummyService->getAllRestaurants();
                                     </th>
                                 </tr>
                             </thead>
+
                             <tbody class="text-black">
                                 <?php foreach ($yummyrestaurants as $restaurant): ?>
                                     <?php
@@ -142,6 +143,7 @@ $yummyrestaurants = $yummyService->getAllRestaurants();
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
+                            
                         </table>
                     </div>
                     <p class="text-m mt-4">*The Kids price only applies to children that are <span class="font-bold">12
