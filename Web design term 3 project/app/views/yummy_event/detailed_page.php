@@ -7,6 +7,7 @@ $yummyService = new YummyService();
 $homepageyummy = $yummyService->getHomepageDataRestaurant();
 $yummyrestaurants = $yummyService->getAllRestaurants();
 $yummyreviews = $yummyService->getRestaurantReviews($id);
+// $yummyDetailPageData = $yummyService->getRestaurantById($id);
 
 ?>
 
@@ -60,17 +61,17 @@ $yummyreviews = $yummyService->getRestaurantReviews($id);
     <!-- First paragraph -->
     <div class="md:w-1/3 space-y-6 mb-5 mt-5">
         <p class="text-xl">
-            <?= htmlspecialchars($homepageyummy->description); ?>
+            <?php htmlspecialchars($yummyDetailPageData->descriptionSideOne); ?>
         </p>
     </div>
 
     <div class="md:w-1/3 flex justify-center md:justify-start md:px-4">
-     <img src="https://placehold.co/400x300" alt="Chef Josua Jaring" class="rounded-lg">
+        <img src="<?php htmlspecialchars($restaurant->imagePathChef); ?>" alt="Chef Josua Jaring" class="rounded-lg">
     </div>
 
     <div class="md:w-1/3 space-y-6 mt-5 mb-5">
         <p class="text-xl">
-            <?= htmlspecialchars($homepageyummy->description); ?>
+            <?php htmlspecialchars($restaurant->descriptionSideTwo); ?>
         </p>
     </div>
 </section>
