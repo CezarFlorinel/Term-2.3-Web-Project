@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models\Yummy_event;
 
 class Restaurant implements \JsonSerializable
@@ -31,7 +32,8 @@ class Restaurant implements \JsonSerializable
         $this->descriptionSideTwo = $descriptionSideTwo;
         $this->imagePathChef = $imagePathChef;
     }
-    public function jsonSerialize(): mixed
+
+    public function jsonSerialize() : mixed
     {
         return get_object_vars($this);
     }
