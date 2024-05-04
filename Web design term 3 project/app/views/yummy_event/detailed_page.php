@@ -42,10 +42,13 @@ $restaurantGallery = $yummyService->getRestaurantImagePathGallery($id);
 
 <body>
     <div class="ratatouille-image-container">
+    <img src="<?php echo $yummyDetailPageData->imagePathHomepage ?>">
     </div>
     <main class="container mx-auto px-4 py-8">
         <div class="event-info-container">
-            <h1 class="event-info-header">Ratatouille Food & Wine</h1>
+            <h1 class="event-info-header">
+            <?= nl2br(htmlspecialchars($yummyDetailPageData->name)) ?>
+            </h1>
         </div>
 
         <section class="section-bg py-10 px-10">
