@@ -1,3 +1,16 @@
+<?php
+
+use App\Services\YummyService;
+
+$yummyService = new YummyService();
+
+$homepageyummy = $yummyService->getHomepageDataRestaurant();
+$yummyrestaurants = $yummyService->getAllRestaurants();
+$yummyreviews = $yummyService->getRestaurantReviews($id);
+// $yummyDetailPageData = $yummyService->getRestaurantById($id);
+
+?>
+
 <?php include __DIR__ . '/../header.php'; ?>
 
 <html>
@@ -33,35 +46,56 @@
         </div>
 
         <section class="section-bg py-10 px-10">
-            <div class="text-center mb-8 text-white">                
+            <div class="text-center mb-8 text-white">
                 <div class="flex items-center justify-center bg-no-repeat bg-center bg-contain h-72 md:h-96 
                             lg:min-h-[300px] px-12 py-10 lg:bg-[url('assets/images/elements/Union.png')]">
                     <p class="text-base font-normal text-white rounded-lg lg:text-black">
-                        The successful Michelin restaurant in Haarlem of chef Jozua Jaring is - like Ratatouille - a mix of French cuisine<br>
-                        in today's reality with excellent value for money in an accessible environment in Haarlem.
+                        <?= nl2br(htmlspecialchars($homepageyummy->description)) ?>
                     </p>
                 </div>
+            </div>
         </section>
 
         <!-- Introductory content with chef's image on the same row -->
-        <section class="md:flex md:items-start md:justify-between gap-8">
-            <!-- First paragraph -->
-            <div class="md:w-1/3 space-y-6 mb-5 mt-5">
-                <p class="text-xl">
-                    Discover exquisite French cuisine at our charming restaurant on Lange Veerstraat. Let our chefs whisk you away to the streets of France with each delightful dish. Indulge in a culinary journey like no other, right here in the heart of the city.
-                </p>
-            </div>
+        <?php
+// Ensure $id is defined and sanitized properly
+$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-            <div class="md:w-1/3 flex justify-center md:justify-start md:px-4">
-                <img src="https://placehold.co/400x300" alt="Chef Josua Jaring" class="rounded-lg">
-            </div>
+// Fetching restaurant details by ID if $id is not null
+if ($id) {
+    $yummyDetailPageData = $yummyService->getRestaurantById($id);
+}
 
-            <div class="md:w-1/3 space-y-6 mt-5 mb-5">
-                <p class="text-xl">
-                    Embark on a culinary odyssey with the visionary Chef Josua Jaring, a true artist in the realm of flavors. With a passion that simmers and a creative flair that sizzles, Chef Jaring has carved his niche in the gastronomic world, making each dish a masterpiece.
-                </p>
-            </div>
-        </section>
+// Check if $yummyDetailPageData is not null and is an instance of Restaurant
+if ($yummyDetailPageData && $yummyDetailPageData instanceof Restaurant) {
+    $descriptionSideOne = htmlspecialchars($yummyDetailPageData->getDescriptionSideOne() ?? 'No description available');
+    $imagePathChef = htmlspecialchars($yummyDetailPageData->getImagePathChef() ?? 'https://placehold.co/400x300');
+    $descriptionSideTwo = htmlspecialchars($yummyDetailPageData->getDescriptionSideTwo() ?? 'No description available');
+} else {
+    $descriptionSideOne = 'Information is currently unavailable.';
+    $imagePathChef = 'https://placehold.co/400x300';
+    $descriptionSideTwo = 'Information is currently unavailable.';
+}
+?>
+
+<section class="md:flex md:items-start md:justify-between gap-8">
+    <!-- First paragraph -->
+    <div class="md:w-1/3 space-y-6 mb-5 mt-5">
+        <p class="text-xl">
+            <?php echo $descriptionSideOne; ?>
+        </p>
+    </div>
+
+    <div class="md:w-1/3 flex justify-center md:justify-start md:px-4">
+        <img src="<?php echo $imagePathChef; ?>" alt="Chef Image" class="rounded-lg">
+    </div>
+
+    <div class="md:w-1/3 space-y-6 mt-5 mb-5">
+        <p class="text-xl">
+            <?php echo $descriptionSideTwo; ?>
+        </p>
+    </div>
+</section>
 
         <!-- Restaurant Gallery section below the introductory content -->
         <div class="mt-12">
@@ -76,63 +110,31 @@
             </div>
         </div>
 
-
         <!-- Ratings and Reviews -->
         <div class="mt-12">
             <div class="text-center text-5xl font-bold pt-12 pb-8">
                 <h1 style="font-size: 50px; font-family: 'Playfair Display', serif; text-align: Center; font-weight: bold">Ratings & Reviews</h1>
             </div>
+            <?php
+            // Fetch reviews for the current restaurant
+            $currentRestaurantReviews = $yummyService->getRestaurantReviews($yummyrestaurants[0]->restaurantID);
+            ?>
             <div class="flex flex-wrap justify-center gap-8">
-                <div class="flex flex-col items-center space-y-4">
-                    <div class="flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-gray-300"></i>
+                <?php foreach ($currentRestaurantReviews as $review) : ?>
+                    <div class="flex flex-col items-center space-y-4">
+                        <div class="flex">
+                            <?php for ($i = 0; $i < $review->numberOfStars; $i++) : ?>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            <?php endfor; ?>
+                            <?php for ($i = $review->numberOfStars; $i < 5; $i++) : ?>
+                                <i class="fas fa-star text-gray-300"></i>
+                            <?php endfor; ?>
+                        </div>
+                        <div class="bg-gray-100 p-3 rounded">
+                            <p class="text-lg text-gray-800 font-semibold"><?= htmlspecialchars($review->description) ?></p>
+                        </div>
                     </div>
-                    <div class="bg-gray-100 p-3 rounded">
-                        <p class="text-lg text-gray-800 font-semibold">"Delicious flavours and charming ambience"</p>
-                    </div>
-                </div>
-
-                <div class="flex flex-col items-center space-y-4">
-                    <div class="flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-gray-300"></i>
-                    </div>
-                    <div class="bg-gray-100 p-3 rounded">
-                        <p class="text-lg text-gray-800 font-semibold">“Elegance and gastronomy unite in this French gem”</p>
-                    </div>
-                </div>
-
-                <div class="flex flex-col items-center space-y-4">
-                    <div class="flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-gray-300"></i>
-                    </div>
-                    <div class="bg-gray-100 p-3 rounded">
-                        <p class="text-lg text-gray-800 font-semibold">"In the heart of the city, savor an unforgettable French experience crafted by talented chefs!"</p>
-                    </div>
-                </div>
-                <div class="flex flex-col items-center space-y-4">
-                    <div class="flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                    <div class="bg-gray-100 p-3 rounded">
-                        <p class="text-lg text-gray-800 font-semibold">“Blends French magic into every dish. A truly unforgettable experience for those seeking an authentic taste”</p>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
 
@@ -150,24 +152,31 @@
 
         <section class="container mx-auto px-4 py-8 flex flex-col items-center" style="font-family: 'Playfair Display', serif;">
             <h1 style="font-size: 52px; text-align: Left; font-weight: bold">Schedule and Timeslots</h1>
-            <p class="text-2xl mb-6">This restaurant has <span class="font-bold underline">3 sessions</span>, each session has a <span class="font-bold underline">duration of 2 hours</span>. Each session has a <span class="font-bold text-yellow-400">price of 45,00€</span>, children <span class="font-bold text-yellow-400">under 12 years old</span> have a price of <span class="font-bold text-yellow-400">22,50€</span>.</p>
-            <div class="bg-white text-black p-6 rounded-lg inline-flex justify-between items-center relative" style="width: 400px; min-height: 200px;">
-                <div>
-                    <div class="mb-4">
-                        <h3 class="font-bold text-xl">Session 1:</h3>
-                        <p>17:00 – 19:00</p>
-                    </div>
-                    <div class="mb-4">
-                        <h3 class="font-bold text-xl">Session 2:</h3>
-                        <p>19:00 – 21:00</p>
-                    </div>
+            <?php foreach ($yummyrestaurants as $restaurant) : ?>
+                <?php
+                // Fetch session prices for each restaurant
+                $sessions = $yummyService->getRestaurantSession($restaurant->restaurantID);
+                ?>
+                <p class="text-2xl mb-6">This restaurant has <span class="font-bold underline"><?= count($sessions) ?> sessions</span>, each session has a <span class="font-bold underline">duration of 2 hours</span>. Each session has a <span class="font-bold text-yellow-400">price of <?= number_format($sessions[0]->pricesForAdults, 2, '.', '') ?>€</span>, children <span class="font-bold text-yellow-400">under 12 years old</span> have a price of <span class="font-bold text-yellow-400"><?= number_format($sessions[0]->pricesForChildren, 2, '.', '') ?>€</span>.</p>
+                <div class="bg-white text-black p-6 rounded-lg inline-flex justify-between items-center relative" style="width: 400px; min-height: 200px;">
                     <div>
-                        <h3 class="font-bold text-xl">Session 3:</h3>
-                        <p>21:00 – 23:00</p>
+                        <?php foreach ($sessions as $key => $session) : ?>
+                            <div class="mb-4">
+                                <h3 class="font-bold text-xl">Session <?= $key + 1 ?>:</h3>
+                                <?php
+                                // Format start and end time
+                                $startTime = date('H:i', strtotime($session->startTime));
+                                $endTime = date('H:i', strtotime($session->endTime));
+                                ?>
+                                <p><?= $startTime ?> – <?= $endTime ?></p>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
+                    <img src="assets/images/elements/clock.png" alt="Clock" class="absolute top-0 right-0 h-32 w-32 mt-2 mr-2">
                 </div>
-                <img src="assets/images/elements/clock.png" alt="Clock" class="absolute top-0 right-0 h-32 w-32 mt-2 mr-2">
-            </div>
+                <?php break; // exit the loop after printing once 
+                ?>
+            <?php endforeach; ?>
             <p class="text-xl mt-4">*There is a reservation fee of <span class="font-bold">10,00€</span> - however this will be deducted from the final check upon visiting the restaurant.</p>
         </section>
 
