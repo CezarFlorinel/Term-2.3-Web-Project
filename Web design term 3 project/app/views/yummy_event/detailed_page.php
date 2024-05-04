@@ -7,7 +7,7 @@ $yummyService = new YummyService();
 $homepageyummy = $yummyService->getHomepageDataRestaurant();
 $yummyrestaurants = $yummyService->getAllRestaurants();
 $yummyreviews = $yummyService->getRestaurantReviews($id);
-// $yummyDetailPageData = $yummyService->getRestaurantById($id);
+$yummyDetailPageData = $yummyService->getRestaurantById($id);
 
 ?>
 
@@ -57,42 +57,23 @@ $yummyreviews = $yummyService->getRestaurantReviews($id);
         </section>
 
         <!-- Introductory content with chef's image on the same row -->
-        <?php
-// Ensure $id is defined and sanitized properly
-$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-// Fetching restaurant details by ID if $id is not null
-if ($id) {
-    $yummyDetailPageData = $yummyService->getRestaurantById($id);
-}
-
-// Check if $yummyDetailPageData is not null and is an instance of Restaurant
-if ($yummyDetailPageData && $yummyDetailPageData instanceof Restaurant) {
-    $descriptionSideOne = htmlspecialchars($yummyDetailPageData->getDescriptionSideOne() ?? 'No description available');
-    $imagePathChef = htmlspecialchars($yummyDetailPageData->getImagePathChef() ?? 'https://placehold.co/400x300');
-    $descriptionSideTwo = htmlspecialchars($yummyDetailPageData->getDescriptionSideTwo() ?? 'No description available');
-} else {
-    $descriptionSideOne = 'Information is currently unavailable.';
-    $imagePathChef = 'https://placehold.co/400x300';
-    $descriptionSideTwo = 'Information is currently unavailable.';
-}
-?>
-
-<section class="md:flex md:items-start md:justify-between gap-8">
-    <!-- First paragraph -->
+        <section class="md:flex md:items-start md:justify-between gap-8">
+    <!-- First paragraph from DescriptionSideOne -->
     <div class="md:w-1/3 space-y-6 mb-5 mt-5">
         <p class="text-xl">
-            <?php echo $descriptionSideOne; ?>
+            <?= htmlspecialchars($yummyDetailPageData->DescriptionSideOne); ?>
         </p>
     </div>
 
+    <!-- Image related to ImagePathChef -->
     <div class="md:w-1/3 flex justify-center md:justify-start md:px-4">
-        <img src="<?php echo $imagePathChef; ?>" alt="Chef Image" class="rounded-lg">
+        <img src="<?= htmlspecialchars($yummyDetailPageData->ImagePathChef); ?>" alt="<?= htmlspecialchars($restaurantDetails->Name); ?>" class="rounded-lg">
     </div>
 
+    <!-- Last paragraph from DescriptionSideTwo -->
     <div class="md:w-1/3 space-y-6 mt-5 mb-5">
         <p class="text-xl">
-            <?php echo $descriptionSideTwo; ?>
+            <?= htmlspecialchars($yummyDetailPageData->DescriptionSideTwo); ?>
         </p>
     </div>
 </section>
