@@ -57,7 +57,7 @@ $restaurantGallery = $yummyService->getRestaurantImagePathGallery($id);
                     </p>
                 </div>
             </div>
-        </section>
+        </section> <!-- End of section -->
 
 
         <section class="md:flex md:items-start md:justify-between gap-8">
