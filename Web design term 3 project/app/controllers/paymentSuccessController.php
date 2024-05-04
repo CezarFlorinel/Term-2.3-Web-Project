@@ -89,6 +89,11 @@ class PaymentSuccessController
     {
         try {
             $this->order = $this->paymentService->getOrderByUserId($this->userId);
+
+            if (isset($_SESSION['orderItemIDs'])) {  // used for the case when the user has unselected items in the cart
+                $this->paymentService->setTheNewOrderForUnpaidOrderItems($_SESSION['orderItemIDs'], $this->userId, $this->order->orderID);
+            }
+
             $this->paymentService->updateOrderStatus($this->order->orderID, 'Complete', $this->paymentMethod);
             $this->addInvoiceInDB();
         } catch (\Exception $e) {

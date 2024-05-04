@@ -173,4 +173,42 @@ class PaymentRepository extends Repository
         $stmt->execute();
     }
 
+    public function setTheNewOrderForUnpaidOrderItems($orderItemIDs, $userID, $currentOrderID): void
+    {
+        $orderID = $this->createNewOrder($userID);
+        $selectedOrderItems = [];
+        $allOrderItems = $this->getOrdersItemsByOrderId($currentOrderID);
+
+        foreach ($orderItemIDs as $orderItemID) {
+            $selectedOrderItems[] = $this->getOrderItemByID($orderItemID);
+        }
+
+        foreach ($allOrderItems as $orderItem) {
+            if (!in_array($orderItem, $selectedOrderItems)) {
+                $stmt = $this->connection->prepare('UPDATE ORDER_ITEM SET Order_FK = :order_id WHERE OrderItemID = :order_item_id');
+                $stmt->bindParam(':order_id', $orderID, PDO::PARAM_INT);
+                $stmt->bindParam(':order_item_id', $orderItem->orderItemID, PDO::PARAM_INT);
+                $stmt->execute();
+            }
+        }
+    }
+
+    public function createNewOrder($userID): int
+    {
+        $paymentMethod = "-";
+        $paymentStatus = "Incomplete"; // ------------------------- maybe to be made in enum
+        $totalAmount = 0;
+        $paymentDate = date("Y-m-d H:i:s");
+
+        $stmt = $this->connection->prepare('INSERT INTO [ORDER] (UserID, PaymentStatus, TotalAmount, PaymentMethod, PaymentDate) VALUES (:user_id, :payment_status, :total_amount, :payment_method, :payment_date)');
+        $stmt->bindParam(':user_id', $userID, PDO::PARAM_INT);
+        $stmt->bindParam(':payment_status', $paymentStatus, PDO::PARAM_STR);
+        $stmt->bindParam(':total_amount', $totalAmount, PDO::PARAM_INT);
+        $stmt->bindParam(':payment_method', $paymentMethod, PDO::PARAM_STR);
+        $stmt->bindParam(':payment_date', $paymentDate, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $this->connection->lastInsertId();
+    }
+
 }

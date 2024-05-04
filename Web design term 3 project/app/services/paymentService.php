@@ -68,4 +68,8 @@ class PaymentService
         $this->repository->deleteOrderItemByID($orderItemID);
     }
 
+    public function setTheNewOrderForUnpaidOrderItems($orderItemIDs, $userID, $currentOrderID): void
+    {
+        $this->repository->setTheNewOrderForUnpaidOrderItems($orderItemIDs, $userID, $currentOrderID);
+    }
 }
