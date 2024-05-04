@@ -10,9 +10,6 @@
             <h2 class="text-2x4 mb-2 mt-2 font-bold text-green-800">Phase:2</h2>
             <form action="/changePassword/changePassword" method="POST">
 
-                <!-- Hidden input for passing userID -->
-                <input type="hidden" name="userID" value="<?php echo htmlspecialchars($userID); ?>">
-
                 <div class="mb-6">
                     <label for="key" class="block text-gray-800 text-sm font-bold mb-2">Insert Key</label>
                     <input required max="999999" type="number" name="key" id="key"

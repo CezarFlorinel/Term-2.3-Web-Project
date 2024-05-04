@@ -12,8 +12,24 @@ $historyService = new HistoryService();
 $customerData = $_SESSION['customerData'];
 $userID = 1;  // get this from the sesssion as well after login has been done
 
+
+
 $order = $paymentService->getOrderByUserId($userID);
-$orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
+
+
+
+if (isset($_SESSION['orderItemIDs'])) {
+    $orderItems = [];
+    foreach ($_SESSION['orderItemIDs'] as $orderItemID) {
+        $orderItems[] = $paymentService->getOrderItemByID($orderItemID);
+    }
+} else {
+    $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
+}
+
+
+
+
 $entireTotal = 0;
 $itemsTotal = 0;
 $totalVAT = 0;
