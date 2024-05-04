@@ -23,10 +23,24 @@ class PaymentService
     {
         return $this->repository->getOrdersItemsByOrderId($orderId);
     }
+    public function getOrderByOrderItem($orderItemID): Order
+    {
+        return $this->repository->getOrderByOrderItem($orderItemID);
+    }
+
+    public function getPaidOrdersByUserId($userId): array
+    {
+        return $this->repository->getPaidOrdersByUserId($userId);
+    }
 
     public function updateOrderStatus($orderID, $paymentStatus, $paymentMethod)
     {
         $this->repository->updateOrderStatus($orderID, $paymentStatus, $paymentMethod);
+    }
+
+    public function updateOrderItemQuantity($orderItemID, $quantity)
+    {
+        $this->repository->updateOrderItemQuantity($orderItemID, $quantity);
     }
 
     public function addInvoiceInDB($orderID, $invoiceDate, $clientName, $phoneNumber, $address, $email, $VAT, $total, $paymentDate)
@@ -44,4 +58,18 @@ class PaymentService
         return $this->repository->getOrderItemByID($orderItemID);
     }
 
+    public function deleteReservationByID($reservationID): void
+    {
+        $this->repository->deleteReservationByID($reservationID);
+    }
+
+    public function deleteOrderItemByID($orderItemID): void
+    {
+        $this->repository->deleteOrderItemByID($orderItemID);
+    }
+
+    public function setTheNewOrderForUnpaidOrderItems($orderItemIDs, $userID, $currentOrderID): void
+    {
+        $this->repository->setTheNewOrderForUnpaidOrderItems($orderItemIDs, $userID, $currentOrderID);
+    }
 }

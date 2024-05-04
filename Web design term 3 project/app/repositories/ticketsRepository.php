@@ -13,9 +13,6 @@ class TicketsRepository extends Repository
 {
     public function getDanceTicketByID($danceTicketID): DanceTicket
     {
-        error_log(print_r($danceTicketID, true), 3, __DIR__ . '/../file_with_erros_logs'); // Log the input data
-        error_log(print_r("danceTicketID- method called", true), 3, __DIR__ . '/../file_with_erros_logs'); // Log the input data
-
         $stmt = $this->connection->prepare('SELECT * FROM DANCE_TICKET WHERE D_TicketID = :dance_ticket_id');
         $stmt->bindParam(':dance_ticket_id', $danceTicketID, PDO::PARAM_INT);
         $stmt->execute();

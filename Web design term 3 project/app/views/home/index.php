@@ -15,6 +15,7 @@
 <body class="antialiased font-'Open Sans'">
   <?php include __DIR__ . '/../header.php'; ?>
 
+
   <div class="word-container">
     <div class="word-vertical haarlem" style="margin-left: 120px; margin-top: 30px;">
       <div>H</div>
