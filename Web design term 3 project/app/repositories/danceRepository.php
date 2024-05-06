@@ -67,7 +67,7 @@ class DanceRepository extends Repository
 
     public function getImageHomePage(): ImageHomePage
     {
-        $stmt = $this->connection->prepare('SELECT * FROM IMAGE_HOME_PAGE');
+        $stmt = $this->connection->prepare('SELECT * FROM IMAGE_HOME_PAGE_DANCE');
         $stmt->execute();
         $results = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -104,7 +104,8 @@ class DanceRepository extends Repository
             $clubLocations[] = new ClubLocation(
                 $result['ID'],
                 $result['Name'],
-                $result['Location']
+                $result['Location'],
+                $result['ImagePathLocation']
             );
         }
 
@@ -160,8 +161,19 @@ class DanceRepository extends Repository
         $stmt->execute();
     }
 
+    public function updateClubLocation($id, $name, $location): void
+    {
+        $stmt = $this->connection->prepare('UPDATE CLUB_LOCATION SET Name = :name, Location = :location WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':location', $location);
+        $stmt->execute();
+    }
+
 
     // -----------++++++++++++++ create methods ++++++++++++++----------------
+
+
 
 
 }
