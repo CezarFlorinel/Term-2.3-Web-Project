@@ -46,6 +46,11 @@ class DanceService
         return $this->danceRepository->getAllClubLocations();
     }
 
+    public function getClubLocationById($id): ClubLocation
+    {
+        return $this->danceRepository->getClubLocationById($id);
+    }
+
     // -----------++++++++++++++ delete methods ++++++++++++++----------------
 
     public function deleteArtist($artistID): void
@@ -70,16 +75,26 @@ class DanceService
     {
         $this->danceRepository->updateArtist($artist);
     }
-    public function updateImageHomePage($id): void
+    public function updateImageHomePage($id, $imagePath): void
     {
-        $this->danceRepository->updateImageHomePage($id);
+        $this->danceRepository->updateImageHomePage($id, $imagePath);
     }
     public function updateClubLocation($id, $name, $location): void
     {
         $this->danceRepository->updateClubLocation($id, $name, $location);
     }
 
+    public function updateClubLocationImage($id, $imagePath): void
+    {
+        $this->danceRepository->updateClubLocationImage($id, $imagePath);
+    }
+
     // -----------++++++++++++++ create methods ++++++++++++++----------------
+
+    public function addClubLocation($name, $location, $imagePath): void
+    {
+        $this->danceRepository->addClubLocation($name, $location, $imagePath);
+    }
 
 
 }

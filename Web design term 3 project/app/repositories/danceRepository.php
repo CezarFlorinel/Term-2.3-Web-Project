@@ -112,6 +112,21 @@ class DanceRepository extends Repository
         return $clubLocations;
     }
 
+    public function getClubLocationById($id): ClubLocation
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM CLUB_LOCATION WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return new ClubLocation(
+            $results['ID'],
+            $results['Name'],
+            $results['Location'],
+            $results['ImagePathLocation']
+        );
+    }
+
     // -----------++++++++++++++ delete methods ++++++++++++++----------------
 
     public function deleteArtist($artistID): void
@@ -154,10 +169,11 @@ class DanceRepository extends Repository
         $stmt->execute();
     }
 
-    public function updateImageHomePage($id): void
+    public function updateImageHomePage($id, $imagePath): void
     {
         $stmt = $this->connection->prepare('UPDATE IMAGE_HOME_PAGE SET ImagePath = :imagePath WHERE ID = :id');
         $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':imagePath', $imagePath);
         $stmt->execute();
     }
 
@@ -170,9 +186,25 @@ class DanceRepository extends Repository
         $stmt->execute();
     }
 
+    public function updateClubLocationImage($id, $imagePath): void
+    {
+        $stmt = $this->connection->prepare('UPDATE CLUB_LOCATION SET ImagePathLocation = :imagePath WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':imagePath', $imagePath);
+        $stmt->execute();
+    }
+
 
     // -----------++++++++++++++ create methods ++++++++++++++----------------
 
+    public function addClubLocation($name, $location, $imagePath): void
+    {
+        $stmt = $this->connection->prepare('INSERT INTO CLUB_LOCATION (Name, Location, ImagePathLocation) VALUES (:name, :location, :imagePath)');
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':location', $location);
+        $stmt->bindParam(':imagePath', $imagePath);
+        $stmt->execute();
+    }
 
 
 
