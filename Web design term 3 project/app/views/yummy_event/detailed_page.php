@@ -128,8 +128,8 @@ $restaurantSessionPrices = $yummyService->getRestaurantSession($id);
             <div class="max-w-4xl mx-auto px-4">
                 <div class="relative text-center">
                     <div class="inline-block">
-                        <img class="w-full h-auto rounded-lg shadow-lg" src="https://placehold.co/700x600" alt="Placeholder for restaurant location map">
-                        <p class="mt-2">Spaarne 96, 2011 CL Haarlem</p>
+                    <img src="<?php echo $yummyDetailPageData->imagePathLocation ?>">
+                    <?php echo $yummyDetailPageData->location ?>
                     </div>
                 </div>
             </div>
