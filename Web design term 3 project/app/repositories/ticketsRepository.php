@@ -75,7 +75,6 @@ class TicketsRepository extends Repository
             $result['MaxAllDayPasses']
         );
     }
-
     public function addQRTicketToDB($userId, $orderItem_FK, $date, $scanned)
     {
         $stmt = $this->connection->prepare('INSERT INTO USER_QR_TICKET (UserID, OrderItem_FK, Date, Scanned) VALUES (:user_id, :order_item_fk, :date, :scanned)');
@@ -229,6 +228,17 @@ class TicketsRepository extends Repository
         $stmt->bindParam(':max_all_day_passes', $maxAllDayPasses, PDO::PARAM_INT);
         $stmt->execute();
 
+    }
+
+    public function changeTicketDanceLocationName($name, $currentName): void
+    {
+        error_log(print_r("\nmethoddd from tickets $name", true), 3, __DIR__ . '/../file_with_errors_logs.log'); // Log the input data
+
+        $newName = $name;
+        $stmt = $this->connection->prepare('UPDATE DANCE_TICKET SET Location = :name WHERE Location = :currentName');
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':currentName', $currentName, PDO::PARAM_STR);
+        $stmt->execute();
     }
 
     public function editDanceTickets(): void

@@ -177,8 +177,11 @@ class DanceRepository extends Repository
         $stmt->execute();
     }
 
-    public function updateClubLocation($id, $name, $location): void
+    public function updateClubLocation($id, $name, $location, $currentName, ): void
     {
+        $ticketRepo = new TicketsRepository();
+        $ticketRepo->changeTicketDanceLocationName($name, $currentName);
+
         $stmt = $this->connection->prepare('UPDATE CLUB_LOCATION SET Name = :name, Location = :location WHERE ID = :id');
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':name', $name);

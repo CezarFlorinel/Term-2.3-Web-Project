@@ -46,22 +46,51 @@ class DanceHomeAdminController
         }
     }
 
+    public function changeClubImage()
+    {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'], $_POST['id'])) {
+                $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
+                $image = $_FILES['image'];
+                $imageURL = ImageEditor::saveImage('/app/public/assets/images/dance_event/clubs', $image);
+                $currentImage = $this->danceService->getClubLocationById($id)->imagePath;
+
+                if ($imageURL !== null) {
+                    $this->danceService->updateClubLocationImage($id, $imageURL);
+                    if ($currentImage && $currentImage != $imageURL) {
+                        ImageEditor::deleteImage($currentImage);
+                    }
+                    echo json_encode(['success' => true, 'imageUrl' => $imageURL]);
+
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
+                }
+
+            } else {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
+
+            }
+
+        } catch (Exception $e) {
+            ErrorHandlerMethod::handleErrorApiController($e);
+        }
+    }
+
     public function updateClubLocation()
     {
         try {
             if ($_SERVER["REQUEST_METHOD"] == "PUT") {
                 $input = json_decode(file_get_contents('php://input'), true);
 
-                if (isset($input['clubLocationID'], $input['name'], $input['location'])) {
+                if (isset($input['clubLocationID'], $input['name'], $input['location'], $input['currentName'])) {
                     $clubLocationID = filter_var($input['clubLocationID'], FILTER_VALIDATE_INT);
                     $name = $input['name'];
                     $location = $input['location'];
+                    $currentName = $input['currentName'];
 
-                    if (isset($input['image'])) {
-                        $this->changeClubImage($clubLocationID, $input['image']);
-                    }
-
-                    $this->danceService->updateClubLocation($clubLocationID, $name, $location);
+                    $this->danceService->updateClubLocation($clubLocationID, $name, $location, $currentName);
 
                     echo json_encode(['success' => true, 'message' => 'Club updated successfully']);
                 } else {
@@ -143,21 +172,6 @@ class DanceHomeAdminController
         }
     }
 
-    private function changeClubImage($id, $image)
-    {
-        try {
-            $imageURL = ImageEditor::saveImage('assets/images/dance_event/club_locations', $image);
 
-            if ($imageURL) {
-                $this->danceService->updateClubLocationImage($id, $imageURL);
-            } else {
-                http_response_code(400);
-                echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
-            }
-
-        } catch (Exception $e) {
-            ErrorHandlerMethod::handleErrorApiController($e);
-        }
-    }
 
 }

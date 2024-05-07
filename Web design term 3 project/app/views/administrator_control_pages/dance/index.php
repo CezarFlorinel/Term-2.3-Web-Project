@@ -43,22 +43,35 @@ $artists = $danceService->getAllArtists();
 
             <h2 class="text-2xl text-center mb-6">Club Location (Venues)</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <?php foreach ($clubLocations as $clubLocation): ?>
-                    <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                        <img class="w-full h-48 object-cover"
+                <?php foreach ($clubLocations as $clubLocation):
+                    $id = htmlspecialchars($clubLocation->clubLocationID);
+                    $containerId = "js_clubLocationContainer_$id";
+                    $inputId = "js_clubLocationImageInput_$id";
+                    $imageId = "js_clubLocationImage_$id";
+                    ?>
+                    <div id="<?php echo $containerId; ?>" data-id="<?php echo $id; ?>"
+                        class="js_clubLocationContainerClass max-w-sm rounded overflow-hidden shadow-lg">
+                        <img id="<?php echo $imageId; ?>" class="w-full h-48 object-cover"
                             src="<?php echo htmlspecialchars($clubLocation->imagePath); ?>" alt="Image Top">
                         <div class="px-6 py-4">
-                            <div class="font-bold text-xl mb-2"><?php echo htmlspecialchars($clubLocation->name); ?></div>
-                            <p class="text-gray-700 text-base"><?php echo htmlspecialchars($clubLocation->location); ?></p>
+                            <input type="text" class="js_input_text font-bold text-xl mb-2 hidden"
+                                value="<?php echo htmlspecialchars($clubLocation->name); ?>">
+                            <div id="js_club_current_name_<?php echo $id; ?>" class="font-bold text-xl mb-2 view">
+                                <?php echo htmlspecialchars($clubLocation->name); ?>
+                            </div>
+                            <input type="text" class="js_input_text text-gray-700 text-base hidden"
+                                value="<?php echo htmlspecialchars($clubLocation->location); ?>">
+                            <p class="text-gray-700 text-base view"><?php echo htmlspecialchars($clubLocation->location); ?>
+                            </p>
                         </div>
                         <div class="px-6 py-4">
-                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                                onclick="editClubLocation(<?php echo htmlspecialchars($clubLocation->clubLocationID); ?>)">Edit</button>
-                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                onclick="deleteClubLocation(<?php echo htmlspecialchars($clubLocation->clubLocationID); ?>)">Delete</button>
-                            <input type="file" class="hidden" accept="image/*">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
-                                onclick="this.previousElementSibling.click();">Change Image</button>
+                            <button id="editSaveBtn_<?php echo $id; ?>"
+                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded edit-save-btn">Edit</button>
+                            <button id="deleteBtn_<?php echo $id; ?>"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded delete-btn">Delete</button>
+                            <input id="<?php echo $inputId; ?>" type="file" class="hidden" accept="image/*">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                onclick="document.getElementById('<?php echo $inputId; ?>').click();">Change Image</button>
                         </div>
                     </div>
                 <?php endforeach; ?>

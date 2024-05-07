@@ -79,9 +79,9 @@ class DanceService
     {
         $this->danceRepository->updateImageHomePage($id, $imagePath);
     }
-    public function updateClubLocation($id, $name, $location): void
+    public function updateClubLocation($id, $name, $location, $currentName): void
     {
-        $this->danceRepository->updateClubLocation($id, $name, $location);
+        $this->danceRepository->updateClubLocation($id, $name, $location, $currentName);
     }
 
     public function updateClubLocationImage($id, $imagePath): void
