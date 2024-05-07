@@ -25,46 +25,46 @@
 
             <div class="md:col-span-1 bg-white shadow-md rounded-lg p-4">
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-lg font-semibold">User Profile</h2>
 
                     <!-- User's picture -->
 
                     <img src="user.jpg" alt="User" class="w-12 h-12 rounded-full">
                 </div>
-
-                <!-- Edit button -->
-                <button
-                    class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Edit
-                    Profile</button>
             </div>
-            <!-- User Actions -->
 
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                        id="userPersonalInformation">
-                        
-            </table>
-            <!-- <div class="md:col-span-2 bg-white shadow-md rounded-lg p-4">
+            <!-- Personal information -->
+
+            <!-- <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                id="userPersonalInformation">
+
+            </table> -->
+
+            <div class="md:col-span-2 bg-white shadow-md rounded-lg p-4">
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <li> -->
-                        <!-- Personal information -->
-                        <!-- <div>
-                            <p class="text-gray-600 mb-2"><strong>Name:</strong> John Doe</p>
-                            <p class="text-gray-600 mb-2"><strong>Email:</strong> john@example.com</p>
-                            <p class="text-gray-600 mb-2"><strong>Phone:</strong> +1234567890</p>
-                            <p class="text-gray-600 mb-2"><strong>Address:</strong> 123 Street, City, Country</p>
+                    <li>
+                        <div id="userInfo">
                         </div>
                     </li>
                     <li>
                         <button
                             class="bg-blue-500 text-white px-4 py-2 rounded-md w-full hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Change
                             Password</button>
+                        <!-- Edit button -->
+                        <button
+                            class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Edit
+                            Profile</button>
 
                     </li>
                 </ul>
-            </div> -->
+            </div>
         </div>
+        <button
+            class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+            Logout</button>
     </div>
 </body>
 
 </html>
+<script type="module" src="javascript/User/userPersonalInformation.js"></script>
+
 <?php include __DIR__ . '/../footer.php'; ?>
