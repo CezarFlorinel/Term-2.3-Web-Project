@@ -4,10 +4,12 @@ use App\Services\YummyService;
 
 $yummyService = new YummyService();
 
-$homepageyummy = $yummyService->getHomepageDataRestaurant();
-$yummyrestaurants = $yummyService->getAllRestaurants();
+$id = 1; // Default restaurant ID
+
 $yummyreviews = $yummyService->getRestaurantReviews($id);
-// $yummyDetailPageData = $yummyService->getRestaurantById($id);
+$yummyDetailPageData = $yummyService->getRestaurantById($id);
+$restaurantGallery = $yummyService->getRestaurantImagePathGallery($id);
+$restaurantSessionPrices = $yummyService->getRestaurantSession($id);
 
 ?>
 
@@ -39,10 +41,13 @@ $yummyreviews = $yummyService->getRestaurantReviews($id);
 
 <body>
     <div class="ratatouille-image-container">
+        <img src="<?php echo $yummyDetailPageData->imagePathHomepage ?>">
     </div>
     <main class="container mx-auto px-4 py-8">
         <div class="event-info-container">
-            <h1 class="event-info-header">Ratatouille Food & Wine</h1>
+            <h1 class="event-info-header">
+                <?= nl2br(htmlspecialchars($yummyDetailPageData->name)) ?>
+            </h1>
         </div>
 
         <section class="section-bg py-10 px-10">
@@ -50,74 +55,54 @@ $yummyreviews = $yummyService->getRestaurantReviews($id);
                 <div class="flex items-center justify-center bg-no-repeat bg-center bg-contain h-72 md:h-96 
                             lg:min-h-[300px] px-12 py-10 lg:bg-[url('assets/images/elements/Union.png')]">
                     <p class="text-base font-normal text-white rounded-lg lg:text-black">
-                        <?= nl2br(htmlspecialchars($homepageyummy->description)) ?>
+                        <?= nl2br(htmlspecialchars($yummyDetailPageData->descriptionTopPart)) ?>
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- Introductory content with chef's image on the same row -->
-        <?php
-// Ensure $id is defined and sanitized properly
-$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-// Fetching restaurant details by ID if $id is not null
-if ($id) {
-    $yummyDetailPageData = $yummyService->getRestaurantById($id);
-}
+        <section class="md:flex md:items-start md:justify-between gap-8">
+            <!-- First paragraph -->
+            <div class="md:w-1/3 space-y-6 mb-5 mt-5">
+                <p class="text-xl">
+                    <?php echo htmlspecialchars($yummyDetailPageData->descriptionSideOne); ?>
+                </p>
+            </div>
 
-// Check if $yummyDetailPageData is not null and is an instance of Restaurant
-if ($yummyDetailPageData && $yummyDetailPageData instanceof Restaurant) {
-    $descriptionSideOne = htmlspecialchars($yummyDetailPageData->getDescriptionSideOne() ?? 'No description available');
-    $imagePathChef = htmlspecialchars($yummyDetailPageData->getImagePathChef() ?? 'https://placehold.co/400x300');
-    $descriptionSideTwo = htmlspecialchars($yummyDetailPageData->getDescriptionSideTwo() ?? 'No description available');
-} else {
-    $descriptionSideOne = 'Information is currently unavailable.';
-    $imagePathChef = 'https://placehold.co/400x300';
-    $descriptionSideTwo = 'Information is currently unavailable.';
-}
-?>
+            <div class="md:w-1/3 flex justify-center md:justify-start md:px-4">
+                <img src="<?php echo $yummyDetailPageData->imagePathChef ?>" alt="Chef Image" class="rounded-lg">
+            </div>
 
-<section class="md:flex md:items-start md:justify-between gap-8">
-    <!-- First paragraph -->
-    <div class="md:w-1/3 space-y-6 mb-5 mt-5">
-        <p class="text-xl">
-            <?php echo $descriptionSideOne; ?>
-        </p>
-    </div>
-
-    <div class="md:w-1/3 flex justify-center md:justify-start md:px-4">
-        <img src="<?php echo $imagePathChef; ?>" alt="Chef Image" class="rounded-lg">
-    </div>
-
-    <div class="md:w-1/3 space-y-6 mt-5 mb-5">
-        <p class="text-xl">
-            <?php echo $descriptionSideTwo; ?>
-        </p>
-    </div>
-</section>
+            <div class="md:w-1/3 space-y-6 mt-5 mb-5">
+                <p class="text-xl">
+                    <?php echo htmlspecialchars($yummyDetailPageData->descriptionSideTwo) ?>
+                </p>
+            </div>
+        </section>
 
         <!-- Restaurant Gallery section below the introductory content -->
         <div class="mt-12">
             <div class="text-5xl font-bold pt-12 pb-8 text-left">
-                <h1 style="font-size: 45px; font-family: 'Playfair Display', serif; text-align: Left; font-weight: bold">Restaurant Gallery</h1>
+                <h1 style="font-size: 45px; font-family: 'Playfair Display', serif; text-align: Left; font-weight: bold">
+                    Restaurant Gallery</h1>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <img src="https://placehold.co/300x300" alt="An elegant dish beautifully presented on a white plate" class="w-full">
-                <img src="https://placehold.co/300x300" alt="Gourmet food served on a modern plate with garnishing" class="w-full">
-                <img src="https://placehold.co/300x300" alt="A close-up of a delicious culinary creation" class="w-full">
-                <img src="https://placehold.co/300x300" alt="Fine dining dish displayed with artistic food styling" class="w-full">
+                <?php foreach ($restaurantGallery as $image) : ?>
+                    <img src="<?= $image->imagePath ?>" alt="Restaurant Gallery Image" class="w-full h-auto rounded-lg">
+                <?php endforeach; ?>
             </div>
         </div>
 
         <!-- Ratings and Reviews -->
         <div class="mt-12">
             <div class="text-center text-5xl font-bold pt-12 pb-8">
-                <h1 style="font-size: 50px; font-family: 'Playfair Display', serif; text-align: Center; font-weight: bold">Ratings & Reviews</h1>
+                <h1 style="font-size: 50px; font-family: 'Playfair Display', serif; text-align: Center; font-weight: bold">
+                    Ratings & Reviews</h1>
             </div>
             <?php
             // Fetch reviews for the current restaurant
-            $currentRestaurantReviews = $yummyService->getRestaurantReviews($yummyrestaurants[0]->restaurantID);
+            $currentRestaurantReviews = $yummyService->getRestaurantReviews($yummyDetailPageData->restaurantID);
             ?>
             <div class="flex flex-wrap justify-center gap-8">
                 <?php foreach ($currentRestaurantReviews as $review) : ?>
@@ -152,33 +137,33 @@ if ($yummyDetailPageData && $yummyDetailPageData instanceof Restaurant) {
 
         <section class="container mx-auto px-4 py-8 flex flex-col items-center" style="font-family: 'Playfair Display', serif;">
             <h1 style="font-size: 52px; text-align: Left; font-weight: bold">Schedule and Timeslots</h1>
-            <?php foreach ($yummyrestaurants as $restaurant) : ?>
-                <?php
-                // Fetch session prices for each restaurant
-                $sessions = $yummyService->getRestaurantSession($restaurant->restaurantID);
-                ?>
-                <p class="text-2xl mb-6">This restaurant has <span class="font-bold underline"><?= count($sessions) ?> sessions</span>, each session has a <span class="font-bold underline">duration of 2 hours</span>. Each session has a <span class="font-bold text-yellow-400">price of <?= number_format($sessions[0]->pricesForAdults, 2, '.', '') ?>€</span>, children <span class="font-bold text-yellow-400">under 12 years old</span> have a price of <span class="font-bold text-yellow-400"><?= number_format($sessions[0]->pricesForChildren, 2, '.', '') ?>€</span>.</p>
-                <div class="bg-white text-black p-6 rounded-lg inline-flex justify-between items-center relative" style="width: 400px; min-height: 200px;">
-                    <div>
-                        <?php foreach ($sessions as $key => $session) : ?>
-                            <div class="mb-4">
-                                <h3 class="font-bold text-xl">Session <?= $key + 1 ?>:</h3>
-                                <?php
-                                // Format start and end time
-                                $startTime = date('H:i', strtotime($session->startTime));
-                                $endTime = date('H:i', strtotime($session->endTime));
-                                ?>
-                                <p><?= $startTime ?> – <?= $endTime ?></p>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <img src="assets/images/elements/clock.png" alt="Clock" class="absolute top-0 right-0 h-32 w-32 mt-2 mr-2">
+            <?php
+            // Fetch session prices for the current restaurant
+            $restaurantSessionPrices = $yummyService->getRestaurantSession($yummyDetailPageData->restaurantID);
+            ?>
+            <p class="text-2xl mb-6">This restaurant has <span class="font-bold underline"><?= count($restaurantSessionPrices) ?>
+                    sessions</span>, each session has a <span class="font-bold underline">duration of 2 hours</span>. Each session has a <span class="font-bold text-yellow-400">price of <?= number_format($restaurantSessionPrices[0]->pricesForAdults, 2, '.', '') ?>€</span>, children <span class="font-bold text-yellow-400">under 12 years old</span> have a price of <span class="font-bold text-yellow-400"><?= number_format($restaurantSessionPrices[0]->pricesForChildren, 2, '.', '') ?>€</span>.
+            </p>
+            <div class="bg-white text-black p-6 rounded-lg inline-flex justify-between items-center relative" style="width: 400px; min-height: 200px;">
+                <div>
+                    <?php foreach ($restaurantSessionPrices as $key => $session) : ?>
+                        <div class="mb-4">
+                            <h3 class="font-bold text-xl">Session <?= $key + 1 ?>:</h3>
+                            <?php
+                            // Format start and end time
+                            $startTime = date('H:i', strtotime($session->startTime));
+                            $endTime = date('H:i', strtotime($session->endTime));
+                            ?>
+                            <p><?= $startTime ?> – <?= $endTime ?></p>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-                <?php break; // exit the loop after printing once 
-                ?>
-            <?php endforeach; ?>
-            <p class="text-xl mt-4">*There is a reservation fee of <span class="font-bold">10,00€</span> - however this will be deducted from the final check upon visiting the restaurant.</p>
+                <img src="assets/images/elements/clock.png" alt="Clock" class="absolute top-0 right-0 h-32 w-32 mt-2 mr-2">
+            </div>
+            <p class="text-xl mt-4">*There is a reservation fee of <span class="font-bold">10,00€</span> - however this
+                will be deducted from the final check upon visiting the restaurant.</p>
         </section>
+
 
         <div class="mt-12 flex justify-between">
             <button class="bg-[#B0E3FF] hover:bg-[#a3d2e2] text-black font-bold py-4 px-8 rounded">
