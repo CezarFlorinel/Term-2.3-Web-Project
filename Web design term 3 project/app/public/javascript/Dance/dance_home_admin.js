@@ -10,8 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setupImageUploadListener('imageTopInput', apiUrlForImages, containerForImagesName, 'imageTop', 'ImagePathHomepage');
 
-
-
 });
 
 

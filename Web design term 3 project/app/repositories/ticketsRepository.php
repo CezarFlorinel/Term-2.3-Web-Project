@@ -180,6 +180,70 @@ class TicketsRepository extends Repository
         return (int) $result['TotalQuantity'];
     }
 
+    public function getAllDancePasses(): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM DANCE_PASSES');
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return array_map(function ($row) {
+            return new DancePasses(
+                $row['PassesID'],
+                $row['Price'],
+                $row['Date'],
+                $row['AllDayPass'],
+                $row['MaxPasses'],
+                $row['MaxAllDayPasses']
+            );
+        }, $result);
 
+    }
+
+    public function getAllDanceTickets(): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM DANCE_TICKET');
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return array_map(function ($row) {
+            return new DanceTicket(
+                $row['D_TicketID'],
+                $row['DateAndTime'],
+                $row['Location'],
+                $row['Price'],
+                $row['Singer'],
+                $row['TotalQuantityOfAvailableTickets'],
+                $row['SessionType'],
+                $row['StartTime'],
+                $row['EndTime']
+            );
+        }, $result);
+    }
+
+    public function editDancePasses($id, $price, ?string $date, ?bool $allDayPass, ?int $maxPasses, ?int $maxAllDayPasses): void
+    {
+        $stmt = $this->connection->prepare('UPDATE DANCE_PASSES SET Price = :price, Date = :date, AllDayPass = :all_day_pass, MaxPasses = :max_passes, MaxAllDayPasses = :max_all_day_passes WHERE PassesID = :id');
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':price', $price, PDO::PARAM_STR);
+        $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':all_day_pass', $allDayPass, PDO::PARAM_BOOL);
+        $stmt->bindParam(':max_passes', $maxPasses, PDO::PARAM_INT);
+        $stmt->bindParam(':max_all_day_passes', $maxAllDayPasses, PDO::PARAM_INT);
+        $stmt->execute();
+
+    }
+
+    public function editDanceTickets(): void
+    {
+
+    }
+
+    public function deleteDancePasses(): void
+    {
+
+    }
+
+    public function deleteDanceTickets(): void
+    {
+
+    }
 
 }
