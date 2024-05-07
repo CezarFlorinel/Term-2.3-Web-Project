@@ -20,12 +20,11 @@ class DanceHomeAdminController
     public function updateImageHomePage()
     {
         try {
-            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'], $_POST['imageID'])) {
-                $id = filter_var($_POST['imageID'], FILTER_VALIDATE_INT);
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'], $_POST['id'])) {
+                $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
                 $image = $_FILES['image'];
-                $imageURL = ImageEditor::saveImage('assets/images/dance_event/homepage_dance', $image);
+                $imageURL = ImageEditor::saveImage('/app/public/assets/images/dance_event/homepage_dance', $image);
                 $currentImage = $this->danceService->getImageHomePage()->imagePath;
-
 
                 if ($imageURL !== null) {
                     $this->danceService->updateImageHomePage($id, $imageURL);

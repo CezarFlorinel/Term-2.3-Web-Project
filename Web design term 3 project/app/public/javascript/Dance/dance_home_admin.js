@@ -3,12 +3,12 @@ import { handleApiResponse, checkText, checkNumber, checkReviewStarNumber } from
 import ErrorHandler from '../Utilities/error_handler_class.js';
 const errorHandler = new ErrorHandler();
 
-const apiUrlForImages = "/api/danceIndividualAdmin/updateDanceImages";
-const containerForImagesName = "container-dance-info"
+const apiUrlForImages = "/api/danceHomeAdmin/updateImageHomePage";
+const containerForID = "js_dance-info-id"
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    setupImageUploadListener('imageTopInput', apiUrlForImages, containerForImagesName, 'imageTop', 'ImagePathHomepage');
+    setupImageUploadListener('imageTopInput', apiUrlForImages, containerForID, 'imageTop');
 
 });
 

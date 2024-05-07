@@ -171,7 +171,7 @@ class DanceRepository extends Repository
 
     public function updateImageHomePage($id, $imagePath): void
     {
-        $stmt = $this->connection->prepare('UPDATE IMAGE_HOME_PAGE SET ImagePath = :imagePath WHERE ID = :id');
+        $stmt = $this->connection->prepare('UPDATE IMAGE_HOME_PAGE_DANCE SET ImagePath = :imagePath WHERE ID = :id');
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':imagePath', $imagePath);
         $stmt->execute();

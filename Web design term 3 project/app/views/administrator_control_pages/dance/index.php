@@ -30,7 +30,7 @@ $artists = $danceService->getAllArtists();
             </a>
 
             <div class="bg-white shadow-md rounded-lg p-6">
-                <div>
+                <div id="js_dance-info-id" data-id="<?php echo htmlspecialchars($imagePathTop->imageHomePageID); ?>">
                     <h2 class="text-xl">Top Image of Dance Home</h2>
                     <img id="imageTop" src="<?php echo htmlspecialchars($imagePathTop->imagePath); ?>" alt="Image Top"
                         class="mt-2" style="width: 200px; height: auto;">
