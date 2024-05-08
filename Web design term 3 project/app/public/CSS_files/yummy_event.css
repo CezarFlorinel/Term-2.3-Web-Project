@@ -118,7 +118,7 @@
 }
 
 .ratatouille-image-container {
-    background-image: url('../assets/images/yummy_event/ratatouille.png');
+    /* background-image: url('../assets/images/yummy_event/ratatouille.png'); */
     background-size: cover;
     background-position: center;
     height: 100vh;
