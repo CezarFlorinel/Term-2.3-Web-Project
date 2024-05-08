@@ -112,6 +112,20 @@ class DanceRepository extends Repository
         return $clubLocations;
     }
 
+    public function getAllClubLocationStrings(): array
+    {
+        $stmt = $this->connection->prepare('SELECT Name FROM CLUB_LOCATION');
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $clubLocationStrings = [];
+        foreach ($results as $result) {
+            $clubLocationStrings[] = $result['Name'];
+        }
+
+        return $clubLocationStrings;
+    }
+
     public function getClubLocationById($id): ClubLocation
     {
         $stmt = $this->connection->prepare('SELECT * FROM CLUB_LOCATION WHERE ID = :id');

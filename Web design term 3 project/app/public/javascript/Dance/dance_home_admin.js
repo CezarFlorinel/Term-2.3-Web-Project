@@ -35,11 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    const addButton = document.getElementById('js_addClub');
+    addButton.addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+        createClubLocation();
+    });
+
 
 });
-
-
-
 
 function toggleEditSave(button, id) {
     const container = document.getElementById(`js_clubLocationContainer_${id}`);
@@ -80,7 +83,6 @@ function toggleEditSave(button, id) {
     }
 }
 
-
 function deleteClubLocation(id) {
     fetch('/api/danceHomeAdmin/deleteClubLocation', {
         method: 'DELETE',
@@ -101,4 +103,33 @@ function deleteClubLocation(id) {
 }
 
 function createClubLocation() {
+    const form = document.querySelector('.js_add-club-form'); // Assuming you add a class to identify the form
+    const formData = new FormData(form);
+
+    // Handle file input separately if needed
+    const fileInput = document.getElementById('js_inputNewClubImage');
+    if (fileInput.files[0]) {
+        formData.append('image', fileInput.files[0]);
+    }
+
+
+    fetch('/api/danceHomeAdmin/addClubLocation', {
+        method: 'POST',
+        body: formData, // FormData will be sent as multipart/form-data
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Club added successfully:', data.message);
+                // Refresh or update your club locations display here
+                location.reload(); // Simplest approach is to reload the page
+            } else {
+                console.error('Failed to add club location:', data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error adding club location:', error);
+        });
+
+    return false; // Prevent traditional form submission
 }

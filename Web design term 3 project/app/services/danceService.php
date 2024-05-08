@@ -51,6 +51,10 @@ class DanceService
         return $this->danceRepository->getClubLocationById($id);
     }
 
+    public function getAllClubLocationStrings(): array
+    {
+        return $this->danceRepository->getAllClubLocationStrings();
+    }
     // -----------++++++++++++++ delete methods ++++++++++++++----------------
 
     public function deleteArtist($artistID): void

@@ -76,5 +76,41 @@ class TicketsService
         return $this->repository->countMaxPassesReserved($passID, $OrderToIgnoreID);
     }
 
+    public function getAllDancePasses(): array
+    {
+        return $this->repository->getAllDancePasses();
+    }
+
+    public function getAllDanceTickets(): array
+    {
+        return $this->repository->getAllDanceTickets();
+    }
+    public function editDancePasses($id, $price, ?string $date, ?bool $allDayPass, ?int $maxPasses, ?int $maxAllDayPasses): void
+    {
+        $this->repository->editDancePasses($id, $price, $date, $allDayPass, $maxPasses, $maxAllDayPasses);
+    }
+
+    public function editDanceTickets($id, $date, $location, $price, $singer, $totalQuantityAvailable, $sessionType, $startTime, $endTime): void
+    {
+        $this->repository->editDanceTickets($id, $date, $location, $price, $singer, $totalQuantityAvailable, $sessionType, $startTime, $endTime);
+    }
+    public function deleteDancePasses($id): void
+    {
+        $this->repository->deleteDancePasses($id);
+    }
+    public function deleteDanceTickets($id): void
+    {
+        $this->repository->deleteDanceTickets($id);
+    }
+    public function addDancePasses($price, $date = null, $allDayPass = false, $maxPasses = null, $maxAllDayPasses = null): void
+    {
+        $this->repository->addDancePasses($price, $date, $allDayPass, $maxPasses, $maxAllDayPasses);
+    }
+    public function addDanceTicket($date, $location, $price, $singer, $totalQuantityAvailable, $sessionType, $startTime, $endTime): void
+    {
+        $this->repository->addDanceTicket($date, $location, $price, $singer, $totalQuantityAvailable, $sessionType, $startTime, $endTime);
+    }
+
+
 
 }

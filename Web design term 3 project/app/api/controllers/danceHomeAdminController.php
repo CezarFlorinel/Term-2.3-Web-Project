@@ -142,14 +142,13 @@ class DanceHomeAdminController
     {
         try {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $input = json_decode(file_get_contents('php://input'), true);
+                // Check if both text fields and file are present
+                if (isset($_POST['name'], $_POST['location']) && isset($_FILES['image'])) {
+                    $name = $_POST['name'];
+                    $location = $_POST['location'];
+                    $image = $_FILES['image'];
 
-                if (isset($input['name'], $input['location'], $input['image'])) {
-                    $name = $input['name'];
-                    $location = $input['location'];
-                    $image = $input['image'];
-
-                    $imageURL = ImageEditor::saveImage('assets/images/dance_event/club_locations', $image);
+                    $imageURL = ImageEditor::saveImage('/app/public/assets/images/dance_event/club_locations', $image);
 
                     if ($imageURL) {
                         $this->danceService->addClubLocation($name, $location, $imageURL);
@@ -160,18 +159,15 @@ class DanceHomeAdminController
                     }
                 } else {
                     http_response_code(400);
-                    echo json_encode(['success' => false, 'error' => 'Missing required fields']);
+                    echo json_encode(['success' => false, 'error' => 'Missing required fields or file']);
                 }
             } else {
                 http_response_code(405);
                 echo json_encode(['success' => false, 'error' => 'Method not allowed']);
             }
-
         } catch (Exception $e) {
             ErrorHandlerMethod::handleErrorApiController($e);
         }
     }
-
-
 
 }

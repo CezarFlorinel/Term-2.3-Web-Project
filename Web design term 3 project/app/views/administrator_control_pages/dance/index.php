@@ -24,7 +24,7 @@ $artists = $danceService->getAllArtists();
 
             <h1 class="text-3xl text-center mb-6">Dance Home Page</h1>
 
-            <a href="manage_tickets.php"
+            <a href="/danceManageTickets"
                 class="my-5 block w-full max-w-xs mx-auto bg-yellow-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded text-center transition duration-150">
                 Manage Tickets
             </a>
@@ -80,24 +80,20 @@ $artists = $danceService->getAllArtists();
                 <div class="max-w-sm rounded overflow-hidden shadow-lg">
                     <div class="px-6 py-4">
                         <div class="font-bold text-xl mb-2">Add New Club Location</div>
-                        <form method="post" enctype="multipart/form-data">
+                        <form class="js_add-club-form" method="post" enctype="multipart/form-data">
                             <input type="text" name="name" placeholder="Name"
                                 class="w-full rounded-lg py-2 px-3 mb-2 border">
                             <input type="text" name="location" placeholder="Location"
                                 class="w-full rounded-lg py-2 px-3 mb-2 border">
-                            <input type="file" name="image" accept="image/*" class="hidden">
-                            <button type="button" onclick="this.nextElementSibling.click();"
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Upload
-                                Image</button>
-                            <button type="submit"
-                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2">Add
+                            <p class="text-sm text-gray-600">Add Image</p>
+                            <input id="js_inputNewClubImage" type="file" name="image" accept="image/*">
+                            <button id="js_addClub" type="submit"
+                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded my-2">Add
                                 Location</button>
                         </form>
                     </div>
                 </div>
             </div>
-
-
 
             <h2 class="text-2xl text-center mb-6">Manage Artists</h2>
             <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

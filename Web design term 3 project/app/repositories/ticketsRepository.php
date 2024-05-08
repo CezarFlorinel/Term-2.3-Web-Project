@@ -232,28 +232,67 @@ class TicketsRepository extends Repository
 
     public function changeTicketDanceLocationName($name, $currentName): void
     {
-        error_log(print_r("\nmethoddd from tickets $name", true), 3, __DIR__ . '/../file_with_errors_logs.log'); // Log the input data
-
-        $newName = $name;
         $stmt = $this->connection->prepare('UPDATE DANCE_TICKET SET Location = :name WHERE Location = :currentName');
         $stmt->bindParam(':name', $name, PDO::PARAM_STR);
         $stmt->bindParam(':currentName', $currentName, PDO::PARAM_STR);
         $stmt->execute();
     }
 
-    public function editDanceTickets(): void
+    public function editDanceTickets($id, $date, $location, $price, $singer, $totalQuantityAvailable, $sessionType, $startTime, $endTime): void
     {
+        $stmt = $this->connection->prepare('UPDATE DANCE_TICKET SET DateAndTime = :date, Location = :location, Price = :price, Singer = :singer,
+                                            TotalQuantityOfAvailableTickets = :total_quantity_available, SessionType = :session_type, StartTime = :start_time,
+                                            EndTime = :end_time WHERE D_TicketID = :id');
 
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':location', $location, PDO::PARAM_STR);
+        $stmt->bindParam(':price', $price, PDO::PARAM_STR);
+        $stmt->bindParam(':singer', $singer, PDO::PARAM_STR);
+        $stmt->bindParam(':total_quantity_available', $totalQuantityAvailable, PDO::PARAM_INT);
+        $stmt->bindParam(':session_type', $sessionType, PDO::PARAM_STR);
+        $stmt->bindParam(':start_time', $startTime, PDO::PARAM_STR);
+        $stmt->bindParam(':end_time', $endTime, PDO::PARAM_STR);
+        $stmt->execute();
     }
 
-    public function deleteDancePasses(): void
+    public function deleteDancePasses($id): void
     {
-
+        $stmt = $this->connection->prepare('DELETE FROM DANCE_PASSES WHERE PassesID = :id');
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
     }
 
-    public function deleteDanceTickets(): void
+    public function deleteDanceTickets($id): void
     {
+        $stmt = $this->connection->prepare('DELETE FROM DANCE_TICKET WHERE D_TicketID = :id');
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
 
+    public function addDancePasses($price, $date = null, $allDayPass = false, $maxPasses = null, $maxAllDayPasses = null): void
+    {
+        $stmt = $this->connection->prepare('INSERT INTO DANCE_PASSES (Price, Date, AllDayPass, MaxPasses, MaxAllDayPasses) VALUES (:price, :date, :all_day_pass, :max_passes, :max_all_day_passes)');
+        $stmt->bindParam(':price', $price, PDO::PARAM_STR);
+        $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':all_day_pass', $allDayPass, PDO::PARAM_BOOL);
+        $stmt->bindParam(':max_passes', $maxPasses, PDO::PARAM_INT);
+        $stmt->bindParam(':max_all_day_passes', $maxAllDayPasses, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public function addDanceTicket($date, $location, $price, $singer, $totalQuantityAvailable, $sessionType, $startTime, $endTime): void
+    {
+        $stmt = $this->connection->prepare('INSERT INTO DANCE_TICKET (DateAndTime, Location, Price, Singer, TotalQuantityOfAvailableTickets, SessionType, StartTime, EndTime) VALUES (:date, :location, :price, :singer, :total_quantity_available, :session_type, :start_time, :end_time)');
+        $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':location', $location, PDO::PARAM_STR);
+        $stmt->bindParam(':price', $price, PDO::PARAM_STR);
+        $stmt->bindParam(':singer', $singer, PDO::PARAM_STR);
+        $stmt->bindParam(':total_quantity_available', $totalQuantityAvailable, PDO::PARAM_INT);
+        $stmt->bindParam(':session_type', $sessionType, PDO::PARAM_STR);
+        $stmt->bindParam(':start_time', $startTime, PDO::PARAM_STR);
+        $stmt->bindParam(':end_time', $endTime, PDO::PARAM_STR);
+        $stmt->execute();
     }
 
 }
