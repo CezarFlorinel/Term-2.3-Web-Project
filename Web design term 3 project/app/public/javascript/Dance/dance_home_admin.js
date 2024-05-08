@@ -86,8 +86,7 @@ function toggleEditSave(button, id) {
 function deleteClubLocation(id) {
     fetch('/api/danceHomeAdmin/deleteClubLocation', {
         method: 'DELETE',
-        body: JSON.stringify({ id: id }),
-        headers: { 'Content-Type': 'application/json' }
+        body: JSON.stringify({ id: id })
     })
         .then(response => response.json())
         .then(data => {

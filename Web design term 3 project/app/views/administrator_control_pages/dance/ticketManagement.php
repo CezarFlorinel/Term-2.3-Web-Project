@@ -51,10 +51,11 @@ foreach ($dancePasses as $pass) {
                     <div id="ticketContainer_<?php echo $id; ?>" class="max-w-sm rounded overflow-hidden shadow-lg">
                         <div class="px-6 py-4">
                             <p>Date</p>
-                            <input type="date" class="w-full rounded-lg py-2 px-3 mb-2 border" value="<?php echo $date; ?>">
+                            <input id="js_date_<?php echo $id; ?>" type="date"
+                                class="w-full rounded-lg py-2 px-3 mb-2 border" value="<?php echo $date; ?>">
 
                             <p>Location</p>
-                            <select class="w-full rounded-lg py-2 px-3 mb-2 border">
+                            <select id="js_location_<?php echo $id; ?>" class="w-full rounded-lg py-2 px-3 mb-2 border">
                                 <?php foreach ($locations as $loc): ?>
                                     <option value="<?php echo htmlspecialchars($loc); ?>" <?php if ($loc == $location)
                                            echo 'selected'; ?>>
@@ -64,40 +65,46 @@ foreach ($dancePasses as $pass) {
                             </select>
 
                             <p>Price</p>
-                            <input type="number" class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Enter price"
-                                name="price" value="<?php echo number_format((float) $price, 2, '.', ''); ?>">
+                            <input id="js_price_<?php echo $id; ?>" type="number"
+                                class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Enter price" name="price"
+                                value="<?php echo number_format((float) $price, 2, '.', ''); ?>">
 
                             <p>Singer/s</p>
-                            <input type=" text" class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Singer"
+                            <input id="js_singer_<?php echo $id; ?>" type=" text"
+                                class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Singer"
                                 value="<?php echo $singer; ?>">
                             <p>Number of Available Tickets</p>
-                            <input type="number" class="w-full rounded-lg py-2 px-3 mb-2 border"
-                                placeholder="Available Tickets" value="<?php echo $availableTickets; ?>">
+                            <input id="js_maxTickets_<?php echo $id; ?>" type="number"
+                                class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Available Tickets"
+                                value="<?php echo $availableTickets; ?>">
                             <p>Session Type</p>
-                            <input type="text" class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Session Type"
+                            <input id="js_session_<?php echo $id; ?>" type="text"
+                                class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Session Type"
                                 value="<?php echo $sessionType; ?>">
                             <p>Start Time</p>
-                            <input type="time" class="w-full rounded-lg py-2 px-3 mb-2 border"
+                            <input id="js_startTime_<?php echo $id; ?>" type="time"
+                                class="w-full rounded-lg py-2 px-3 mb-2 border"
                                 value="<?php echo $startTime->format('H:i'); ?>">
                             <p>End Time</p>
-                            <input type="time" class="w-full rounded-lg py-2 px-3 mb-2 border"
+                            <input id="js_endTime_<?php echo $id; ?>" type="time"
+                                class="w-full rounded-lg py-2 px-3 mb-2 border"
                                 value="<?php echo $endTime->format('H:i'); ?>">
-                            <button
-                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
-                            <button
-                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">Delete</button>
+                            <button id="js_buttonSave_<?php echo $id; ?>"
+                                class="js_buttonSave bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
+                            <button id="js_buttonDelete_<?php echo $id; ?>"
+                                class="js_buttonDelete bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">Delete</button>
                         </div>
                     </div>
                 <?php endforeach; ?>
                 <div class="max-w-sm rounded overflow-hidden shadow-lg">
                     <div class="px-6 py-4">
-                        <form action="path_to_your_form_handling_script.php" method="post">
+                        <form class="js_createNewTicketForm" method="post">
                             <p>Date</p>
                             <input type="date" name="date" class="w-full rounded-lg py-2 px-3 mb-2 border"
-                                placeholder="YYYY-MM-DD">
+                                placeholder="YYYY-MM-DD" required>
 
                             <p>Location</p>
-                            <select name="location" class="w-full rounded-lg py-2 px-3 mb-2 border">
+                            <select name="location" class="w-full rounded-lg py-2 px-3 mb-2 border" required>
                                 <?php foreach ($locations as $loc): ?>
                                     <option value="<?php echo htmlspecialchars($loc); ?>">
                                         <?php echo htmlspecialchars($loc); ?>
@@ -107,29 +114,29 @@ foreach ($dancePasses as $pass) {
 
                             <p>Price</p>
                             <input type="number" name="price" class="w-full rounded-lg py-2 px-3 mb-2 border"
-                                placeholder="Enter price" step="0.01">
+                                placeholder="Enter price" step="0.01" required>
 
                             <p>Singer/s</p>
                             <input type="text" name="singer" class="w-full rounded-lg py-2 px-3 mb-2 border"
-                                placeholder="Singer">
+                                placeholder="Singer" required>
 
                             <p>Number of Available Tickets</p>
                             <input type="number" name="availableTickets" class="w-full rounded-lg py-2 px-3 mb-2 border"
-                                placeholder="Available Tickets">
+                                placeholder="Available Tickets" required>
 
                             <p>Session Type</p>
                             <input type="text" name="sessionType" class="w-full rounded-lg py-2 px-3 mb-2 border"
-                                placeholder="Session Type">
+                                placeholder="Session Type" required>
 
                             <p>Start Time</p>
                             <input type="time" name="startTime" class="w-full rounded-lg py-2 px-3 mb-2 border"
-                                placeholder="HH:MM">
+                                placeholder="HH:MM" required>
 
                             <p>End Time</p>
                             <input type="time" name="endTime" class="w-full rounded-lg py-2 px-3 mb-2 border"
-                                placeholder="HH:MM">
+                                placeholder="HH:MM" required>
 
-                            <button type="submit"
+                            <button type="submit" id="js_buttonAddTicket"
                                 class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                 Add Ticket
                             </button>
@@ -151,27 +158,29 @@ foreach ($dancePasses as $pass) {
                     <div id="passContainer_<?php echo $id; ?>" class="max-w-sm rounded overflow-hidden shadow-lg">
                         <div class="px-6 py-4">
                             <p>Date</p>
-                            <input type="date" class="w-full rounded-lg py-2 px-3 mb-2 border"
-                                value="<?php echo $formattedDate; ?>">
+                            <input id="js_passOneDayDate_<?php echo $id; ?>" type="date"
+                                class="w-full rounded-lg py-2 px-3 mb-2 border" value="<?php echo $formattedDate; ?>">
                             <p>Price</p>
-                            <input type="number" class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Enter price"
-                                name="price" value="<?php echo number_format((float) $price, 2, '.', ''); ?>">
+                            <input id="js_passOneDayPrice_<?php echo $id; ?>" type="number"
+                                class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Enter price" name="price"
+                                value="<?php echo number_format((float) $price, 2, '.', ''); ?>">
 
                             <p>Number of Available Passes</p>
-                            <input type="number" class="w-full rounded-lg py-2 px-3 mb-2 border"
-                                placeholder="Available Tickets" value="<?php echo $maxPasses; ?>">
+                            <input id="js_passOneDayMaxPassesAvailable_<?php echo $id; ?>" type="number"
+                                class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Available Tickets"
+                                value="<?php echo $maxPasses; ?>">
 
-                            <button
-                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
-                            <button
-                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">Delete</button>
+                            <button id="js_buttonSaveOneDayPass_<?php echo $id; ?>"
+                                class="js_buttonSaveOneDayPass bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
+                            <button id="js_buttonDeleteOneDayPass_<?php echo $id; ?>"
+                                class="js_buttonDeleteOneDayPass bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">Delete</button>
                         </div>
                     </div>
                 <?php endforeach; ?>
                 <!-- Empty Card for Adding New One Day Pass -->
                 <div class="max-w-sm rounded overflow-hidden shadow-lg">
                     <div class="px-6 py-4">
-                        <form action="path_to_your_form_handling_script.php" method="post">
+                        <form class="js_createOneDayPassForm" method="post">
                             <p>Date</p>
                             <input type="date" name="date" class="w-full rounded-lg py-2 px-3 mb-2 border"
                                 placeholder="YYYY-MM-DD">
@@ -181,7 +190,7 @@ foreach ($dancePasses as $pass) {
                             <p>Number of Available Passes</p>
                             <input type="number" name="maxPasses" class="w-full rounded-lg py-2 px-3 mb-2 border"
                                 placeholder="Max Passes">
-                            <button type="submit"
+                            <button type="submit" id="js_buttonAddOneDayPass"
                                 class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add New
                                 Pass</button>
                         </form>
@@ -200,14 +209,16 @@ foreach ($dancePasses as $pass) {
                     <div id="passContainer_<?php echo $id; ?>" class="max-w-sm rounded overflow-hidden shadow-lg">
                         <div class="px-6 py-4">
                             <p>Price</p>
-                            <input type="number" class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Enter price"
-                                name="price" value="<?php echo number_format((float) $price, 2, '.', ''); ?>">
+                            <input id="js_multipleDaysPassPrice_<?php echo $id; ?>" type="number"
+                                class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Enter price" name="price"
+                                value="<?php echo number_format((float) $price, 2, '.', ''); ?>">
 
                             <p>Number of Available Passes</p>
-                            <input type="number" class="w-full rounded-lg py-2 px-3 mb-2 border"
-                                placeholder="Available Tickets" value="<?php echo $maxPasses; ?>">
-                            <button
-                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
+                            <input id="js_multipleDaysPassMaxAvailable_<?php echo $id; ?>" type="number"
+                                class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Available Tickets"
+                                value="<?php echo $maxPasses; ?>">
+                            <button id="js_buttonSaveMultipleDaysPass_<?php echo $id; ?>"
+                                class="js_buttonSaveMultipleDaysPass bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -215,4 +226,9 @@ foreach ($dancePasses as $pass) {
 
         </div>
     </div>
+
+    <script type="module" src="javascript/Dance/manage_dance_tickets.js"></script>
+
 </body>
+
+</html>

@@ -7,7 +7,6 @@ use Exception;
 
 class DanceManageTicketsController
 {
-
     private $ticketsService;
 
     public function __construct()
@@ -33,7 +32,6 @@ class DanceManageTicketsController
                     $endTime = $input['endTime'];
 
                     $this->ticketsService->editDanceTickets($danceTicketID, $date, $location, $price, $singer, $maxAvailableTickets, $sessionType, $startTime, $endTime);
-
 
                     echo json_encode(['success' => true, 'message' => 'Ticket updated successfully']);
                 } else {
@@ -82,21 +80,20 @@ class DanceManageTicketsController
     {
         try {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $input = json_decode(file_get_contents('php://input'), true);
 
-                if (isset($input['date'], $input['location'], $input['price'], $input['singer'], $input['maxAvailableTickets'], $input['sessionType'], $input['startTime'], $input['endTime'])) {
-                    $date = $input['date'];
-                    $location = $input['location'];
-                    $price = $input['price'];
-                    $singer = $input['singer'];
-                    $maxAvailableTickets = $input['maxAvailableTickets'];
-                    $sessionType = $input['sessionType'];
-                    $startTime = $input['startTime'];
-                    $endTime = $input['endTime'];
+                if (isset($_POST['date'], $_POST['location'], $_POST['price'], $_POST['singer'], $_POST['availableTickets'], $_POST['sessionType'], $_POST['startTime'], $_POST['endTime'])) {
+                    $date = $_POST['date'];
+                    $location = $_POST['location'];
+                    $price = $_POST['price'];
+                    $singer = $_POST['singer'];
+                    $maxAvailableTickets = $_POST['availableTickets'];
+                    $sessionType = $_POST['sessionType'];
+                    $startTime = $_POST['startTime'];
+                    $endTime = $_POST['endTime'];
 
                     $this->ticketsService->addDanceTicket($date, $location, $price, $singer, $maxAvailableTickets, $sessionType, $startTime, $endTime);
 
-                    echo json_encode(['success' => true, 'message' => 'Ticket updated successfully']);
+                    echo json_encode(['success' => true, 'message' => 'Ticket created successfully']);
                 } else {
                     http_response_code(400);
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
@@ -143,17 +140,15 @@ class DanceManageTicketsController
     {
         try {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $input = json_decode(file_get_contents('php://input'), true);
 
-                if (isset($input['dancePassID'], $input['price'], $input['date'], $input['maxPasses'])) {
-                    $dancePassID = filter_var($input['dancePassID'], FILTER_VALIDATE_INT);
-                    $price = $input['price'];
-                    $date = $input['date'];
-                    $maxPasses = $input['maxPasses'];
+                if (isset($_POST['price'], $_POST['date'], $_POST['maxPasses'])) {
+                    $price = $_POST['price'];
+                    $date = $_POST['date'];
+                    $maxPasses = $_POST['maxPasses'];
 
-                    $this->ticketsService->editDancePasses($dancePassID, $price, $date, true, $maxPasses, null);
+                    $this->ticketsService->addDancePasses($price, $date, false, $maxPasses);
 
-                    echo json_encode(['success' => true, 'message' => 'Pass updated successfully']);
+                    echo json_encode(['success' => true, 'message' => 'Pass created successfully']);
                 } else {
                     http_response_code(400);
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
@@ -181,7 +176,7 @@ class DanceManageTicketsController
                     $date = $input['date'];
                     $maxPasses = $input['maxPasses'];
 
-                    $this->ticketsService->editDancePasses($dancePassID, $price, $date, true, $maxPasses, null);
+                    $this->ticketsService->editDancePasses($dancePassID, $price, $date, false, $maxPasses, null);
 
                     echo json_encode(['success' => true, 'message' => 'Pass updated successfully']);
                 } else {
@@ -205,10 +200,9 @@ class DanceManageTicketsController
             if ($_SERVER["REQUEST_METHOD"] == "PUT") {
                 $input = json_decode(file_get_contents('php://input'), true);
 
-                if (isset($input['dancePassID'], $input['price'], $input['date'], $input['maxPasses'])) {
+                if (isset($input['dancePassID'], $input['price'], $input['maxPasses'])) {
                     $dancePassID = filter_var($input['dancePassID'], FILTER_VALIDATE_INT);
                     $price = $input['price'];
-                    $date = $input['date'];
                     $maxPasses = $input['maxPasses'];
 
                     $this->ticketsService->editDancePasses($dancePassID, $price, null, true, null, $maxPasses);
