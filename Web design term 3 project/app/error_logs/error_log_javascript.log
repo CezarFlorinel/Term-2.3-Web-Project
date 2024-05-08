@@ -22,3 +22,16 @@
 2024-05-03 19:26:51 - personal_program_listview.js - setIncrementAndDecrementButtons - Cannot read properties of undefined (reading 'subtotal')
 2024-05-03 19:30:04 - personal_program_listview.js - setIncrementAndDecrementButtons - Unexpected token 'C', "Connection"... is not valid JSON
 2024-05-03 19:30:06 - personal_program_listview.js - setIncrementAndDecrementButtons - Unexpected token 'C', "Connection"... is not valid JSON
+2024-05-07 19:29:08 - update_image.js - setupImageUploadListener - Unexpected end of JSON input
+2024-05-07 19:30:56 - update_image.js - setupImageUploadListener - Invalid file or upload error.
+2024-05-07 19:39:19 - update_image.js - setupImageUploadListener - Invalid file or upload error.
+2024-05-07 19:47:25 - update_image.js - setupImageUploadListener - Invalid file or upload error.
+2024-05-07 19:49:19 - update_image.js - setupImageUploadListener - Invalid file or upload error.
+2024-05-07 19:50:06 - update_image.js - setupImageUploadListener - Invalid file or upload error.
+2024-05-07 19:51:42 - update_image.js - setupImageUploadListener - A fatal error has occurred! Please Try Again Later ;D
+2024-05-07 19:51:59 - update_image.js - setupImageUploadListener - A fatal error has occurred! Please Try Again Later ;D
+2024-05-07 19:52:37 - update_image.js - setupImageUploadListener - A fatal error has occurred! Please Try Again Later ;D
+2024-05-07 20:52:49 - update_image.js - setupImageUploadListener - Cannot set properties of null (setting 'src')
+2024-05-07 21:37:33 - update_image.js - setupImageUploadListener - Cannot set properties of null (setting 'src')
+2024-05-07 21:41:56 - update_image.js - setupImageUploadListener - Cannot set properties of null (setting 'src')
+2024-05-07 21:42:21 - update_image.js - setupImageUploadListener - Cannot set properties of null (setting 'src')

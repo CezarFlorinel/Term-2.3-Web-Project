@@ -8,7 +8,7 @@
         <li><a href="/mainpageadmin" class="block p-5 hover:bg-gray-800">Home</a></li>
         <li><a href="/userAdmin" class="block p-5 hover:bg-gray-800">Users</a></li>
         <li><a href="/historyadmin" class="block p-5 hover:bg-gray-800">History</a></li>
-        <li><a href="#" class="block p-5 hover:bg-gray-800">Dance</a></li>
+        <li><a href="/danceHomeAdmin" class="block p-5 hover:bg-gray-800">Dance</a></li>
         <li><a href="/yummyHomeAdmin" class="block p-5 hover:bg-gray-800">Yummy</a></li>
         <li><a href="/home" class="block p-5 hover:bg-gray-800">Go Back To Website</a></li>
     </ul>
