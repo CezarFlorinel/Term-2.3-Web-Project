@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Repositories\YummyRepository;
 use App\Models\Yummy_event\Restaurant;
+use App\Models\Yummy_event\Session;
 
 class YummyService
 {
@@ -32,9 +33,20 @@ class YummyService
 
     //--------------------Restaurant Part ------------------
 
+
+    public function getAllRestaurants(): array
+    {
+        return $this->yummyRepository->getAllRestaurants();
+    }
+
     public function getRestaurantById($id): Restaurant
     {
         return $this->yummyRepository->getRestaurantById($id);
+    }
+
+    public function getAllRestaurantIDs($id): Array
+    {
+        return $this->yummyRepository->getAllRestaurantIDs($id);
     }
 
     public function getRestaurantReviews($id): array
@@ -67,7 +79,12 @@ class YummyService
         return $this->yummyRepository->getLastImageGalleryInsertedId();
     }
 
-    public function getSessionByRestaurantName($restaurantName): array
+    public function getSessionsByRestaurantName($restaurantName): array
+    {
+        return $this->yummyRepository->getSessionsByRestaurantName($restaurantName);
+    }
+
+    public function getSessionByRestaurantName($restaurantName): Session
     {
         return $this->yummyRepository->getSessionByRestaurantName($restaurantName);
     }
@@ -76,6 +93,11 @@ class YummyService
     public function getAllReservations(): array
     {
         return $this->yummyRepository->getAllReservations();
+    }
+
+    public function getReservationsByUserId($id)
+    {
+        return $this->yummyRepository->getReservationsByUserId($id);
     }
 
     //-------------------- EDIT METHODS --------------------------------------------------------
@@ -169,9 +191,9 @@ class YummyService
 
     //-------------------- Reservation Part ------------------
 
-    public function addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive)
+    public function addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive, $userID = null)
     {
-        $this->yummyRepository->addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive);
+        $this->yummyRepository->addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive, $userID);
     }
 
 

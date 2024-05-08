@@ -1,3 +1,14 @@
+<?php
+
+$customerData = null;
+
+if (isset($_SESSION['customerData'])) {
+    $customerData = $_SESSION['customerData'];
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +34,6 @@ include __DIR__ . '/../header.php';
         <div class="mb-6 flex items-center">
             <img src="assets/images/Payment_event_images/Payment_info.png" alt="Payment Information"
                 class="icon-image w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16">
-            <!-- Use responsive font sizing to ensure text fits and doesn't touch each other -->
             <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold form-header ml-2 sm:ml-4 md:ml-6">
                 Payment Information</h2>
         </div>
@@ -31,24 +41,29 @@ include __DIR__ . '/../header.php';
     </div>
 
 
-    <!-- Form Fields -->
     <form action="/payment/storeCustomerData" method="POST" class="space-y-5">
         <!-- Country/Region Input -->
         <div>
             <label class="block form-label">Country/Region:</label>
-            <input type="text" name="country" class="w-full px-3 py-2 rounded-lg form-input" required>
+            <input type="text" name="country" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['country'])) {
+                echo htmlspecialchars($customerData['country']);
+            } ?>">
         </div>
 
         <!-- Full Name Input -->
         <div>
             <label class="block form-label">Full Name (First & Last name):</label>
-            <input type="text" name="name" class="w-full px-3 py-2 rounded-lg form-input" required>
+            <input type="text" name="name" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['name'])) {
+                echo htmlspecialchars($customerData['name']);
+            } ?>">
         </div>
 
         <!-- Phone Number Input -->
         <div>
             <label class="block form-label">Phone Number:</label>
-            <input type="tel" name="phoneNumber" class="w-full px-3 py-2 rounded-lg form-input" required>
+            <input type="tel" name="phoneNumber" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['phoneNumber'])) {
+                echo htmlspecialchars($customerData['phoneNumber']);
+            } ?>">
             <p class="text-xs sm:text-sm md:text-base info-text">We need your phone number to contact you in case
                 something goes wrong</p>
         </div>
@@ -56,7 +71,9 @@ include __DIR__ . '/../header.php';
         <!-- Email Address Input -->
         <div>
             <label class="block form-label">Email Address:</label>
-            <input type="email" name="email" class="w-full px-3 py-2 rounded-lg form-input" required>
+            <input type="email" name="email" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['email'])) {
+                echo htmlspecialchars($customerData['email']);
+            } ?>">
             <p class="text-xs sm:text-sm md:text-base info-text">We need your email address to send you all information
                 related to the tickets</p>
         </div>
@@ -65,27 +82,37 @@ include __DIR__ . '/../header.php';
         <div>
             <label class="block form-label">Street Address:</label>
             <input type="text" name="address" placeholder="Street Name"
-                class="w-full px-3 py-2 rounded-lg form-input mb-2" required>
+                class="w-full px-3 py-2 rounded-lg form-input mb-2" required value="<?php if (isset($customerData['address'])) {
+                    echo htmlspecialchars($customerData['address']);
+                } ?>">
             <input type="text" name="extraAddress" placeholder="Extra Information"
-                class="w-full px-3 py-2 rounded-lg form-input" required>
+                class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['extraAddress'])) {
+                    echo htmlspecialchars($customerData['extraAddress']);
+                } ?>">
         </div>
 
         <!-- City and County Input -->
         <div class="flex flex-col space-y-2">
             <div>
                 <label class="block form-label">City:</label>
-                <input type="text" name="city" class="w-full px-3 py-2 rounded-lg form-input" required>
+                <input type="text" name="city" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['city'])) {
+                    echo htmlspecialchars($customerData['city']);
+                } ?>">
             </div>
             <div>
                 <label class="block form-label">County:</label>
-                <input type="text" name="county" class="w-full px-3 py-2 rounded-lg form-input" required>
+                <input type="text" name="county" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['county'])) {
+                    echo htmlspecialchars($customerData['county']);
+                } ?>">
             </div>
         </div>
 
         <!-- ZIP Code Input -->
         <div>
             <label class="block form-label">ZIP code:</label>
-            <input type="text" name="zip" class="w-full px-3 py-2 rounded-lg form-input" required>
+            <input type="text" name="zip" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['zip'])) {
+                echo htmlspecialchars($customerData['zip']);
+            } ?>">
         </div>
 
         <!-- Navigation Buttons -->

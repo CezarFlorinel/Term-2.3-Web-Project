@@ -8,6 +8,9 @@ use App\Services\TicketsService;
 use App\Services\HistoryService;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use App\Utilities\ErrorHandlerMethod;
+use App\Utilities\SessionManager;
+use App\Utilities\HandleDataCheck;
 use TCPDF;
 use DateTime;
 use DateInterval;
@@ -28,12 +31,13 @@ class PaymentSuccessController
     private $clientEmail = '';
     private $htmlContent = '';
     private $projectRoot;
+    private $sessionManager;
+
 
     private $userId = 1; // to be changed for login
-
-
     public function __construct()
     {
+        $this->sessionManager = new SessionManager();
         $this->paymentService = new PaymentService();
         $this->ticketService = new TicketsService();
         $this->historyService = new HistoryService();
@@ -53,37 +57,47 @@ class PaymentSuccessController
 
     private function getPaymentMethod()
     {
-        require_once '../config/secrets.php';
-        \Stripe\Stripe::setApiKey($stripeSecretKey);
-        $sessionId = $_GET['session_id'] ?? null;
-        if ($sessionId) {
-            try {
-                $session = \Stripe\Checkout\Session::retrieve($sessionId);
-                $paymentIntentId = $session->payment_intent;
+        try {
+            require_once '../config/secrets.php';
+            \Stripe\Stripe::setApiKey($stripeSecretKey);
+            $sessionId = $_GET['session_id'] ?? null;
+            if ($sessionId) {
+                try {
+                    $session = \Stripe\Checkout\Session::retrieve($sessionId);
+                    $paymentIntentId = $session->payment_intent;
 
-                $paymentIntent = \Stripe\PaymentIntent::retrieve($paymentIntentId);
-                $paymentMethodId = $paymentIntent->payment_method;
+                    $paymentIntent = \Stripe\PaymentIntent::retrieve($paymentIntentId);
+                    $paymentMethodId = $paymentIntent->payment_method;
 
-                $paymentMethod = \Stripe\PaymentMethod::retrieve($paymentMethodId);
-                $this->paymentMethod = $paymentMethod->type;
+                    $paymentMethod = \Stripe\PaymentMethod::retrieve($paymentMethodId);
+                    $this->paymentMethod = $paymentMethod->type;
 
 
-            } catch (\Exception $e) {
-                // Handle error
-                echo "Error: " . $e->getMessage();
+                } catch (\Exception $e) {
+                    ErrorHandlerMethod::handleErrorController("Error in the Stripe API: " . $e, $this->sessionManager, '/Payment');
+                }
+            } else {
+                $this->sessionManager->setError("Session ID is missing.");
+                header('Location: /Payment');
+                exit();
             }
-        } else {
-            echo "Session ID is missing.";
+        } catch (\Exception $e) {
+            ErrorHandlerMethod::handleErrorController("Error in the Payment Method: " . $e, $this->sessionManager, '/Payment');
         }
     }
     private function updateOrderStatus()
     {
         try {
             $this->order = $this->paymentService->getOrderByUserId($this->userId);
+
+            if (isset($_SESSION['orderItemIDs'])) {  // used for the case when the user has unselected items in the cart
+                $this->paymentService->setTheNewOrderForUnpaidOrderItems($_SESSION['orderItemIDs'], $this->userId, $this->order->orderID);
+            }
+
             $this->paymentService->updateOrderStatus($this->order->orderID, 'Complete', $this->paymentMethod);
             $this->addInvoiceInDB();
         } catch (\Exception $e) {
-            echo "Error: " . $e->getMessage();
+            ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
         }
 
     }
@@ -100,7 +114,7 @@ class PaymentSuccessController
             $this->paymentService->addInvoiceInDB($this->order->orderID, $invoiceDate, $customerData['name'], $customerData['phoneNumber'], $customerAddress, $customerData['email'], $totalVAT, $total, $paymentDate);
             $this->generatePDFInvoice();
         } catch (\Exception $e) {
-            echo "Error: " . $e->getMessage();
+            ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
         }
     }
 
@@ -126,10 +140,10 @@ class PaymentSuccessController
             $this->sendEmail($pdfFilePath, $this->clientEmail, $this->clientName, false);
 
         } catch (\Exception $e) {
-            echo "Error: " . $e->getMessage();
+            ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
+
         }
     }
-
 
     private function setPDFSettings($pdf)
     {
@@ -295,8 +309,8 @@ class PaymentSuccessController
 
             // Send the email
             $mail->send();
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        } catch (\Exception $e) {
+            ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
         }
         unlink($pdfFilePath);
 
@@ -360,7 +374,6 @@ class PaymentSuccessController
         return $altBody;
     }
 
-
     private function makeTickets()
     {
         $this->addTicketToDB();
@@ -379,7 +392,8 @@ class PaymentSuccessController
                 }
             }
         } catch (\Exception $e) {
-            echo "Error: " . $e->getMessage();
+            ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
+
         }
     }
 
@@ -424,7 +438,8 @@ class PaymentSuccessController
             $this->sendEmail($pdfFilePath, $this->clientEmail, $this->clientName, true);
 
         } catch (\Exception $e) {
-            echo "Error: " . $e->getMessage();
+            ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
+
         }
     }
 
@@ -442,21 +457,25 @@ class PaymentSuccessController
 
     private function fillHtmlContentForTicketPdf($ticketType)
     {
-        if (get_class($ticketType) == 'App\Models\Tickets\HistoryTicket') {
-            $date = new DateTime($ticketType->dateAndTime);
-            $this->htmlContent = $this->generateHTMLForTicketHistory('History ' . $ticketType->language . ' Tour', $date->format('d M Y H:i'), $ticketType->typeOfTicket);
-        } else if (get_class($ticketType) == 'App\Models\Tickets\DanceTicket') {
-            $date = new DateTime($ticketType->dateAndTime);
-            $startTime = new DateTime($ticketType->startTime);
-            $endTime = new DateTime($ticketType->endTime);
-            $this->htmlContent = $this->generateHTMLForTicketDance($ticketType->singer . ' Concert', $date->format('d M Y'), $startTime->format('H:i'), $endTime->format('H:i'), $ticketType->location);
-        } else {
-            $date = new DateTime($ticketType->date);
-            if ($ticketType->allDayPass == 1) {
-                $this->htmlContent = $this->generateHTMLForPass('Dance Pass', 'All days');
+        try {
+            if (get_class($ticketType) == 'App\Models\Tickets\HistoryTicket') {
+                $date = new DateTime($ticketType->dateAndTime);
+                $this->htmlContent = $this->generateHTMLForTicketHistory('History ' . $ticketType->language . ' Tour', $date->format('d M Y H:i'), $ticketType->typeOfTicket);
+            } else if (get_class($ticketType) == 'App\Models\Tickets\DanceTicket') {
+                $date = new DateTime($ticketType->dateAndTime);
+                $startTime = new DateTime($ticketType->startTime);
+                $endTime = new DateTime($ticketType->endTime);
+                $this->htmlContent = $this->generateHTMLForTicketDance($ticketType->singer . ' Concert', $date->format('d M Y'), $startTime->format('H:i'), $endTime->format('H:i'), $ticketType->location);
             } else {
-                $this->htmlContent = $this->generateHTMLForPass('Dance Pass', $date->format('d M Y'));
+                $date = new DateTime($ticketType->date);
+                if ($ticketType->allDayPass == 1) {
+                    $this->htmlContent = $this->generateHTMLForPass('Dance Pass', 'All days');
+                } else {
+                    $this->htmlContent = $this->generateHTMLForPass('Dance Pass', $date->format('d M Y'));
+                }
             }
+        } catch (\Exception $e) {
+            ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
         }
     }
 

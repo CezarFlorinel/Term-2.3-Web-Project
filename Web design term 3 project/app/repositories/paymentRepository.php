@@ -29,6 +29,44 @@ class PaymentRepository extends Repository
 
     }
 
+    public function getOrderByOrderItem($orderItemID): Order
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM [ORDER] WHERE OrderID = (SELECT Order_FK FROM ORDER_ITEM WHERE OrderItemID = :order_item_id)');
+        $stmt->bindParam(':order_item_id', $orderItemID, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return new Order(
+            $result['OrderID'],
+            $result['UserID'],
+            $result['PaymentStatus'],
+            $result['TotalAmount'],
+            $result['PaymentMethod'],
+            $result['PaymentDate']
+        );
+    }
+
+    public function getPaidOrdersByUserId($userId): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM [ORDER] WHERE UserID = :user_id AND PaymentStatus = :payment_status');
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $paymentStatus = "Complete"; // ------------------------- maybe to be made in enum
+        $stmt->bindParam(':payment_status', $paymentStatus, PDO::PARAM_STR);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(function ($result) {
+            return new Order(
+                $result['OrderID'],
+                $result['UserID'],
+                $result['PaymentStatus'],
+                $result['TotalAmount'],
+                $result['PaymentMethod'],
+                $result['PaymentDate']
+            );
+        }, $results);
+    }
+
     public function getOrdersItemsByOrderId($orderId): array
     {
         $stmt = $this->connection->prepare('SELECT * FROM ORDER_ITEM WHERE Order_FK = :order_id');
@@ -48,13 +86,20 @@ class PaymentRepository extends Repository
             );
         }, $results);
     }
-
     public function updateOrderStatus($orderID, $paymentStatus, $paymentMethod)
     {
         $stmt = $this->connection->prepare('UPDATE [ORDER] SET PaymentStatus = :payment_status, PaymentMethod = :payment_method WHERE OrderID = :order_id');
         $stmt->bindParam(':order_id', $orderID, PDO::PARAM_INT);
         $stmt->bindParam(':payment_status', $paymentStatus, PDO::PARAM_STR);
         $stmt->bindParam(':payment_method', $paymentMethod, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public function updateOrderItemQuantity($orderItemID, $quantity)
+    {
+        $stmt = $this->connection->prepare('UPDATE ORDER_ITEM SET Quantity = :quantity WHERE OrderItemID = :order_item_id');
+        $stmt->bindParam(':order_item_id', $orderItemID, PDO::PARAM_INT);
+        $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
         $stmt->execute();
     }
 
@@ -110,6 +155,60 @@ class PaymentRepository extends Repository
             $result['DanceTicket_FK'],
             $result['HistoryTicket_FK']
         );
+    }
+
+    public function deleteOrderItemByID($orderItemID): void
+    {
+        $stmt = $this->connection->prepare('DELETE FROM ORDER_ITEM WHERE OrderItemID = :order_item_id');
+        $stmt->bindParam(':order_item_id', $orderItemID, PDO::PARAM_INT);
+        $stmt->execute();
+
+    }
+
+    public function deleteReservationByID($reservationID): void
+    {
+
+        $stmt = $this->connection->prepare('DELETE FROM [RESTAURANT_RESERVATIONS] WHERE ID = :reservation_id');
+        $stmt->bindParam(':reservation_id', $reservationID, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public function setTheNewOrderForUnpaidOrderItems($orderItemIDs, $userID, $currentOrderID): void
+    {
+        $orderID = $this->createNewOrder($userID);
+        $selectedOrderItems = [];
+        $allOrderItems = $this->getOrdersItemsByOrderId($currentOrderID);
+
+        foreach ($orderItemIDs as $orderItemID) {
+            $selectedOrderItems[] = $this->getOrderItemByID($orderItemID);
+        }
+
+        foreach ($allOrderItems as $orderItem) {
+            if (!in_array($orderItem, $selectedOrderItems)) {
+                $stmt = $this->connection->prepare('UPDATE ORDER_ITEM SET Order_FK = :order_id WHERE OrderItemID = :order_item_id');
+                $stmt->bindParam(':order_id', $orderID, PDO::PARAM_INT);
+                $stmt->bindParam(':order_item_id', $orderItem->orderItemID, PDO::PARAM_INT);
+                $stmt->execute();
+            }
+        }
+    }
+
+    public function createNewOrder($userID): int
+    {
+        $paymentMethod = "-";
+        $paymentStatus = "Incomplete"; // ------------------------- maybe to be made in enum
+        $totalAmount = 0;
+        $paymentDate = date("Y-m-d H:i:s");
+
+        $stmt = $this->connection->prepare('INSERT INTO [ORDER] (UserID, PaymentStatus, TotalAmount, PaymentMethod, PaymentDate) VALUES (:user_id, :payment_status, :total_amount, :payment_method, :payment_date)');
+        $stmt->bindParam(':user_id', $userID, PDO::PARAM_INT);
+        $stmt->bindParam(':payment_status', $paymentStatus, PDO::PARAM_STR);
+        $stmt->bindParam(':total_amount', $totalAmount, PDO::PARAM_INT);
+        $stmt->bindParam(':payment_method', $paymentMethod, PDO::PARAM_STR);
+        $stmt->bindParam(':payment_date', $paymentDate, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $this->connection->lastInsertId();
     }
 
 }

@@ -151,9 +151,9 @@
         <section class="bg-black py-8 sm:py-12 items-center">
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center my-8 sm:my-12">Appearances In The Festival</h1>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded-lg border-4">
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
                     <!-- Panel 1 -->
-                    <div class="bg-black rounded-lg shadow-md overflow-hidden col-span-2 md:col-span-1 flex flex-col ">
+                    <div class="bg-black rounded-lg shadow-md overflow-hidden col-span-4 md:col-span-1 flex flex-col">
                         <div class="text-center py-2">
                             <div class="text-4xl sm:text-5xl md:text-6xl font-bold">26</div>
                             <div class="text-xl sm:text-2xl">Jul</div>
@@ -199,7 +199,7 @@
                         </div>
                     </div>
                     <!-- Panel 3 -->
-                    <div class="bg-black rounded-lg shadow-md overflow-hidden col-span-2 md:col-span-1 flex flex-col">
+                    <div class="bg-black rounded-lg shadow-md overflow-hidden col-span-4 md:col-span-1 flex flex-col">
                         <div class="text-center py-2">
                             <div class="text-4xl sm:text-5xl md:text-6xl font-bold">28</div>
                             <div class="text-xl sm:text-2xl">Jul</div>

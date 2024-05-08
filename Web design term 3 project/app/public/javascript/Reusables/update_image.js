@@ -27,6 +27,7 @@ export function setupImageUploadListener(inputId, api, containerName, imageEleme
                 .then(data => {
                     if (data.success) {
                         if (imageElementId) {
+                            console.log(imageElementId);
                             document.getElementById(imageElementId).src = data.imageUrl;
                         }
                         else {
