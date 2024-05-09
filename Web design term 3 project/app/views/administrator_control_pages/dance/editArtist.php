@@ -23,8 +23,10 @@ $concerts = $danceService->getConcertsByArtistName($artist->name);
         <div class="flex-grow p-6">
 
             <h1 class="text-3xl text-center mb-6">Artist Management</h1>
-            <h1 class="text-2xl text-center mb-6"><?php echo htmlspecialchars($artist->name) ?></h1>
-            <button id="js_deleteArtistButton" data-id="<?php echo htmlspecialchars($artist->artistID) ?>"
+            <h1 id="js_artistNameTitle" class="text-2xl text-center mb-6"><?php echo htmlspecialchars($artist->name) ?>
+            </h1>
+
+            <button id="js_deleteArtistButton"
                 class="my-5 block w-full max-w-xs mx-auto bg-red-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded text-center transition duration-150">Delete
                 Artist</button>
 
@@ -49,8 +51,8 @@ $concerts = $danceService->getConcertsByArtistName($artist->name);
                         class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-700 transition duration-150 mt-2">Change
                         Image</button>
 
-                    <h2 class="text-xl">Top Image of Dance Home</h2>
-                    <input type="text" id="artistName" value="<?php echo htmlspecialchars($artist->name); ?>"
+                    <h2 class="text-xl">Artist Name</h2>
+                    <input type="text" id="js_artistNameInput" value="<?php echo htmlspecialchars($artist->name); ?>"
                         class="mt-2 w-full border-2 border-gray-300 p-2 rounded-lg">
                     <button id="js_updateArtistNameButton"
                         class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-700 transition duration-150 mt-2">Update
@@ -63,14 +65,14 @@ $concerts = $danceService->getConcertsByArtistName($artist->name);
             <p class="text-red-500">If the link is not displayed properly, then it means it's broken.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <?php foreach ($artistSpotifyLinks as $spotifyLink):
-                    $id = htmlspecialchars($spotifyLink->artistSpotifyLinkID);
+                    $id = htmlspecialchars($spotifyLink->ID);
                     $containerId = "js_spotifyLinkContainer_$id";
                     ?>
                     <div id="<?php echo $containerId; ?>" data-id="<?php echo $id; ?>"
                         class="js_spotifyLinkContainerClass p-4 w-full bg-white max-w-sm rounded overflow-hidden shadow-lg">
                         <?php echo $spotifyLink->spotifyLink; ?>
-                        <button onclick="deleteSpotifyLink(<?php echo $id; ?>)"
-                            class="my-2 py-2 px-4 bg-red-500 text-white rounded hover:bg-red-700 transition duration-150">Delete
+                        <button id="deleteSpotifyLinkButton_<?php echo $id; ?>"
+                            class="js_deleteSpotifyClass my-2 py-2 px-4 bg-red-500 text-white rounded hover:bg-red-700 transition duration-150">Delete
                             Link</button>
                     </div>
                 <?php endforeach; ?>
@@ -80,8 +82,7 @@ $concerts = $danceService->getConcertsByArtistName($artist->name);
                 <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white ">
                     <div class="px-6 py-4">
                         <div class="font-bold text-xl mb-2">Add New Spotify Link</div>
-                        <textarea name="message" id="spotifyLink_<?php echo $id; ?>"
-                            placeholder="Enter the spotify link here."
+                        <textarea name="message" id="js_spotifyLinkInput" placeholder="Enter the spotify link here."
                             class="js_input_text font-bold  bg-blue-100 p-2 rounded-lg w-full"></textarea>
                         <button id="js_addSpotifyLinkButton"
                             class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-700 transition duration-150 mt-2">Add
@@ -99,12 +100,14 @@ $concerts = $danceService->getConcertsByArtistName($artist->name);
                     ?>
                     <div id="js_carrerHighlightContainer_<?php echo $id ?>" class="bg-white shadow-lg rounded-lg p-6">
                         <!-- Title -->
-                        <input type="text" class="text-2xl font-bold mb-4 p-2 w-full border-2 border-gray-300 rounded"
+                        <input id="js_careerHighlightTitleInput_<?php echo $id ?>" type="text"
+                            class="text-2xl font-bold mb-4 p-2 w-full border-2 border-gray-300 rounded"
                             placeholder="Enter title here"
                             value="<?php echo htmlspecialchars($careerHighlight->titleYearPeriod) ?>">
 
                         <!-- Description -->
-                        <textarea class="p-2 w-full border-2 border-gray-300 rounded mb-4" rows="6"
+                        <textarea id="js_careerHighlightDescriptionInput_<?php echo $id ?>"
+                            class="p-2 w-full border-2 border-gray-300 rounded mb-4" rows="6"
                             placeholder="Enter description here"><?php echo htmlspecialchars($careerHighlight->Text) ?></textarea>
 
                         <!-- Image Display and Upload -->
@@ -122,10 +125,10 @@ $concerts = $danceService->getConcertsByArtistName($artist->name);
 
                         <!-- Action Buttons -->
                         <div class="flex space-x-4 mt-4">
-                            <button id="js_updateCareerHighlightButton_<?php echo $id ?>"
-                                class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Save</button>
-                            <button id="js_deleteCareerHighlightButton_<?php echo $id ?>"
-                                class="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-700 transition duration-150">Delete</button>
+                            <button id="js-updateCareerHighlightButton_<?php echo $id ?>"
+                                class="js_updateCareerHighlightButton py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Save</button>
+                            <button id="js-deleteCareerHighlightButton_<?php echo $id ?>"
+                                class="js_deleteCareerHighlightButton py-2 px-4 bg-red-500 text-white rounded hover:bg-red-700 transition duration-150">Delete</button>
                         </div>
                     </div>
                     <br>
@@ -133,36 +136,40 @@ $concerts = $danceService->getConcertsByArtistName($artist->name);
 
                 <!-- Empty Card for Adding New Career Highlight -->
                 <div class="bg-white shadow-lg rounded-lg p-6">
-                    <h2 class="text-2xl text-center mb-6">Add New Career Highlight</h2>
-                    <!-- Title -->
-                    <input type="text" class="text-2xl font-bold mb-4 p-2 w-full border-2 border-gray-300 rounded"
-                        placeholder="Enter title year/period" name="titleYearPeriod">
+                    <form id="js_addCareerHighlightForm" method="post" enctype="multipart/form-data">
+                        <h2 class="text-2xl text-center mb-6">Add New Career Highlight</h2>
+                        <!-- Title -->
+                        <label for="titleAndYearPeriod" class="block text-sm font-medium text-gray-700">Title and
+                            Year/Period</label>
+                        <input type="text" class="text-2xl font-bold mb-4 p-2 w-full border-2 border-gray-300 rounded"
+                            placeholder="Enter title year/period" name="titleAndYearPeriod">
 
-                    <!-- Description -->
-                    <textarea class="p-2 w-full border-2 border-gray-300 rounded mb-4" rows="6"
-                        placeholder="Enter description" name="text"></textarea>
+                        <!-- Description -->
+                        <label for="text" class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea class="p-2 w-full border-2 border-gray-300 rounded mb-4" rows="6"
+                            placeholder="Enter description" name="text"></textarea>
 
-                    <!-- Image Display and Upload -->
-                    <div>
-                        <img id="js_newImagePreview" src="#" alt="Career Highlight Image" class="mt-2 hidden"
-                            style="width: auto; height: 200px;"> <!-- Initially hidden -->
-                        <input type="file" id="js_newImageInput" class="hidden" accept="image/*"
-                            onchange="document.getElementById('js_newImagePreview').src = window.URL.createObjectURL(this.files[0]); document.getElementById('js_newImagePreview').classList.remove('hidden');">
-                        <button onclick="document.getElementById('js_newImageInput').click();"
-                            class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-700 transition duration-150 mt-2">Upload
-                            Image</button>
-                    </div>
+                        <!-- Image Display and Upload -->
+                        <div>
+                            <label for="text" class="block text-sm font-medium text-gray-700">Image</label>
+                            <img id="js_newImagePreview" src="#" alt="Career Highlight Image" class="mt-2 hidden"
+                                style="width: auto; height: 200px;"> <!-- Initially hidden -->
+                            <input type="file" id="js_newImageCarrerHighlightInput" class="hidden" accept="image/*"
+                                onchange="document.getElementById('js_newImagePreview').src = window.URL.createObjectURL(this.files[0]); document.getElementById('js_newImagePreview').classList.remove('hidden');">
+                            <button type="button"
+                                onclick="document.getElementById('js_newImageCarrerHighlightInput').click();"
+                                class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-700 transition duration-150 mt-2">Upload
+                                Image</button>
+                        </div>
 
-                    <!-- Action Buttons -->
-                    <div class="flex space-x-4 mt-4">
-                        <button id="js_addCareerHighlightButton"
-                            class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Create</button>
-                    </div>
+                        <!-- Action Buttons -->
+                        <div class="flex space-x-4 mt-4">
+                            <button type="submit" id="js_addCareerHighlightButton"
+                                class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Create</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-
-
 
             <h2 class="text-2xl text-center mb-6">Concerts</h2>
             <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

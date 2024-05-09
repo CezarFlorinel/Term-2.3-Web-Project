@@ -7,7 +7,7 @@ use App\Utilities\ImageEditor;
 use App\Utilities\ErrorHandlerMethod;
 use Exception;
 
-class ArtitstAdminManagemtController
+class ArtistAdminManagementController
 {
     private $danceService;
     const COLUMN_NAME_ARTIST_IMAGE_TOP = 'ImageTop';
@@ -19,7 +19,7 @@ class ArtitstAdminManagemtController
         ImageEditor::initialize();
     }
 
-    public function updateArtist()
+    public function updateArtistName()
     {
         try {
             if ($_SERVER["REQUEST_METHOD"] == "PUT") {
@@ -29,7 +29,7 @@ class ArtitstAdminManagemtController
                     $name = $input['name'];
                     $id = $input['id'];
 
-                    $this->danceService->updateArtistName($name, $id);
+                    $this->danceService->updateArtistName($id, $name);
 
                     echo json_encode(['success' => true, 'message' => 'Artist updated successfully']);
                 } else {
@@ -49,10 +49,10 @@ class ArtitstAdminManagemtController
     public function updateArtistImage()
     {
         try {
-            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'], $_POST['id'], $_POST['column'])) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
                 $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
                 $image = $_FILES['image'];
-                $column = $_POST['column'];
+                $column = $_POST['columnName'];
                 $imageURL = ImageEditor::saveImage('/app/public/assets/images/dance_event/artists', $image);
                 $artist = $this->danceService->getArtistById($id);
 
@@ -94,7 +94,7 @@ class ArtitstAdminManagemtController
                 if (isset($input['id'])) {
                     $id = filter_var($input['id'], FILTER_VALIDATE_INT);
 
-                    if (!$this->deleteAllArtistImages($id)) {
+                    if ($this->deleteAllArtistImages($id) == false) {
                         http_response_code(500);
                         echo json_encode(['success' => false, 'error' => 'Failed to delete artist images']);
                         return;
@@ -121,9 +121,10 @@ class ArtitstAdminManagemtController
     {
         try {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                if (isset($_POST['artistID'], $_POST['spotifyLink'])) {
-                    $artistID = filter_var($_POST['artistID'], FILTER_VALIDATE_INT);
-                    $spotifyLink = $_POST['spotifyLink'];
+                $input = json_decode(file_get_contents('php://input'), true);
+                if (isset($input['artistID'], $input['spotifyLink'])) {
+                    $artistID = filter_var($input['artistID'], FILTER_VALIDATE_INT);
+                    $spotifyLink = $input['spotifyLink'];
 
                     $this->danceService->addArtistSpotifyLink($spotifyLink, $artistID);
                     echo json_encode(['success' => true, 'message' => 'Spotify Link added successfully']);
@@ -294,7 +295,7 @@ class ArtitstAdminManagemtController
 
     }
 
-    private function deleteAllArtistImages($id): bool
+    private function deleteAllArtistImages($id)
     {
         try {
             $imagePaths = [];
@@ -303,20 +304,24 @@ class ArtitstAdminManagemtController
             foreach ($artistCareerHighlights as $careerHighlight) {
                 $imagePaths[] = $careerHighlight->imagePath;
             }
+
             $imagePaths[] = $artist->imageTopPath;
             $imagePaths[] = $artist->imageAristLineupPath;
+            error_log(print_r("\n all artist iamges nr:" . count($imagePaths), true), 3, __DIR__ . '/../../file_with_errors_logs.log'); // Log the input data
 
             foreach ($imagePaths as $imagePath) {
+                error_log(print_r("\n $imagePath", true), 3, __DIR__ . '/../../file_with_errors_logs.log'); // Log the input data
+
                 if ($imagePath) {
                     ImageEditor::deleteImage($imagePath);
                 }
             }
-            return true;
-        } catch (Exception $e) {
-            ErrorHandlerMethod::handleErrorApiController($e);
-        }
-        return false;
 
+            return true; // Everything went well, return true
+
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
 }

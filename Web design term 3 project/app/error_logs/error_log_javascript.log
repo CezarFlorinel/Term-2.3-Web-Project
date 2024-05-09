@@ -35,3 +35,8 @@
 2024-05-07 21:37:33 - update_image.js - setupImageUploadListener - Cannot set properties of null (setting 'src')
 2024-05-07 21:41:56 - update_image.js - setupImageUploadListener - Cannot set properties of null (setting 'src')
 2024-05-07 21:42:21 - update_image.js - setupImageUploadListener - Cannot set properties of null (setting 'src')
+2024-05-09 16:26:43 - update_image.js - setupImageUploadListener - No file uploaded or missing ID.
+2024-05-09 16:27:37 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-05-09 16:28:56 - update_image.js - setupImageUploadListener - No file uploaded or missing ID.
+2024-05-09 16:30:39 - update_image.js - setupImageUploadListener - No file uploaded or missing ID.
+2024-05-09 16:33:03 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)

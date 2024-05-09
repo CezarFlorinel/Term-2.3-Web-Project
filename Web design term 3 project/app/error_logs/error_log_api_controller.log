@@ -8,3 +8,6 @@
 2024-05-07 22:36:00 - SQLSTATE[07002]: [Microsoft][ODBC Driver 17 for SQL Server]COUNT field incorrect or syntax error
 2024-05-07 22:36:05 - SQLSTATE[07002]: [Microsoft][ODBC Driver 17 for SQL Server]COUNT field incorrect or syntax error
 2024-05-07 22:36:20 - SQLSTATE[07002]: [Microsoft][ODBC Driver 17 for SQL Server]COUNT field incorrect or syntax error
+2024-05-09 16:10:47 - SQLSTATE[22018]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Conversion failed when converting the nvarchar value 'Hardwelll' to data type int.
+2024-05-09 16:10:55 - SQLSTATE[22018]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Conversion failed when converting the nvarchar value 'Hardwelll' to data type int.
+2024-05-09 16:13:31 - SQLSTATE[22018]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Conversion failed when converting the nvarchar value 'Hardwelll' to data type int.
