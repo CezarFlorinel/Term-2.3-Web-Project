@@ -36,6 +36,10 @@ foreach ($dancePasses as $pass) {
             <h1 class="text-3xl text-center mb-6">Dance Tickets & Passes Management</h1>
 
             <h2 class="text-2xl text-center mb-6">Tickets</h2>
+            <p class="bg-white shadow-lg mb-3 text-center text-red-600">Please note that when editing/creating new
+                tickets, you need to
+                properly
+                write the name of the artist.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <?php foreach ($danceTickets as $ticket):
                     $id = htmlspecialchars($ticket->D_TicketID);
@@ -48,7 +52,8 @@ foreach ($dancePasses as $pass) {
                     $startTime = new DateTime($ticket->startTime);
                     $endTime = new DateTime($ticket->endTime);
                     ?>
-                    <div id="ticketContainer_<?php echo $id; ?>" class="max-w-sm rounded overflow-hidden shadow-lg">
+                    <div id="ticketContainer_<?php echo $id; ?>"
+                        class="bg-yellow-100 max-w-sm rounded overflow-hidden shadow-lg">
                         <div class="px-6 py-4">
                             <p>Date</p>
                             <input id="js_date_<?php echo $id; ?>" type="date"
@@ -96,7 +101,7 @@ foreach ($dancePasses as $pass) {
                         </div>
                     </div>
                 <?php endforeach; ?>
-                <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                <div class=" bg-yellow-100 max-w-sm rounded overflow-hidden shadow-lg">
                     <div class="px-6 py-4">
                         <form class="js_createNewTicketForm" method="post">
                             <p>Date</p>
@@ -117,6 +122,7 @@ foreach ($dancePasses as $pass) {
                                 placeholder="Enter price" step="0.01" required>
 
                             <p>Singer/s</p>
+
                             <input type="text" name="singer" class="w-full rounded-lg py-2 px-3 mb-2 border"
                                 placeholder="Singer" required>
 
@@ -155,7 +161,8 @@ foreach ($dancePasses as $pass) {
                     $maxPasses = htmlspecialchars($pass->maxOneDayPasses);
 
                     ?>
-                    <div id="passContainer_<?php echo $id; ?>" class="max-w-sm rounded overflow-hidden shadow-lg">
+                    <div id="passContainer_<?php echo $id; ?>"
+                        class="bg-yellow-100 max-w-sm rounded overflow-hidden shadow-lg">
                         <div class="px-6 py-4">
                             <p>Date</p>
                             <input id="js_passOneDayDate_<?php echo $id; ?>" type="date"
@@ -178,7 +185,7 @@ foreach ($dancePasses as $pass) {
                     </div>
                 <?php endforeach; ?>
                 <!-- Empty Card for Adding New One Day Pass -->
-                <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                <div class="bg-yellow-100 max-w-sm rounded overflow-hidden shadow-lg">
                     <div class="px-6 py-4">
                         <form class="js_createOneDayPassForm" method="post">
                             <p>Date</p>
@@ -206,7 +213,8 @@ foreach ($dancePasses as $pass) {
                     $maxPasses = htmlspecialchars($pass->maxAllDayPasses);
 
                     ?>
-                    <div id="passContainer_<?php echo $id; ?>" class="max-w-sm rounded overflow-hidden shadow-lg">
+                    <div id="passContainer_<?php echo $id; ?>"
+                        class="bg-yellow-100 max-w-sm rounded overflow-hidden shadow-lg">
                         <div class="px-6 py-4">
                             <p>Price</p>
                             <input id="js_multipleDaysPassPrice_<?php echo $id; ?>" type="number"
