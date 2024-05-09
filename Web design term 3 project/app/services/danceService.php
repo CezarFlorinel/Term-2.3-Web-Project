@@ -28,7 +28,9 @@ class DanceService
         return $this->danceRepository->getAllArtists();
     }
 
+
     public function getArtistSpotifyLinks(int $artistID): array|null
+
     {
         return $this->danceRepository->getArtistSpotifyLinks($artistID);
     }
@@ -37,7 +39,9 @@ class DanceService
     {
         return $this->danceRepository->getImageHomePage();
     }
+
     public function getCareerHighlightsByArtistID($artistID): array|null
+
     {
         return $this->danceRepository->getCareerHighlightsByArtistID($artistID);
     }
@@ -51,20 +55,24 @@ class DanceService
         return $this->danceRepository->getClubLocationById($id);
     }
 
+
     public function getCareerHighlightsById($id): CareerHighlights
     {
         return $this->danceRepository->getCareerHighlightsById($id);
     }
+
 
     public function getAllClubLocationStrings(): array
     {
         return $this->danceRepository->getAllClubLocationStrings();
     }
 
+
     public function getConcertsByArtistName($name): array
     {
         return $this->danceRepository->getConcertsByArtistName($name);
     }
+
     // -----------++++++++++++++ delete methods ++++++++++++++----------------
 
     public function deleteArtist($artistID): void
@@ -85,6 +93,7 @@ class DanceService
         $this->danceRepository->deleteClubLocation($id);
     }
     // -----------++++++++++++++ update methods ++++++++++++++----------------
+
     public function updateArtistName($id, $name): void
     {
         $this->danceRepository->updateArtistName($id, $name);
@@ -103,6 +112,7 @@ class DanceService
         $this->danceRepository->updateClubLocationImage($id, $imagePath);
     }
 
+
     public function updateImageArtist($id, $column, $imagePath): void
     {
         $this->danceRepository->updateImageArtist($id, $column, $imagePath);
@@ -118,12 +128,14 @@ class DanceService
         $this->danceRepository->updateCareerHighlightsImage($id, $imagePath);
     }
 
+
     // -----------++++++++++++++ create methods ++++++++++++++----------------
 
     public function addClubLocation($name, $location, $imagePath): void
     {
         $this->danceRepository->addClubLocation($name, $location, $imagePath);
     }
+
 
     public function addArtist($artistName, $imageTop, $imageArtistLineupHome): void
     {
@@ -139,4 +151,5 @@ class DanceService
     {
         $this->danceRepository->addCareerHighlights($titleYearPeriod, $artistID, $text, $image);
     }
+
 }

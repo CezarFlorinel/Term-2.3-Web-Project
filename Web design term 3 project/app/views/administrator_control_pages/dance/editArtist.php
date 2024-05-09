@@ -10,6 +10,7 @@ $concerts = $danceService->getConcertsByArtistName($artist->name);
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +22,7 @@ $concerts = $danceService->getConcertsByArtistName($artist->name);
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
 
         <div class="flex-grow p-6">
+
 
             <h1 class="text-3xl text-center mb-6">Artist Management</h1>
             <h1 id="js_artistNameTitle" class="text-2xl text-center mb-6"><?php echo htmlspecialchars($artist->name) ?>
@@ -204,3 +206,4 @@ $concerts = $danceService->getConcertsByArtistName($artist->name);
 </body>
 
 </html>
+

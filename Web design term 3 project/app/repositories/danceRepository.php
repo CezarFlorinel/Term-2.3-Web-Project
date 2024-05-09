@@ -147,6 +147,7 @@ class DanceRepository extends Repository
         );
     }
 
+
     public function getCareerHighlightsById($id): CareerHighlights
     {
         $stmt = $this->connection->prepare('SELECT * FROM CAREER_HIGHLIGHTS WHERE ID = :id');
@@ -191,6 +192,7 @@ class DanceRepository extends Repository
 
     }
 
+
     // -----------++++++++++++++ delete methods ++++++++++++++----------------
 
     public function deleteArtist($artistID): void
@@ -231,6 +233,7 @@ class DanceRepository extends Repository
         $stmt->execute();
     }
 
+
     public function updateImageArtist($id, $column, $imagePath): void
     {
         $stmt = $this->connection->prepare('UPDATE ARTIST SET ' . $column . ' = :imagePath WHERE ID = :id');
@@ -263,6 +266,7 @@ class DanceRepository extends Repository
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':imagePath', $imagePath);
         $stmt->execute();
+
     }
 
     public function updateClubLocation($id, $name, $location, $currentName, ): void
@@ -297,6 +301,7 @@ class DanceRepository extends Repository
         $stmt->execute();
     }
 
+
     public function addArtist($artistName, $imageTop, $imageArtistLineupHome): void
     {
         $stmt = $this->connection->prepare('INSERT INTO ARTIST (ArtistName, ImageTop, ImageArtistLineupHome) VALUES (:artistName, :imageTop, :imageArtistLineupHome)');
@@ -323,6 +328,7 @@ class DanceRepository extends Repository
         $stmt->bindParam(':image', $image);
         $stmt->execute();
     }
+
 
 
 }
