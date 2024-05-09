@@ -28,7 +28,7 @@ class DanceService
         return $this->danceRepository->getAllArtists();
     }
 
-    public function getArtistSpotifyLinks($artistID): array
+    public function getArtistSpotifyLinks(int $artistID): array|null
     {
         return $this->danceRepository->getArtistSpotifyLinks($artistID);
     }
@@ -37,7 +37,7 @@ class DanceService
     {
         return $this->danceRepository->getImageHomePage();
     }
-    public function getCareerHighlightsByArtistID($artistID): CareerHighlights
+    public function getCareerHighlightsByArtistID($artistID): array|null
     {
         return $this->danceRepository->getCareerHighlightsByArtistID($artistID);
     }
@@ -93,6 +93,16 @@ class DanceService
         $this->danceRepository->updateClubLocationImage($id, $imagePath);
     }
 
+    public function updateImageArtist($id, $column, $imagePath): void
+    {
+        $this->danceRepository->updateImageArtist($id, $column, $imagePath);
+    }
+
+    public function updateCareerHighlights($id, $titleYearPeriod, $text, $image): void
+    {
+        $this->danceRepository->updateCareerHighlights($id, $titleYearPeriod, $text, $image);
+    }
+
     // -----------++++++++++++++ create methods ++++++++++++++----------------
 
     public function addClubLocation($name, $location, $imagePath): void
@@ -100,5 +110,18 @@ class DanceService
         $this->danceRepository->addClubLocation($name, $location, $imagePath);
     }
 
+    public function addArtist($artistName, $imageTop, $imageArtistLineupHome): void
+    {
+        $this->danceRepository->addArtist($artistName, $imageTop, $imageArtistLineupHome);
+    }
 
+    public function addArtistSpotifyLink($spotifyLink, $artistID): void
+    {
+        $this->danceRepository->addArtistSpotifyLink($spotifyLink, $artistID);
+    }
+
+    public function addCareerHighlights($titleYearPeriod, $artistID, $text, $image): void
+    {
+        $this->danceRepository->addCareerHighlights($titleYearPeriod, $artistID, $text, $image);
+    }
 }
