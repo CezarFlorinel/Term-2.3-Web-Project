@@ -51,6 +51,11 @@ class DanceService
         return $this->danceRepository->getClubLocationById($id);
     }
 
+    public function getCareerHighlightsById($id): CareerHighlights
+    {
+        return $this->danceRepository->getCareerHighlightsById($id);
+    }
+
     public function getAllClubLocationStrings(): array
     {
         return $this->danceRepository->getAllClubLocationStrings();
@@ -75,9 +80,9 @@ class DanceService
         $this->danceRepository->deleteClubLocation($id);
     }
     // -----------++++++++++++++ update methods ++++++++++++++----------------
-    public function updateArtist($artist): void
+    public function updateArtistName($id, $name): void
     {
-        $this->danceRepository->updateArtist($artist);
+        $this->danceRepository->updateArtistName($id, $name);
     }
     public function updateImageHomePage($id, $imagePath): void
     {
@@ -98,9 +103,14 @@ class DanceService
         $this->danceRepository->updateImageArtist($id, $column, $imagePath);
     }
 
-    public function updateCareerHighlights($id, $titleYearPeriod, $text, $image): void
+    public function updateCareerHighlights($id, $titleYearPeriod, $text): void
     {
-        $this->danceRepository->updateCareerHighlights($id, $titleYearPeriod, $text, $image);
+        $this->danceRepository->updateCareerHighlights($id, $titleYearPeriod, $text);
+    }
+
+    public function updateCareerHighlightsImage($id, $imagePath): void
+    {
+        $this->danceRepository->updateCareerHighlightsImage($id, $imagePath);
     }
 
     // -----------++++++++++++++ create methods ++++++++++++++----------------

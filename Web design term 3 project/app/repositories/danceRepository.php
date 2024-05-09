@@ -146,6 +146,22 @@ class DanceRepository extends Repository
         );
     }
 
+    public function getCareerHighlightsById($id): CareerHighlights
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM CAREER_HIGHLIGHTS WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return new CareerHighlights(
+            $results['ID'],
+            $results['TitleYearPeriod'],
+            $results['FK_ArtistID'],
+            $results['Text'],
+            $results['Image']
+        );
+    }
+
     // -----------++++++++++++++ delete methods ++++++++++++++----------------
 
     public function deleteArtist($artistID): void
@@ -178,13 +194,11 @@ class DanceRepository extends Repository
 
     // -----------++++++++++++++ update methods ++++++++++++++----------------
 
-    public function updateArtist($artist): void
+    public function updateArtistName($id, $name): void
     {
-        $stmt = $this->connection->prepare('UPDATE ARTIST SET ArtistName = :artistName, ImageTop = :imageTop, ImageArtistLineupHome = :imageArtistLineupHome WHERE ID = :id');
-        $stmt->bindParam(':id', $artist->getId());
-        $stmt->bindParam(':artistName', $artist->getArtistName());
-        $stmt->bindParam(':imageTop', $artist->getImageTop());
-        $stmt->bindParam(':imageArtistLineupHome', $artist->getImageArtistLineupHome());
+        $stmt = $this->connection->prepare('UPDATE ARTIST SET ArtistName = :artistName WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':artistName', $name);
         $stmt->execute();
     }
 
@@ -197,13 +211,20 @@ class DanceRepository extends Repository
 
     }
 
-    public function updateCareerHighlights($id, $titleYearPeriod, $text, $image): void
+    public function updateCareerHighlights($id, $titleYearPeriod, $text): void
     {
-        $stmt = $this->connection->prepare('UPDATE CAREER_HIGHLIGHTS SET TitleYearPeriod = :titleYearPeriod, Text = :text, Image = :image WHERE ID = :id');
+        $stmt = $this->connection->prepare('UPDATE CAREER_HIGHLIGHTS SET TitleYearPeriod = :titleYearPeriod, Text = :text WHERE ID = :id');
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':titleYearPeriod', $titleYearPeriod);
         $stmt->bindParam(':text', $text);
-        $stmt->bindParam(':image', $image);
+        $stmt->execute();
+    }
+
+    public function updateCareerHighlightsImage($id, $imagePath): void
+    {
+        $stmt = $this->connection->prepare('UPDATE CAREER_HIGHLIGHTS SET Image = :imagePath WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':imagePath', $imagePath);
         $stmt->execute();
     }
 
