@@ -15,7 +15,7 @@ foreach ($dancePasses as $pass) {
     if ($pass->allDayPass == false) {
         $oneDayPasses[] = $pass;
     } else {
-        $multipleDayPasses[] = $pass; // usually only one pass
+        $multipleDayPasses[] = $pass; // usually only one pass, can be extended to hold more passes
     }
 }
 

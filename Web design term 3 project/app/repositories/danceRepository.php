@@ -9,6 +9,7 @@ use App\Models\Dance_event\Artist;
 use App\Models\Dance_event\ArtistSpotifyLink;
 use App\Models\Dance_event\ClubLocation;
 use App\Repositories\TicketsRepository;
+use App\Models\Tickets\DanceTicket;
 
 class DanceRepository extends Repository
 {
@@ -160,6 +161,34 @@ class DanceRepository extends Repository
             $results['Text'],
             $results['Image']
         );
+    }
+
+    public function getConcertsByArtistName($name): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM DANCE_TICKET WHERE Singer LIKE :name');
+        $searchTerm = "%$name%";
+        $stmt->bindParam(':name', $searchTerm);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $concerts = [];
+        foreach ($results as $result) {
+            $concerts[] = new DanceTicket(
+                $result['D_TicketID'],
+                $result['DateAndTime'],
+                $result['Location'],
+                $result['Price'],
+                $result['Singer'],
+                $result['TotalQuantityOfAvailableTickets'],
+                $result['SessionType'],
+                $result['StartTime'],
+                $result['EndTime']
+            );
+        }
+
+        return $concerts;
+
+
     }
 
     // -----------++++++++++++++ delete methods ++++++++++++++----------------
