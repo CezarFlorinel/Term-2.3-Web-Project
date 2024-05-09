@@ -170,4 +170,37 @@ class DanceHomeAdminController
         }
     }
 
+
+    public function addArtist()
+    {
+        try {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                if (isset($_POST['name']) && isset($_FILES['imageTop'], $_FILES['imageArtistLineup'])) {
+                    $name = $_POST['name'];
+                    $imageArtistLineup = $_FILES['imageArtistLineup'];
+                    $imageTop = $_FILES['imageTop'];
+                    $imageURL = ImageEditor::saveImage('/app/public/assets/images/dance_event/artists', $imageArtistLineup);
+                    $imageTopURL = ImageEditor::saveImage('/app/public/assets/images/dance_event/artists', $imageTop);
+
+                    if ($imageURL && $imageTopURL) {
+                        $this->danceService->addArtist($name, $imageURL, $imageTopURL);
+                        echo json_encode(['success' => true, 'message' => 'Artist added successfully']);
+                    } else {
+                        http_response_code(400);
+                        echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
+                    }
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'error' => 'Missing required fields or file']);
+                }
+            } else {
+                http_response_code(405);
+                echo json_encode(['success' => false, 'error' => 'Method not allowed']);
+            }
+        } catch (Exception $e) {
+            ErrorHandlerMethod::handleErrorApiController($e);
+        }
+    }
+
+
 }
