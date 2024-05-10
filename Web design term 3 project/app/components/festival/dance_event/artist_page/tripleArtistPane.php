@@ -27,16 +27,16 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-3 gap-4">
-                    <?php foreach ($artists as $artist): ?>
+                    <?php foreach ($artists as $artistu): ?>
                         <div class="text-white
                                             text-lg font-bold mt-1 text-center">
-                            <?php echo htmlspecialchars($artist->name); ?>
+                            <?php echo htmlspecialchars($artistu->name); ?>
                         </div>
                     <?php endforeach; ?>
 
-                    <?php foreach ($artists as $artist): ?>
-                        <img src="<?php echo htmlspecialchars($artist->imageArtistLineupPath); ?>"
-                            alt="<?php echo htmlspecialchars($artist->name); ?>" class="w-full h-auto rounded-lg shadow-lg"
+                    <?php foreach ($artists as $artistu): ?>
+                        <img src="<?php echo htmlspecialchars($artistu->imageArtistLineupPath); ?>"
+                            alt="<?php echo htmlspecialchars($artistu->name); ?>" class="w-full h-auto rounded-lg shadow-lg"
                             style="max-width: 100%;">
                     <?php endforeach; ?>
                 </div>

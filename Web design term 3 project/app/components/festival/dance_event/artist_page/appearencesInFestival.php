@@ -4,11 +4,30 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded-lg border-4">
         <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
 
-            <?php include __DIR__ . '/simpleArtistPane.php'; ?>
+            <?php if ($displayMore == false): ?>
 
-            <?php include __DIR__ . '/tripleArtistPane.php'; ?>
+                <?php
+                $passedTicket = $simpleConcert[0];
+                include __DIR__ . '/simpleArtistPane.php';
+                ?>
 
-            <?php include __DIR__ . '/simpleArtistPane.php'; ?>
+                <?php include __DIR__ . '/tripleArtistPane.php'; ?>
+
+                <?php
+                $passedTicket = $simpleConcert[1];
+                include __DIR__ . '/simpleArtistPane.php';
+                ?>
+
+            <?php else: ?>
+
+                <?php foreach ($simpleConcert as $concert):
+                    $passedTicket = $concert;
+                    ?>
+                    <?php include __DIR__ . '/simpleArtistPane.php'; ?>
+
+                <?php endforeach; ?>
+
+            <?php endif; ?>
 
         </div>
         <div class="flex justify-center my-8 sm:my-12">

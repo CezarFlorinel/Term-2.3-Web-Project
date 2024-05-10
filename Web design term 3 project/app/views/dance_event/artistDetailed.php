@@ -12,22 +12,23 @@ $artist = $danceService->getArtistById($artistId);
 $careerHighlights = $danceService->getCareerHighlightsByArtistID($artistId);
 $spotifyLinks = $danceService->getArtistSpotifyLinks($artistId);
 
-$displayMore = false;
+$displayMore = true;
 
 $concertsAll = $danceService->getConcertsByArtistName($artist->name);
 $concertsWithTripleArtist = [];
+$simpleConcert = [];
 
 foreach ($concertsAll as $concert) {
     if ($concert->sessionType == "Triple Artist") {
         $concertsWithTripleArtist[] = $concert;
+    } else {
+        $simpleConcert[] = $concert;
     }
 }
 
-if (count($concertsWithTripleArtist) > 0) {
-    $displayMore = true;
+if (count($concertsWithTripleArtist) > 0 && count($simpleConcert) >= 2) {
+    $displayMore = false;
 }
-
-
 
 ?>
 

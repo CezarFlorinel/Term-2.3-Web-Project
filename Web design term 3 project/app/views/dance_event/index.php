@@ -71,163 +71,18 @@ foreach ($dancePasses as $pass) {
 
         <div class="bg-black py-8 ">
             <div class="max-w-6xl mx-auto px-4">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-white text-3xl font-bold ">Artists lineup</h2>
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                        Get your ticket now! <!-- This button should be let you go down to the page -->
-                    </button>
-                </div>
-                <!-- Artist Lineup -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
 
-                    <?php foreach ($artists as $artist): ?>
-                        <div class="js-artist-container_<?php echo htmlspecialchars($artist->artistID) ?>">
-                            <img class="w-full h-48 object-cover rounded"
-                                src="<?php echo htmlspecialchars($artist->imageArtistLineupPath); ?>"
-                                alt="<?php echo htmlspecialchars($artist->name); ?>">
-                            <p class="text-center text-white mt-2"><?php echo htmlspecialchars($artist->name); ?></p>
-                        </div>
-                    <?php endforeach; ?>
-
-                </div>
+                <?php include __DIR__ . '/../../components/festival/dance_event/home_page/artistLineup.php'; ?>
 
                 <div class="bg-black text-white py-8">
-                    <div class="max-w-8xl mx-auto px-4">
-                        <!-- Club Locations -->
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-white text-4xl font-bold">Club Locations</h2>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-6 gap-4 mb-8">
-                            <?php foreach ($clubLocations as $clubLocation): ?>
-                                <div
-                                    class="js-club-container_<?php echo htmlspecialchars($clubLocation->clubLocationID) ?>">
-                                    <img class="w-full h-48 object-cover rounded"
-                                        src="<?php echo htmlspecialchars($clubLocation->imagePath); ?>"
-                                        alt="<?php echo htmlspecialchars($clubLocation->name); ?>">
-                                    <p class="mt-2"><?php echo strtoupper(htmlspecialchars($clubLocation->name)); ?></p>
-                                    <p class="text-xs"><?php echo htmlspecialchars($clubLocation->location); ?></p>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-
-                    <!-- Schedule -->
-                    <div class="text-center mb-8">
-                        <h2 class="text-4xl font-bold">Schedule</h2>
-                    </div>
-
-                    <div class="flex justify-center gap-4 mb-8">
-                        <button id="js_allEventsButton"
-                            class="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">ALL</button>
-                        <button id="js_26EventsButton"
-                            class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">26.07</button>
-                        <button id="js_27EventsButton"
-                            class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">27.07</button>
-                        <button id="js_28EventsButton"
-                            class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">28.07</button>
-                    </div>
-
-                    <div id="js_containerForArtistSchedule" class="grid grid-cols-1 md:grid-cols-5 gap-4">
-
-                        <?php foreach ($danceTickets as $ticket):
-                            $imagePathOfArtist = '';
-                            $singerNameLower = strtolower($ticket->singer);
-
-                            foreach ($artists as $artist) {
-                                $artistNameLower = strtolower($artist->name);
-                                if (strpos($artistNameLower, $singerNameLower[0]) !== false) {
-                                    $imagePathOfArtist = $artist->imageArtistLineupPath;
-                                }
-                            }
-
-                            ?>
-                            <div class="artist-container">
-                                <img class="w-full h-48 object-cover rounded" src="<?php echo $imagePathOfArtist ?>"
-                                    alt="Artist">
-                                <p class="mt-2"><?php echo htmlspecialchars($ticket->singer); ?></p>
-                                <p class="text-xs"><?php
-                                $startTime = new DateTime($ticket->startTime);
-                                $endTime = new DateTime($ticket->endTime);
-                                echo $startTime->format('H:i') . ' - ' . $endTime->add(new DateInterval('PT6H'))->format('H:i');
-                                ?></p>
-                                <p class="text-xs"><?php echo strtoupper(htmlspecialchars($ticket->location)); ?></p>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
+                    <?php include __DIR__ . '/../../components/festival/dance_event/home_page/clubLocations.php'; ?>
+                    <?php include __DIR__ . '/../../components/festival/dance_event/home_page/schedule.php'; ?>
                 </div>
-                <div class="bg-black py-8 text-white">
-                    <div class="max-w-7xl mx-auto px-4">
-                        <div class="flex justify-between items-center mb-8">
-                            <h2 class="text-4xl font-bold">ALL-ACCESS-PASS</h2>
-                        </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                            <!-- Day Passes -->
-                            <?php foreach ($oneDayPasses as $pass): ?>
-                                <div class="border border-gray-700 rounded-lg p-4">
-                                    <h3 class="text-2xl font-bold mb-3"><?php $date = new DateTime($pass->date);
-                                    echo strtoupper($date->format('l j F')); ?></h3>
-                                    <ul class="mb-4">
-                                        <?php foreach ($danceTickets as $ticket):
-                                            $ticketDate = new DateTime($ticket->dateAndTime);
-                                            if ($ticketDate == $date): ?>
-                                                <li><?php echo htmlspecialchars($ticket->singer); ?></li>
-                                            <?php endif; endforeach; ?>
-                                    </ul>
-                                    <div class="flex items
-                                    -center justify-between">
-                                        <span class="text-2xl font-bold">€
-                                            <?php $formattedPrice = number_format($pass->price, 2, '.', ''); // Format the price to two decimal places
-                                                echo htmlspecialchars($formattedPrice); ?></span>
-                                        <button
-                                            class="flex items-center bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-lg">
-                                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M3 3v18h18" stroke="#fff" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path d="M3 3l18 18" stroke="#fff" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg>
-                                            Add to cart
-                                        </button>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-
-                        </div>
-
-                        <!-- All-Access Pass -->
-                        <div class="flex flex-col md:flex-row justify-between items-center bg-gray-900 p-6 rounded-lg">
-                            <h3 class="text-3xl font-bold mb-4 md:mb-0">ALL-ACCESS-PASS FOR ALL 3 DAYS!</h3>
-
-                            <?php foreach ($multipleDayPasses as $pass): ?>
-                                <div class="flex items-center">
-                                    <span class="text-4xl font-bold mr-6">€ <?php $formattedPrice = number_format($pass->price, 2, '.', ''); // Format the price to two decimal places
-                                        echo htmlspecialchars($formattedPrice); ?></span>
-                                    <button
-                                        class="flex items-center bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-lg">
-                                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M3 3v18h18" stroke="#fff" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                            <path d="M3 3l18 18" stroke="#fff" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                        </svg>
-                                        Add to cart
-                                    </button>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-
-                        <p class="text-center text-gray-500 text-xs mt-6">
-                            Note: The capacity of the Club sessions is very limited. Availability for All-Access pass
-                            holders cannot be guaranteed due to safety regulations.
-                        </p>
-                    </div>
-                </div>
+                <?php include __DIR__ . '/../../components/festival/dance_event/home_page/passes.php'; ?>
 
                 <!-- Ticket Section -->
-                <div class="flex justify-between items-center mb-2 mt-12">
+                <div id="ticket-section" class="flex justify-between items-center mb-2 mt-12">
                     <h2 class="text-3xl font-bold">Select Your Ticket:</h2>
                 </div>
                 <section class="bg-black rounded-lg py-8">
