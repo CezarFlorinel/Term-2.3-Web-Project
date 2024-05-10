@@ -187,8 +187,21 @@ class DanceRepository extends Repository
         }
 
         return $concerts;
+    }
 
+    public function getArtistByName($name): Artist
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM ARTIST WHERE ArtistName = :name');
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        return new Artist(
+            $results['ID'],
+            $results['ArtistName'],
+            $results['ImageTop'],
+            $results['ImageArtistLineupHome']
+        );
     }
 
     // -----------++++++++++++++ delete methods ++++++++++++++----------------

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class DanceEventController
+class ArtistFestivalContoller
 {
     public function index()
     {
