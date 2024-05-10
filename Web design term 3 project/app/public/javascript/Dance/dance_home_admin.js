@@ -41,9 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
         createClubLocation();
     });
 
+
     document.getElementById('js_addArtistButton').addEventListener('click', function () {
         addArtist();
     });
+
 
 
 });
@@ -135,6 +137,7 @@ function createClubLocation() {
         });
 
     return false; // Prevent traditional form submission
+
 }
 
 function addArtist() {
@@ -169,4 +172,5 @@ function addArtist() {
         .catch(error => {
             errorHandler.showAlert(error);
         });
+
 }

@@ -77,7 +77,9 @@ $artists = $danceService->getAllArtists();
                 <?php endforeach; ?>
 
                 <!-- Empty Card for Adding New Club Location -->
+
                 <div class="bg-white max-w-sm rounded overflow-hidden shadow-lg">
+
                     <div class="px-6 py-4">
                         <div class="font-bold text-xl mb-2">Add New Club Location</div>
                         <form class="js_add-club-form" method="post" enctype="multipart/form-data">
@@ -99,7 +101,9 @@ $artists = $danceService->getAllArtists();
             <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <?php foreach ($artists as $artist): ?>
                     <li>
+
                         <a href="/artistAdminManagement?artistID=<?php echo $artist->artistID; // redirect to the page, change the link ?>"
+
                             class="block bg-white hover:bg-gray-100 border border-gray-200 rounded-lg p-4 transition duration-150">
                             <div class="text-center">
                                 <p class="text-lg font-semibold text-gray-800">
@@ -111,6 +115,7 @@ $artists = $danceService->getAllArtists();
                     </li>
                 <?php endforeach; ?>
             </ul>
+
 
             <h2 class="text-2xl text-center mb-6">Create New Artist</h2>
             <div class="bg-white max-w-sm rounded overflow-hidden shadow-lg">
@@ -155,6 +160,7 @@ $artists = $danceService->getAllArtists();
         </div>
 
         <script type="module" src="javascript/Dance/dance_home_admin.js"></script>
+
 
 </body>
 

@@ -170,6 +170,7 @@ class DanceHomeAdminController
         }
     }
 
+
     public function addArtist()
     {
         try {
@@ -200,5 +201,6 @@ class DanceHomeAdminController
             ErrorHandlerMethod::handleErrorApiController($e);
         }
     }
+
 
 }
