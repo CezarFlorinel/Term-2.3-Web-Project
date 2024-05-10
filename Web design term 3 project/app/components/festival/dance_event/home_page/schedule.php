@@ -34,7 +34,7 @@
             <p class="text-xs"><?php
             $startTime = new DateTime($ticket->startTime);
             $endTime = new DateTime($ticket->endTime);
-            echo $startTime->format('H:i') . ' - ' . $endTime->add(new DateInterval('PT6H'))->format('H:i');
+            echo $startTime->format('H:i') . ' - ' . $endTime->format('H:i');
             ?></p>
             <p class="text-xs"><?php echo strtoupper(htmlspecialchars($ticket->location)); ?></p>
         </div>

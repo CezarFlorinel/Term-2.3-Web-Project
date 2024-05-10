@@ -6,8 +6,7 @@ $ticketService = new TicketsService();
 $danceService = new DanceService();
 
 
-$artistId = 1;
-// $artistID = $_GET['artistID'];
+$artistId = $_GET['artistID'];
 $artist = $danceService->getArtistById($artistId);
 $careerHighlights = $danceService->getCareerHighlightsByArtistID($artistId);
 $spotifyLinks = $danceService->getArtistSpotifyLinks($artistId);
