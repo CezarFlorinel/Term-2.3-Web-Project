@@ -134,7 +134,6 @@ function fetchRestaurantData(id, name, location, description, descriptionSideOne
 
 }
 
-
 function deleteRestaurant() {
     document.getElementById('delete-restaurant-btn').addEventListener('click', function () {
         if (confirm('Are you sure you want to delete this restaurant?')) {

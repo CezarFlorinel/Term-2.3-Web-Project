@@ -143,7 +143,7 @@ $yummyrestaurants = $yummyService->getAllRestaurants();
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
-                            
+
                         </table>
                     </div>
                     <p class="text-m mt-4">*The Kids price only applies to children that are <span class="font-bold">12
