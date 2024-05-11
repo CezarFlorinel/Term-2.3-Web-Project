@@ -12,23 +12,29 @@ $historyService = new HistoryService();
 $yummyService = new YummyService();
 
 $changeViewLink = '/personalProgramListView';
-
 $userId = 1; // Replace with actual user ID
-
 $order = $paymentService->getOrderByUserId($userId);
 $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
-
 $allReservations = $yummyService->getReservationsByUserId($userId);
 $reservations = [];
+$displayCheckBoxAndQuantityButtons = false;
+$itemsTotal = 0;
+$totalPrice = 0;
+$arraySelectedTickets = null;
+$paidOrders = $paymentService->getPaidOrdersByUserId($userId);
+$paidOrderItemsAll = [];
+$historyFirstRoute = $historyService->getFirstHistoryRoute()->locationName;
+$danceTicketsForAgenda = [];
+$historyTicketsForAgenda = [];
+$reservationData = []; // Initialize an array to hold the combined data
+
+
+
 foreach ($allReservations as $reservation) {
     if ($reservation->isActive) {
         $reservations[] = $reservation;
     }
 }
-
-$paidOrders = $paymentService->getPaidOrdersByUserId($userId);
-$paidOrderItemsAll = [];
-
 // Loop through each paid order
 foreach ($paidOrders as $paidOrder) {
     // Retrieve order items by order ID and merge them into the paidOrderItems array
@@ -36,24 +42,42 @@ foreach ($paidOrders as $paidOrder) {
     $paidOrderItemsAll = array_merge($paidOrderItemsAll, $paidOrderItems);
 }
 
-$displayCheckBoxAndQuantityButtons = false;
-$itemsTotal = 0;
-$totalPrice = 0;
-$arraySelectedTickets = null;
+if (strpos($historyFirstRoute, "1.") === 0) {
+    $historyFirstRoute = substr($historyFirstRoute, 3);
+}
 
+foreach ($orderItems as $orderItem) {
+    $ticket = $ticketsService->returnTypeOfTicket($orderItem);
+    if (get_class($ticket) == 'App\Models\Tickets\HistoryTicket') {
+        $historyTicketsForAgenda[] = $ticket;
+    } else if (get_class($ticket) == 'App\Models\Tickets\DanceTicket') {
+        $danceTicketsForAgenda[] = $ticket;
+    }
+}
 
+foreach ($paidOrderItemsAll as $orderItem) {
+    $ticket = $ticketsService->returnTypeOfTicket($orderItem);
+    if (get_class($ticket) == 'App\Models\Tickets\HistoryTicket') {
+        $historyTicketsForAgenda[] = $ticket;
+    } else if (get_class($ticket) == 'App\Models\Tickets\DanceTicket') {
+        $danceTicketsForAgenda[] = $ticket;
+    }
+}
 
-$historyFirstRoute = $historyService->getFirstHistoryRoute();
-$danceTicketsForAgenda = [];
-$historyTicketsForAgenda = [];
+foreach ($reservations as $key => $reservation) {
+    $restaurant = $yummyService->getRestaurantById($reservation->restaurantID);
+    $session = $yummyService->getSessionByRestaurantName($restaurant->name);
 
-
-
-// if (get_class($ticket) == 'App\Models\Tickets\HistoryTicket') {
-//     $historyTicketsForAgenda[] = $ticket;
-// } else if (get_class($ticket) == 'App\Models\Tickets\DanceTicket') {
-//     $danceTicketsForAgenda = $ticket;
-// }
+    // Create an associative array for each reservation with the desired information
+    $reservationData[$key] = [
+        'restaurant_name' => $restaurant->name,
+        'session_start_time' => $session->startTime,
+        'session_end_time' => $session->endTime,
+        'restaurant_location' => $restaurant->location,
+        'status_payment' => 'paid',
+        'date' => $reservation->date
+    ];
+}
 
 
 ?>
@@ -67,64 +91,12 @@ $historyTicketsForAgenda = [];
     <title>Checkout Summary</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <link rel="stylesheet" href="CSS_files/agenda_view.css">
 </head>
 
 <body class="bg-black text-white flex flex-col min-h-screen">
 
-    <style>
-        .fc-event.restaurant {
-            background-color: #FFE662;
-            color: white;
-        }
 
-        .fc-event.dance {
-            background-color: #8FADC6;
-            color: white;
-        }
-
-        .fc-event.history {
-            background-color: #FF9A9D;
-            color: white;
-        }
-
-        #calendar {
-            max-width: 900px;
-            margin: 40px auto;
-            background-color: white;
-            color: black;
-        }
-
-        .fc-event:hover {
-            transform: scale(1.1);
-            z-index: 100;
-            border-color: #ff0000;
-            background-color: red;
-            height: 200px;
-        }
-
-        .fc-event .fc-event-title-container {
-            display: flex;
-            flex-direction: column;
-
-        }
-
-        .fc-event b {
-            font-size: 16px;
-            /* Title font size */
-        }
-
-        .fc-event div {
-            font-size: 12px;
-            /* Details font size */
-        }
-
-        .fc-event {
-            height: 100%;
-            /* Make the event fill the entire slot */
-            overflow: hidden;
-            /* Optional: Prevent content from spilling out */
-        }
-    </style>
 
 
     <?php include __DIR__ . '/../header.php'; ?>
@@ -132,9 +104,9 @@ $historyTicketsForAgenda = [];
         <div class="flex justify-center items-center">
             <div class="w-full max-w-4xl mx-auto p-8">
 
-                <div id='calendar'></div>
-
                 <?php require __DIR__ . '/../../components/personal_program/shareLinks.php'; ?>
+
+                <div id='calendar'></div>
 
                 <?php require __DIR__ . '/../../components/personal_program/displayUnpurchasedReservations.php'; ?>
 
@@ -153,12 +125,14 @@ $historyTicketsForAgenda = [];
     </div>
 
     <script type="text/javascript">
-        const reservations = <?php echo json_encode($reservations); ?>;
+        const reservations = <?php echo json_encode($reservationData); ?>;
         console.log(reservations);
         const danceTicketsForAgenda = <?php echo json_encode($danceTicketsForAgenda); ?>;
         console.log(danceTicketsForAgenda);
         const historyTicketsForAgenda = <?php echo json_encode($historyTicketsForAgenda); ?>;
         console.log(historyTicketsForAgenda);
+        const historyFirstRoute = <?php echo json_encode($historyFirstRoute); ?>;
+        console.log(historyFirstRoute);
     </script>
 
     <script type="module" src="javascript/Personal_Program/personal_program_agenda_view.js"></script>
