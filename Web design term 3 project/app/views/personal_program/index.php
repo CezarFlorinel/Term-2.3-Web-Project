@@ -11,6 +11,7 @@ $ticketsService = new TicketsService();
 $historyService = new HistoryService();
 $yummyService = new YummyService();
 
+$changeViewLink = '/personalProgramAgendaView';
 
 $userId = 1; // Replace with actual user ID
 
