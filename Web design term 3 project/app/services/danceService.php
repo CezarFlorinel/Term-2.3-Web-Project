@@ -28,9 +28,12 @@ class DanceService
         return $this->danceRepository->getAllArtists();
     }
 
+    public function getArtistByName($name): Artist
+    {
+        return $this->danceRepository->getArtistByName($name);
+    }
 
     public function getArtistSpotifyLinks(int $artistID): array|null
-
     {
         return $this->danceRepository->getArtistSpotifyLinks($artistID);
     }
@@ -41,7 +44,6 @@ class DanceService
     }
 
     public function getCareerHighlightsByArtistID($artistID): array|null
-
     {
         return $this->danceRepository->getCareerHighlightsByArtistID($artistID);
     }

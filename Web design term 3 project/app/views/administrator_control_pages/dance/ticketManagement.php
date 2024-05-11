@@ -42,7 +42,7 @@ foreach ($dancePasses as $pass) {
             <p class="bg-white shadow-lg mb-3 text-center text-red-600">Please note that when editing/creating new
                 tickets, you need to
                 properly
-                write the name of the artist.</p>
+                write the name of the artist. <br> For adding more artists use " / " to separate them </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <?php foreach ($danceTickets as $ticket):
