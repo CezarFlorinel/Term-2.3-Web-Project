@@ -36,3 +36,4 @@
 2024-05-07 21:41:56 - update_image.js - setupImageUploadListener - Cannot set properties of null (setting 'src')
 2024-05-07 21:42:21 - update_image.js - setupImageUploadListener - Cannot set properties of null (setting 'src')
 
+2024-05-12 15:32:41 - user.js - editUserForm - Network response was not ok

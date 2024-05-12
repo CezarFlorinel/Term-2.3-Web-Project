@@ -200,6 +200,12 @@ class UserController
                         $updatedUser->setId($userId);
 
                         $this->userService->update($updatedUser);
+                        
+                        if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['userId']) && !empty($_SESSION['userId'])) {
+                            $_SESSION['userEmail'] = $updatedUser->getEmail();
+                            $_SESSION['userName'] = $updatedUser->getName();
+                            $_SESSION['userRole'] = $updatedUser->getUserRole();
+                        }
 
                         http_response_code(200);
                         echo json_encode(['success' => true, 'message' => 'User updated successfully', 'user' => $updatedUser->toArray()]);

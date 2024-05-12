@@ -34,37 +34,59 @@
 
             <!-- Personal information -->
 
-            <!-- <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                id="userPersonalInformation">
+            <?php
+            session_start();
 
-            </table> -->
+            if (isset($_SESSION['userEmail']) && isset($_SESSION['userName'])) {
+                $email = $_SESSION['userEmail'];
+                $name = $_SESSION['userName'];
+            }
+            ?>
 
             <div class="md:col-span-2 bg-white shadow-md rounded-lg p-4">
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <li>
-                        <p class="text-gray-600 mb-2"><strong>Name:</strong></p>
-                        <p class="text-gray-600 mb-2"><strong>Email:</strong></p>
+                    <li id="personalInfo" class="mt-4">
+                        <p id="name" class="text-gray-600 mb-2">
+                            <strong>Name:</strong> <span class="name-value"><?php echo $name; ?></span>
+                        </p>
+
+                        <p id="email" class="text-gray-600 mb-2">
+                            <strong>Email:</strong> <span class="email-value"><?php echo $email; ?></span>
+                        </p>
+
                     </li>
                     <li>
-                        <button
-                            class="bg-blue-500 text-white px-4 py-2 rounded-md w-full hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Change
-                            Password</button>
-                        <!-- Edit button -->
-                        <button
-                            class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Edit
-                            Profile</button>
+                        <div>
+                            <button type="button" id="changePassword"
+                                class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Change
+                                Password</button>
+                        </div>
+                        <div>
+                            <button type="button" id="editProfile"
+                                class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Edit
+                                Profile</button>
+                        </div>
+                        <div>
+                            <button type="button" id="save"
+                                class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                                style="display:none;">Save
+                            </button>
+                        </div>
 
                     </li>
                 </ul>
             </div>
         </div>
-        <button type="button" id ="logout"
+        <button type="button" id="logout"
             class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
             Logout</button>
     </div>
 </body>
 
 </html>
+<script>
+    var userId = <?php echo json_encode($_SESSION['userId']); ?>;
+</script>
 <script type="module" src="javascript/User/userPersonalInformation.js"></script>
 
 <?php include __DIR__ . '/../footer.php'; ?>
