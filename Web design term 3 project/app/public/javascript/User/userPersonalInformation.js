@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     logoutButton.addEventListener("click", function (event) {
         event.preventDefault();
+        document.cookie = "PHPSESSID=; expires=Thu, 1 Jan 1970 00:00:00 UTC; path=/;";
         logout();
     });
 });

@@ -81,6 +81,7 @@ class UserController
 
     public function Logout()
     {
+        session_unset();
         session_destroy();
 
         $redirectTo = '/';
