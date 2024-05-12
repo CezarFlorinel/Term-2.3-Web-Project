@@ -44,7 +44,7 @@
                     echo 'active'; ?>">Admin</a>
             </nav>
             <div class="icons">
-                <a href="/payment">
+                <a href="/personalProgramAgendaView">
                     <img class="icon" src="assets/images/elements/Shopping cart.png" alt="Shopping Cart">
                 </a>
                 <a href="/personalProgramListView">

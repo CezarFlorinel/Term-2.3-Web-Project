@@ -61,7 +61,7 @@ class ArtistAdminManagementController
                         $currentImage = $artist->imageTopPath;
                         $this->danceService->updateImageArtist($id, self::COLUMN_NAME_ARTIST_IMAGE_TOP, $imageURL);
                     } else {
-                        $currentImage = $artist->imageAristLineupPath;
+                        $currentImage = $artist->imageArtistLineupPath;
                         $this->danceService->updateImageArtist($id, self::COLUMN_NAME_ARTIST_IMAGE_LINEUP, $imageURL);
                     }
 
@@ -306,7 +306,7 @@ class ArtistAdminManagementController
             }
 
             $imagePaths[] = $artist->imageTopPath;
-            $imagePaths[] = $artist->imageAristLineupPath;
+            $imagePaths[] = $artist->imageArtistLineupPath;
             error_log(print_r("\n all artist iamges nr:" . count($imagePaths), true), 3, __DIR__ . '/../../file_with_errors_logs.log'); // Log the input data
 
             foreach ($imagePaths as $imagePath) {
