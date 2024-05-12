@@ -42,8 +42,8 @@
             <div class="md:col-span-2 bg-white shadow-md rounded-lg p-4">
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <li>
-                        <div id="userInfo">
-                        </div>
+                        <p class="text-gray-600 mb-2"><strong>Name:</strong></p>
+                        <p class="text-gray-600 mb-2"><strong>Email:</strong></p>
                     </li>
                     <li>
                         <button
@@ -58,7 +58,7 @@
                 </ul>
             </div>
         </div>
-        <button
+        <button type="button" id ="logout"
             class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
             Logout</button>
     </div>

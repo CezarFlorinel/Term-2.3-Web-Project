@@ -30,12 +30,5 @@ class LoginController
         }
      }
 
-    public function logout()
-    {
-        session_destroy();
-
-        $redirectTo = '/home';
-        header("Location: $redirectTo");
-        exit();
-    }
+    
 }
