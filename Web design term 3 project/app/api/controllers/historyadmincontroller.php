@@ -10,7 +10,6 @@ use Exception;
 class HistoryAdminController
 {
     private $historyService;
-    private $imageEditor;
 
     public function __construct()
     {

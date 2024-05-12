@@ -67,7 +67,7 @@ class DanceRepository extends Repository
 
     public function getImageHomePage(): ImageHomePage
     {
-        $stmt = $this->connection->prepare('SELECT * FROM IMAGE_HOME_PAGE');
+        $stmt = $this->connection->prepare('SELECT * FROM IMAGE_HOME_PAGE_DANCE');
         $stmt->execute();
         $results = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -104,11 +104,41 @@ class DanceRepository extends Repository
             $clubLocations[] = new ClubLocation(
                 $result['ID'],
                 $result['Name'],
-                $result['Location']
+                $result['Location'],
+                $result['ImagePathLocation']
             );
         }
 
         return $clubLocations;
+    }
+
+    public function getAllClubLocationStrings(): array
+    {
+        $stmt = $this->connection->prepare('SELECT Name FROM CLUB_LOCATION');
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $clubLocationStrings = [];
+        foreach ($results as $result) {
+            $clubLocationStrings[] = $result['Name'];
+        }
+
+        return $clubLocationStrings;
+    }
+
+    public function getClubLocationById($id): ClubLocation
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM CLUB_LOCATION WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return new ClubLocation(
+            $results['ID'],
+            $results['Name'],
+            $results['Location'],
+            $results['ImagePathLocation']
+        );
     }
 
     // -----------++++++++++++++ delete methods ++++++++++++++----------------
@@ -153,15 +183,46 @@ class DanceRepository extends Repository
         $stmt->execute();
     }
 
-    public function updateImageHomePage($id): void
+    public function updateImageHomePage($id, $imagePath): void
     {
-        $stmt = $this->connection->prepare('UPDATE IMAGE_HOME_PAGE SET ImagePath = :imagePath WHERE ID = :id');
+        $stmt = $this->connection->prepare('UPDATE IMAGE_HOME_PAGE_DANCE SET ImagePath = :imagePath WHERE ID = :id');
         $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':imagePath', $imagePath);
+        $stmt->execute();
+    }
+
+    public function updateClubLocation($id, $name, $location, $currentName, ): void
+    {
+        $ticketRepo = new TicketsRepository();
+        $ticketRepo->changeTicketDanceLocationName($name, $currentName);
+
+        $stmt = $this->connection->prepare('UPDATE CLUB_LOCATION SET Name = :name, Location = :location WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':location', $location);
+        $stmt->execute();
+    }
+
+    public function updateClubLocationImage($id, $imagePath): void
+    {
+        $stmt = $this->connection->prepare('UPDATE CLUB_LOCATION SET ImagePathLocation = :imagePath WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':imagePath', $imagePath);
         $stmt->execute();
     }
 
 
     // -----------++++++++++++++ create methods ++++++++++++++----------------
+
+    public function addClubLocation($name, $location, $imagePath): void
+    {
+        $stmt = $this->connection->prepare('INSERT INTO CLUB_LOCATION (Name, Location, ImagePathLocation) VALUES (:name, :location, :imagePath)');
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':location', $location);
+        $stmt->bindParam(':imagePath', $imagePath);
+        $stmt->execute();
+    }
+
 
 
 }
