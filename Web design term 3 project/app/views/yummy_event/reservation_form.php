@@ -1,14 +1,14 @@
 <?php include __DIR__ . '/../header.php'; ?>
 
-<?php $restaurantID = 1;
+<?php
+$restaurantID = 1;
 
+use App\Services\YummyService;
 
+$yummyService = new YummyService();
 
+$sessions = $yummyService->getRestaurantSession($restaurantID);
 ?>
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,12 +58,12 @@
                     </div>
                 </div>
                 <div class="flex gap-4">
-                    <div class="w-full">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="session">*Select Session:</label>
-                        <select name="session" id="session" class="bg-blue-200 rounded py-2 px-4">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
+                <div class="w-full">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="session">*Select Session:</label>
+    <select name="session" id="session" class="bg-blue-200 rounded py-2 px-4">
+                    <?php foreach ($sessions as $session): ?>
+                            <option value="<?= $session->sessionID ?>"><?= $session->sessionID ?></option>
+                        <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="w-full">
