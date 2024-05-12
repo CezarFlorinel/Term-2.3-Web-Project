@@ -1,8 +1,8 @@
-<?php include __DIR__ . '/../header.php'; ?>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservation Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,74 +19,58 @@
     <main class="bg-gray-800 flex justify-center items-center min-h-screen px-4 py-2 sm:px-6 lg:px-8" style="font-family: 'Playfair Display', serif;">
         <div class="bg-white p-10 rounded-lg shadow-lg mx-auto">
             <h1 class="text-4xl text-center font-semibold mb-6 text-gray-800">Reservation</h1>
-            <form class="space-y-4">
+            <!-- Adjust the action URL to controller's handling method route -->
+            <form class="space-y-4" action="path_to_your_controller.php?action=handleReservation" method="POST">
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="name">*Name:</label>
-                    <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="name" type="text" placeholder="First Name">
-                    <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2"
-                        id="surname" type="text" placeholder="Last Name">
+                    <input name="firstName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="First Name" required>
+                    <input name="lastName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2" id="surname" type="text" placeholder="Last Name" required>
                 </div>
                 <div class="flex gap-4">
                     <div class="w-full">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="email">*Email:</label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="email" type="email" placeholder="customer@email.com">
+                        <input name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="customer@email.com" required>
                     </div>
                     <div class="w-full">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">Phone Number:</label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="phone" type="tel" placeholder="### ### ###">
+                        <input name="phoneNumber" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="tel" placeholder="### ### ###">
                     </div>
                 </div>
                 <div class="flex gap-4">
                     <div class="w-full">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="session">*Select Session:</label>
-                        <div class="flex justify-between">
-                            <button type="button" class="bg-blue-200 rounded py-2 px-4">1</button>
-                            <button type="button" class="bg-blue-200 rounded py-2 px-4">2</button>
-                            <button type="button" class="bg-blue-200 rounded py-2 px-4">3</button>
-                        </div>
+                        <select name="session" id="session" class="bg-blue-200 rounded py-2 px-4">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
                     </div>
                     <div class="w-full">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="date">*Select date:</label>
-                        <div class="grid grid-cols-4 gap-1">
-                            <button type="button" class="bg-blue-200 rounded py-2 px-4">26-07</button>
-                            <button type="button" class="bg-blue-200 rounded py-2 px-4">27-07</button>
-                            <button type="button" class="bg-blue-200 rounded py-2 px-4">28-07</button>
-                            <button type="button" class="bg-blue-200 rounded py-2 px-4">29-07</button>
-                        </div>
+                        <select name="date" id="date" class="bg-blue-200 rounded py-2 px-4">
+                            <option value="2024-07-26">26-07</option>
+                            <option value="2024-07-27">27-07</option>
+                            <option value="2024-07-28">28-07</option>
+                            <option value="2024-07-29">29-07</option>
+                        </select>
                     </div>
                 </div>
                 <div class="flex gap-4">
                     <div class="w-full">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="adults">*Adults</label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="adults" type="number" placeholder="−">
+                        <input name="numberOfAdults" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="adults" type="number" placeholder="1" required>
                     </div>
                     <div class="w-full">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="kids">Kids (12 y/o and
-                            under)</label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="kids" type="number" placeholder="−">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="kids">Kids (12 y/o and under)</label>
+                        <input name="numberOfChildren" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="kids" type="number" placeholder="0">
                     </div>
                 </div>
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="comment">Comment:</label>
-                    <textarea
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="comment" placeholder=""></textarea>
+                    <textarea name="comment" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="comment" placeholder="Optional"></textarea>
                 </div>
                 <div class="flex justify-center">
-                    <button
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                         Submit Reservation
                     </button>
                 </div>
@@ -96,4 +80,3 @@
 </body>
 
 </html>
-<?php include __DIR__ . '/../footer.php'; ?>

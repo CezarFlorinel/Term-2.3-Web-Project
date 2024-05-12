@@ -128,8 +128,8 @@ $restaurantSessionPrices = $yummyService->getRestaurantSession($id);
             <div class="max-w-4xl mx-auto px-4">
                 <div class="relative text-center">
                     <div class="inline-block">
-                    <img src="<?php echo $yummyDetailPageData->imagePathLocation ?>">
-                    <?php echo $yummyDetailPageData->location ?>
+                        <img src="<?php echo $yummyDetailPageData->imagePathLocation ?>">
+                        <?php echo $yummyDetailPageData->location ?>
                     </div>
                 </div>
             </div>
@@ -170,9 +170,12 @@ $restaurantSessionPrices = $yummyService->getRestaurantSession($id);
                 Back to homepage
             </button>
 
-            <button class="bg-[#B0E3FF] hover:bg-[#a3d2e2] text-black font-bold py-4 px-8 rounded">
-                Make a Reservation!
-            </button>
+            <!-- Reservation Button -->
+            <a href="">
+                <button class="bg-[#B0E3FF] hover:bg-[#a3d2e2] text-black font-bold py-4 px-8 rounded">
+                    Make a Reservation!
+                </button>
+            </a>
         </div>
     </main>
     <footer>
