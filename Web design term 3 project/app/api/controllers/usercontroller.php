@@ -183,6 +183,7 @@ class UserController
 
     public function update()
     {
+        session_start();
         $jsonInput = file_get_contents('php://input');
         $data = json_decode($jsonInput, true);
 
