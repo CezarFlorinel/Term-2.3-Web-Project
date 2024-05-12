@@ -16,7 +16,6 @@
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
 
-
                 <div class="mb-6">
                     <label for="newPassword" class="block text-gray-800 text-sm font-bold mb-2">New Password</label>
                     <input required type="password" name="newPassword" id="newPassword"
@@ -28,6 +27,9 @@
                     <input required type="password" name="confirmPassword" id="confirmPassword"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
+
+                <input type="hidden" name="userID" value="<?php echo $userID; ?>">
+
                 <button type="submit"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Change
                     Password</button>
