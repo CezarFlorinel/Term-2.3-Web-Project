@@ -1,0 +1,54 @@
+.fc-event.restaurant {
+    background-color: #FFE662;
+    color: white;
+}
+
+.fc-event.dance {
+    background-color: #8FADC6;
+    color: white;
+}
+
+.fc-event.history {
+    background-color: #FF9A9D;
+    color: white;
+}
+
+#calendar {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: white;
+    color: black;
+}
+
+.fc-event:hover {
+    transform: scale(1.1);
+    z-index: 10000;
+    border-color: #ff0000;
+    background-color: red;
+    height: 200px;
+    width: 125px;
+    position: relative;
+    overflow: visible;
+}
+
+.fc-event .fc-event-title-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.fc-event b {
+    font-size: 10px;
+    /* Title font size */
+}
+
+.fc-event div {
+    font-size: 12px;
+    /* Details font size */
+}
+
+.fc-event {
+    height: 100%;
+    /* Make the event fill the entire slot */
+    overflow: hidden;
+    /* Optional: Prevent content from spilling out */
+}

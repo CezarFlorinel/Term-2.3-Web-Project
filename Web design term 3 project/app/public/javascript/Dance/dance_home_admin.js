@@ -42,6 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
+    document.getElementById('js_addArtistButton').addEventListener('click', function () {
+        addArtist();
+    });
+
+
+
 });
 
 function toggleEditSave(button, id) {
@@ -131,4 +137,40 @@ function createClubLocation() {
         });
 
     return false; // Prevent traditional form submission
+
+}
+
+function addArtist() {
+    const form = document.getElementById('js_add-artist-form');
+    const formData = new FormData(form);
+
+    const fileInputTop = document.getElementById('js_imageTopArtistInput');
+    const fileInputLineup = document.getElementById('js_imageLineupInput');
+
+    if (fileInputTop.files[0]) {
+        formData.append('imageTop', fileInputTop.files[0]);
+    }
+    if (fileInputLineup.files[0]) {
+        formData.append('imageArtistLineup', fileInputLineup.files[0]);
+    }
+
+
+    fetch('/api/danceHomeAdmin/addArtist', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+
+            }
+            else {
+                errorHandler.showAlert(data.error);
+            }
+        })
+        .catch(error => {
+            errorHandler.showAlert(error);
+        });
+
 }

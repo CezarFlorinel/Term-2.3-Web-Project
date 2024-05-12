@@ -1,10 +1,12 @@
 <div class="flex flex-col" style="font-family: 'Playfair Display', serif;">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-5xl font-bold">Your Personal Program</h1>
-        <button
-            class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-            Change View
-        </button>
+        <a href="<?php echo htmlspecialchars($changeViewLink) ?>">
+            <button
+                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                Change View
+            </button>
+        </a>
     </div>
     <div class="flex items-center mt-4">
         <p class="mr-4 text-2xl" style="font-family: 'Playfair Display', serif;">Share your personal
