@@ -184,7 +184,4 @@ class YummyService
     {
         $this->yummyRepository->addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive);
     }
-
-
-
 }

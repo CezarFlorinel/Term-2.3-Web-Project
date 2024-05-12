@@ -1,3 +1,5 @@
+<?php include __DIR__ . '/../header.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,3 +82,5 @@
 </body>
 
 </html>
+
+<?php include __DIR__ . '/../footer.php'; ?>
