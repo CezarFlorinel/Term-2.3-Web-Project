@@ -14,7 +14,7 @@ class YummyEventController
     }
 
     public function index()
-    {     
+    {
         require __DIR__ . '/../views/yummy_event/reservation_form.php';
     }
 
@@ -33,18 +33,19 @@ class YummyEventController
             $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
 
             // Default restaurant ID and active status 
-            $restaurantID = 1; 
-            $isActive = 1; 
+            $restaurantID = 1;
+            $isActive = 1;
+            //$session = 3;
 
-            try {                
+            try {
                 $this->yummyService->addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $isActive);
                 // Redirect to a success page or another appropriate action
-                header('Location: /reservation-success'); // Adjust the redirection URL as needed
-            } catch (\Exception $e) {               
-                header('Location: /reservation-error'); // Redirect to an error page
+                header('Location: /'); // Adjust the redirection URL as needed
+            } catch (\Exception $e) {
+                // header('Location: /'); // Redirect to an error page
             }
             exit;
-        } else {          
+        } else {
             echo 'Invalid request method.';
             exit;
         }
