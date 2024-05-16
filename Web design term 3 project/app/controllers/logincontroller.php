@@ -21,7 +21,7 @@ class LoginController
     public function index()
     {
         //Check if session is started and user is logged in
-        if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['userId'])) {
+        if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['userId']) && !empty($_SESSION['userId'])) {
             header("Location: /userAccount");
             exit();
         } else {
@@ -30,12 +30,5 @@ class LoginController
         }
      }
 
-    public function logout()
-    {
-        session_destroy();
-
-        $redirectTo = '/home';
-        header("Location: $redirectTo");
-        exit();
-    }
+    
 }

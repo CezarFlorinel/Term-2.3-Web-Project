@@ -79,6 +79,18 @@ class UserController
         }
     }
 
+    public function Logout()
+    {
+        session_unset();
+        session_destroy();
+
+        $redirectTo = '/';
+
+        echo json_encode(['success' => true, 'message' => 'Logged out successfully', 'redirectTo' => $redirectTo]);
+        exit();
+    
+    }
+
     public function getAllUsers()
     {
         //implement some kind of protection for methods that should only be accessed by admins
