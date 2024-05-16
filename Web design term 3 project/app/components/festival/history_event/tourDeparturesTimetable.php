@@ -9,8 +9,8 @@
         // Convert string date to PHP DateTime object
         $dateObject = new DateTime($timetable->date);
 
-        $day = $dateObject->format('d'); // Day of the month
-        $month = $dateObject->format('M'); // Month as three letters
+        $day = $dateObject->format('d');
+        $month = $dateObject->format('M');
         $dayOfWeek = $dateObject->format('l'); // Full name of the day of the week
         ?>
         <div class="timetable-day">
