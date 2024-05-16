@@ -211,4 +211,17 @@ class PaymentRepository extends Repository
         return $this->connection->lastInsertId();
     }
 
+    public function createNewOrderItem($quantity, $typeOfFestival, $orderFK, $passFK = null, $danceTicketFK = null, $historyTicketFK = null): void
+    {
+        $stmt = $this->connection->prepare('INSERT INTO ORDER_ITEM (Quantity, TypeOfFestival, Order_FK, Pass_FK, DanceTicket_FK, HistoryTicket_FK) VALUES (:quantity, :type_of_festival, :order_fk, :pass_fk, :dance_ticket_fk, :history_ticket_fk)');
+        $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
+        $stmt->bindParam(':type_of_festival', $typeOfFestival, PDO::PARAM_STR);
+        $stmt->bindParam(':order_fk', $orderFK, PDO::PARAM_INT);
+        $stmt->bindParam(':pass_fk', $passFK, PDO::PARAM_INT);
+        $stmt->bindParam(':dance_ticket_fk', $danceTicketFK, PDO::PARAM_INT);
+        $stmt->bindParam(':history_ticket_fk', $historyTicketFK, PDO::PARAM_INT);
+        $stmt->execute();
+
+    }
+
 }

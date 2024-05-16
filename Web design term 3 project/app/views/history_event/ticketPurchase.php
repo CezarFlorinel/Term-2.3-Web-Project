@@ -7,7 +7,7 @@ $historyService = new HistoryService();
 $paymentService = new PaymentService();
 
 $usedID = 1; // this is the ID of the user that is currently logged in, to be replaced with the actual ID of the user
-$order = $paymentService->getOrderByUserId($usedID);
+$orderID = $paymentService->getOrderByUserId($usedID)->orderID;
 
 $historyTickets = $historyService->getHistoryTicketPrices();
 $firstHistoryTicket = $historyTickets[0];
@@ -149,7 +149,7 @@ foreach ($tours as $tour) {
     <script type="text/javascript">
         const tours = <?php echo json_encode($toursWithDates); ?>;
         console.log(tours);
-        const order = <?php echo json_encode($order); ?>;
+        const orderID = <?php echo json_encode($orderID); ?>;
     </script>
     <script type="module" src="javascript/History/ticket_purchase_history.js"></script>
 

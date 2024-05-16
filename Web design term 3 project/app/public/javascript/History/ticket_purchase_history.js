@@ -39,7 +39,115 @@ document.addEventListener('DOMContentLoaded', () => {
         ticketPrice = event.target.getAttribute('data-price');
         calculateTotalPrice(ticketPrice);
     });
+
+    retrieveDataFromURL();
+
+    document.getElementById('js_addToCartButton').addEventListener('click', () => {
+        addToCart();
+    });
+
 });
+
+function addToCart() {
+    // add checks later on
+
+    const payload = {
+        tourId: idOfSelectedTour,
+        quantity: quantity,
+        orderID: orderID,
+        typeOfTicket: ticketType,
+        language: selectedLanguage,
+        date: date
+    };
+    console.log('Payload:', payload);
+
+    fetch('/api/historyAdmin/addHistoryTicketToPersonalProgram', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            window.location.href = '/personalProgramListView';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
+}
+
+function retrieveDataFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tourId = urlParams.get('tourId');
+    const type = urlParams.get('type');
+    const language = urlParams.get('language');
+
+    if (tourId && type && language) {
+        quantity = 1;
+        idOfSelectedTour = parseInt(tourId);
+        selectedLanguage = language;
+        let selectedTour = null;
+
+        Object.values(tours).forEach(tour => {
+            if (tour.id == tourId) {
+                selectedTour = tour;
+            }
+        });
+
+        date = selectedTour.date;
+        time = selectedTour.startTime.split(':00.0000000')[0];
+        theSelectedTime = time;
+
+        document.getElementById('js_number-of-tickets').value = quantity;
+        document.getElementById('js_regularTicket').classList.remove('active');
+        document.getElementById('js_familyTicket').classList.add('active');
+        ticketPrice = document.getElementById('js_regularTicket').getAttribute('data-price');
+        calculateTotalPrice(ticketPrice);
+
+
+        if (selectedLanguage === 'English') {
+            document.getElementById('js_en_option').classList.add('selected-flag');
+        } else if (selectedLanguage === 'Dutch') {
+            document.getElementById('js_nl_option').classList.add('selected-flag');
+        } else {
+            document.getElementById('js_cn_option').classList.add('selected-flag');
+        }
+        filterToursByLanguage();
+        selectDate(new Date(date).getDate(), document.getElementById(`js_date${new Date(date).getDate()}`));
+        enableMatchingTimeButton();
+
+
+
+    }
+    else if (type) {
+        quantity = 1;
+        if (type !== 'regular') {
+            ticketType = 'Family Ticket';
+            document.getElementById('js_familyTicket').classList.remove('active');
+            document.getElementById('js_regularTicket').classList.add('active');
+            ticketPrice = document.getElementById('js_familyTicket').getAttribute('data-price');
+            document.getElementById('js_number-of-tickets').value = quantity;
+            calculateTotalPrice(ticketPrice);
+        }
+    }
+
+
+}
+
+function enableMatchingTimeButton() {
+    // Get all buttons inside the time-group
+    const timeButtons = document.querySelectorAll('#time-group button');
+
+    // Iterate over each button to find the one with the matching time
+    timeButtons.forEach(button => {
+        if (button.innerText === time) {
+            selectTime(time, button);
+        }
+    });
+}
 
 function calculateTotalPrice(price) {
     totalPrice = quantity * parseFloat(price);
@@ -47,7 +155,6 @@ function calculateTotalPrice(price) {
     let formattedTotalPrice = `${totalPrice.toFixed(2)}€`;
     document.getElementById('js_totalPrice').innerText = formattedTotalPrice;
 }
-
 
 function addEventListenerToFlags() {
     const flagContainer = document.querySelector('.form-group.flag-icons .flex');
@@ -121,12 +228,8 @@ function selectDate(selectedDate, dateButton) {
     dateButton.classList.remove('active');
     resetTimes();
 
-    date = selectedDate;
-    console.log('Selected date:', date);
-
-
     // Enable times based on selected date
-    filterToursByDate(date);
+    filterToursByDate(selectedDate);
 }
 
 function filterToursByDate(date) {
@@ -188,6 +291,7 @@ function selectTheTour() {
     filteredToursByDate.forEach(tour => {
         if (tour.startTime.split(':00.0000000')[0] === theSelectedTime) {
             idOfSelectedTour = tour.id;
+            date = tour.date;
             console.log('Selected tour:', tour);
         }
     });

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\History_event\HistoryPracticalInformation;
 use App\Repositories\HistoryRepository;
 use App\Models\History_event\HistoryRoute;
+use App\Models\History_event\HistoryTours;
 
 class HistoryService // manages all the history service
 {
@@ -29,6 +30,11 @@ class HistoryService // manages all the history service
     public function getHistoryPracticalInformation(): array
     {
         return $this->repository->getHistoryPracticalInformation();
+    }
+
+    public function getHistoryTourByID($id): HistoryTours
+    {
+        return $this->repository->getHistoryTourByID($id);
     }
 
     public function getHistoryTopParts()
