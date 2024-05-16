@@ -1,6 +1,6 @@
 let selectedLanguage = null;
 let quantity = 0;
-let ticketType = 'regular';
+let ticketType = 'Regular Participant';
 let ticketPrice = 0;
 let totalPrice = 0;
 let date = null;
@@ -8,6 +8,8 @@ let time = null;
 let filteredToursByLanguage = [];
 let filteredToursByDate = [];
 let filteredToursByTime = [];
+let theSelectedTime = null;
+let idOfSelectedTour = null;
 
 
 // JavaScript code for selecting a flag
@@ -21,7 +23,30 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('js_addQuantityButton').addEventListener('click', () => {
         changeNumberOfTickets(1);
     });
+
+    document.getElementById('js_regularTicket').addEventListener('click', (event) => {
+        event.target.classList.remove('active');
+        document.getElementById('js_familyTicket').classList.add('active');
+        ticketType = 'Regular Participant';
+        ticketPrice = event.target.getAttribute('data-price');
+        calculateTotalPrice(ticketPrice);
+    });
+
+    document.getElementById('js_familyTicket').addEventListener('click', (event) => {
+        event.target.classList.remove('active');
+        document.getElementById('js_regularTicket').classList.add('active');
+        ticketType = 'Family Ticket';
+        ticketPrice = event.target.getAttribute('data-price');
+        calculateTotalPrice(ticketPrice);
+    });
 });
+
+function calculateTotalPrice(price) {
+    totalPrice = quantity * parseFloat(price);
+
+    let formattedTotalPrice = `${totalPrice.toFixed(2)}€`;
+    document.getElementById('js_totalPrice').innerText = formattedTotalPrice;
+}
 
 
 function addEventListenerToFlags() {
@@ -63,6 +88,7 @@ function filterToursByLanguage() {
     });
 
     console.log('Filtered tours by language:', filteredToursByLanguage);
+    resetAll();
     enableDates();
 }
 
@@ -89,12 +115,11 @@ function enableDates() {
     });
 }
 
-
 function selectDate(selectedDate, dateButton) {
 
-    const dateButtons = document.querySelectorAll('#date-group button');
-    dateButtons.forEach(button => button.classList.add('active'));
+    resetDates();
     dateButton.classList.remove('active');
+    resetTimes();
 
     date = selectedDate;
     console.log('Selected date:', date);
@@ -128,13 +153,21 @@ function enableTimes() {
         button.parentNode.replaceChild(newButton, button);
     });
 
-    // Collect available start times from filtered tours
-    const availableTimes = new Set(filteredToursByDate.map(tour => tour.startTime));
+    // Re-select the new buttons after cloning
+    const newTimeButtons = document.querySelectorAll('#time-group button');
+
+    // Collect available start times from filtered tours and normalize them
+    const availableTimes = new Set(
+        filteredToursByDate.map(tour => tour.startTime.split(':00.0000000')[0])
+    );
+
+    console.log('Available times:', availableTimes);
 
     // Enable only the buttons for the available start times
-    timeButtons.forEach(button => {
+    newTimeButtons.forEach(button => {
         const time = button.innerText;
-        if (availableTimes.has(`${time}:00.0000000`)) {
+        console.log('Button time:', time);
+        if (availableTimes.has(time)) {
             button.disabled = false;
             button.addEventListener('click', () => selectTime(time, button));
         }
@@ -142,15 +175,42 @@ function enableTimes() {
 }
 
 function selectTime(selectedTime, timeButton) {
-    const timeButtons = document.querySelectorAll('#time-group button');
-    timeButtons.forEach(button => button.classList.remove('active'));
-    timeButton.classList.add('active');
+    time = selectedTime;
+    resetTimes();
+    timeButton.classList.remove('active');
 
     console.log('Selected time:', selectedTime);
+    theSelectedTime = selectedTime;
+    selectTheTour();
 }
 
+function selectTheTour() {
+    filteredToursByDate.forEach(tour => {
+        if (tour.startTime.split(':00.0000000')[0] === theSelectedTime) {
+            idOfSelectedTour = tour.id;
+            console.log('Selected tour:', tour);
+        }
+    });
+}
 
+function resetDates() {
+    const dateButtons = document.querySelectorAll('#date-group button');
+    dateButtons.forEach(button => button.classList.add('active'));
+}
+function resetTimes() {
+    filteredToursByTime = [];
+    const timeButtons = document.querySelectorAll('#time-group button');
+    timeButtons.forEach(button => button.classList.add('active'));
+}
 
+function resetAll() {
+    resetTimes();
+    resetDates();
+    filteredToursByDate = [];
+    filteredToursByTime = [];
+    const timeButtons = document.querySelectorAll('#time-group button');
+    timeButtons.forEach(button => button.disabled = true);
+}
 
 function changeNumberOfTickets(amount) {
     const numberOfTicketsInput = document.getElementById('js_number-of-tickets');
@@ -167,5 +227,15 @@ function changeNumberOfTickets(amount) {
     // Ensure the value does not go below 0
     if (newValue >= 0) {
         numberOfTicketsInput.value = newValue;
+        quantity = newValue;
+        if (ticketType == 'Regular Participant') {
+            ticketPrice = document.getElementById('js_regularTicket').getAttribute('data-price');
+            calculateTotalPrice(ticketPrice);
+        }
+        else {
+            ticketPrice = document.getElementById('js_familyTicket').getAttribute('data-price');
+            calculateTotalPrice(ticketPrice);
+        }
     }
+
 }
