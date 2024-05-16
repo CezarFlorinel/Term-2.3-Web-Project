@@ -66,7 +66,7 @@ class ChangePasswordController
         try {
             ErrorHandlerMethod::serverIsNotPostMethodCheck($this->sessionManager, '/changePassword', $_SERVER['REQUEST_METHOD']);
 
-            $link = $this->starterLink . "?userID=" . $_POST['userID'] . "&secondPhase=true";
+            $link = $this->starterLink . "?userID=" . $_POST['userID'] . "&secondPhase=true"; // is this used?
 
             $this->runChecksOnChangePassword($link);
 
@@ -74,7 +74,7 @@ class ChangePasswordController
                 $this->userService->changePassword($_POST['userID'], $_POST['newPassword']);
                 $this->userService->deleteKey($_POST['key']);
                 $this->sessionManager->setSuccess("The password has been changed successfully.");
-                header('Location: /');
+                header('Location: /login');
                 exit;
             }
 
