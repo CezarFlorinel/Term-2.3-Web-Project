@@ -29,4 +29,9 @@ user account:
 email: jane.white@email.com  
 password: 12345678
 
+employee account:
+
+email:burlacuelena130@gmail.com
+password: 12345678
+
 ```

@@ -60,8 +60,10 @@ class UserController
                 $_SESSION['userName'] = $user->getName();
                 $_SESSION['userRole'] = $user->getUserRole();
 
-                if ($user->getUserRole() == 'Member' || $user->getUserRole() == 'Employee') {
+                if ($user->getUserRole() == 'Member') {
                     $redirectTo = '/';
+                } else if ($user->getUserRole() == 'Employee') {
+                    $redirectTo = '/employee';
                 } else {
                     $redirectTo = '/admin';
                 }

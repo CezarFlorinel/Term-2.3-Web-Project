@@ -1,4 +1,4 @@
-import handleApiResponse from "../Utilities/handle_data_checks.js";
+import {handleApiResponse} from "../Utilities/handle_data_checks.js";
 import ErrorHandler from "../Utilities/error_handler_class.js";
 const errorHandler = new ErrorHandler();
 
@@ -7,29 +7,29 @@ const errorHandler = new ErrorHandler();
 document.addEventListener("DOMContentLoaded", function () {
   //Search
 
-  function searchFunction() {
-    // Declare variables
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("search");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("userTable");
-    const tableBody = document.querySelectorAll("#userTable tbody");
-    tr = tableBody.getElementsByTagName("tr");
+  // function searchFunction() {
+  //    Declare variables
+  //   var input, filter, table, tr, td, i, txtValue;
+  //   input = document.getElementById("search");
+  //   filter = input.value.toUpperCase();
+  //   table = document.getElementById("userTable");
+  //   const tableBody = document.querySelectorAll("#userTable tbody");
+  //   tr = tableBody.getElementsByTagName("tr");
 
-    // Loop through all table rows, and hide those who don't match the search query
-    for (i = 0; i < tr.length; i++) {
-      // Change the index according to the column you want to search
-      td = tr[i].getElementsByTagName("td")[3];
-      if (td) {
-        txtValue = td.textContent || td.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }
-    }
-  }
+  //    Loop through all table rows, and hide those who don't match the search query
+  //   for (i = 0; i < tr.length; i++) {
+  //      Change the index according to the column you want to search
+  //     td = tr[i].getElementsByTagName("td")[3];
+  //     if (td) {
+  //       txtValue = td.textContent || td.innerText;
+  //       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+  //         tr[i].style.display = "";
+  //       } else {
+  //         tr[i].style.display = "none";
+  //       }
+  //     }
+  //   }
+  // }
 
   //Filling the table with users
 
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </td>
             </tr>
         `;
-        searchFunction();
+        //searchFunction();
       });
 
       const deleteButtons = document.querySelectorAll(
