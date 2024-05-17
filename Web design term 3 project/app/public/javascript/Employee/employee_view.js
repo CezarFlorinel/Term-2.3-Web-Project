@@ -10,54 +10,71 @@ document.getElementById('startButton').addEventListener('click', () => {
 
     codeReader.getVideoInputDevices()
         .then((videoInputDevices) => {
-            const firstDeviceId = videoInputDevices[0].deviceId
+            const firstDeviceId = videoInputDevices[0].deviceId;
             codeReader.decodeFromVideoDevice(firstDeviceId, 'video', (result, err) => {
                 if (result) {
-                    console.log(result)
+                    console.log(result);
                     fetch('/api/employee/handleQRData', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({qrData: result.text})
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ qrData: result.text })
                     })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.error) {
-                                // Handle error case
-                                console.error('Error:', data.error);
-                                alert('Error: ' + data.error);
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error('Error:', data.error);
+                            alert('Error: ' + data.error);
+                        } else {
+                            if (data.scanned) {
+                                // Ticket already scanned
+                                scanned = true;
+                                changeTicketState(result.text);
                             } else {
-                                if (data.scanned) {
-                                    // Ticket already scanned
-                                    scanned = true;
-                                    displayTicketInformation();
-                                    // Perform additional actions if needed
-                                } else {
-                                    // Ticket scanned for the first time
-                                    scanned = false;
-                                    displayTicketInformation();
-                                    // Perform additional actions if needed
-                                }
+                                // Ticket scanned for the first time
+                                scanned = false;
+                                changeTicketState(result.text);
                             }
-                        })
-                        .catch(error => {
-                            // Handle fetch or parsing errors
-                            console.error('Fetch error:', error);
-                            alert('Fetch error: ' + error.message);
-                        });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                        alert('Fetch error: ' + error.message);
+                    });
                 }
                 if (err && !(err instanceof ZXing.NotFoundException)) {
-                    console.error(err)
-                    alert('Error scanning QR Code: ' + err.message)
+                    console.error(err);
+                    alert('Error scanning QR Code: ' + err.message);
                 }
-            })
+            });
         })
-    .catch((err) => {
-        console.error(err);
-        alert('Error initializing camera: ' + err.message);
-    })
+        .catch((err) => {
+            console.error(err);
+            alert('Error initializing camera: ' + err.message);
+        });
 });
+
+function changeTicketState(qrData) {
+    fetch('/api/employee/changeTicketState', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ qrData })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            alert('Error: ' + data.error);
+        } else {
+            alert(data.message); // Display success message
+            displayTicketInformation();
+        }
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+        alert('Fetch error: ' + error.message);
+    });
+}
+
 
 function displayTicketInformation(){
     fetch('/api/employee/getTicketInformation', {
@@ -95,7 +112,6 @@ function populateForm(data){
     ticketInfoCard.appendChild(heading);
 
     console.log(data);
-    // Assuming there's only one reservation in the data array
     const ticket = data[0];
 
     const reservationDetails = document.createElement('div');
@@ -115,8 +131,8 @@ function populateForm(data){
             Scanned: ${scanned ? 'Yes' : 'No'} <br>
         </p>
     </div>
-`;
+    `;
 
     ticketInfoCard.appendChild(reservationDetails);
-
 }
+
