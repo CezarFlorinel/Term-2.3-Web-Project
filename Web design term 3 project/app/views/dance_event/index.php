@@ -105,6 +105,7 @@ foreach ($dancePasses as $pass) {
     </script>
 
     <script type="module" src="javascript/Dance/festival_general_page.js"></script>
+    <script type="module" src="javascript/Dance/order_tickets_dance_home.js"></script>
 
 </body>
 

@@ -3,15 +3,20 @@ namespace App\Api\Controllers;
 
 use App\Services\TicketsService;
 use App\Utilities\ErrorHandlerMethod;
+use App\Services\PaymentService;
 use Exception;
 
 class DanceManageTicketsController
 {
     private $ticketsService;
+    private $paymentService;
+
+    const DEFAULT_TYPE = "DanceFestival";
 
     public function __construct()
     {
         $this->ticketsService = new TicketsService();
+        $this->paymentService = new PaymentService();
     }
 
     public function updateDanceTicketInformation()
@@ -223,6 +228,32 @@ class DanceManageTicketsController
 
     }
 
+    public function orderTicket()
+    {
+        try {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+                if (isset($_POST['orderID'], $_POST['ticketID'], $_POST['quantity'])) {
+                    $orderID = filter_var($_POST['orderID'], FILTER_VALIDATE_INT);
+                    $ticketID = filter_var($_POST['ticketID'], FILTER_VALIDATE_INT);
+                    $quantity = filter_var($_POST['quantity'], FILTER_VALIDATE_INT);
+
+                    $this->paymentService->createNewOrderItem($quantity, self::DEFAULT_TYPE, $orderID, null, $ticketID);
+
+                    echo json_encode(['success' => true, 'message' => 'Ticket ordered successfully']);
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'error' => 'Missing required fields']);
+                }
+            } else {
+                http_response_code(405);
+                echo json_encode(['success' => false, 'error' => 'Method not allowed']);
+            }
+
+        } catch (Exception $e) {
+            ErrorHandlerMethod::handleErrorApiController($e);
+        }
+    }
 
 
 
