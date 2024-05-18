@@ -1,0 +1,300 @@
+ body {
+     font-family: Arial, sans-serif;
+     margin: 0;
+     padding: 0;
+     padding-bottom: 20px;
+     background-color: black;
+     color: white;
+     display: flex;
+     flex-direction: column;
+     /* Stack content vertically */
+     min-height: 200vh;
+     width: 100%;
+     /* Changed from 100vw to prevent potential scrollbar issues */
+     overflow-x: hidden;
+ }
+
+ .main-container {
+     display: flex;
+     flex-direction: column;
+     /* Stack content vertically */
+     align-items: center;
+     width: 100%;
+     /* Ensure container width does not exceed viewport */
+     flex: 1;
+     /* Allow container to expand */
+     padding: 20px 0;
+     /* Increase padding for space around content, including header */
+ }
+
+ .header-text {
+     margin-top: 20px;
+     text-align: center;
+     width: 90%;
+     /* Adjust content width to prevent overflow, with some padding */
+     max-width: 1200px;
+     /* Maximum content width */
+     margin: 20px auto;
+     /* Center content and add spacing */
+ }
+
+ .header-text h1 {
+     font-family: "Playfair Display";
+     font-size: 2em;
+     /* Adjust as needed */
+     margin-bottom: 0.5em;
+     /* Space between the h1 and paragraph */
+ }
+
+ .header-text p {
+     font-family: "Imprima";
+     font-size: 1.2em;
+     /* Adjust as needed */
+     margin-bottom: 1em;
+     /* Space below the paragraph */
+ }
+
+ .content {
+     display: flex;
+     justify-content: center;
+     align-items: flex-start;
+     max-width: 1200px;
+     width: 100%;
+     margin-top: 20px;
+ }
+
+ .header-text,
+ .content {
+     width: 90%;
+     /* Adjust content width to prevent overflow, with some padding */
+     max-width: 1200px;
+     /* Maximum content width */
+     margin: 20px auto;
+     /* Center content and add spacing */
+ }
+
+ .image-section {
+     margin-right: 20px;
+ }
+
+ .image-section img {
+     width: 100%;
+     /* Ensure width is fully responsive */
+     height: auto;
+     /* Maintain aspect ratio */
+     max-width: 600px;
+     /* Limit maximum size to keep the image reasonable */
+ }
+
+ .booking-form {
+     padding: 40px;
+     /* Increased padding */
+     background-color: #f8f9fa;
+     border-radius: 10px;
+     margin: 20px auto;
+     /* Added space around the form */
+     font-size: 0.9rem;
+     /* Smaller relative font size */
+ }
+
+ .booking-form label,
+ .booking-form input,
+ .booking-form button {
+     font-size: 1em;
+     /* Relative size to the .booking-form */
+ }
+
+ @media (max-width: 1200px) {
+
+     body {
+         min-height: 300vh;
+         padding-bottom: 50px;
+     }
+
+     .content {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         min-height: 100vh;
+         padding-bottom: 20px;
+     }
+
+     .image-section,
+     .booking-form {
+         width: 100%;
+         /* Make both children take full width of their container */
+         max-width: 600px;
+         /* Set a max-width to keep content from getting too wide */
+         margin: 10px auto;
+         /* Centering these elements horizontally */
+     }
+
+     .image-section img {
+         width: 100%;
+         /* Make the image responsive */
+         height: auto;
+         /* Maintain aspect ratio */
+         margin-bottom: 20px;
+         /* Add space between the image and the form */
+     }
+
+     .booking-form {
+         box-sizing: border-box;
+         /* Include padding and border in the width of the element */
+         padding: 20px;
+         /* Ensure there's enough padding inside the form */
+     }
+ }
+
+ .booking-form label,
+ .booking-form input,
+ .booking-form button {
+     font-size: 0.9em;
+     /* Slightly larger than the form to maintain hierarchy */
+ }
+
+ .form-group {
+     margin-bottom: 15px;
+
+ }
+
+ .form-group label {
+     font-family: "Imprima";
+     font-size: 1.4em;
+     /* font-weight: bold; */
+     color: black;
+     display: block;
+     margin-bottom: 5px;
+ }
+
+ .button-group {
+     border: 2px solid black;
+     /* Black border for the container */
+     border-radius: 20px;
+     display: inline-flex;
+     justify-content: center;
+     overflow: hidden;
+ }
+
+ .button-group button {
+     padding: 10px 30px;
+     /* Wider buttons */
+     border: none;
+     background-color: #f8f9fa;
+     cursor: pointer;
+     outline: none;
+     font-size: 1em;
+     transition: background-color 0.2s ease;
+     flex: 1;
+     /* Equal width for all buttons */
+ }
+
+ .button-group button:not(:last-child) {
+     border-right: 2px solid black;
+     /* Black divider between buttons */
+ }
+
+ .button-group button.active {
+     background-color: #e7e7e7;
+ }
+
+ .number-input {
+     display: flex;
+     align-items: center;
+ }
+
+ .number-input button {
+     padding: 10px;
+     border: 2px solid black;
+     background-color: #f8f9fa;
+     cursor: pointer;
+     margin-left: 10px;
+     /* Left margin added here */
+ }
+
+ .number-input button:first-child {
+     margin-left: 0;
+     /* No left margin for the first button */
+ }
+
+ .number-input input {
+     border: 1px solid black;
+     text-align: center;
+     margin: 0 5px;
+     max-width: 50px;
+ }
+
+ .submit-btn {
+     background-color: red;
+     color: white;
+     padding: 10px 30px;
+     border: none;
+     cursor: pointer;
+     font-family: 'Comic Sans MS';
+     font-size: 16px;
+     border-radius: 20px;
+     transition: background-color 0.3s ease;
+     margin: 20px auto 30px;
+     display: block;
+     width: 60%;
+ }
+
+ .submit-btn:hover {
+     background-color: darkred;
+ }
+
+ .flag-icons img {
+     width: 40px;
+     height: auto;
+     margin-right: 10px;
+ }
+
+ .ticket-btn {
+     padding: 15px 30px;
+     /* Larger padding for bigger buttons */
+     margin: 5px;
+     /* Add some space around buttons */
+     border: 2px solid black;
+     background-color: white;
+     /* Set background to white */
+     cursor: pointer;
+     border-radius: 20px;
+     /* Rounded corners */
+     font-size: 1em;
+     /* Adjust font size as needed */
+     outline: none;
+     transition: background-color 0.2s ease;
+ }
+
+ .ticket-btn.active,
+ .ticket-btn:hover {
+     background-color: #e7e7e7;
+     /* Light grey background for active/hover state */
+ }
+
+ .total-container {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     border-top: 1px solid #ccc;
+     padding: 15px 10px;
+     margin: 20px 0;
+ }
+
+ .total-container label {
+     font-family: 'Imprima';
+     font-size: 1.6em;
+     font-weight: bold;
+     color: black;
+ }
+
+ .total-container span {
+     font-family: 'Imprima';
+     font-size: 1.6em;
+     color: black;
+ }
+
+ .selected-flag {
+     border: 2px solid black;
+     border-radius: 4px;
+ }

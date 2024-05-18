@@ -1,9 +1,15 @@
 <?php
 use App\Services\DanceService;
 use App\Services\TicketsService;
+use App\Services\PaymentService;
+
 
 $ticketService = new TicketsService();
 $danceService = new DanceService();
+$paymentService = new PaymentService();
+
+$userID = 1; // TODO: get the user id from the session
+$order = $paymentService->getOrderByUserId($userID);
 
 $imagePathTop = $danceService->getImageHomePage()->imagePath;
 $clubLocations = $danceService->getAllClubLocations();
@@ -99,6 +105,7 @@ foreach ($dancePasses as $pass) {
     </script>
 
     <script type="module" src="javascript/Dance/festival_general_page.js"></script>
+    <script type="module" src="javascript/Dance/order_tickets_dance_home.js"></script>
 
 </body>
 

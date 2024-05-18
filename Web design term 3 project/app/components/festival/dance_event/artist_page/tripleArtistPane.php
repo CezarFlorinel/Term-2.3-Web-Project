@@ -45,7 +45,8 @@
         <div class="text-white text-sm mt-0 ml-2"><?php echo htmlspecialchars($ticket->location) ?>
         </div>
         <div class="flex items-center mt-1 ml-2">
-            <input type="checkbox" id="price_panel2" name="price">
+            <input type="radio" id="js_price_panel_<?php echo htmlspecialchars($ticket->D_TicketID); ?>" name="price"
+                value="<?php echo htmlspecialchars($ticket->D_TicketID); ?>">
             <label for="price_panel2" class="ml-1 text-white text-m">€ <?php $formattedPrice = number_format($ticket->price, 2, '.', '');
             echo htmlspecialchars($formattedPrice); ?></label>
         </div>
