@@ -26,7 +26,7 @@ $weekday = $date->format('l');
     </div>
     <div class="text-white text-sm mt-0 ml-2"><?php echo htmlspecialchars($passedTicket->location) ?></div>
     <div class="flex items-center mt-1 ml-2">
-        <input type="checkbox" id="price_panel1" name="price" value="60.00">
+        <input type="checkbox" id="price_panel1" name="price">
         <label for="price_panel1" class="ml-1 text-white text-m">€ <?php $formattedPrice = number_format($passedTicket->price, 2, '.', '');
         echo htmlspecialchars($formattedPrice); ?></label>
     </div>
