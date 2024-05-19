@@ -7,6 +7,7 @@ use App\Models\Tickets\UserQrTicket;
 use App\Models\Tickets\HistoryTicket;
 use App\Models\Tickets\DancePasses;
 use App\Models\Tickets\DanceTicket;
+use PDOException;
 
 
 class TicketsRepository extends Repository
@@ -102,6 +103,29 @@ class TicketsRepository extends Repository
                 $row['Scanned']
             );
         }, $result);
+    }
+
+    public function scanQRCode(string $ticketID) {
+        try {
+            $stmt = $this->connection->prepare("UPDATE [USER_QR_TICKET] SET Scanned = 1 WHERE TicketID = :ticketID");
+            $stmt->bindValue(':ticketID', $ticketID);
+            return $stmt->execute();
+        } catch (\PDOException $e) {
+            throw new \exception('Error scanning qr code: ' . $e->getMessage());
+        }
+    }
+    public function getQrCodeById($ticketID) {
+        try {
+            $stmt = $this->connection->prepare("SELECT TicketID FROM USER_QR_TICKET WHERE TicketID = :TicketID");
+            $stmt->bindParam(':TicketID', $ticketID, PDO::PARAM_STR);
+            $stmt->execute();
+            
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result ? $result : null;
+        } catch (PDOException $e) {
+            error_log('Error: ' . $e->getMessage());
+            throw $e;
+        }
     }
 
     public function countHistoryTicketsReserved(int $tourID, string $lanuguage): int
