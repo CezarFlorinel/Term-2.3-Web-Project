@@ -22,4 +22,17 @@ class EmployeeController
             echo json_encode(['success' => false, 'message' => 'QR code not found']);
         }
     }
+
+    public function getTicketStatus() {
+
+        $ticketID = $_GET['ticketID'] ?? null;
+        if(isset($ticketID)) {
+            $ticket = $this->ticketService->getQrCodeById($ticketID);
+            echo json_encode(['success' => true, 'data' => $ticket]);
+        } else {
+            http_response_code(404);
+            echo json_encode(['success' => false, 'message' => 'QR code not found']);
+        }
+
+    }
 }

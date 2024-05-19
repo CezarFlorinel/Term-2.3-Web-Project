@@ -116,7 +116,7 @@ class TicketsRepository extends Repository
     }
     public function getQrCodeById($ticketID) {
         try {
-            $stmt = $this->connection->prepare("SELECT TicketID FROM USER_QR_TICKET WHERE TicketID = :TicketID");
+            $stmt = $this->connection->prepare("SELECT Scanned FROM USER_QR_TICKET WHERE TicketID = :TicketID");
             $stmt->bindParam(':TicketID', $ticketID, PDO::PARAM_STR);
             $stmt->execute();
             
