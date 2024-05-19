@@ -19,7 +19,7 @@
             <p class="ticket-price-text">
                 <?php echo htmlspecialchars($firstHistoryTicket->description); ?>
             </p>
-            <a href="/tickethistory">
+            <a href="/tickethistory?type=regular">
                 <button type="button" class="btn2">Buy Now</button>
             </a>
         </div>
@@ -36,8 +36,9 @@
             <p class="ticket-price-text-2">
                 <?php echo htmlspecialchars($secondHistoryTicket->description); ?>
             </p>
-
-            <button type="button" class="btn2">Buy Now</button>
+            <a href="/tickethistory?type=family">
+                <button type="button" class="btn2">Buy Now</button>
+            </a>
         </div>
         <img class="ticket-price-image-2" src="<?php echo htmlspecialchars($secondHistoryTicket->imagePath); ?>"
             alt="History Event">

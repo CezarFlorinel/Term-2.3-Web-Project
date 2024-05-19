@@ -22,17 +22,21 @@
                         <span class="text-2xl font-bold">€
                             <?php $formattedPrice = number_format($pass->price, 2, '.', ''); // Format the price to two decimal places
                                 echo htmlspecialchars($formattedPrice); ?></span>
-                        <button
-                            class="flex items-center bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-lg">
-                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 3v18h18" stroke="#fff" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"></path>
-                                <path d="M3 3l18 18" stroke="#fff" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"></path>
-                            </svg>
-                            Add to cart
-                        </button>
+                        <form action="/danceevent/addPassToCart" method="POST">
+                            <input type="hidden" name="orderID" value="<?php echo htmlspecialchars($order->orderID); ?>">
+                            <input type="hidden" name="passID" value="<?php echo htmlspecialchars($pass->passesID); ?>">
+                            <button type="submit"
+                                class="flex items-center bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-lg">
+                                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 3v18h18" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                    <path d="M3 3l18 18" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                </svg>
+                                Add to cart
+                            </button>
+                        </form>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -47,16 +51,22 @@
                 <div class="flex items-center">
                     <span class="text-4xl font-bold mr-6">€ <?php $formattedPrice = number_format($pass->price, 2, '.', ''); // Format the price to two decimal places
                         echo htmlspecialchars($formattedPrice); ?></span>
-                    <button class="flex items-center bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-lg">
-                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 3v18h18" stroke="#fff" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"></path>
-                            <path d="M3 3l18 18" stroke="#fff" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"></path>
-                        </svg>
-                        Add to cart
-                    </button>
+                    <form action="/danceevent/addPassToCart" method="POST">
+                        <input type="hidden" name="orderID" value="<?php echo htmlspecialchars($order->orderID); ?>">
+                        <input type="hidden" name="passID" value="<?php echo htmlspecialchars($pass->passesID); ?>">
+
+                        <button type="submit"
+                            class="flex items-center bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-lg">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 3v18h18" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M3 3l18 18" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg>
+                            Add to cart
+                        </button>
+                    </form>
                 </div>
             <?php endforeach; ?>
         </div>
