@@ -1,3 +1,25 @@
+<?php
+use App\Services\HomeService;
+
+$homeService = new HomeService();
+
+$events = $homeService->getEvents();
+
+$eventsWithLinks = null; // for middle part of the page with redirect link
+$eventsWithoutLinks = null; // for bottom part of the page
+
+foreach ($events as $event) {
+  if ($event->linkToRedirect !== null) {
+    $eventsWithLinks[] = $event;
+  } else {
+    $eventsWithoutLinks[] = $event;
+  }
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,10 +27,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Harlem Festival</title>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Vampiro+One&display=swap" rel="stylesheet">
+
+
+
+
+
   <link rel="stylesheet" href="CSS_files/home.css">
 </head>
 
@@ -37,11 +73,8 @@
       <div>L</div>
     </div>
   </div>
-  <!-- <div class="banner">
-      Let The Fun Begin
-    </div> -->
-  <div>
 
+  <div>
     <section class="section-bg py-10 px-10">
       <div class="text-center mb-8 text-white">
         <h2 class="text-6xl font-bold">WHAT IS THERE TO DO?</h2>
@@ -57,6 +90,39 @@
         <div class="container mx-auto grid grid-cols-1 gap-4"></div>
     </section>
   </div>
+
+  <!-- Events Description -->
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <?php foreach ($eventsWithLinks as $event): ?>
+      <div data-id-event="<?php echo $event->eventID ?>"
+        class="event-container max-w-7xl mx-auto bg-white p-6 shadow-lg rounded-lg lg:grid lg:grid-cols-3 lg:gap-4 items-center"
+        style="max-width: 1300px;">
+        <div class="lg:col-span-1 flex justify-center lg:justify-start">
+          <img src="<?php echo $event->imagePath ?>" alt="A vibrant event"
+            class="event-image rounded-lg w-1/2 md:w-2/3 lg:w-3/4 max-w-xs md:max-w-xs lg:max-w-sm mx-auto lg:mx-0"
+            style="height: auto;">
+          <input type="file" class="event-image-input hidden">
+        </div>
+        <div class="lg:col-span-2">
+          <div class="text-center lg:text-left w-full px-4 mt-6 lg:mt-0 lg:px-0">
+            <input type="text" class="event-title text-2xl font-bold text-gold mt-4 form-control w-full"
+              value="<?php echo $event->eventTitle ?>">
+            <textarea class="event-description summernote w-full"><?php echo $event->eventDescription ?></textarea>
+            <input type="text" class="event-link form-control w-full text-gold mt-2"
+              value="<?php echo $event->linkToRedirect ?>">
+            <button
+              class="save-button mt-4 lg:mt-8 bg-red-500 text-white py-2 px-6 lg:px-60 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+              style="display: block; width: fit-content; margin-left: auto; margin-right: auto; text-align: center;">Save
+              Changes</button>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+
+
+
+
 
   <div class="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
     <div class="max-w-7xl mx-auto bg-white p-6 shadow-lg rounded-lg lg:grid lg:grid-cols-3 lg:gap-4 items-center"
@@ -74,7 +140,7 @@
             and music venues, you can find any kind of music you might like: from the best techno parties to live bands
             playing jazz and songwriter’s concerts. Suitable for young adults, families and people with special needs,
             Haarlem has a place for everyone!</p>
-          <a href="#"
+          <a href="/danceevent"
             class="mt-4 lg:mt-8 inline-block bg-red-500 text-white py-2 px-6 lg:px-60 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
             style="display: block; width: fit-content; margin-left: auto; margin-right: auto; text-align: center;">Learn
             More</a>
@@ -134,6 +200,8 @@
       </div>
     </div>
   </div>
+
+  <!-- Festival Location -->
 
   <div style="height: 60px;"></div>
   <title>Festival Location</title>
@@ -197,11 +265,11 @@
   </div>
 
 
-  <!-- Events -->
+  <!-- Events Bottom Desc -->
   <div class="space-y-10 px-20">
     <!-- Historical Tour -->
     <div
-      class="pt-8 lg:pt-12 bg-no-repeat bg-top bg-[size:100%_auto] bg-[url('assets/images/Home_page_Images/Rectangle.png')]">
+      class="pt-8 lg:pt-12 bg-no-repeat bg-top bg-[size:100%_auto] bg-[url('assets/images/home_page_images/Rectangle.png')]">
       <div class="h-5"></div>
       <div
         class="text-4xl lg:text-5xl font-bold mb-4 text-white bg-black py-4 lg:py-6 font-playfair text-center sm:text-left">
@@ -269,6 +337,8 @@
   </div>
   </div>
 
+
+  <!-- Mobile Event Section -->
   <div style="height: 60px;"></div>
 
   <div class="event-section flex flex-col md:flex-row items-center md:items-start">
@@ -293,6 +363,54 @@
   <div style="height: 40px;"></div>
   <?php include __DIR__ . '/../footer.php'; ?>
   </div>
+
+  <script>
+    $(document).ready(function () {
+      $('.summernote').summernote({
+        height: 200,
+        minHeight: null,
+        maxHeight: null,
+        focus: true
+      });
+
+      $('.save-button').on('click', function () {
+        var container = $(this).closest('.event-container');
+        var eventID = container.data('id-event');
+        var title = container.find('.event-title').val();
+        var description = container.find('.event-description').val();
+        var link = container.find('.event-link').val();
+        var imageInput = container.find('.event-image-input')[0];
+        var image = imageInput.files[0];
+
+        var formData = new FormData();
+        formData.append('id', eventID);
+        formData.append('description', description);
+        formData.append('link', link);
+        formData.append('subtitle', title);
+        if (image) {
+          formData.append('image', image);
+        }
+
+        fetch('/api/homeManagement/updateEventInformation', {
+          method: 'PATCH',
+          body: formData
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert('Event Information updated successfully');
+            } else {
+              alert('Error: ' + data.error);
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      });
+
+      $('.event-image').on('click', function () {
+        $(this).siblings('.event-image-input').click();
+      });
+    });
+  </script>
 </body>
 
 </html>
