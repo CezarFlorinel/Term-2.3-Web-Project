@@ -1,1 +1,15 @@
-date =2024-07-26 13:00:00, lang= Chinese, type =Regular Participant,tour = 6step 4step 5
+
+Array
+(
+    [id] => 1
+    [description] => If you are a music enthusiast , Haarlem is THE PLACE for YOU! With lots of bars and music venues, you can find any kind of music you might like: from the best techno parties to live bands playing jazz and songwriter’s concerts. Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!!
+    [link] => /danceevent
+    [subtitle] => Dance!
+)
+Array
+(
+    [id] => 1
+    [description] => <u>If you are a music enthusiast , Haarlem is THE PLACE for YOU! With lots of bars and music venues, you can find any kind of music you might like: from the best techno parties to live bands playing jazz and songwriter’s concerts. Suitable for young adults, families and people with special needs, Haarlem has a place for everyone!!</u>
+    [link] => /danceevent
+    [subtitle] => Dance!
+)
