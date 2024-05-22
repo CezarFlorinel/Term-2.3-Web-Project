@@ -15,6 +15,13 @@
             <h1 class="text-3xl text-center mb-6">Users</h1>
             <div class="bg-white shadow-md rounded-lg p-6">
 
+                <!-- search -->
+                <div class="mb-2 pt-2 relative mx-auto text-gray-600">
+                    <input
+                        class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                        type="text" name="search" placeholder="Search name" id="search" onkeyup="searchFunction()" title="Type in a name">
+                </div>
+
                 <!-- users table -->
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
