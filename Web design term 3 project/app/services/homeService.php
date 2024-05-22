@@ -18,8 +18,8 @@ class HomeService
         return $this->repository->getEvents();
     }
 
-    public function updateEvent(int $id, string $imagePath, string $description, string $link, string $subtitle): void
+    public function updateEvent(int $id, string $description, string $link, string $subtitle): void
     {
-        $this->repository->updateEvent($id, $imagePath, $description, $link, $subtitle);
+        $this->repository->updateEvent($id, $description, $link, $subtitle);
     }
 }

@@ -28,10 +28,9 @@ class HomeRepository extends Repository
         }, $events);
     }
 
-    public function updateEvent(int $id, string $imagePath, string $description, string $link, string $subtitle): void
+    public function updateEvent(int $id, string $description, string $link, string $subtitle): void
     {
-        $stmt = $this->connection->prepare("UPDATE HOME_EVENTS SET ImagePath = :imagePath, [Description] = :description, Link = :link, Subtitle = :subtitle WHERE ID = :id");
-        $stmt->bindParam(':imagePath', $imagePath);
+        $stmt = $this->connection->prepare("UPDATE HOME_EVENTS SET [Description] = :description, Link = :link, Subtitle = :subtitle WHERE ID = :id");
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':link', $link);
         $stmt->bindParam(':subtitle', $subtitle);

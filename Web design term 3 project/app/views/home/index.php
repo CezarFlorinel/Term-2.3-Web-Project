@@ -101,7 +101,7 @@ foreach ($events as $event) {
           <img src="<?php echo $event->imagePath ?>" alt="A vibrant event"
             class="event-image rounded-lg w-1/2 md:w-2/3 lg:w-3/4 max-w-xs md:max-w-xs lg:max-w-sm mx-auto lg:mx-0"
             style="height: auto;">
-          <input type="file" class="event-image-input hidden">
+          <input type="file" class="event-image-input">
         </div>
         <div class="lg:col-span-2">
           <div class="text-center lg:text-left w-full px-4 mt-6 lg:mt-0 lg:px-0">
@@ -374,26 +374,25 @@ foreach ($events as $event) {
       });
 
       $('.save-button').on('click', function () {
-        var container = $(this).closest('.event-container');
-        var eventID = container.data('id-event');
-        var title = container.find('.event-title').val();
-        var description = container.find('.event-description').val();
-        var link = container.find('.event-link').val();
-        var imageInput = container.find('.event-image-input')[0];
-        var image = imageInput.files[0];
+        let container = $(this).closest('.event-container');
+        let eventID = container.data('id-event');
+        let title = container.find('.event-title').val();
+        let description = container.find('.event-description').val();
+        let link = container.find('.event-link').val();
 
-        var formData = new FormData();
-        formData.append('id', eventID);
-        formData.append('description', description);
-        formData.append('link', link);
-        formData.append('subtitle', title);
-        if (image) {
-          formData.append('image', image);
-        }
+        let data = {
+          id: eventID,
+          description: description,
+          link: link,
+          subtitle: title
+        };
 
         fetch('/api/homeManagement/updateEventInformation', {
           method: 'PATCH',
-          body: formData
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
         })
           .then(response => response.json())
           .then(data => {
@@ -410,6 +409,7 @@ foreach ($events as $event) {
         $(this).siblings('.event-image-input').click();
       });
     });
+
   </script>
 </body>
 

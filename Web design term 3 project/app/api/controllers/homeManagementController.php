@@ -21,32 +21,41 @@ class HomeManagementController
     {
         try {
             if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
-                parse_str(file_get_contents("php://input"), $_POST);
+                // Decode the JSON input
+                $input = json_decode(file_get_contents('php://input'), true);
 
-                if (isset($_POST['id'], $_POST['description'], $_POST['link'], $_POST['subtitle']) && isset($_FILES['image'])) {
-                    $id = $_POST['id'];
-                    $description = $_POST['description'];
-                    $link = $_POST['link'];
-                    $subtitle = $_POST['subtitle'];
-                    $image = $_FILES['image'];
+                // Log the input data
+                error_log(print_r($input, true), 3, __DIR__ . '/../../file_with_errors_logs.log');
 
-                    // Save the uploaded image
-                    $imagePath = ImageEditor::saveImage('/app/public/assets/images/home_page_images/events_details', $image);
+                // Check for required fields
+                if (isset($input['id']) && isset($input['description']) && isset($input['link']) && isset($input['subtitle'])) {
+                    $id = $input['id'];
+                    $description = $input['description'];
+                    $link = $input['link'];
+                    $subtitle = $input['subtitle'];
 
-                    $this->homeService->updateEvent($id, $imagePath, $description, $link, $subtitle);
+                    // Update the event (assuming $this->homeService->updateEvent() is a valid method)
+                    $this->homeService->updateEvent($id, $description, $link, $subtitle);
 
+                    // Respond with success
                     echo json_encode(['success' => true, 'message' => 'Event Information updated successfully']);
                 } else {
+                    // Respond with error if required fields are missing
                     http_response_code(400);
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
                 }
             } else {
+                // Respond with error if method is not allowed
                 http_response_code(405);
                 echo json_encode(['success' => false, 'error' => 'Method not allowed']);
             }
         } catch (Exception $e) {
+            // Handle exceptions
             ErrorHandlerMethod::handleErrorApiController($e);
         }
     }
+
+
+
 
 }
