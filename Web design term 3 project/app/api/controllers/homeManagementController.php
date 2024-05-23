@@ -154,7 +154,7 @@ class HomeManagementController
                         }
                     }
 
-                    echo json_encode(['success' => true, 'message' => 'Event Image updated successfully']);
+                    echo json_encode(['success' => true, 'imageUrl' => $imagePath, 'message' => 'Event Image updated successfully']);
                 } else {
                     http_response_code(400);
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
@@ -186,7 +186,7 @@ class HomeManagementController
                         }
                     }
 
-                    echo json_encode(['success' => true, 'message' => 'Festival Location Image updated successfully']);
+                    echo json_encode(['success' => true, 'imageUrl' => $imagePath, 'message' => 'Festival Location Image updated successfully']);
                 } else {
                     http_response_code(400);
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
@@ -217,7 +217,7 @@ class HomeManagementController
                         }
                     }
 
-                    echo json_encode(['success' => true, 'message' => 'Home Page Details Image updated successfully']);
+                    echo json_encode(['success' => true, 'imageUrl' => $imagePath, 'message' => 'Home Page Details Image updated successfully']);
                 } else {
                     http_response_code(400);
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
@@ -257,7 +257,7 @@ class HomeManagementController
                         }
                     }
 
-                    echo json_encode(['success' => true, 'message' => 'Game Event Details Image updated successfully']);
+                    echo json_encode(['success' => true, 'imageUrl' => $imagePath, 'message' => 'Game Event Details Image updated successfully']);
                 } else {
                     http_response_code(400);
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
