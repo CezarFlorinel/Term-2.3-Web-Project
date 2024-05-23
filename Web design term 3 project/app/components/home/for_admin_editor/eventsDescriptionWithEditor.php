@@ -8,7 +8,7 @@
                 <img src="<?php echo $event->imagePath ?>" alt="A vibrant event"
                     class="event-image rounded-lg w-1/2 md:w-2/3 lg:w-3/4 max-w-xs md:max-w-xs lg:max-w-sm mx-auto lg:mx-0"
                     style="height: auto;">
-                <input type="file" class="event-image-input">
+                <input type="file" class="event-image-input hidden">
             </div>
             <div class="lg:col-span-2">
                 <div class="text-center lg:text-left w-full px-4 mt-6 lg:mt-0 lg:px-0">

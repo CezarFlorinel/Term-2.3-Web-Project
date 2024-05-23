@@ -28,12 +28,37 @@ class HomeRepository extends Repository
         }, $events);
     }
 
-    public function updateEvent(int $id, string $description, string $link, string $subtitle): void
+    public function getEventById(int $id): HomeEvents
+    {
+        $stmt = $this->connection->prepare("SELECT * FROM HOME_EVENTS WHERE ID = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $event = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return new HomeEvents(
+            $event['ID'],
+            $event['FK_Page_Home'],
+            $event['ImagePath'],
+            $event['Description'],
+            $event['Link'],
+            $event['Subtitle']
+        );
+    }
+
+    public function updateEvent(int $id, string $description, ?string $link, string $subtitle): void
     {
         $stmt = $this->connection->prepare("UPDATE HOME_EVENTS SET [Description] = :description, Link = :link, Subtitle = :subtitle WHERE ID = :id");
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':link', $link);
         $stmt->bindParam(':subtitle', $subtitle);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
+    public function updateEventImage(int $id, string $imagePath): void
+    {
+        $stmt = $this->connection->prepare("UPDATE HOME_EVENTS SET ImagePath = :imagePath WHERE ID = :id");
+        $stmt->bindParam(':imagePath', $imagePath);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
     }
@@ -56,6 +81,14 @@ class HomeRepository extends Repository
     {
         $stmt = $this->connection->prepare("UPDATE HOME_FESTIVAL_LOCATION SET DescriptionLocationFestival = :description WHERE ID = :id");
         $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
+    public function updateHomeFestivalLocationImage(int $id, string $imagePath): void
+    {
+        $stmt = $this->connection->prepare("UPDATE HOME_FESTIVAL_LOCATION SET ImageLocationFestivalPath = :imagePath WHERE ID = :id");
+        $stmt->bindParam(':imagePath', $imagePath);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
     }
@@ -83,6 +116,14 @@ class HomeRepository extends Repository
         $stmt->execute();
     }
 
+    public function updateHomePageDetailsImage(int $id, string $imagePath): void
+    {
+        $stmt = $this->connection->prepare("UPDATE HOME_PAGE_DETAILS SET ImagePathTop = :imagePath WHERE ID = :id");
+        $stmt->bindParam(':imagePath', $imagePath);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
     public function getHomeGameEventDetails(): HomeGameEventDetails
     {
         $stmt = $this->connection->prepare("SELECT * FROM HOME_GAME_EVENT_DETAILS");
@@ -106,6 +147,14 @@ class HomeRepository extends Repository
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':subtitle', $subtitle);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
+    public function updateHomeGameEventDetailsImage(int $id, string $imagePath, string $column): void
+    {
+        $stmt = $this->connection->prepare("UPDATE HOME_GAME_EVENT_DETAILS SET $column = :imagePath WHERE ID = :id");
+        $stmt->bindParam(':imagePath', $imagePath);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
     }

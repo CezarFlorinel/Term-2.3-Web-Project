@@ -22,16 +22,14 @@ foreach ($events as $event) {
 }
 
 $isAdmin = false;
-$userID = 1; // hardcoded for now
+$userID = 2; // hardcoded for now
 $user = $userService->getById($userID);
 
-if ($user !== null && $user->role === 'admin') {
+if ($user !== null && $user['Role'] === 'Admin') {
   $isAdmin = true;
 }
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,19 +58,18 @@ if ($user !== null && $user->role === 'admin') {
 <body class="antialiased font-'Open Sans'">
   <?php include __DIR__ . '/../header.php'; ?>
 
-
-
-
   <?php if ($isAdmin): ?>
+    <?php include __DIR__ . '/../../components/home/for_admin_editor/topPart.php'; ?>
     <?php include __DIR__ . '/../../components/home/for_admin_editor/eventsDescriptionWithEditor.php'; ?>
-
-
-
+    <?php include __DIR__ . '/../../components/home/for_admin_editor/location.php'; ?>
+    <?php include __DIR__ . '/../../components/home/dates.php'; ?>
+    <?php include __DIR__ . '/../../components/home/for_admin_editor/bottomEventsDescription.php'; ?>
+    <?php include __DIR__ . '/../../components/home/for_admin_editor/mobileEvent.php'; ?>
   <?php else: ?>
     <?php include __DIR__ . '/../../components/home/for_user/topPart.php'; ?>
     <?php include __DIR__ . '/../../components/home/for_user/eventsDescription.php'; ?>
     <?php include __DIR__ . '/../../components/home/for_user/location.php'; ?>
-    <?php include __DIR__ . '/../../components/home/dates.php'; ?> <!-- Dates, add in is admin as well -->
+    <?php include __DIR__ . '/../../components/home/dates.php'; ?>
     <?php include __DIR__ . '/../../components/home/for_user/bottomEventsDescription.php'; ?>
     <?php include __DIR__ . '/../../components/home/for_user/mobileEvent.php'; ?>
   <?php endif; ?>
