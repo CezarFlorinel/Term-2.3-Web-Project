@@ -118,6 +118,10 @@ class TicketsService
         $this->repository->addDanceTicket($date, $location, $price, $singer, $totalQuantityAvailable, $sessionType, $startTime, $endTime);
     }
 
+    public function addHistoryTicket($date, $language, $typeOfTicket, $tourID): int
+    {
+        return $this->repository->addHistoryTicket($date, $language, $typeOfTicket, $tourID);
+    }
 
 
 }

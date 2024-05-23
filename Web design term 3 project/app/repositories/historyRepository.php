@@ -30,6 +30,27 @@ class HistoryRepository extends Repository     // methods for all history relate
         }, $results);
     }
 
+    public function getHistoryTourByID($id): HistoryTours
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOURS] WHERE InformationID = :id');
+        $stmt->execute([
+            'id' => $id
+        ]);
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new HistoryTours(
+            $results['InformationID'],
+            $results['Departure'],
+            $results['StartTime'],
+            $results['EnglishTour'],
+            $results['DutchTour'],
+            $results['ChinesTour'],
+            $results['maxTicketsEnglish'],
+            $results['maxTicketsDutch'],
+            $results['maxTicketsChinese']
+        );
+
+    }
+
     public function getHistoryTopParts()
     {
         $stmt = $this->connection->prepare('SELECT * FROM [HISTORY_TOP_PART]');

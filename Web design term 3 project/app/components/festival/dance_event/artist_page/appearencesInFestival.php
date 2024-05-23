@@ -31,7 +31,11 @@
 
         </div>
         <div class="flex justify-center my-8 sm:my-12">
-            <button class="bg-red-600 text-white px-4 py-2 mr-4 rounded-lg">Buy tickets</button>
+
+            <button data-order-id="<?php echo htmlspecialchars($order->orderID); ?>"
+                id="js_addSelectedTicketsToCartButton" class="bg-red-600 text-white px-4 py-2 mr-4 rounded-lg">Buy
+                tickets</button>
+
             <a href="/danceevent">
                 <button class="bg-red-600 text-white px-4 py-2 rounded-lg">Check festival schedule</button>
             </a>

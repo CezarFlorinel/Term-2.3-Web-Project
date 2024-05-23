@@ -5,16 +5,66 @@ namespace App\Api\Controllers;
 use App\Services\HistoryService;
 use App\Utilities\ImageEditor;
 use App\Utilities\ErrorHandlerMethod;
+use App\Services\TicketsService;
+use App\Services\PaymentService;
+use DateTime;
 use Exception;
 
 class HistoryAdminController
 {
     private $historyService;
+    private $ticketsService;
+    private $paymentService;
 
     public function __construct()
     {
         $this->historyService = new HistoryService();
+        $this->ticketsService = new TicketsService();
+        $this->paymentService = new PaymentService();
         ImageEditor::initialize();
+    }
+
+    public function addHistoryTicketToPersonalProgram()
+    {
+        try {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $input = json_decode(file_get_contents('php://input'), true);
+
+                if (isset($input['tourId'], $input['quantity'], $input['typeOfTicket'], $input['orderID'], $input['language'], $input['date'])) {
+                    $tourID = filter_var($input['tourId'], FILTER_VALIDATE_INT);
+                    $quantity = filter_var($input['quantity'], FILTER_VALIDATE_INT);
+                    $typeOfTicket = $input['typeOfTicket'];
+                    $orderID = filter_var($input['orderID'], FILTER_VALIDATE_INT);
+                    $language = $input['language'];
+                    $date = $input['date'];
+
+                    $tour = $this->historyService->getHistoryTourById($tourID);
+
+
+                    // Combine date and time correctly
+                    $time = explode('.', $tour->startTime)[0]; // Remove the fractional seconds
+                    $combinedDateTime = $date . ' ' . $time;
+
+                    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $combinedDateTime);
+                    if (!$dateTime) {
+                        throw new Exception("Invalid date or time format");
+                    }
+                    $formattedDateTime = $dateTime->format('Y-m-d H:i:s');
+
+
+                    $insertedID = $this->ticketsService->addHistoryTicket($formattedDateTime, $language, $typeOfTicket, $tourID);
+
+                    $this->paymentService->createNewOrderItem($quantity, "HistoryFestival", $orderID, null, null, $insertedID);
+
+                    echo json_encode(['success' => true, 'message' => 'Ticket added to personal program successfully']);
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'error' => 'Missing required fields']);
+                }
+            }
+        } catch (Exception $e) {
+            ErrorHandlerMethod::handleErrorApiController($e);
+        }
     }
 
     public function uploadNewImageCarousel()

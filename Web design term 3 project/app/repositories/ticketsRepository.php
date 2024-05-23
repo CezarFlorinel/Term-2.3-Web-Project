@@ -319,4 +319,19 @@ class TicketsRepository extends Repository
         $stmt->execute();
     }
 
+    public function addHistoryTicket($date, $language, $typeOfTicket, $tourID, $routeID = 1): int
+    {
+        $stmt = $this->connection->prepare('INSERT INTO HISTORY_TICKET (DateAndTime, Language, TypeOfTicket, RouteID, TourID) VALUES (:date, :language, :type_of_ticket, :route_id, :tour_id)');
+        $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':language', $language, PDO::PARAM_STR);
+        $stmt->bindParam(':type_of_ticket', $typeOfTicket, PDO::PARAM_STR);
+        $stmt->bindParam(':route_id', $routeID, PDO::PARAM_INT);
+        $stmt->bindParam(':tour_id', $tourID, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $this->connection->lastInsertId();
+    }
+
+
+
 }

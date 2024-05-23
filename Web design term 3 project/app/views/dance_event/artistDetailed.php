@@ -1,10 +1,14 @@
 <?php
 use App\Services\DanceService;
 use App\Services\TicketsService;
+use App\Services\PaymentService;
 
 $ticketService = new TicketsService();
 $danceService = new DanceService();
+$paymentService = new PaymentService();
 
+$userID = 1; // TODO: get the user id from the session
+$order = $paymentService->getOrderByUserId($userID);
 
 $artistId = $_GET['artistID'];
 $artist = $danceService->getArtistById($artistId);
@@ -135,6 +139,8 @@ if (count($concertsWithTripleArtist) > 0 && count($simpleConcert) >= 2) {
         <?php include __DIR__ . '/../../components/festival/dance_event/artist_page/appearencesInFestival.php'; ?>
 
     </main>
+
+    <script type="module" src="javascript/Dance/order_tickets_dance_artist.js"></script>
 
 </body>
 <footer>

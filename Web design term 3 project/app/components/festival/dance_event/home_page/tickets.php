@@ -27,7 +27,7 @@
                     class="w-full lg:w-2/3 px-4 max-h-[800px] overflow-auto space-y-4 p-4 border border-blue-900">
 
                     <?php foreach ($danceTickets as $ticket): ?>
-                        <div
+                        <div id="js_ticketDanceContainer_<?php echo htmlspecialchars($ticket->D_TicketID); ?>"
                             class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex flex-col w-full mx-auto border border-blue-900">
                             <div class="flex-1 mb-4">
                                 <div class="text-2xl font-bold mb-2 text-center lg:text-left">
@@ -64,21 +64,23 @@
                             </div>
                             <div class="mt-4 flex justify-end items-center space-x-2">
                                 <button
-                                    class="bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    class="js_decreaseTicketQuantityButton bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <i class="fas fa-minus text-white text-xs"></i>
                                 </button>
-                                <span>1</span>
+                                <span class="js_ticketQuantity">1</span>
                                 <button
-                                    class="bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    class="js_increaseTicketQuantityButton bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <i class="fas fa-plus text-white text-xs"></i>
                                 </button>
-                                <button
-                                    class="bg-blue-500 py-1 px-4 rounded-lg font-bold text-white text-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <button data-ticket-id="<?php echo htmlspecialchars($ticket->D_TicketID); ?>"
+                                    data-order-id="<?php echo htmlspecialchars($order->orderID); ?>"
+                                    class=" js_addTicketToCartButton bg-blue-500 py-1 px-4 rounded-lg font-bold text-white text-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     Add ticket to cart
                                 </button>
                             </div>
                         </div>
                     <?php endforeach; ?>
+
 
                 </div>
 

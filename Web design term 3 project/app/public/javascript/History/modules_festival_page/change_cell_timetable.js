@@ -46,7 +46,7 @@ export function changeCellForBuyingTicketInTheTimeTable() {
                 bookingItem.querySelectorAll('.timetable-booking-image-type-2').forEach(image => {
                     image.addEventListener('click', function () {
                         const language = this.alt.split(' ')[0]; // Assuming format 'Language Tour'
-                        window.location.href = `/book-tour?language=${language}&tourId=${bookingId}`; // Change URL accordingly
+                        window.location.href = `/tickethistory?language=${language}&tourId=${bookingId}&type=regular`; // Change URL accordingly
                     });
                 });
             });
