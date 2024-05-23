@@ -58,6 +58,13 @@ class TicketsService
         return $this->repository->getQRTickets($orderID);
     }
 
+    public function scanQRCode($ticketID) {
+        return $this->repository->scanQRCode($ticketID);
+    }
+    public function getQrCodeById($ticketID) {
+        return $this->repository->getQrCodeById($ticketID);
+    }
+
     public function countHistoryTicketsReserved(int $tourID, string $language): int
     {
         return $this->repository->countHistoryTicketsReserved($tourID, $language);
