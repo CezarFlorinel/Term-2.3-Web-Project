@@ -6,18 +6,26 @@ const apiUpdateHomeFestivalLocationImage = '/api/homeManagement/updateHomeFestiv
 const apiUpdateHomePageDetailsImage = '/api/homeManagement/updateHomePageDetailsImage';
 const apiUpdateHomeGameEventDetailsImage = '/api/homeManagement/updateHomeGameEventDetailsImage';
 
+const columnNameGameEventImageQRcode = 'ImageQRcodePath';
+const columnNameGameEventImageDecoration = 'ImageDexterPath';
+
 $(document).ready(function () {
 
     setSummerNote();
     updateEventInformation();
+
     setupImageUploadListeners();
     setupBottomEventListeners();
     setupImageUploadListener("js_imageLocationInput", apiUpdateHomeFestivalLocationImage, "js_containerLocation", "js_imageLocation");
+    setupImageUploadListener("js_QrCodeImageInput", apiUpdateHomeGameEventDetailsImage, "js_containerGameEvent", "js_QrCodeImage", columnNameGameEventImageQRcode);
+    setupImageUploadListener("js_DecorationImageInput", apiUpdateHomeGameEventDetailsImage, "js_containerGameEvent", "js_DecorationImage", columnNameGameEventImageDecoration);
+
     updateTopImage();
     updateHomePageDetailsTopPartInformation();
     attachClickEventToImageForInputOfImage()
     updateBottomEventInformation();
-
+    updateLocationInformation();
+    updateMobileEventInformation();
 
 });
 function attachClickEventToImageForInputOfImage() {
@@ -59,8 +67,6 @@ function setupBottomEventListeners() {
         const eventID = container.data('id');
         const img = container.find(`#js_bottomEventImage_${eventID}`);
         const input = container.find(`#js_bottomEventImageInput_${eventID}`);
-        console.log(eventID);
-        console.log(`js_bottomEventImageInput_${eventID}`, apiUpdateEventImage, `js_bottomEventContainer_${eventID}`, `js_bottomEventImage_${eventID}`);
         setupImageUploadListener(`js_bottomEventImageInput_${eventID}`, apiUpdateEventImage, `js_bottomEventContainer_${eventID}`, `js_bottomEventImage_${eventID}`);
 
         img.on('click', function () {
@@ -224,15 +230,64 @@ function updateHomePageDetailsTopPartInformation() {
 }
 
 function updateLocationInformation() {
+    $('#js_saveGameEventChangesBtn').on('click', function () {
+        let title = $('#js_inputGameEventTitle').val();
+        let subtitle = $('#js_inputGameEventSubtitle').val();
+        let description = $('#js_inputGameEventDescription').val();
+        const container = document.getElementById('js_containerGameEvent');
+        const id = container.getAttribute('data-id');
 
-}
+        let data = {
+            title: title,
+            subtitle: subtitle,
+            description: description,
+            id: id
+        };
 
-function updateBottomEventsInformation() {
-
+        fetch('/api/homeManagement/updateHomeGameEventDetails', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(' Details updated successfully');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
 }
 
 function updateMobileEventInformation() {
+    $('#js_saveLocationChanges').on('click', function () {
 
+        let description = $('#js_inputLocationDescription').val();
+        const container = document.getElementById('js_containerLocation');
+        const id = container.getAttribute('data-id');
+
+        let data = {
+            description: description,
+            id: id
+        };
+
+        fetch('/api/homeManagement/updateHomeFestivalLocation', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(' Details updated successfully');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
 }
 
 

@@ -12,8 +12,8 @@
         <div id="js_containerLocation" data-id="<?php echo htmlspecialchars($festivalLocation->ID) ?>"
             class="festival-location-section flex-col-reverse md:flex-row ">
             <div class="info-box md:w-2/3 pr-14 text-center">
-                <p><?php echo $festivalLocation->description ?></p>
-                <!-- put save button here instead -->
+                <textarea id="js_inputLocationDescription"
+                    class="summernote"><?php echo $festivalLocation->description ?></textarea>
                 <button id="js_saveLocationChanges"
                     class="mt-4 lg:mt-8 bg-red-500 text-white py-2 px-6 lg:px-60 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
                     style="display: block; width: fit-content; margin-left: auto; margin-right: auto; text-align: center;">Save

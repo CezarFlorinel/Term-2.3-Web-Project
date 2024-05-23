@@ -114,13 +114,13 @@ class HomeManagementController
 
                 $input = json_decode(file_get_contents('php://input'), true);
 
-                if (isset($input['id']) && isset($input['description']) && isset($input['link']) && isset($input['subtitle'])) {
+                if (isset($input['id']) && isset($input['description']) && isset($input['title']) && isset($input['subtitle'])) {
                     $id = filter_var($input['id'], FILTER_SANITIZE_NUMBER_INT);
                     $description = $input['description'];
-                    $link = $input['link'];
+                    $title = $input['title'];
                     $subtitle = $input['subtitle'];
 
-                    $this->homeService->updateHomeGameEventDetails($id, $description, $link, $subtitle);
+                    $this->homeService->updateHomeGameEventDetails($id, $description, $title, $subtitle);
 
                     echo json_encode(['success' => true, 'message' => 'Game Event Details updated successfully']);
                 } else {
@@ -230,16 +230,15 @@ class HomeManagementController
             ErrorHandlerMethod::handleErrorApiController($e);
         }
     }
-
     public function updateHomeGameEventDetailsImage()
     {
         try {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-                if (isset($_FILES['image'], $_POST['id'], $_POST['column'])) {
+                if (isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
                     $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
                     $image = $_FILES['image'];
-                    $column = $_POST['column'];
+                    $column = $_POST['columnName'];
                     $currentImagePath = '';
 
                     if ($column === 'ImageQRcodePath') {
