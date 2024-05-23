@@ -28,7 +28,8 @@ document.getElementById("startButton").addEventListener("click", () => {
             )
             .then((response) => response.json())
             .then((data) => {
-                if (data.data.Scanned) {
+             // console.log(result.text);
+                if (data.Scanned) {
                 //Ticket already scanned
                 //scanned = true;
                 console.log("Ticket already scanned!");
