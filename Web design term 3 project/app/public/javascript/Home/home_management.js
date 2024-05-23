@@ -10,13 +10,64 @@ $(document).ready(function () {
 
     setSummerNote();
     updateEventInformation();
-    setupImageUploadListener("js_imageEventInput", apiUpdateEventImage, "js_containerEvent", "js_imageEvent");
+    setupImageUploadListeners();
+    setupBottomEventListeners();
+    setupImageUploadListener("js_imageLocationInput", apiUpdateHomeFestivalLocationImage, "js_containerLocation", "js_imageLocation");
     updateTopImage();
     updateHomePageDetailsTopPartInformation();
-
+    attachClickEventToImageForInputOfImage()
+    updateBottomEventInformation();
 
 
 });
+function attachClickEventToImageForInputOfImage() {
+    $('.event-container').each(function () { // for the middle part of the page events
+        const container = $(this);
+        const eventID = container.data('id');
+        const img = container.find(`#js_imageEvent_${eventID}`);
+        const input = container.find(`#js_imageEventInput_${eventID}`);
+
+        img.on('click', function () {
+            input.click();
+        });
+    });
+
+    $('#js_imageLocation').on('click', function () {
+        $('#js_imageLocationInput').click();
+    });
+
+    $('#js_QrCodeImage').on('click', function () {
+        $('#js_QrCodeImageInput').click();
+    });
+
+    $('#js_DecorationImage').on('click', function () {
+        $('#js_DecorationImageInput').click();
+    });
+}
+
+function setupImageUploadListeners() {
+    $('.event-container').each(function () {
+        const container = $(this);
+        const eventID = container.data('id');
+        setupImageUploadListener(`js_imageEventInput_${eventID}`, apiUpdateEventImage, `js_containerEvent_${eventID}`, `js_imageEvent_${eventID}`);
+    });
+}
+
+function setupBottomEventListeners() {
+    $('.js_bottomEventContainer').each(function () {
+        const container = $(this);
+        const eventID = container.data('id');
+        const img = container.find(`#js_bottomEventImage_${eventID}`);
+        const input = container.find(`#js_bottomEventImageInput_${eventID}`);
+        console.log(eventID);
+        console.log(`js_bottomEventImageInput_${eventID}`, apiUpdateEventImage, `js_bottomEventContainer_${eventID}`, `js_bottomEventImage_${eventID}`);
+        setupImageUploadListener(`js_bottomEventImageInput_${eventID}`, apiUpdateEventImage, `js_bottomEventContainer_${eventID}`, `js_bottomEventImage_${eventID}`);
+
+        img.on('click', function () {
+            input.click();
+        });
+    });
+}
 
 function setSummerNote() {
     $('.summernote').summernote({
@@ -70,9 +121,41 @@ function updateEventInformation() {
             .catch(error => console.error('Error:', error));
     });
 
-    $('.event-image').on('click', function () {
-        $(this).siblings('.event-image-input').click();
+
+}
+
+function updateBottomEventInformation() {
+    $('.js_saveButtonBottomPartEvents').on('click', function () {
+        let container = $(this).closest('.js_bottomEventContainer');
+        let eventID = container.data('id'); // changed from data-id
+        let title = container.find('.js_bottomEventTitle').val();
+        let description = container.find('.js_bottomEventDescription').val();
+
+        let data = {
+            id: eventID,
+            description: description,
+            subtitle: title
+        };
+
+        fetch('/api/homeManagement/updateEventInformation', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Event Information updated successfully');
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
     });
+
+
 }
 
 function updateTopImage() {

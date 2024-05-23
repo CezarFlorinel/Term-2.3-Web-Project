@@ -1,14 +1,14 @@
-<!-- Events Description -->
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
     <?php foreach ($eventsWithLinks as $event): ?>
-        <div id="js_containerEvent" data-id="<?php echo $event->eventID ?>"
+        <div id="js_containerEvent_<?php echo $event->eventID ?>" data-id="<?php echo $event->eventID ?>"
             class="event-container max-w-7xl mx-auto bg-white p-6 shadow-lg rounded-lg lg:grid lg:grid-cols-3 lg:gap-4 items-center"
             style="max-width: 1300px;">
             <div class="lg:col-span-1 flex justify-center lg:justify-start">
-                <img id="js_imageEvent" src="<?php echo $event->imagePath ?>" alt="A vibrant event"
+                <img id="js_imageEvent_<?php echo $event->eventID ?>" src="<?php echo $event->imagePath ?>"
+                    alt="A vibrant event"
                     class="event-image rounded-lg w-1/2 md:w-2/3 lg:w-3/4 max-w-xs md:max-w-xs lg:max-w-sm mx-auto lg:mx-0"
                     style="height: auto;">
-                <input id="js_imageEventInput" type="file" class="event-image-input hidden">
+                <input id="js_imageEventInput_<?php echo $event->eventID ?>" type="file" class="event-image-input hidden">
             </div>
             <div class="lg:col-span-2">
                 <div class="text-center lg:text-left w-full px-4 mt-6 lg:mt-0 lg:px-0">
@@ -25,5 +25,6 @@
                 </div>
             </div>
         </div>
+        <br>
     <?php endforeach; ?>
 </div>
