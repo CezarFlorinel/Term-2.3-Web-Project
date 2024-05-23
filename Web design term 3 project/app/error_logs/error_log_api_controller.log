@@ -14,3 +14,4 @@
 2024-05-16 19:59:35 - SQLSTATE[22007]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Conversion failed when converting date and/or time from character string.
 2024-05-16 20:03:06 - SQLSTATE[22007]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Conversion failed when converting date and/or time from character string.
 2024-05-16 20:11:53 - Invalid date or time format
+2024-05-22 16:46:07 - SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]String or binary data would be truncated in table 'projectwebdev.dbo.HOME_EVENTS', column 'Description'. Truncated value: '<p><u>If you are a music enthusiast , Haarlem is THE PLACE for YOU! With lots of bars and music venu'.

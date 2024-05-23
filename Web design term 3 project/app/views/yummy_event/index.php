@@ -169,7 +169,6 @@ $yummyrestaurants = $yummyService->getAllRestaurants();
 
     </main>
 
-    <!-- JavaScript Files -->
 </body>
 
 </html>

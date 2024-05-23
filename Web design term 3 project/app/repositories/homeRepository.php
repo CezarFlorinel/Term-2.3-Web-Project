@@ -52,11 +52,10 @@ class HomeRepository extends Repository
         );
     }
 
-    public function updateHomeFestivalLocation(int $id, string $description, string $imagePath): void
+    public function updateHomeFestivalLocation(int $id, string $description): void
     {
-        $stmt = $this->connection->prepare("UPDATE HOME_FESTIVAL_LOCATION SET DescriptionLocationFestival = :description, ImageLocationFestivalPath = :imagePath WHERE ID = :id");
+        $stmt = $this->connection->prepare("UPDATE HOME_FESTIVAL_LOCATION SET DescriptionLocationFestival = :description WHERE ID = :id");
         $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':imagePath', $imagePath);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
     }
@@ -70,7 +69,8 @@ class HomeRepository extends Repository
         return new HomePageDetails(
             $details['ID'],
             $details['Title'],
-            $details['DescriptionYellowSection']
+            $details['DescriptionYellowSection'],
+            $details['ImagePathTop']
         );
     }
 
@@ -100,14 +100,12 @@ class HomeRepository extends Repository
         );
     }
 
-    public function updateHomeGameEventDetails(int $id, string $description, string $title, string $subtitle, string $imageQRcodePath, string $imageDexterPath): void
+    public function updateHomeGameEventDetails(int $id, string $description, string $title, string $subtitle): void
     {
-        $stmt = $this->connection->prepare("UPDATE HOME_GAME_EVENT_DETAILS SET DescriptionGame = :description, TitleGame = :title, Subtitle = :subtitle, ImageQRcodePath = :imageQRcodePath, ImageDexterPath = :imageDexterPath WHERE ID = :id");
+        $stmt = $this->connection->prepare("UPDATE HOME_GAME_EVENT_DETAILS SET DescriptionGame = :description, TitleGame = :title, Subtitle = :subtitle WHERE ID = :id");
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':subtitle', $subtitle);
-        $stmt->bindParam(':imageQRcodePath', $imageQRcodePath);
-        $stmt->bindParam(':imageDexterPath', $imageDexterPath);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
     }

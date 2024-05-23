@@ -3,6 +3,10 @@
 namespace App\Services;
 
 use App\Repositories\HomeRepository;
+use App\Models\Home_page\HomeEvents;
+use App\Models\Home_page\HomeFestivalLocation;
+use App\Models\Home_page\HomePageDetails;
+use App\Models\Home_page\HomeGameEventDetails;
 
 class HomeService
 {
@@ -22,4 +26,20 @@ class HomeService
     {
         $this->repository->updateEvent($id, $description, $link, $subtitle);
     }
+
+    public function getHomeFestivalLocation(): HomeFestivalLocation
+    {
+        return $this->repository->getHomeFestivalLocation();
+    }
+
+    public function getHomePageDetails(): HomePageDetails
+    {
+        return $this->repository->getHomePageDetails();
+    }
+
+    public function getHomeGameEventDetails(): HomeGameEventDetails
+    {
+        return $this->repository->getHomeGameEventDetails();
+    }
+
 }
