@@ -1,16 +1,22 @@
-html, body {
+html,
+body {
     max-width: 100%;
     overflow-x: hidden;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
     box-sizing: border-box;
 }
 
 .overlay-info {
-    width: auto; /* Adjusting width to auto to avoid overflow */
-    max-width: 270px; /* Keeping maximum width */
-    margin-left: auto; /* Center align if needed or adjust margin to not cause overflow */
+    width: auto;
+    /* Adjusting width to auto to avoid overflow */
+    max-width: 270px;
+    /* Keeping maximum width */
+    margin-left: auto;
+    /* Center align if needed or adjust margin to not cause overflow */
     margin-right: 30px;
 }
 
@@ -100,11 +106,13 @@ html, body {
 /* Media query for smaller screens */
 @media (max-width: 768px) {
     .back-image {
-        background-image: none; /* Hide background image on smaller screens */
+        background-image: none;
+        /* Hide background image on smaller screens */
     }
 
     .event-info-text-container {
-        height: 300px; /* Add margin at the top */
+        height: 300px;
+        /* Add margin at the top */
         margin-top: -50px;
         margin-left: 20px;
         margin-right: 20px;
@@ -114,9 +122,12 @@ html, body {
     }
 
     .event-info-h {
-        color: white; /* Change text color to white */
+        color: white;
+        /* Change text color to white */
         font-size: 16px;
-        margin-top: 20px; /* Add margin at the top */ /* Add margin at the bottom */
+        margin-top: 20px;
+        /* Add margin at the top */
+        /* Add margin at the bottom */
     }
 }
 
@@ -145,7 +156,8 @@ html, body {
 /*The route part -----------------------*/
 .container-route {
     display: flex;
-    flex-direction: row; /* Explicitly define the default flex-direction */
+    flex-direction: row;
+    /* Explicitly define the default flex-direction */
     background-color: white;
     margin-left: 15px;
     margin-right: 15px;
@@ -250,19 +262,25 @@ html, body {
 
 @media screen and (max-width: 768px) {
     .container-route {
-        flex-direction: column; /* Stack flex items vertically */
+        flex-direction: column;
+        /* Stack flex items vertically */
     }
 
     .route-image {
-        width: 100%; /* Adjust the width to 100% of the container */
-        order: -1; /* Place the image above the text */
+        width: 100%;
+        /* Adjust the width to 100% of the container */
+        order: -1;
+        /* Place the image above the text */
     }
 
     .overlay-info {
-        margin-left: 0; /* Adjust the margin to align with the new layout */
+        margin-left: 0;
+        /* Adjust the margin to align with the new layout */
         margin-right: 0;
-        width: auto; /* Allow the width to adjust to the container */
-        order: -2; /* Place the overlay info above the image if needed */
+        width: auto;
+        /* Allow the width to adjust to the container */
+        order: -2;
+        /* Place the overlay info above the image if needed */
     }
 }
 
@@ -280,7 +298,8 @@ html, body {
     max-width: 1200px;
 }
 
-.ticket-price-info, .ticket-price-info-2 {
+.ticket-price-info,
+.ticket-price-info-2 {
     background-color: #D0D5D8;
     border-radius: 20px;
     display: flex;
@@ -289,10 +308,12 @@ html, body {
     box-sizing: border-box;
     padding: 20px;
     margin: 20px;
-    width: calc(50% - 40px); /* Adjust for margin and gap, and ensure side-by-side at larger sizes */
+    width: calc(50% - 40px);
+    /* Adjust for margin and gap, and ensure side-by-side at larger sizes */
 }
 
-.ticket-price-image, .ticket-price-image-2 {
+.ticket-price-image,
+.ticket-price-image-2 {
     width: 100%;
     height: auto;
     border: black 1px solid;
@@ -302,36 +323,54 @@ html, body {
 }
 
 @media (max-width: 768px) {
-    .ticket-price-info, .ticket-price-info-2 {
-        width: 100%; /* Forces items to stack vertically on smaller screens */
-        max-width: none; /* Overrides any max-width set outside the media query */
-        margin: 20px 0; /* Adjusts margin for the stacked layout */
+
+    .ticket-price-info,
+    .ticket-price-info-2 {
+        width: 100%;
+        /* Forces items to stack vertically on smaller screens */
+        max-width: none;
+        /* Overrides any max-width set outside the media query */
+        margin: 20px 0;
+        /* Adjusts margin for the stacked layout */
     }
 }
 
 /* Styles for the buttons */
 .btn2 {
-    font-family: 'Bubblegum Sans', sans-serif; /* Font family for the button */
-    font-size: 25px; /* Font size for the button */
-    background-color: crimson; /* Background color for the button */
-    color: white; /* Text color for the button */
-    border-radius: 30px; /* Rounded corners for the button */
-    padding: 10px 15px; /* Padding inside the button */
-    border: crimson solid 1px; /* Border around the button */
-    transition: background-color 0.3s, color 0.3s; /* Transition for hover effect */
-    margin: 20px auto; /* Margin on the top and bottom, auto on the left and right to center the button */
-    width: 80%; /* Width of the button relative to its container */
+    font-family: 'Bubblegum Sans', sans-serif;
+    /* Font family for the button */
+    font-size: 25px;
+    /* Font size for the button */
+    background-color: crimson;
+    /* Background color for the button */
+    color: white;
+    /* Text color for the button */
+    border-radius: 30px;
+    /* Rounded corners for the button */
+    padding: 10px 15px;
+    /* Padding inside the button */
+    border: crimson solid 1px;
+    /* Border around the button */
+    transition: background-color 0.3s, color 0.3s;
+    /* Transition for hover effect */
+    margin: 20px auto;
+    /* Margin on the top and bottom, auto on the left and right to center the button */
+    width: 80%;
+    /* Width of the button relative to its container */
 }
 
 /* Hover effect for the buttons */
 .btn2:hover {
-    background-color: white; /* Background color changes on hover */
-    color: crimson; /* Text color changes on hover */
+    background-color: white;
+    /* Background color changes on hover */
+    color: crimson;
+    /* Text color changes on hover */
 }
 
 /* Second ticket option additional styles if needed */
 .ticket-price-info-2 {
-    background-color: #8FADC6; /* Different background color for the second option */
+    background-color: #8FADC6;
+    /* Different background color for the second option */
 }
 
 /* Header and text styles for the second option if needed */
@@ -352,10 +391,14 @@ html, body {
 /* Base styles for the grid container */
 .timetables-grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Keep 4 columns */
-    grid-auto-rows: minmax(5vw, auto); /* Use vw for responsive row height */
-    gap: 3vw; /* Use vw for gaps to scale with the window */
-    padding: 0 2vw; /* Padding scales with viewport width */
+    grid-template-columns: repeat(4, 1fr);
+    /* Keep 4 columns */
+    grid-auto-rows: minmax(5vw, auto);
+    /* Use vw for responsive row height */
+    gap: 3vw;
+    /* Use vw for gaps to scale with the window */
+    padding: 0 2vw;
+    /* Padding scales with viewport width */
     justify-items: center;
 }
 
@@ -369,25 +412,29 @@ html, body {
     color: white;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 3vw; /* Margin scales with viewport width */
+    margin-bottom: 3vw;
+    /* Margin scales with viewport width */
     grid-row: 1;
 }
 
 .timetable-day-header {
     font-family: Impact, sans-serif;
-    font-size: 5vw; /* Font size scales with viewport width */
+    font-size: 5vw;
+    /* Font size scales with viewport width */
     letter-spacing: 0.5vw;
 }
 
 .timetable-day-text1 {
     font-family: 'Imprima', sans-serif;
-    font-size: 2.5vw; /* Font size scales with viewport width */
+    font-size: 2.5vw;
+    /* Font size scales with viewport width */
     margin-top: -2vw;
 }
 
 .timetable-day-text2 {
     font-family: 'Imprima', sans-serif;
-    font-size: 1.5vw; /* Font size scales with viewport width */
+    font-size: 1.5vw;
+    /* Font size scales with viewport width */
     margin-top: -1vw;
 }
 
@@ -399,44 +446,61 @@ html, body {
     flex-direction: column;
     align-items: left;
     font-family: 'Imprima', sans-serif;
-    border-radius: 2vw; /* Border radius scales with viewport width */
-    padding-bottom: 2vw; /* Padding scales with viewport width */
+    border-radius: 2vw;
+    /* Border radius scales with viewport width */
+    padding-bottom: 2vw;
+    /* Padding scales with viewport width */
     overflow: visible;
-    margin-bottom: 3vw; /* Margin scales with viewport width */
-    max-width: 80vw; /* Max width relative to viewport width */
-    min-width: 20vw; /* Min width relative to viewport width */
-    height: auto; /* Height auto adjusts */
+    margin-bottom: 3vw;
+    /* Margin scales with viewport width */
+    max-width: 80vw;
+    /* Max width relative to viewport width */
+    min-width: 20vw;
+    /* Min width relative to viewport width */
+    height: auto;
+    /* Height auto adjusts */
 }
 
-.booking-item-flagAndText, .timetable-booking-item-type-2 {
+.booking-item-flagAndText,
+.timetable-booking-item-type-2 {
     display: flex;
     align-items: center;
-    gap: 1vw; /* Gap scales with viewport width */
+    gap: 1vw;
+    /* Gap scales with viewport width */
 }
 
 .timetable-booking-image {
-    width: 3vw; /* Scale image with viewport width */
-    height: 3vw; /* Scale image height with viewport width */
+    width: 3vw;
+    /* Scale image with viewport width */
+    height: 3vw;
+    /* Scale image height with viewport width */
     margin-right: 1vw;
 }
 
 .timetable-booking-text {
     margin-left: 2vw;
-    width: auto; /* Width auto adjusts */
+    width: auto;
+    /* Width auto adjusts */
 }
 
 .btn3 {
     font-family: 'Bubblegum Sans', sans-serif;
-    font-size: 2vw; /* Font size scales with viewport width */
+    font-size: 2vw;
+    /* Font size scales with viewport width */
     background-color: crimson;
     color: white;
-    border-radius: 1.5vw; /* Border radius scales with viewport width */
-    padding: 1vw 1.5vw; /* Padding scales with viewport width */
-    border: 0.1vw solid crimson; /* Border width scales with viewport width */
-    width: 15vw; /* Button width relative to viewport width */
+    border-radius: 1.5vw;
+    /* Border radius scales with viewport width */
+    padding: 1vw 1.5vw;
+    /* Padding scales with viewport width */
+    border: 0.1vw solid crimson;
+    /* Border width scales with viewport width */
+    width: 15vw;
+    /* Button width relative to viewport width */
     align-self: center;
     position: relative;
-    bottom: -2vw; /* Position scales with viewport width */
+    bottom: -2vw;
+    /* Position scales with viewport width */
     margin-top: auto;
     margin-bottom: -2vw;
 }
@@ -449,19 +513,23 @@ html, body {
 
 /* Adaptations for small screen sizes */
 @media (max-width: 768px) {
+
     /* Adjust column setup for smaller screens */
     .timetables-grid-container {
-        grid-template-columns: repeat(2, 1fr); /* Reduce to 2 columns on smaller screens */
+        grid-template-columns: repeat(2, 1fr);
+        /* Reduce to 2 columns on smaller screens */
     }
 
     .timetable-booking-item {
         max-width: 100px;
-       font-size: 8px;
+        font-size: 8px;
     }
 
     .timetable-booking-image {
-        width: 2vw; /* Scale image with viewport width */
-        height: 2vw; /* Scale image height with viewport width */
+        width: 2vw;
+        /* Scale image with viewport width */
+        height: 2vw;
+        /* Scale image height with viewport width */
         margin-right: 1vw;
     }
 }
@@ -471,23 +539,33 @@ html, body {
 
 .map-container {
     display: flex;
-    justify-content: center; /* Center children horizontally */
-    align-items: center; /* Center children vertically */
-    margin: 0 auto; /* Automatically adjust margins to center the container */
-    padding: 20px; /* Add padding inside the container */
+    justify-content: center;
+    /* Center children horizontally */
+    align-items: center;
+    /* Center children vertically */
+    margin: 0 auto;
+    /* Automatically adjust margins to center the container */
+    padding: 20px;
+    /* Add padding inside the container */
     background-color: #FDF7D9;
     border-radius: 20px;
     color: black;
     font-family: "Imprima", sans-serif;
-    box-sizing: border-box; /* Include padding in the width/height calculations */
-    width: calc(100% - 80px); /* Subtract the left and right margins from the full width */
-    max-width: 960px; /* Maximum width of the container */
+    box-sizing: border-box;
+    /* Include padding in the width/height calculations */
+    width: calc(100% - 80px);
+    /* Subtract the left and right margins from the full width */
+    max-width: 960px;
+    /* Maximum width of the container */
 }
 
 .starting-point-image {
-    width: 100%; /* Make width responsive */
-    height: auto; /* Maintain aspect ratio */
-    max-height: 50vh; /* Maximum height relative to the viewport height */
+    width: 100%;
+    /* Make width responsive */
+    height: auto;
+    /* Maintain aspect ratio */
+    max-height: 50vh;
+    /* Maximum height relative to the viewport height */
     border-radius: 20px;
     margin-right: 20px;
     object-fit: cover;
@@ -498,15 +576,20 @@ html, body {
 .map-info-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align items to the left */
+    align-items: flex-start;
+    /* Align items to the left */
     justify-content: center;
-    width: 100%; /* Full width of the container */
+    width: 100%;
+    /* Full width of the container */
 }
 
 .map-info-image {
-    width: 100%; /* Full width to be responsive */
-    height: auto; /* Maintain aspect ratio */
-    max-height: 370px; /* Maximum height */
+    width: 100%;
+    /* Full width to be responsive */
+    height: auto;
+    /* Maintain aspect ratio */
+    max-height: 370px;
+    /* Maximum height */
     margin-bottom: 20px;
     object-fit: cover;
     display: block;
@@ -516,20 +599,28 @@ html, body {
 /* Media Queries for additional responsiveness */
 @media (max-width: 768px) {
     .map-container {
-        flex-direction: column; /* Stack children vertically on smaller screens */
-        padding: 10px; /* Reduce padding on smaller screens */
-        width: calc(100% - 20px); /* Reduce the overall width to allow for margins */
-        margin: 0 10px; /* Add horizontal margins */
+        flex-direction: column;
+        /* Stack children vertically on smaller screens */
+        padding: 10px;
+        /* Reduce padding on smaller screens */
+        width: calc(100% - 20px);
+        /* Reduce the overall width to allow for margins */
+        margin: 0 10px;
+        /* Add horizontal margins */
     }
 
     .starting-point-image {
-        margin-right: 0; /* Remove right margin on smaller screens */
-        padding: 10px; /* Reduce padding */
-        max-height: 30vh; /* Adjust height for smaller screens */
+        margin-right: 0;
+        /* Remove right margin on smaller screens */
+        padding: 10px;
+        /* Reduce padding */
+        max-height: 30vh;
+        /* Adjust height for smaller screens */
     }
 
     .map-info-image {
-        max-height: 250px; /* Adjust height for smaller screens */
+        max-height: 250px;
+        /* Adjust height for smaller screens */
     }
 }
 
@@ -608,4 +699,42 @@ html, body {
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
+}
+
+
+.header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    font-family: 'Georgia', serif;
+    font-weight: 500;
+    font-size: 15px;
+    border-radius: 0px 0px 15px 15px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.logo {
+    width: 200px;
+    height: 60px;
 }

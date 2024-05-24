@@ -30,14 +30,19 @@ class CustomPageService
         $this->customPageRepository->addCustomPage($content, $title);
     }
 
+    public function updateCustomPage(int $customPageID, string $content, string $title): void
+    {
+        $this->customPageRepository->updateCustomPage($customPageID, $content, $title);
+    }
+
     public function deleteCustomPage(int $customPageID): void
     {
         $this->customPageRepository->deleteCustomPage($customPageID);
     }
 
-    public function addCustomPageImage(int $customPageID, string $imagePath): void
+    public function addCustomPageImage(int $customPageID, string $imagePath): int
     {
-        $this->customPageRepository->addCustomPageImage($customPageID, $imagePath);
+        return $this->customPageRepository->addCustomPageImage($customPageID, $imagePath);
     }
 
     public function getCustomPageImages(int $customPageID): array
@@ -48,6 +53,10 @@ class CustomPageService
     public function deleteCustomPageImage(int $customPageImageID): void
     {
         $this->customPageRepository->deleteCustomPageImage($customPageImageID);
+    }
+    public function getImagePath(int $ID): string
+    {
+        return $this->customPageRepository->getImagePath($ID);
     }
 
 }

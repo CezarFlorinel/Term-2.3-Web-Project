@@ -53,12 +53,12 @@ $customPages = $customPageService->getAllCustomPages();
                 <a href="/mainpageadmin" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/mainpageadmin')
                     echo 'active'; ?>">Admin</a>
                 <div class="relative dropdown">
-                    <button id="dropdownButton" class="nav-link focus:outline-none">More</button>
-                    <div id="dropdownContent"
-                        class="dropdown-content absolute bg-white shadow-lg rounded-lg mt-1 p-2 space-y-2">
+                    <button id="dropdownButton" class="nav-link">More</button>
+                    <div id="dropdownContent" class="dropdown-content">
                         <?php foreach ($customPages as $customPage): ?>
-                            <a href="/CustomPages?id=<?php echo htmlspecialchars($customPage->customPageID); ?>"
-                                class="block px-4 py-2 text-gray-800 hover:bg-gray-200 rounded"><?php echo $customPage->title; ?></a>
+                            <a href="/CustomPages?id=<?php echo htmlspecialchars($customPage->customPageID); ?>">
+                                <?php echo $customPage->title; ?>
+                            </a>
                         <?php endforeach; ?>
                     </div>
                 </div>

@@ -87,12 +87,14 @@ class CustomPageRepository extends Repository
         return $images;
     }
 
-    public function addCustomPageImage(int $customPageID, string $imagePath): void
+    public function addCustomPageImage(int $customPageID, string $imagePath): int
     {
         $stmt = $this->connection->prepare('INSERT INTO CUSTOM_PAGES_IMAGES_PATHS (CustomPageID, ImagePath) VALUES (:CustomPageID, :ImagePath)');
         $stmt->bindParam(':CustomPageID', $customPageID);
         $stmt->bindParam(':ImagePath', $imagePath);
         $stmt->execute();
+
+        return $this->connection->lastInsertId();
     }
 
     public function deleteCustomPageImage(int $ID): void
@@ -100,6 +102,16 @@ class CustomPageRepository extends Repository
         $stmt = $this->connection->prepare('DELETE FROM CUSTOM_PAGES_IMAGES_PATHS WHERE ID = :ID');
         $stmt->bindParam(':ID', $ID);
         $stmt->execute();
+    }
+
+    public function getImagePath(int $ID): string
+    {
+        $stmt = $this->connection->prepare('SELECT ImagePath FROM CUSTOM_PAGES_IMAGES_PATHS WHERE ID = :ID');
+        $stmt->bindParam(':ID', $ID);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result['ImagePath'];
     }
 
 }
