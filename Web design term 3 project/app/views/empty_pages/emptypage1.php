@@ -15,12 +15,11 @@
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            min-height: 2800px;
+            min-height: 2900px;
         }
         header, footer {
             background-color: #333;
             width: 100%;
-            /* padding: 10px 20px; */
         }
         .container {
             flex: 1;
@@ -65,20 +64,30 @@
         .button.red { background-color: red; }
         .button.blue { background-color: blue; }
         .button.yellow { background-color: yellow; }
+        h1 {
+            color: white;
+            text-align: center;
+            margin-top: 30px;
+            font-size: 60px;
+        }
+        h2.red { color: red; }
+        h2.blue { color: blue; }
+        h2.yellow { color: yellow; }
     </style>
 </head>
 <body>
-    <?php include __DIR__ . '/../header.php'; ?>
+<?php include __DIR__ . '/../header.php'; ?>
+    <h1>Empty Page 1</h1>
     <div class="container">
         <div class="section">
             <div class="image-container">
                 <img src="https://via.placeholder.com/800x400" alt="Placeholder Image 1">
             </div>
-            <h2>Subtitle 1</h2>
+            <h2 class="red">Subtitle 1</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
         <div class="section">
-            <h2>Subtitle 2</h2>
+            <h2 class="blue">Subtitle 2</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
         <div class="section three-images">
@@ -87,22 +96,21 @@
                 <img src="https://via.placeholder.com/800x400" alt="Placeholder Image 3-2">
                 <img src="https://via.placeholder.com/800x400" alt="Placeholder Image 3-3">
             </div>
-            <h2>Subtitle 3</h2>
+            <h2 class="yellow">Subtitle 3</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
         <div class="section">
             <div class="image-container">
                 <img src="https://via.placeholder.com/800x400" alt="Placeholder Image 4">
             </div>
-            <h2>Subtitle 4</h2>
+            <h2 class="red">Subtitle 4</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
         <div class="section">
-            <h2>Subtitle 5</h2>
+            <h2 class="blue">Subtitle 5</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
     </div>
     <?php include __DIR__ . '/../footer.php'; ?>
 </body>
 </html>
-
