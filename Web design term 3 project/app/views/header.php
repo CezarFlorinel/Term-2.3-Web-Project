@@ -1,3 +1,13 @@
+<?php
+use App\Services\CustomPageService;
+
+$customPageService = new CustomPageService();
+$customPages = $customPageService->getAllCustomPages();
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,6 +52,16 @@
                     Through History</a>
                 <a href="/mainpageadmin" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/mainpageadmin')
                     echo 'active'; ?>">Admin</a>
+                <div class="relative dropdown">
+                    <button id="dropdownButton" class="nav-link focus:outline-none">More</button>
+                    <div id="dropdownContent"
+                        class="dropdown-content absolute bg-white shadow-lg rounded-lg mt-1 p-2 space-y-2">
+                        <?php foreach ($customPages as $customPage): ?>
+                            <a href="/CustomPages?id=<?php echo htmlspecialchars($customPage->customPageID); ?>"
+                                class="block px-4 py-2 text-gray-800 hover:bg-gray-200 rounded"><?php echo $customPage->title; ?></a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </nav>
             <div class="icons">
                 <a href="/personalProgramAgendaView">
@@ -55,8 +75,30 @@
                 </a>
             </div>
         </header>
-
     </main>
+    <script>
+        document.getElementById('dropdownButton').addEventListener('click', function () {
+            var dropdownContent = document.getElementById('dropdownContent');
+            if (dropdownContent.style.display === 'none' || dropdownContent.style.display === '') {
+                dropdownContent.style.display = 'block';
+            } else {
+                dropdownContent.style.display = 'none';
+            }
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        window.addEventListener('click', function (event) {
+            if (!event.target.matches('#dropdownButton')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === 'block') {
+                        openDropdown.style.display = 'none';
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
