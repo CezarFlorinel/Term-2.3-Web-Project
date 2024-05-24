@@ -87,7 +87,7 @@ class HistoryAdminController
                 http_response_code(400);
                 echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ErrorHandlerMethod::handleErrorApiController($e);
         }
     }
@@ -114,7 +114,7 @@ class HistoryAdminController
                 http_response_code(400);
                 echo json_encode(['success' => false, 'error' => 'Missing ID or imagePath.']);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ErrorHandlerMethod::handleErrorApiController($e);
         }
     }
@@ -157,7 +157,7 @@ class HistoryAdminController
                 http_response_code(405);
                 echo json_encode(['success' => false, 'error' => 'Only PATCH method is supported']);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ErrorHandlerMethod::handleErrorApiController($e);
         }
     }
@@ -186,7 +186,7 @@ class HistoryAdminController
                 http_response_code(400);
                 echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ErrorHandlerMethod::handleErrorApiController($e);
         }
     }
@@ -210,7 +210,7 @@ class HistoryAdminController
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ErrorHandlerMethod::handleErrorApiController($e);
         }
     }
@@ -234,7 +234,7 @@ class HistoryAdminController
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ErrorHandlerMethod::handleErrorApiController($e);
         }
 
@@ -263,7 +263,7 @@ class HistoryAdminController
                 http_response_code(400);
                 echo json_encode(['success' => false, 'error' => 'No file uploaded or missing ID.']);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ErrorHandlerMethod::handleErrorApiController($e);
         }
     }
@@ -285,7 +285,7 @@ class HistoryAdminController
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ErrorHandlerMethod::handleErrorApiController($e);
         }
     }

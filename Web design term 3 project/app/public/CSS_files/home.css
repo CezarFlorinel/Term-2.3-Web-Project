@@ -7,6 +7,11 @@
       /* This adds vertical space at the top */
     }
 
+    .start-image-text {
+      align-self: flex-start;
+      padding-left: 10%;
+    }
+
     .fest-bg {
       background-color: #333;
     }
