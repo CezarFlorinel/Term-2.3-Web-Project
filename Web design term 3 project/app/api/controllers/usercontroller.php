@@ -60,8 +60,10 @@ class UserController
                 $_SESSION['userName'] = $user->getName();
                 $_SESSION['userRole'] = $user->getUserRole();
 
-                if ($user->getUserRole() == 'Member' || $user->getUserRole() == 'Employee') {
+                if ($user->getUserRole() == 'Member') {
                     $redirectTo = '/';
+                } else if ($user->getUserRole() == 'Employee') {
+                    $redirectTo = '/employee';
                 } else {
                     $redirectTo = '/admin';
                 }
@@ -77,6 +79,18 @@ class UserController
             echo json_encode(['success' => false, 'message' => 'Missing email or password']);
             exit();
         }
+    }
+
+    public function Logout()
+    {
+        session_unset();
+        session_destroy();
+
+        $redirectTo = '/';
+
+        echo json_encode(['success' => true, 'message' => 'Logged out successfully', 'redirectTo' => $redirectTo]);
+        exit();
+    
     }
 
     public function getAllUsers()
@@ -171,6 +185,7 @@ class UserController
 
     public function update()
     {
+        session_start();
         $jsonInput = file_get_contents('php://input');
         $data = json_decode($jsonInput, true);
 
@@ -188,6 +203,12 @@ class UserController
                         $updatedUser->setId($userId);
 
                         $this->userService->update($updatedUser);
+                        
+                        if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['userId']) && !empty($_SESSION['userId'])) {
+                            $_SESSION['userEmail'] = $updatedUser->getEmail();
+                            $_SESSION['userName'] = $updatedUser->getName();
+                            $_SESSION['userRole'] = $updatedUser->getUserRole();
+                        }
 
                         http_response_code(200);
                         echo json_encode(['success' => true, 'message' => 'User updated successfully', 'user' => $updatedUser->toArray()]);

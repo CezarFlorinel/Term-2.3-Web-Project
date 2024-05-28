@@ -7,6 +7,7 @@ use App\Models\Tickets\UserQrTicket;
 use App\Models\Tickets\HistoryTicket;
 use App\Models\Tickets\DancePasses;
 use App\Models\Tickets\DanceTicket;
+use PDOException;
 
 
 class TicketsRepository extends Repository
@@ -102,6 +103,29 @@ class TicketsRepository extends Repository
                 $row['Scanned']
             );
         }, $result);
+    }
+
+    public function scanQRCode(string $ticketID) {
+        try {
+            $stmt = $this->connection->prepare("UPDATE [USER_QR_TICKET] SET Scanned = 1 WHERE TicketID = :ticketID");
+            $stmt->bindValue(':ticketID', $ticketID);
+            return $stmt->execute();
+        } catch (\PDOException $e) {
+            throw new \exception('Error scanning qr code: ' . $e->getMessage());
+        }
+    }
+    public function getQrCodeById($ticketID) {
+        try {
+            $stmt = $this->connection->prepare("SELECT Scanned FROM USER_QR_TICKET WHERE TicketID = :TicketID");
+            $stmt->bindParam(':TicketID', $ticketID, PDO::PARAM_STR);
+            $stmt->execute();
+            
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result ? $result : null;
+        } catch (PDOException $e) {
+            error_log('Error: ' . $e->getMessage());
+            throw $e;
+        }
     }
 
     public function countHistoryTicketsReserved(int $tourID, string $lanuguage): int
@@ -294,5 +318,20 @@ class TicketsRepository extends Repository
         $stmt->bindParam(':end_time', $endTime, PDO::PARAM_STR);
         $stmt->execute();
     }
+
+    public function addHistoryTicket($date, $language, $typeOfTicket, $tourID, $routeID = 1): int
+    {
+        $stmt = $this->connection->prepare('INSERT INTO HISTORY_TICKET (DateAndTime, Language, TypeOfTicket, RouteID, TourID) VALUES (:date, :language, :type_of_ticket, :route_id, :tour_id)');
+        $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':language', $language, PDO::PARAM_STR);
+        $stmt->bindParam(':type_of_ticket', $typeOfTicket, PDO::PARAM_STR);
+        $stmt->bindParam(':route_id', $routeID, PDO::PARAM_INT);
+        $stmt->bindParam(':tour_id', $tourID, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $this->connection->lastInsertId();
+    }
+
+
 
 }

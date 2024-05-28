@@ -18,46 +18,75 @@
     <?php include __DIR__ . '/../header.php'; ?>
 
     <div class="max-w-6xl mx-auto px-4 py-8">
-    <h1 class="text-3xl text-center mb-6">Personal information</h1>
+        <h1 class="text-3xl text-center mb-6">Personal information</h1>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
             <!-- User Profile -->
+
             <div class="md:col-span-1 bg-white shadow-md rounded-lg p-4">
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-lg font-semibold">User Profile</h2>
+
                     <!-- User's picture -->
+
                     <img src="user.jpg" alt="User" class="w-12 h-12 rounded-full">
                 </div>
-                
-
-                <!-- Edit button -->
-                <button
-                    class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Edit
-                    Profile</button>
             </div>
-            <!-- User Actions -->
+
+            <!-- Personal information -->
+
+            <?php
+            session_start();
+
+            if (isset($_SESSION['userEmail']) && isset($_SESSION['userName'])) {
+                $email = $_SESSION['userEmail'];
+                $name = $_SESSION['userName'];
+            }
+            ?>
+
             <div class="md:col-span-2 bg-white shadow-md rounded-lg p-4">
-                <h2 class="text-lg font-semibold mb-4">Actions</h2>
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <li>
-                        <!-- Personal information -->
-                        <div>
-                            <p class="text-gray-600 mb-2"><strong>Name:</strong> John Doe</p>
-                            <p class="text-gray-600 mb-2"><strong>Email:</strong> john@example.com</p>
-                            <p class="text-gray-600 mb-2"><strong>Phone:</strong> +1234567890</p>
-                            <p class="text-gray-600 mb-2"><strong>Address:</strong> 123 Street, City, Country</p>
-                        </div>
+                    <li id="personalInfo" class="mt-4">
+                        <p id="name" class="text-gray-600 mb-2">
+                            <strong>Name:</strong> <span class="name-value"><?php echo $name; ?></span>
+                        </p>
+
+                        <p id="email" class="text-gray-600 mb-2">
+                            <strong>Email:</strong> <span class="email-value"><?php echo $email; ?></span>
+                        </p>
+
                     </li>
                     <li>
-                        <button
-                            class="bg-blue-500 text-white px-4 py-2 rounded-md w-full hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Change
-                            Password</button>
+                        <div>
+                            <button type="button" id="changePassword"
+                                class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Change
+                                Password</button>
+                        </div>
+                        <div>
+                            <button type="button" id="editProfile"
+                                class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Edit
+                                Profile</button>
+                        </div>
+                        <div>
+                            <button type="button" id="save"
+                                class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                                style="display:none;">Save
+                            </button>
+                        </div>
 
                     </li>
                 </ul>
             </div>
         </div>
+        <button type="button" id="logout"
+            class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+            Logout</button>
     </div>
 </body>
 
 </html>
+<script>
+    var userId = <?php echo json_encode($_SESSION['userId']); ?>;
+</script>
+<script type="module" src="javascript/User/userPersonalInformation.js"></script>
+
 <?php include __DIR__ . '/../footer.php'; ?>

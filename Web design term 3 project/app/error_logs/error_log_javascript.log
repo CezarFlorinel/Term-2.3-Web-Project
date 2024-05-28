@@ -35,3 +35,7 @@
 2024-05-07 21:37:33 - update_image.js - setupImageUploadListener - Cannot set properties of null (setting 'src')
 2024-05-07 21:41:56 - update_image.js - setupImageUploadListener - Cannot set properties of null (setting 'src')
 2024-05-07 21:42:21 - update_image.js - setupImageUploadListener - Cannot set properties of null (setting 'src')
+
+2024-05-12 15:32:41 - user.js - editUserForm - Network response was not ok
+2024-05-16 18:01:54 - user.js - button[delete-userid] - searchFunction is not defined
+2024-05-23 20:09:15 - update_image.js - setupImageUploadListener - Missing required fields

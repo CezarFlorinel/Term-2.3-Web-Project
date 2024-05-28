@@ -72,4 +72,9 @@ class PaymentService
     {
         $this->repository->setTheNewOrderForUnpaidOrderItems($orderItemIDs, $userID, $currentOrderID);
     }
+
+    public function createNewOrderItem($quantity, $typeOfFestival, $orderFK, $passFK = null, $danceTicketFK = null, $historyTicketFK = null): void
+    {
+        $this->repository->createNewOrderItem($quantity, $typeOfFestival, $orderFK, $passFK, $danceTicketFK, $historyTicketFK);
+    }
 }

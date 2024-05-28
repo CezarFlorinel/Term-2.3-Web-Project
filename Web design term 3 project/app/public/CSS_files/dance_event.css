@@ -1,14 +1,3 @@
-/* The top image section */
-.start-image-container {
-    background-image: url('../assets/images/dance_event/dance.png');
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
 .artist-image-container {
     background-image: url('../assets/images/dance_event/artist/hardwell.png ');
     background-size: cover;
@@ -24,11 +13,6 @@
     padding-left: 10%;
 }
 
-.start-image-text {
-    align-self: flex-start;
-    padding-left: 10%;
-    /* Adjust the percentage as needed for your design */
-}
 
 .text-1-h,
 .text-2-h,
@@ -68,14 +52,14 @@
 
 }
 
-.rectangle{
+.rectangle {
     margin-top: -30px;
     margin-left: 60px;
     background-size: 400px 200px;
     background-position: center;
 }
 
-.rectangle-right{
+.rectangle-right {
     margin-top: -30px;
     margin-left: 60px;
     background-image: url('../assets/images/dance_event/');
@@ -108,7 +92,7 @@
 
 .info-h {
     color: white;
-    font-family:'Playfair Display', serif;
+    font-family: 'Playfair Display', serif;
     margin-top: 50px;
     margin-left: -55px;
     text-align: left;
@@ -117,14 +101,21 @@
 }
 
 .rectangle {
-    width: 90%; /* Rectangle spans 90% of the page width */
-    height: 200px; /* Adjust height as needed */
-    background-color: #ffcccc; /* Light red background color */
-    border-radius: 10px; /* Rounded corners */
+    width: 90%;
+    /* Rectangle spans 90% of the page width */
+    height: 200px;
+    /* Adjust height as needed */
+    background-color: #ffcccc;
+    /* Light red background color */
+    border-radius: 10px;
+    /* Rounded corners */
     display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds shadow for better visibility */
+    justify-content: center;
+    /* Center content horizontally */
+    align-items: center;
+    /* Center content vertically */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Optional: Adds shadow for better visibility */
 }
 
 .ratatouille-image-container {
@@ -137,7 +128,3 @@
     height: 400px;
     width: 100%;
 }
-
-
-
-

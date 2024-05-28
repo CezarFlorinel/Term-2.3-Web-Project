@@ -9,6 +9,7 @@ use App\Models\Dance_event\Artist;
 use App\Models\Dance_event\ArtistSpotifyLink;
 use App\Models\Dance_event\ClubLocation;
 use App\Repositories\TicketsRepository;
+use App\Models\Tickets\DanceTicket;
 
 class DanceRepository extends Repository
 {
@@ -46,10 +47,10 @@ class DanceRepository extends Repository
         return $artists;
     }
 
-    public function getArtistSpotifyLinks($artistID): array
+    public function getArtistSpotifyLinks(int $artistID): array|null
     {
-        $stmt = $this->connection->prepare('SELECT * FROM ARTIST_SPOTIFY_LINK WHERE ArtistID = :artistID');
-        $stmt->bindParam(':artistID', $artistID);
+        $stmt = $this->connection->prepare('SELECT * FROM ARTIST_SPOTIFY_LINK WHERE FK_ArtistID = :artistID');
+        $stmt->bindParam(':artistID', $artistID, PDO::PARAM_INT);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -57,8 +58,8 @@ class DanceRepository extends Repository
         foreach ($results as $result) {
             $artistSpotifyLinks[] = new ArtistSpotifyLink(
                 $result['ID'],
-                $result['FK_ArtistID'],
-                $result['SpotifyLink']
+                $result['SpotifyLink'],
+                $result['FK_ArtistID']
             );
         }
 
@@ -77,20 +78,25 @@ class DanceRepository extends Repository
         );
     }
 
-    public function getCareerHighlightsByArtistID($artistID): CareerHighlights
+    public function getCareerHighlightsByArtistID($artistID): array|null
     {
         $stmt = $this->connection->prepare('SELECT * FROM CAREER_HIGHLIGHTS WHERE FK_ArtistID = :artistID');
         $stmt->bindParam(':artistID', $artistID);
         $stmt->execute();
-        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return new CareerHighlights(
-            $results['ID'],
-            $results['FK_ArtistID'],
-            $results['TitleYearPeriod'],
-            $results['Text'],
-            $results['Image']
-        );
+        $careerHighlights = [];
+        foreach ($results as $result) {
+            $careerHighlights[] = new CareerHighlights(
+                $result['ID'],
+                $result['TitleYearPeriod'],
+                $result['FK_ArtistID'],
+                $result['Text'],
+                $result['Image']
+            );
+        }
+
+        return $careerHighlights;
     }
 
     public function getAllClubLocations(): array
@@ -141,6 +147,65 @@ class DanceRepository extends Repository
         );
     }
 
+
+    public function getCareerHighlightsById($id): CareerHighlights
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM CAREER_HIGHLIGHTS WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return new CareerHighlights(
+            $results['ID'],
+            $results['TitleYearPeriod'],
+            $results['FK_ArtistID'],
+            $results['Text'],
+            $results['Image']
+        );
+    }
+
+    public function getConcertsByArtistName($name): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM DANCE_TICKET WHERE Singer LIKE :name');
+        $searchTerm = "%$name%";
+        $stmt->bindParam(':name', $searchTerm);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $concerts = [];
+        foreach ($results as $result) {
+            $concerts[] = new DanceTicket(
+                $result['D_TicketID'],
+                $result['DateAndTime'],
+                $result['Location'],
+                $result['Price'],
+                $result['Singer'],
+                $result['TotalQuantityOfAvailableTickets'],
+                $result['SessionType'],
+                $result['StartTime'],
+                $result['EndTime']
+            );
+        }
+
+        return $concerts;
+    }
+
+    public function getArtistByName($name): Artist
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM ARTIST WHERE ArtistName = :name');
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return new Artist(
+            $results['ID'],
+            $results['ArtistName'],
+            $results['ImageTop'],
+            $results['ImageArtistLineupHome']
+        );
+    }
+
+
     // -----------++++++++++++++ delete methods ++++++++++++++----------------
 
     public function deleteArtist($artistID): void
@@ -173,13 +238,38 @@ class DanceRepository extends Repository
 
     // -----------++++++++++++++ update methods ++++++++++++++----------------
 
-    public function updateArtist($artist): void
+    public function updateArtistName($id, $name): void
     {
-        $stmt = $this->connection->prepare('UPDATE ARTIST SET ArtistName = :artistName, ImageTop = :imageTop, ImageArtistLineupHome = :imageArtistLineupHome WHERE ID = :id');
-        $stmt->bindParam(':id', $artist->getId());
-        $stmt->bindParam(':artistName', $artist->getArtistName());
-        $stmt->bindParam(':imageTop', $artist->getImageTop());
-        $stmt->bindParam(':imageArtistLineupHome', $artist->getImageArtistLineupHome());
+        $stmt = $this->connection->prepare('UPDATE ARTIST SET ArtistName = :artistName WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':artistName', $name);
+        $stmt->execute();
+    }
+
+
+    public function updateImageArtist($id, $column, $imagePath): void
+    {
+        $stmt = $this->connection->prepare('UPDATE ARTIST SET ' . $column . ' = :imagePath WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':imagePath', $imagePath);
+        $stmt->execute();
+
+    }
+
+    public function updateCareerHighlights($id, $titleYearPeriod, $text): void
+    {
+        $stmt = $this->connection->prepare('UPDATE CAREER_HIGHLIGHTS SET TitleYearPeriod = :titleYearPeriod, Text = :text WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':titleYearPeriod', $titleYearPeriod);
+        $stmt->bindParam(':text', $text);
+        $stmt->execute();
+    }
+
+    public function updateCareerHighlightsImage($id, $imagePath): void
+    {
+        $stmt = $this->connection->prepare('UPDATE CAREER_HIGHLIGHTS SET Image = :imagePath WHERE ID = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':imagePath', $imagePath);
         $stmt->execute();
     }
 
@@ -189,6 +279,7 @@ class DanceRepository extends Repository
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':imagePath', $imagePath);
         $stmt->execute();
+
     }
 
     public function updateClubLocation($id, $name, $location, $currentName, ): void
@@ -220,6 +311,34 @@ class DanceRepository extends Repository
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':location', $location);
         $stmt->bindParam(':imagePath', $imagePath);
+        $stmt->execute();
+    }
+
+
+    public function addArtist($artistName, $imageTop, $imageArtistLineupHome): void
+    {
+        $stmt = $this->connection->prepare('INSERT INTO ARTIST (ArtistName, ImageTop, ImageArtistLineupHome) VALUES (:artistName, :imageTop, :imageArtistLineupHome)');
+        $stmt->bindParam(':artistName', $artistName);
+        $stmt->bindParam(':imageTop', $imageTop);
+        $stmt->bindParam(':imageArtistLineupHome', $imageArtistLineupHome);
+        $stmt->execute();
+    }
+
+    public function addArtistSpotifyLink($spotifyLink, $artistID): void
+    {
+        $stmt = $this->connection->prepare('INSERT INTO ARTIST_SPOTIFY_LINK (SpotifyLink, FK_ArtistID) VALUES (:spotifyLink, :artistID)');
+        $stmt->bindParam(':spotifyLink', $spotifyLink);
+        $stmt->bindParam(':artistID', $artistID);
+        $stmt->execute();
+    }
+
+    public function addCareerHighlights($titleYearPeriod, $artistID, $text, $image): void
+    {
+        $stmt = $this->connection->prepare('INSERT INTO CAREER_HIGHLIGHTS (TitleYearPeriod, FK_ArtistID, Text, Image) VALUES (:titleYearPeriod, :artistID, :text, :image)');
+        $stmt->bindParam(':titleYearPeriod', $titleYearPeriod);
+        $stmt->bindParam(':artistID', $artistID);
+        $stmt->bindParam(':text', $text);
+        $stmt->bindParam(':image', $image);
         $stmt->execute();
     }
 
