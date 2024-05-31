@@ -5,6 +5,6 @@ class YummyEventRestaurantController
 {
     public function index()
     {
-        require __DIR__ . '/../views/yummy_event/detailed_page.php';
+        require __DIR__ . '/../views/yummy_event/detailedPage.php';
     }
 }

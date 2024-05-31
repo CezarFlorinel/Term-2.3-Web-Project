@@ -6,6 +6,7 @@ use App\Services\YummyService;
 $yummyService = new YummyService();
 $homepageyummy = $yummyService->getHomepageDataRestaurant();
 $yummyrestaurants = $yummyService->getAllRestaurants();
+session_start();
 
 ?>
 

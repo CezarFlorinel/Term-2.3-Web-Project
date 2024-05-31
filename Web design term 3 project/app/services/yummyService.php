@@ -100,6 +100,11 @@ class YummyService
         return $this->yummyRepository->getReservationsByUserId($id);
     }
 
+    public function getReservationsByRestaurantId($restaurantID): array
+    {
+        return $this->yummyRepository->getReservationsByRestaurantId($restaurantID);
+    }
+
     //-------------------- EDIT METHODS --------------------------------------------------------
     //-------------------- Home Part ------------------
     public function editHomepageDataRestaurant($id, $subheader, $description)

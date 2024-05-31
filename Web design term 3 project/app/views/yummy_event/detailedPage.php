@@ -10,6 +10,7 @@ $yummyreviews = $yummyService->getRestaurantReviews($id);
 $yummyDetailPageData = $yummyService->getRestaurantById($id);
 $restaurantGallery = $yummyService->getRestaurantImagePathGallery($id);
 $restaurantSessionPrices = $yummyService->getRestaurantSession($id);
+session_start();
 
 ?>
 
