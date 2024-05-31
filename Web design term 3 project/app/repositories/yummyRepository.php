@@ -291,6 +291,34 @@ class YummyRepository extends Repository  //methods for getting, updating and de
 
     }
 
+    public function getReservationsByRestaurantId($restaurantID): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM RESTAURANT_RESERVATIONS WHERE RestaurantID = :restaurantID');
+        $stmt->bindParam(':restaurantID', $restaurantID);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $reservations = [];
+        foreach ($results as $result) {
+            $reservations[] = new Reservation(
+                $result['ID'],
+                $result['RestaurantID'],
+                $result['FirstName'],
+                $result['LastName'],
+                $result['Email'],
+                $result['PhoneNumber'],
+                $result['Session'],
+                $result['Date'],
+                $result['NumberOfAdults'],
+                $result['NumberOfChildren'],
+                $result['Comment'],
+                $result['Active'],
+                $result['UserId']
+            );
+        }
+        return $reservations;
+
+    }
+
     //-------------------- EDIT METHODS --------------------------------------------------------
     //-------------------- Home Part ------------------
     public function editHomepageDataRestaurant($id, $subheader, $description)
@@ -464,7 +492,7 @@ class YummyRepository extends Repository  //methods for getting, updating and de
 
     public function addReservation($restaurantID, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active, $userID)
     {
-        $stmt = $this->connection->prepare('INSERT INTO RESTAURANT_RESERVATIONS (RestaurantID, FirstName, LastName, Email, PhoneNumber, Session, Date, NumberOfAdults, NumberOfChildren, Comment, Active) VALUES (:restaurantID, :firstName, :lastName, :email, :phoneNumber, :session, :date, :numberOfAdults, :numberOfChildren, :comment, :active, :userID)');
+        $stmt = $this->connection->prepare('INSERT INTO RESTAURANT_RESERVATIONS (RestaurantID, FirstName, LastName, Email, PhoneNumber, Session, Date, NumberOfAdults, NumberOfChildren, Comment, Active, UserId) VALUES (:restaurantID, :firstName, :lastName, :email, :phoneNumber, :session, :date, :numberOfAdults, :numberOfChildren, :comment, :active, :userID)');
         $stmt->bindParam(':restaurantID', $restaurantID);
         $stmt->bindParam(':firstName', $firstName);
         $stmt->bindParam(':lastName', $lastName);

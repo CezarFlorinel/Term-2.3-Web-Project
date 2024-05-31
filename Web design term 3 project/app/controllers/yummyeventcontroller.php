@@ -5,9 +5,7 @@ class YummyEventController
 {
     public function index()
     {
-
-        require __DIR__ . '/../views/empty_pages/emptypage3.php';
-
+        require __DIR__ . '/../views/yummy_event/index.php';
     }
 }
 
