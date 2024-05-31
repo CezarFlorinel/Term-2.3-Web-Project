@@ -16,7 +16,8 @@
 </head>
 
 <body>
-    <main class="bg-gray-800 flex justify-center items-center min-h-screen px-4 py-2 sm:px-6 lg:px-8" style="font-family: 'Playfair Display', serif;">
+    <main class="bg-gray-800 flex justify-center items-center min-h-screen px-4 py-2 sm:px-6 lg:px-8"
+        style="font-family: 'Playfair Display', serif;">
         <div class="bg-white p-10 rounded-lg shadow-lg mx-auto">
             <h1 class="text-4xl text-center font-semibold mb-6 text-gray-800">Reservation</h1>
             <form class="space-y-4">
@@ -55,10 +56,10 @@
                     <div class="w-full">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="date">*Select date:</label>
                         <div class="grid grid-cols-4 gap-1">
+                            <button type="button" class="bg-blue-200 rounded py-2 px-4">25-07</button>
                             <button type="button" class="bg-blue-200 rounded py-2 px-4">26-07</button>
                             <button type="button" class="bg-blue-200 rounded py-2 px-4">27-07</button>
                             <button type="button" class="bg-blue-200 rounded py-2 px-4">28-07</button>
-                            <button type="button" class="bg-blue-200 rounded py-2 px-4">29-07</button>
                         </div>
                     </div>
                 </div>
