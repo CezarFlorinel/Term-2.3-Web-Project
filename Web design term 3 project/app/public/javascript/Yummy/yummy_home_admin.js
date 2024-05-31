@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
         updateSessionTime(dropdown); // Update session time on page load
     });
 
-
     setupImageUploadListener('imageTopInput', apiUrlForImages, getTheIdForTopPart, 'imageTop', columnNameTopImage);
     setupImageUploadListener('imageLocationsInput', apiUrlForImages, getTheIdForTopPart, 'imageLocation', columnNameLocationImage);
 
@@ -28,6 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
     editTopPart();
     displaySession();
     createNewReservation();
+
+
 });
 
 function editTopPart() {
