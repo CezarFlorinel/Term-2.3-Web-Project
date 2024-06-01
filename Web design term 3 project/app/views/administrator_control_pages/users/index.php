@@ -19,7 +19,7 @@
                 <div class="mb-2 pt-2 relative mx-auto text-gray-600">
                     <input
                         class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-                        type="text" name="search" placeholder="Search name" id="search" onkeyup="searchFunction()" title="Type in a name">
+                        type="text" name="search" placeholder="Search name" id="search" title="Type in a name">
                 </div>
 
                 <!-- users table -->

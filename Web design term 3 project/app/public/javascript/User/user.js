@@ -2,37 +2,33 @@ import {handleApiResponse} from "../Utilities/handle_data_checks.js";
 import ErrorHandler from "../Utilities/error_handler_class.js";
 const errorHandler = new ErrorHandler();
 
+function searchFunction() {
+  var input, filter, table, tbody, tr, td, i, txtValue;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("userTable");
+  tbody = table.querySelector("tbody");
+  tr = tbody.getElementsByTagName("tr");
+
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
 //Filling the table with users
-
 document.addEventListener("DOMContentLoaded", function () {
-  //Search
-
-  // function searchFunction() {
-  //    Declare variables
-  //   var input, filter, table, tr, td, i, txtValue;
-  //   input = document.getElementById("search");
-  //   filter = input.value.toUpperCase();
-  //   table = document.getElementById("userTable");
-  //   const tableBody = document.querySelectorAll("#userTable tbody");
-  //   tr = tableBody.getElementsByTagName("tr");
-
-  //    Loop through all table rows, and hide those who don't match the search query
-  //   for (i = 0; i < tr.length; i++) {
-  //      Change the index according to the column you want to search
-  //     td = tr[i].getElementsByTagName("td")[3];
-  //     if (td) {
-  //       txtValue = td.textContent || td.innerText;
-  //       if (txtValue.toUpperCase().indexOf(filter) > -1) {
-  //         tr[i].style.display = "";
-  //       } else {
-  //         tr[i].style.display = "none";
-  //       }
-  //     }
-  //   }
-  // }
+   // Attach the search function to the keyup event
+   document.getElementById("search").addEventListener("keyup", searchFunction);
 
   //Filling the table with users
-
   fetch("/api/user")
     .then(handleApiResponse)
     .then((data) => {
@@ -82,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </td>
             </tr>
         `;
-        //searchFunction();
+        // searchFunction();
       });
 
       const deleteButtons = document.querySelectorAll(
