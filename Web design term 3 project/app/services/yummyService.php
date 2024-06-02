@@ -44,7 +44,7 @@ class YummyService
         return $this->yummyRepository->getRestaurantById($id);
     }
 
-    public function getAllRestaurantIDs($id): Array
+    public function getAllRestaurantIDs($id): array
     {
         return $this->yummyRepository->getAllRestaurantIDs($id);
     }
@@ -98,6 +98,11 @@ class YummyService
     public function getReservationsByUserId($id)
     {
         return $this->yummyRepository->getReservationsByUserId($id);
+    }
+
+    public function getReservationsByRestaurantId($restaurantID): array
+    {
+        return $this->yummyRepository->getReservationsByRestaurantId($restaurantID);
     }
 
     //-------------------- EDIT METHODS --------------------------------------------------------

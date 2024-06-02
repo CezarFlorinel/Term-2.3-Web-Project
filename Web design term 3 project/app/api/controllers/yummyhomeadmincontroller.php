@@ -94,7 +94,7 @@ class YummyHomeAdminController
 
                     $this->yummyService->editReservation($id, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active);
 
-                    echo json_encode(['success' => true, 'message' => 'Reservation updated successfully $numberOfAdults' . $numberOfAdults . ' $numberOfChildren' . $numberOfChildren]);
+                    echo json_encode(['success' => true, 'message' => 'Reservation updated successfully']);
                 } else {
                     http_response_code(400);
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
@@ -113,7 +113,7 @@ class YummyHomeAdminController
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $input = json_decode(file_get_contents('php://input'), true);
 
-                if (isset($input['restaurantName'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'], $input['comment'], $input['active'])) {
+                if (isset($input['restaurantName'], $input['firstName'], $input['lastName'], $input['email'], $input['phoneNumber'], $input['session'], $input['date'], $input['numberOfAdults'], $input['numberOfChildren'])) {
                     $restaurantName = $input['restaurantName'];
                     $firstName = $input['firstName'];
                     $lastName = $input['lastName'];
@@ -126,6 +126,7 @@ class YummyHomeAdminController
                     $comment = $input['comment'];
                     $active = filter_var($input['active'], FILTER_VALIDATE_BOOL);
 
+                    // display the active and the comment if they are nor sett -----------------
 
                     $restaurantId = $this->yummyService->getRestaurantIdByName($restaurantName);
                     $this->yummyService->addReservation($restaurantId, $firstName, $lastName, $email, $phoneNumber, $session, $date, $numberOfAdults, $numberOfChildren, $comment, $active);

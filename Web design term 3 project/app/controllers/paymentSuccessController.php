@@ -94,12 +94,11 @@ class PaymentSuccessController
                 $this->paymentService->setTheNewOrderForUnpaidOrderItems($_SESSION['orderItemIDs'], $this->userId, $this->order->orderID);
             }
 
-            $this->paymentService->updateOrderStatus($this->order->orderID, 'Complete', $this->paymentMethod);
+            $this->paymentService->updateOrderStatus($this->order->orderID, 'Complete', $this->paymentMethod, $_SESSION['totalPrice']);
             $this->addInvoiceInDB();
         } catch (\Exception $e) {
             ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
         }
-
     }
 
     private function addInvoiceInDB()

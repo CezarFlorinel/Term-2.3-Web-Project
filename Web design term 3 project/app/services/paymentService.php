@@ -33,9 +33,9 @@ class PaymentService
         return $this->repository->getPaidOrdersByUserId($userId);
     }
 
-    public function updateOrderStatus($orderID, $paymentStatus, $paymentMethod)
+    public function updateOrderStatus($orderID, $paymentStatus, $paymentMethod, $totalAmount)
     {
-        $this->repository->updateOrderStatus($orderID, $paymentStatus, $paymentMethod);
+        $this->repository->updateOrderStatus($orderID, $paymentStatus, $paymentMethod, $totalAmount);
     }
 
     public function updateOrderItemQuantity($orderItemID, $quantity)
