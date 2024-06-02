@@ -21,7 +21,6 @@ export function saveReservation() {
                 return;
             }
 
-
             fetch('/api/YummyHomeAdmin/updateReservation', {
                 method: 'PUT',
                 headers: {

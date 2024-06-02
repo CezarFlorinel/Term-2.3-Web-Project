@@ -28,8 +28,6 @@ $danceTicketsForAgenda = [];
 $historyTicketsForAgenda = [];
 $reservationData = []; // Initialize an array to hold the combined data
 
-
-
 foreach ($allReservations as $reservation) {
     if ($reservation->isActive) {
         $reservations[] = $reservation;
