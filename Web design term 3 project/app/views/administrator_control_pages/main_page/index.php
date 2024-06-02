@@ -18,7 +18,7 @@ $customPages = $customPageService->getAllCustomPages();
 
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
 
-        <div class="flex-grow p-6">
+        <div class="flex-grow p-6 ml-36">
             <h1 class="text-3xl text-center py-5">Welcome to the admin control panel</h1>
 
             <h2 class="text-2xl text-center py-5">Custom Pages Section</h2>

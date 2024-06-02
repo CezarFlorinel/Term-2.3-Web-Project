@@ -2,7 +2,7 @@
 <?php require __DIR__ . '/../general/modalBoxCreate.php'; ?>
 
 
-<div class="w-64 bg-gray-700 text-white">
+<div class="sidebar fixed left-0 top-0 w-64 h-screen bg-gray-700 text-white">
     <div class="p-5 bg-gray-900">Administrator</div>
     <ul class="space-y-2">
         <li><a href="/mainpageadmin" class="block p-5 hover:bg-gray-800">Home</a></li>
@@ -14,7 +14,6 @@
         <li><a href="/home" class="block p-5 hover:bg-gray-800">Go Back To Website</a></li>
     </ul>
 </div>
-
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         // Get current page URL path
@@ -36,5 +35,9 @@
 <style>
     .active {
         background-color: #2d3748;
+    }
+
+    .sidebar {
+        max-width: 150px;
     }
 </style>

@@ -23,7 +23,7 @@ $restaurantReservations = $yummyService->getAllReservations();
 
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
 
-        <div class="flex-grow p-6">
+        <div class="flex-grow p-6 ml-36">
 
             <?php include __DIR__ . '/../../../components/admin/yummy/main_page/topImagesAndDescription.php'; ?>
             <?php include __DIR__ . '/../../../components/admin/yummy/main_page/reservations.php'; ?>

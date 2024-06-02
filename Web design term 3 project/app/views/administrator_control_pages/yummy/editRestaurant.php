@@ -22,7 +22,7 @@ $cusineTypes = explode(";", $restaurant->cuisineTypes);
 
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
 
-        <div class="flex-grow p-6">
+        <div class="flex-grow p-6 ml-36">
 
             <h1 class="text-5xl font-bold text-center mb-6 text-red-900">
                 <?php echo htmlspecialchars($restaurant->name); ?>
