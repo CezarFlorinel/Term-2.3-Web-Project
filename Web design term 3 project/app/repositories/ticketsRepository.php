@@ -105,7 +105,8 @@ class TicketsRepository extends Repository
         }, $result);
     }
 
-    public function scanQRCode(string $ticketID) {
+    public function scanQRCode(string $ticketID)
+    {
         try {
             $stmt = $this->connection->prepare("UPDATE [USER_QR_TICKET] SET Scanned = 1 WHERE TicketID = :ticketID");
             $stmt->bindValue(':ticketID', $ticketID);
@@ -114,14 +115,25 @@ class TicketsRepository extends Repository
             throw new \exception('Error scanning qr code: ' . $e->getMessage());
         }
     }
-    public function getQrCodeById($ticketID) {
+    public function getQrCodeById($ticketID): ?UserQrTicket
+    {
         try {
-            $stmt = $this->connection->prepare("SELECT Scanned FROM USER_QR_TICKET WHERE TicketID = :TicketID");
+            $stmt = $this->connection->prepare("SELECT * FROM USER_QR_TICKET WHERE TicketID = :TicketID");
             $stmt->bindParam(':TicketID', $ticketID, PDO::PARAM_STR);
             $stmt->execute();
-            
+
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result ? $result : null;
+            if ($result) {
+                return new UserQrTicket(
+                    $result['TicketID'],
+                    $result['UserID'],
+                    $result['OrderItem_FK'],
+                    $result['Date'],
+                    $result['Scanned']
+                );
+            } else {
+                return null;
+            }
         } catch (PDOException $e) {
             error_log('Error: ' . $e->getMessage());
             throw $e;

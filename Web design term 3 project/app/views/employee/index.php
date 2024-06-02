@@ -18,11 +18,14 @@ include __DIR__ . '/../header.php';
             <div class="w-full md:w-1/2">
                 <div class="card border border-gray-200 shadow-lg rounded-lg">
                     <div class="card-body p-8">
-                        <div class="text-center mb-4">
+                        <div class="flex justify-center mb-4">
                             <video id="video" class="w-80 h-52 border border-gray-300"></video>
                         </div>
                         <div class="text-center mt-4">
-                            <button id="startButton" class="bg-blue-300 text-white py-4 px-8 rounded-lg text-lg">Start Scanning</button>
+                            <button id="startButton"
+                                class="bg-blue-800 text-white py-4 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:bg-blue-700 hover:scale-105">
+                                Start Scanning
+                            </button>
                         </div>
                     </div>
                 </div>
