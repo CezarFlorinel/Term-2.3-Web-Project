@@ -34,7 +34,7 @@ foreach ($dancePasses as $pass) {
 
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
 
-        <div class="flex-grow p-6">
+        <div class="flex-grow p-6 ml-36">
             <h1 class="text-3xl text-center mb-6">Dance Tickets & Passes Management</h1>
 
             <h2 class="text-2xl text-center mb-6">Tickets</h2>

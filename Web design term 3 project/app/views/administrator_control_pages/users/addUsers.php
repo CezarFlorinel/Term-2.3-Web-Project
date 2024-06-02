@@ -14,7 +14,7 @@
     <div class="flex min-h-screen overflow-hidden">
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
 
-        <div class="flex-grow p-6">
+        <div class="flex-grow p-6 ml-36">
             <h1 class="text-3xl text-center mb-6">Add a new user</h1>
             <div class="bg-white shadow-md rounded-lg p-6">
 

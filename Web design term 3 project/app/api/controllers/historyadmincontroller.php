@@ -311,7 +311,7 @@ class HistoryAdminController
                     echo json_encode(['success' => false, 'error' => 'Missing required fields']);
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ErrorHandlerMethod::handleErrorApiController($e);
         }
 

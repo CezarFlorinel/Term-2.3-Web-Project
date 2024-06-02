@@ -117,7 +117,7 @@ include __DIR__ . '/../header.php';
 
         <!-- Navigation Buttons -->
         <div class="flex justify-between mt-6">
-            <a href="/">
+            <a href="/personalProgramListView">
                 <button type="button" class="button-back">&larr; Back to Shopping Cart</button>
             </a>
             <button type="submit" class="button-next">NEXT STEP &rarr;</button>

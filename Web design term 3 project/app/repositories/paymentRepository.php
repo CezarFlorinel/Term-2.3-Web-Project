@@ -86,12 +86,17 @@ class PaymentRepository extends Repository
             );
         }, $results);
     }
-    public function updateOrderStatus($orderID, $paymentStatus, $paymentMethod)
+    public function updateOrderStatus($orderID, $paymentStatus, $paymentMethod, $totalAmount)
     {
-        $stmt = $this->connection->prepare('UPDATE [ORDER] SET PaymentStatus = :payment_status, PaymentMethod = :payment_method WHERE OrderID = :order_id');
+        date_default_timezone_set('Europe/Amsterdam');
+        $currentDate = date("Y-m-d H:i:s");
+
+        $stmt = $this->connection->prepare('UPDATE [ORDER] SET PaymentStatus = :payment_status, PaymentMethod = :payment_method, TotalAmount = :total_amount, PaymentDate= :date WHERE OrderID = :order_id');
         $stmt->bindParam(':order_id', $orderID, PDO::PARAM_INT);
         $stmt->bindParam(':payment_status', $paymentStatus, PDO::PARAM_STR);
         $stmt->bindParam(':payment_method', $paymentMethod, PDO::PARAM_STR);
+        $stmt->bindParam(':total_amount', $totalAmount, PDO::PARAM_INT);
+        $stmt->bindParam(':date', $currentDate, PDO::PARAM_STR);
         $stmt->execute();
     }
 

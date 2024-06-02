@@ -13,6 +13,7 @@ use App\Models\History_event\HistoryTicketPrices;
 
 class HistoryRepository extends Repository     // methods for all history related queries
 {
+    const TICKETS_PER_TOUR = 12;
 
     // get the information methods
     public function getHistoryPracticalInformation(): array
@@ -312,13 +313,21 @@ class HistoryRepository extends Repository     // methods for all history relate
 
     public function editHistoryTours($id, $startTime, $englishTour, $dutchTour, $chinesTour)
     {
-        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOURS] SET StartTime = :startTime, EnglishTour = :englishTour, DutchTour = :dutchTour, ChinesTour = :chinesTour WHERE InformationID = :id');
+
+        $maxTicketsEnglish = self::TICKETS_PER_TOUR * (int) $englishTour;
+        $maxTicketsDutch = self::TICKETS_PER_TOUR * (int) $dutchTour;
+        $maxTicketsChinese = self::TICKETS_PER_TOUR * (int) $chinesTour;
+
+        $stmt = $this->connection->prepare('UPDATE [HISTORY_TOURS] SET StartTime = :startTime, EnglishTour = :englishTour, DutchTour = :dutchTour, ChinesTour = :chinesTour, maxTicketsEnglish= :maxTicketsEnglish, maxTicketsDutch= :maxTicketsDutch, maxTicketsChinese= :maxTicketsChinese WHERE InformationID = :id');
         $stmt->execute([
             'id' => $id,
             'startTime' => $startTime,
             'englishTour' => $englishTour,
             'dutchTour' => $dutchTour,
-            'chinesTour' => $chinesTour
+            'chinesTour' => $chinesTour,
+            'maxTicketsEnglish' => $maxTicketsEnglish,
+            'maxTicketsDutch' => $maxTicketsDutch,
+            'maxTicketsChinese' => $maxTicketsChinese
         ]);
     }
 

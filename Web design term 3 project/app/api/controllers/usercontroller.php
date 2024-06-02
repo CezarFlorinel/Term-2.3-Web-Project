@@ -3,7 +3,8 @@
 namespace App\Api\Controllers;
 
 use App\Services\UserService;
-use App\Models\User;
+use App\Models\User\User;
+use App\Models\User\UserRole;
 
 class UserController
 {

@@ -1,3 +1,11 @@
+<?php
+use App\Services\CustomPageService;
+
+$customPageService = new CustomPageService();
+$customPages = $customPageService->getAllCustomPages();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
