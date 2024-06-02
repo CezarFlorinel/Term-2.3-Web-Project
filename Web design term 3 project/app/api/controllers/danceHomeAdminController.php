@@ -5,6 +5,7 @@ namespace App\Api\Controllers;
 use App\Services\DanceService;
 use App\Utilities\ImageEditor;
 use App\Utilities\ErrorHandlerMethod;
+use App\Utilities\HandleDataCheck;
 use Exception;
 
 class DanceHomeAdminController
@@ -86,9 +87,9 @@ class DanceHomeAdminController
 
                 if (isset($input['clubLocationID'], $input['name'], $input['location'], $input['currentName'])) {
                     $clubLocationID = filter_var($input['clubLocationID'], FILTER_VALIDATE_INT);
-                    $name = $input['name'];
-                    $location = $input['location'];
-                    $currentName = $input['currentName'];
+                    $name = HandleDataCheck::filterEmptyStringAPI($input['name']);
+                    $location = HandleDataCheck::filterEmptyStringAPI($input['location']);
+                    $currentName = HandleDataCheck::filterEmptyStringAPI($input['currentName']);
 
                     $this->danceService->updateClubLocation($clubLocationID, $name, $location, $currentName);
 
@@ -144,8 +145,8 @@ class DanceHomeAdminController
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Check if both text fields and file are present
                 if (isset($_POST['name'], $_POST['location']) && isset($_FILES['image'])) {
-                    $name = $_POST['name'];
-                    $location = $_POST['location'];
+                    $name = HandleDataCheck::filterEmptyStringAPI($_POST['name']);
+                    $location = HandleDataCheck::filterEmptyStringAPI($_POST['location']);
                     $image = $_FILES['image'];
 
                     $imageURL = ImageEditor::saveImage('/app/public/assets/images/dance_event/club_locations', $image);
@@ -176,7 +177,7 @@ class DanceHomeAdminController
         try {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (isset($_POST['name']) && isset($_FILES['imageTop'], $_FILES['imageArtistLineup'])) {
-                    $name = $_POST['name'];
+                    $name = HandleDataCheck::filterEmptyStringAPI($_POST['name']);
                     $imageArtistLineup = $_FILES['imageArtistLineup'];
                     $imageTop = $_FILES['imageTop'];
                     $imageURL = ImageEditor::saveImage('/app/public/assets/images/dance_event/artists', $imageArtistLineup);

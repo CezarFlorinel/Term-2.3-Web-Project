@@ -51,6 +51,15 @@ class HandleDataCheck
         }
     }
 
-
+    public static function filterEmptyStringAPI($value)
+    {
+        $value = trim($value);
+        if ($value === '') {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'The string is empty']);
+            exit();
+        }
+        return $value;
+    }
 
 }
