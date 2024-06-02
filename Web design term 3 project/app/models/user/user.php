@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
-use App\Models\UserRole;
+use App\Models\User\UserRole;
 
 class User
 {

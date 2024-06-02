@@ -39,3 +39,4 @@
 2024-05-12 15:32:41 - user.js - editUserForm - Network response was not ok
 2024-05-16 18:01:54 - user.js - button[delete-userid] - searchFunction is not defined
 2024-05-23 20:09:15 - update_image.js - setupImageUploadListener - Missing required fields
+2024-06-02 00:05:37 - user.js - editUserForm - Unexpected end of JSON input
