@@ -51,7 +51,6 @@ class UserController
         if (isset($input['email']) && isset($input['password'])) {
             $email = $input['email'];
             $password = $input['password'];
-            // $hasedPassword = password_hash($password, PASSWORD_DEFAULT);
 
             $user = new User($this->userService->getByEmail($email));
 
@@ -69,7 +68,7 @@ class UserController
                     $redirectTo = '/admin';
                 }
 
-               echo json_encode(['success' => true, 'message' => 'Logged in successfully', 'redirectTo' => $redirectTo]);
+                echo json_encode(['success' => true, 'message' => 'Logged in successfully', 'redirectTo' => $redirectTo]);
             } else {
                 http_response_code(401);
                 echo json_encode(['success' => false, 'message' => 'Invalid email or password']);
@@ -91,7 +90,7 @@ class UserController
 
         echo json_encode(['success' => true, 'message' => 'Logged out successfully', 'redirectTo' => $redirectTo]);
         exit();
-    
+
     }
 
     public function getAllUsers()
@@ -204,7 +203,7 @@ class UserController
                         $updatedUser->setId($userId);
 
                         $this->userService->update($updatedUser);
-                        
+
                         if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['userId']) && !empty($_SESSION['userId'])) {
                             $_SESSION['userEmail'] = $updatedUser->getEmail();
                             $_SESSION['userName'] = $updatedUser->getName();
