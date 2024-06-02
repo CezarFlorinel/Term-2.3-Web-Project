@@ -1,4 +1,4 @@
-import { handleApiResponse } from "../Utilities/handle_data_checks.js";
+
 import ErrorHandler from "../Utilities/error_handler_class.js";
 const errorHandler = new ErrorHandler();
 
@@ -25,6 +25,7 @@ document.getElementById("startButton").addEventListener("click", () => {
         "video",
         (result) => {
           if (result && nextScanning) {
+            nextScanning = false;
             fetch(`/api/employee/getTicketStatus?ticketID=${result.text}`, {
               method: "GET",
               headers: {
@@ -40,20 +41,14 @@ document.getElementById("startButton").addEventListener("click", () => {
                 const ticketInfoCard = document.getElementById("ticketInfoCard");
                 ticketInfoCard.innerHTML = `<p>Ticket Owner: ${nameOfUser}</p>`;
 
-                const resetButton = () => {
-                  // Reset button on alert close
-                  button.textContent = "Start Scanning";
-                  button.classList.remove("bg-blue-300");
-                  button.classList.add("bg-blue-800", "hover:bg-blue-700");
-                  button.disabled = false;
-                };
-
                 if (isScanned) {
                   // Ticket already scanned
-                  errorHandler.showAlert("Ticket already scanned!", {
-                    showConfirmButton: true,
-                    didClose: resetButton, // Ensure the button is reset when the alert is closed
+                  errorHandler.showAlertWithPromise("Ticket already scanned!", {
+                    showConfirmButton: true
+                  }).then(() => {
+                    nextScanning = true;
                   });
+
                 } else {
                   // Ticket scanned for the first time
                   fetch(`/api/employee/handleQRData?ticketID=${result.text}`, {
@@ -65,12 +60,14 @@ document.getElementById("startButton").addEventListener("click", () => {
                   })
                     .then((response) => response.json())
                     .then(() => {
-                      errorHandler.showAlert("Ticket scanned successfully!", {
+                      errorHandler.showAlertWithPromise("Ticket scanned successfully!", {
                         icon: "success",
                         title: "Success",
-                        showConfirmButton: true,
-                        didClose: resetButton, // Ensure the button is reset when the alert is closed
-                      });
+                        showConfirmButton: true
+                      })
+                        .then(() => {
+                          nextScanning = true;
+                        });
                     });
                 }
               });
@@ -80,15 +77,12 @@ document.getElementById("startButton").addEventListener("click", () => {
     })
     .catch((err) => {
       console.error(err);
-      errorHandler.showAlert("Error scanning ticket!", {
-        didClose: () => {
-          // Reset button on error
-          button.textContent = "Start Scanning";
-          button.classList.remove("bg-blue-300");
-          button.classList.add("bg-blue-800", "hover:bg-blue-700");
-          button.disabled = false;
-        }
-      });
+      nextScanning = true;
+      errorHandler.showAlert("Error scanning ticket!");
+      button.textContent = "Start Scanning";
+      button.classList.remove("bg-blue-300");
+      button.classList.add("bg-blue-800", "hover:bg-blue-700");
+      button.disabled = false;
     });
 });
 
