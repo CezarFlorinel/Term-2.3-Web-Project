@@ -259,11 +259,7 @@
                         </div>
                         <div class="event-time">25 Jul 21:00-4:00</div>
                         <div class="starting-point">Patronaat Club Club</div>
-                        <div class="flex items-center button-container">
-                            <button class="px-1 py-0.5 text-xs border">-</button>
-                            <input type="text" class="w-6 h-6 text-xs text-center border-t border-b" value="1">
-                            <button class="px-1 py-0.5 text-xs border">+</button>
-                        </div>
+                        <div class="flex items-center button-container">1</div>
                         <div class="flex flex-col items-center" style="margin-left: 1rem; margin-right:0.5rem">
                         <div class="flex items-center negative-margin" style="flex-shrink: 0;">
                             <input type="checkbox" class="form-checkbox h-6 w-6 text-gray-600" style="flex-shrink: 0;">
@@ -284,11 +280,7 @@
                         </div>
                         <div class="event-time">02 Jun 17:00-18:30</div>
                         <div class="starting-point">Spaarne 96, 2011 CL Haarlem</div>
-                        <div class="flex items-center button-container">
-                            <button class="px-1 py-0.5 text-xs border">-</button>
-                            <input type="text" class="w-6 h-6 text-xs text-center border-t border-b" value="1">
-                            <button class="px-1 py-0.5 text-xs border">+</button>
-                        </div>
+                        <div class="flex items-center button-container">1</div>
                         <div class="flex flex-col items-center" style="margin-left: 1rem; margin-right:0.5rem">
                         <div class="flex items-center negative-margin" style="flex-shrink: 0;">
                             <input type="checkbox" class="form-checkbox h-6 w-6 text-gray-600" style="flex-shrink: 0;">
@@ -309,11 +301,7 @@
                         </div>
                         <div class="event-time">02 Jun 17:00-18:30</div>
                         <div class="starting-point">Spaarne 96, 2011 CL Haarlem</div>
-                        <div class="flex items-center button-container">
-                            <button class="px-1 py-0.5 text-xs border">-</button>
-                            <input type="text" class="w-6 h-6 text-xs text-center border-t border-b" value="1">
-                            <button class="px-1 py-0.5 text-xs border">+</button>
-                        </div>
+                        <div class="flex items-center button-container">1</div>
                         <div class="flex flex-col items-center" style="margin-left: 1rem; margin-right:0.5rem">
                         <div class="flex items-center negative-margin" style="flex-shrink: 0;">
                             <input type="checkbox" class="form-checkbox h-6 w-6 text-gray-600" style="flex-shrink: 0;">
