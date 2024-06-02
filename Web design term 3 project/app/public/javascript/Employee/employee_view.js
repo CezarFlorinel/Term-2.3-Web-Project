@@ -1,8 +1,8 @@
-
 import ErrorHandler from "../Utilities/error_handler_class.js";
 const errorHandler = new ErrorHandler();
 
 let nextScanning = true;
+let codeReader = null;
 
 document.getElementById("startButton").addEventListener("click", () => {
   const button = document.getElementById("startButton");
@@ -13,7 +13,7 @@ document.getElementById("startButton").addEventListener("click", () => {
   button.classList.add("bg-blue-300");
   button.disabled = true;
 
-  const codeReader = new ZXing.BrowserQRCodeReader();
+  codeReader = new ZXing.BrowserQRCodeReader();
   console.log("ZXing code reader initialized");
 
   codeReader
@@ -39,7 +39,8 @@ document.getElementById("startButton").addEventListener("click", () => {
 
                 // Display the name of the user in the ticketInfoCard div
                 const ticketInfoCard = document.getElementById("ticketInfoCard");
-                ticketInfoCard.innerHTML = `<p>Ticket Owner: ${nameOfUser}</p>`;
+                ticketInfoCard.innerHTML = `<h2 class="text-2xl font-bold mb-2">Ticket Owner</h2>
+                                            <p class="text-lg text-gray-700">${nameOfUser}</p>`;
 
                 if (isScanned) {
                   // Ticket already scanned
@@ -48,7 +49,6 @@ document.getElementById("startButton").addEventListener("click", () => {
                   }).then(() => {
                     nextScanning = true;
                   });
-
                 } else {
                   // Ticket scanned for the first time
                   fetch(`/api/employee/handleQRData?ticketID=${result.text}`, {
@@ -64,10 +64,9 @@ document.getElementById("startButton").addEventListener("click", () => {
                         icon: "success",
                         title: "Success",
                         showConfirmButton: true
-                      })
-                        .then(() => {
-                          nextScanning = true;
-                        });
+                      }).then(() => {
+                        nextScanning = true;
+                      });
                     });
                 }
               });
@@ -85,4 +84,20 @@ document.getElementById("startButton").addEventListener("click", () => {
       button.disabled = false;
     });
 });
+
+document.getElementById("stopButton").addEventListener("click", () => {
+  if (codeReader) {
+    codeReader.reset();
+    codeReader = null;
+  }
+  nextScanning = true;
+
+  // Reset the start button
+  const startButton = document.getElementById("startButton");
+  startButton.textContent = "Start Scanning";
+  startButton.classList.remove("bg-blue-300");
+  startButton.classList.add("bg-blue-800", "hover:bg-blue-700");
+  startButton.disabled = false;
+});
+
 
