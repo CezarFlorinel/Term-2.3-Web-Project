@@ -24,100 +24,102 @@ document.addEventListener("DOMContentLoaded", function () {
 
   editProfileButton.addEventListener("click", function (event) {
     const nameParagraph = document.getElementById("name");
-  const nameSpan = nameParagraph.querySelector(".name-value");
-  const emailParagraph = document.getElementById("email");
-  const emailSpan = emailParagraph.querySelector(".email-value");
-  const strongElementName = document
-    .getElementById("name")
-    .querySelector("strong");
-  const strongElementEmail = document
-    .getElementById("email")
-    .querySelector("strong");
-  const nameInput = document.createElement("input");
+    const nameSpan = nameParagraph.querySelector(".name-value");
+    const emailParagraph = document.getElementById("email");
+    const emailSpan = emailParagraph.querySelector(".email-value");
+    const strongElementName = document
+      .getElementById("name")
+      .querySelector("strong");
+    const strongElementEmail = document
+      .getElementById("email")
+      .querySelector("strong");
+    const nameInput = document.createElement("input");
 
-  nameInput.type = "text";
-  nameInput.classList.add(
-    "shadow",
-    "appearance-none",
-    "border",
-    "rounded",
-    "w-full",
-    "py-2",
-    "px-3",
-    "text-gray-600",
-    "leading-tight",
-    "focus:outline-none",
-    "focus:shadow-outline",
-    "mb-2"
-  );
-  nameInput.value = nameSpan.textContent.trim();
+    nameInput.type = "text";
+    nameInput.classList.add(
+      "shadow",
+      "appearance-none",
+      "border",
+      "rounded",
+      "w-full",
+      "py-2",
+      "px-3",
+      "text-gray-600",
+      "leading-tight",
+      "focus:outline-none",
+      "focus:shadow-outline",
+      "mb-2"
+    );
+    nameInput.value = nameSpan.textContent.trim();
 
-  const emailInput = document.createElement("input");
-  emailInput.type = "text";
-  emailInput.classList.add(
-    "shadow",
-    "appearance-none",
-    "border",
-    "rounded",
-    "w-full",
-    "py-2",
-    "px-3",
-    "text-gray-600",
-    "leading-tight",
-    "focus:outline-none",
-    "focus:shadow-outline",
-    "mb-2"
-  );
-  emailInput.value = emailSpan.textContent.trim();
+    const emailInput = document.createElement("input");
+    emailInput.type = "text";
+    emailInput.classList.add(
+      "shadow",
+      "appearance-none",
+      "border",
+      "rounded",
+      "w-full",
+      "py-2",
+      "px-3",
+      "text-gray-600",
+      "leading-tight",
+      "focus:outline-none",
+      "focus:shadow-outline",
+      "mb-2"
+    );
+    emailInput.value = emailSpan.textContent.trim();
 
-  // Insert input fields between the paragraphs
-  nameParagraph.insertAdjacentElement("afterend", nameInput);
-  emailParagraph.insertAdjacentElement("afterend", emailInput);
+    // Insert input fields between the paragraphs
+    nameParagraph.insertAdjacentElement("afterend", nameInput);
+    emailParagraph.insertAdjacentElement("afterend", emailInput);
 
-  nameSpan.textContent = "";
-  strongElementName.textContent = "Name: ";
+    nameSpan.textContent = "";
+    strongElementName.textContent = "Name: ";
 
-  emailSpan.textContent = "";
-  strongElementEmail.textContent = "Email: ";
+    emailSpan.textContent = "";
+    strongElementEmail.textContent = "Email: ";
     //createInputFields();
     saveButton.style.display = "block";
     editProfileButton.style.display = "none";
-    saveButton.addEventListener("click", function(event) {
-        event.preventDefault();
+    saveButton.addEventListener("click", function (event) {
+      event.preventDefault();
 
-        const name = nameInput.value;
-    const email = emailInput.value;
+      const name = nameInput.value;
+      const email = emailInput.value;
 
-    const updatedData = {
+      const updatedData = {
         name: name,
         email: email,
-    };
+      };
 
-    fetch(`/api/user?id=${userId}`, {
-      method: "PUT",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedData),
-    })
-    .then(handleApiResponse)
-    .then(data => {
-        if (data.success) {
-            window.location.href = '/userAccount';
+      fetch(`/api/user?id=${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      })
+        .then(handleApiResponse)
+        .then((data) => {
+          if (data.success) {
+            window.location.href = "/userAccount";
           } else {
-            errorHandler.logError('Error updating user:', data.message);
+            errorHandler.logError("Error updating user:", data.message);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           errorHandler.logError(error, "editUserForm", "user.js");
-          errorHandler.showAlert("An error occurred while trying to edit the user. Please try again later!");
-      });
-       // editUserInformation();
+          errorHandler.showAlert(
+            "An error occurred while trying to edit the user. Please try again later!"
+          );
+        });
+      
     });
   });
 
   //Change password
-  
+
   changePassword.addEventListener("click", function (event) {});
 });
 

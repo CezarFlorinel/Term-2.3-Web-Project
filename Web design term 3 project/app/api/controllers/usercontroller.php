@@ -4,11 +4,13 @@ namespace App\Api\Controllers;
 
 use App\Services\UserService;
 use App\Models\User\User;
+use App\Utilities\EmailService;
 use App\Models\User\UserRole;
 
 class UserController
 {
     private $userService;
+    private $emailService;
 
     private $filters = [
         'email' => FILTER_SANITIZE_EMAIL,
@@ -21,6 +23,7 @@ class UserController
     function __construct()
     {
         $this->userService = new UserService();
+        $this->emailService = new EmailService();
     }
 
     public function index()
@@ -190,6 +193,7 @@ class UserController
         $data = json_decode($jsonInput, true);
 
         $userId = $_GET['id'] ?? null;
+        $currentUserId = $_SESSION['userId'] ?? null;
 
         if ($userId) {
             $existingUser = $this->userService->getById($userId);
@@ -208,6 +212,10 @@ class UserController
                             $_SESSION['userEmail'] = $updatedUser->getEmail();
                             $_SESSION['userName'] = $updatedUser->getName();
                             $_SESSION['userRole'] = $updatedUser->getUserRole();
+
+                            $subject = "Your profile has been updated";
+                            $body = "<p>Dear " . $_SESSION['userName'] . ",</p><p>Your profile information has been updated.<br>If that was you, please ignore this email. If you did not changed your account information, please change your password or get in touch with an administrator.</p><br>Best regards,<br>Team Haarlem";
+                            $this->emailService->sendEmailForUpdateUser($_SESSION['userEmail'], $_SESSION['userName'], $subject, $body);
                         }
 
                         http_response_code(200);

@@ -39,6 +39,11 @@ if (isset($_SESSION['userEmail']) && isset($_SESSION['userName'])) {
 
                     <img src="user.jpg" alt="User" class="w-12 h-12 rounded-full">
                 </div>
+                <div>
+                    <button type="button" id="changePicture"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Change
+                        Picture</button>
+                </div>
             </div>
 
             <!-- Personal information -->

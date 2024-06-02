@@ -17,11 +17,10 @@ class EmailService
     {
         $this->userService = new UserService();
         $this->sessionManager = new SessionManager();
-        session_start();
+        //session_start();
     }
     private static function configureMailer()
     {
-
         $mail = new PHPMailer(true);
         require '../config/emailconfig.php';
 
@@ -35,11 +34,12 @@ class EmailService
 
         return $mail;
     }
-    public function sendEmailForUpdateUser($email, $subject, $body)
+    public function sendEmailForUpdateUser($email, $name, $subject, $body)
     {
         try {
 
             $mail = self::configureMailer(); // Configure PHPMailer
+
             // Set email content
             $mail->setFrom($mail->Username, 'Team Haarlem');
             $mail->addAddress($email, $name);
