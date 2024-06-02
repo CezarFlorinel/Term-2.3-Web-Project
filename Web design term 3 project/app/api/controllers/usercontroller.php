@@ -45,6 +45,11 @@ class UserController
         }
     }
 
+    public function verifyUserPassword($inputPassword) 
+    {
+        
+    }
+
     public function logIn()
     {
         session_start();
