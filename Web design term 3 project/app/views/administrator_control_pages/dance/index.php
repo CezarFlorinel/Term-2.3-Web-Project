@@ -19,7 +19,7 @@ $artists = $danceService->getAllArtists();
 
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
 
-        <div class="flex-grow p-6">
+        <div class="flex-grow p-6 ml-36">
 
 
             <h1 class="text-3xl text-center mb-6">Dance Home Page</h1>
@@ -103,7 +103,6 @@ $artists = $danceService->getAllArtists();
                     <li>
 
                         <a href="/artistAdminManagement?artistID=<?php echo $artist->artistID; // redirect to the page, change the link ?>"
-
                             class="block bg-white hover:bg-gray-100 border border-gray-200 rounded-lg p-4 transition duration-150">
                             <div class="text-center">
                                 <p class="text-lg font-semibold text-gray-800">
