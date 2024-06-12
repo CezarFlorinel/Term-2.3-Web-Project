@@ -112,7 +112,11 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         })
         .catch((error) => {
-          errorHandler.logError(error, "editUserForm", "userPersonalInformation.js");
+          errorHandler.logError(
+            error,
+            "editUserForm",
+            "userPersonalInformation.js"
+          );
           errorHandler.showAlert(
             "An error occurred while trying to modify your account information. Please try again later!"
           );
@@ -174,12 +178,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const newPassword = newPasswordInput.querySelector("input").value;
       const confirmPassword = confirmPasswordInput.querySelector("input").value;
 
-      if (oldPassword !== password) {
-        errorHandler.showAlert(
-          "Your introduced a wrong password. Please provide your correct password before proceeding."
-        );
-        return;
-      }
+      fetch(`/api/user?id=${userId}`)
+        .then(handleApiResponse)
+        .then((data) => {
+          if (oldPassword !== data.data.password) {
+            errorHandler.showAlert(
+              "Your introduced a wrong password. For security reasons please provide your correct password before proceeding."
+            );
+            return;
+          }
+        })
+        .catch(error => errorHandler.logError("Error fetching the password: ", error));
+      
       if (newPassword !== confirmPassword) {
         errorHandler.showAlert("The passwords do not match.");
         return;
@@ -205,7 +215,11 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         })
         .catch((error) => {
-          errorHandler.logError(error, "editUserForm", "userPersonalInformation.js");
+          errorHandler.logError(
+            error,
+            "editUserForm",
+            "userPersonalInformation.js"
+          );
           errorHandler.showAlert(
             "An error occurred while trying to change your password. Please try again later!"
           );

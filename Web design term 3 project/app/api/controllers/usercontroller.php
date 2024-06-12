@@ -45,9 +45,13 @@ class UserController
         }
     }
 
-    public function verifyUserPassword($inputPassword) 
+    public function changePassword($inputPassword) 
     {
-        
+        session_start();
+        $jsonInput = file_get_contents('php://input');
+        $data = json_decode($jsonInput, true);
+
+        $userId = $_GET['id'] ?? null;
     }
 
     public function logIn()
@@ -198,7 +202,7 @@ class UserController
         $data = json_decode($jsonInput, true);
 
         $userId = $_GET['id'] ?? null;
-        $currentUserId = $_SESSION['userId'] ?? null;
+        //$currentUserId = $_SESSION['userId'] ?? null;
 
         if ($userId) {
             $existingUser = $this->userService->getById($userId);
