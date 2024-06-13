@@ -45,13 +45,67 @@ class UserController
         }
     }
 
-    public function changePassword($inputPassword) 
+    public function verifyPassword()
     {
         session_start();
         $jsonInput = file_get_contents('php://input');
         $data = json_decode($jsonInput, true);
 
-        $userId = $_GET['id'] ?? null;
+        if (!isset($_SESSION['userId'])) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+            return;
+        }
+
+        if (!isset($data['inputPassword'])) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'message' => 'Missing input password']);
+            return;
+        }
+
+        $inputPassword = $data['inputPassword'];
+
+        $user = new User($this->userService->getById($_SESSION['userId']));
+
+
+        if (!$user || !password_verify($inputPassword, $user->getPassword())) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Invalid current password']);
+            return;
+        }
+
+        echo json_encode(['success' => true, 'message' => 'Password verified']);
+    }
+
+    public function changePassword()
+    {
+        session_start();
+        $jsonInput = file_get_contents('php://input');
+        $data = json_decode($jsonInput, true);
+
+        if (!isset($_SESSION['userId'])) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+            return;
+        }
+
+        if (!isset($data['newPassword'])) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'message' => 'Missing new password']);
+            return;
+        }
+
+        $newPassword = $data['newPassword'];
+
+        $user = new User($this->userService->getById($_SESSION['userId']));
+
+        $this->userService->changePassword($user->getId(), $newPassword);
+
+        $subject = "Your password has been changed";
+        $body = "<p>Dear " . $user->getName() . ",</p><p>Your password has been changed successfully.<br>If you did not change your password, please contact support immediately.</p><br>Best regards,<br>Team Haarlem";
+        $this->emailService->sendEmailForUpdateUser($user->getEmail(), $user->getName(), $subject, $body);
+
+        echo json_encode(['success' => true, 'message' => 'Password changed successfully']);
     }
 
     public function logIn()
