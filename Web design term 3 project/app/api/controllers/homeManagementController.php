@@ -5,6 +5,7 @@ namespace App\Api\Controllers;
 use App\Services\HomeService;
 use App\Utilities\ImageEditor;
 use App\Utilities\ErrorHandlerMethod;
+use App\Utilities\HandleDataCheck;
 use Exception;
 
 class HomeManagementController
@@ -26,7 +27,7 @@ class HomeManagementController
 
                 if (isset($input['id']) && isset($input['description']) && isset($input['subtitle'])) {
                     $id = filter_var($input['id'], FILTER_SANITIZE_NUMBER_INT);
-                    $description = $input['description'];
+                    $description = HandleDataCheck::filterEmptyStringAPI($input['description']);
 
                     if (isset($input['link'])) { // to make it work for the bottom ones as well which don't have a link
                         $link = $input['link'];
@@ -34,7 +35,7 @@ class HomeManagementController
                         $link = null;
                     }
 
-                    $subtitle = $input['subtitle'];
+                    $subtitle = HandleDataCheck::filterEmptyStringAPI($input['subtitle']);
 
                     $this->homeService->updateEvent($id, $description, $link, $subtitle);
 
@@ -61,7 +62,7 @@ class HomeManagementController
 
                 if (isset($input['id']) && isset($input['description'])) {
                     $id = filter_var($input['id'], FILTER_SANITIZE_NUMBER_INT);
-                    $description = $input['description'];
+                    $description = HandleDataCheck::filterEmptyStringAPI($input['description']);
 
                     $this->homeService->updateHomeFestivalLocation($id, $description);
 
@@ -88,8 +89,8 @@ class HomeManagementController
 
                 if (isset($input['id']) && isset($input['title']) && isset($input['description'])) {
                     $id = filter_var($input['id'], FILTER_SANITIZE_NUMBER_INT);
-                    $title = $input['title'];
-                    $description = $input['description'];
+                    $title = HandleDataCheck::filterEmptyStringAPI($input['title']);
+                    $description = HandleDataCheck::filterEmptyStringAPI($input['description']);
 
                     $this->homeService->updateHomePageDetails($id, $title, $description);
 
@@ -116,9 +117,9 @@ class HomeManagementController
 
                 if (isset($input['id']) && isset($input['description']) && isset($input['title']) && isset($input['subtitle'])) {
                     $id = filter_var($input['id'], FILTER_SANITIZE_NUMBER_INT);
-                    $description = $input['description'];
-                    $title = $input['title'];
-                    $subtitle = $input['subtitle'];
+                    $description = HandleDataCheck::filterEmptyStringAPI($input['description']);
+                    $title = HandleDataCheck::filterEmptyStringAPI($input['title']);
+                    $subtitle = HandleDataCheck::filterEmptyStringAPI($input['subtitle']);
 
                     $this->homeService->updateHomeGameEventDetails($id, $description, $title, $subtitle);
 
@@ -238,7 +239,7 @@ class HomeManagementController
                 if (isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
                     $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
                     $image = $_FILES['image'];
-                    $column = $_POST['columnName'];
+                    $column = HandleDataCheck::filterEmptyStringAPI($_POST['columnName']);
                     $currentImagePath = '';
 
                     if ($column === 'ImageQRcodePath') {
