@@ -1,3 +1,8 @@
+import { handleApiResponse, checkNumber } from "../Utilities/handle_data_checks.js";
+import ErrorHandler from "../Utilities/error_handler_class.js";
+const errorHandler = new ErrorHandler();
+
+
 let selectedLanguage = null;
 let quantity = 0;
 let ticketType = 'Regular Participant';
@@ -12,7 +17,6 @@ let theSelectedTime = null;
 let idOfSelectedTour = null;
 
 
-// JavaScript code for selecting a flag
 document.addEventListener('DOMContentLoaded', () => {
     addEventListenerToFlags();
 
@@ -59,7 +63,12 @@ function addToCart() {
         language: selectedLanguage,
         date: date
     };
-    console.log('Payload:', payload);
+
+
+    if (!checkNumber(payload.quantity)) {
+        return;
+    }
+
 
     fetch('/api/historyAdmin/addHistoryTicketToPersonalProgram', {
         method: 'POST',
@@ -68,13 +77,13 @@ function addToCart() {
         },
         body: JSON.stringify(payload),
     })
-        .then(response => response.json())
+        .then(handleApiResponse)
         .then(data => {
-            console.log('Success:', data);
             window.location.href = '/personalProgramListView';
         })
         .catch((error) => {
-            console.error('Error:', error);
+            errorHandler.logError(error, "addToCart", "ticket_purchase_history.js");
+            errorHandler.showError("An error occurred while adding the ticket to the cart.");
         });
 
 }
@@ -118,9 +127,6 @@ function retrieveDataFromURL() {
         filterToursByLanguage();
         selectDate(new Date(date).getDate(), document.getElementById(`js_date${new Date(date).getDate()}`));
         enableMatchingTimeButton();
-
-
-
     }
     else if (type) {
         quantity = 1;
@@ -194,7 +200,6 @@ function filterToursByLanguage() {
         }
     });
 
-    console.log('Filtered tours by language:', filteredToursByLanguage);
     resetAll();
     enableDates();
 }
@@ -292,7 +297,6 @@ function selectTheTour() {
         if (tour.startTime.split(':00.0000000')[0] === theSelectedTime) {
             idOfSelectedTour = tour.id;
             date = tour.date;
-            console.log('Selected tour:', tour);
         }
     });
 }

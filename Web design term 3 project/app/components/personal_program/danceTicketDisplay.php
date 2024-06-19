@@ -30,7 +30,7 @@
                 data-item-id="<?php echo $orderItem->orderItemID; ?>">-</button>
             <input type="text" class="w-6 h-6 text-xs text-center border-t border-b quantity"
                 data-item-id="<?php echo $orderItem->orderItemID; ?>"
-                value="<?php echo htmlspecialchars($orderItem->quantity); ?>">
+                value="<?php echo htmlspecialchars($orderItem->quantity); ?>" disabled>
             <button class="px-1 py-0.5 text-xs border increment"
                 data-item-id="<?php echo $orderItem->orderItemID; ?>">+</button>
         <?php else: ?>

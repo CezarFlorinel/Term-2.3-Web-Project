@@ -18,7 +18,7 @@
     <!-- Items List -->
     <div class="space-y-4">
         <!-- Item Rows -->
-        <!-- Repeat this structure for each item, replace with actual data -->
+        <!-- Repeat this structure for each item -->
         <?php
         end($orderItems);
         $lastKey = key($orderItems);
