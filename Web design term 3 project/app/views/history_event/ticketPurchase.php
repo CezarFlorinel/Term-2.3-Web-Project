@@ -6,7 +6,7 @@ use App\Services\PaymentService;
 $historyService = new HistoryService();
 $paymentService = new PaymentService();
 
-$usedID = 1; // this is the ID of the user that is currently logged in, to be replaced with the actual ID of the user
+$usedID = 2; //TODO: this is the ID of the user that is currently logged in, to be replaced with the actual ID of the user
 $orderID = $paymentService->getOrderByUserId($usedID)->orderID;
 
 $historyTickets = $historyService->getHistoryTicketPrices();

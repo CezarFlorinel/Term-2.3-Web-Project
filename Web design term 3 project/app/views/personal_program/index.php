@@ -13,7 +13,7 @@ $yummyService = new YummyService();
 
 $changeViewLink = '/personalProgramAgendaView';
 
-$userId = 1; // Replace with actual user ID
+$userId = 2; // TODO: Replace with actual user ID
 
 $order = $paymentService->getOrderByUserId($userId);
 $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);

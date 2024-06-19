@@ -12,7 +12,7 @@ $historyService = new HistoryService();
 $yummyService = new YummyService();
 
 $changeViewLink = '/personalProgramListView';
-$userId = 1; // Replace with actual user ID
+$userId = 2; //TODO: // Replace with actual user ID
 $order = $paymentService->getOrderByUserId($userId);
 $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
 $allReservations = $yummyService->getReservationsByUserId($userId);
