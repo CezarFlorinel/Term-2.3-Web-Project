@@ -14,7 +14,7 @@
 
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
 
-        <div class="flex-grow p-6">
+        <div class="flex-grow p-6 ml-36">
             <?php include __DIR__ . '/../../../components/admin/history/main_page/topPartDescriptionAndCarousel.php'; ?>
             <?php include __DIR__ . '/../../../components/admin/history/main_page/route.php'; ?>
             <?php include __DIR__ . '/../../../components/admin/history/main_page/ticketPrices.php'; ?>

@@ -15,7 +15,7 @@ $userId = isset($_GET['id']) ? $_GET['id'] : null;
     <div class="flex min-h-screen overflow-hidden">
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
 
-        <div class="flex-grow p-6">
+        <div class="flex-grow p-6 ml-36">
             <h2 class="text-3xl text-center mb-6">Edit user</h2>
             <div class="bg-white shadow-md rounded-lg p-6">
 

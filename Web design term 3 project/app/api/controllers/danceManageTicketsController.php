@@ -4,6 +4,7 @@ namespace App\Api\Controllers;
 use App\Services\TicketsService;
 use App\Utilities\ErrorHandlerMethod;
 use App\Services\PaymentService;
+use App\Utilities\HandleDataCheck;
 use Exception;
 
 class DanceManageTicketsController
@@ -27,10 +28,10 @@ class DanceManageTicketsController
 
                 if (isset($input['danceTicketID'], $input['date'], $input['location'], $input['price'], $input['singer'], $input['maxAvailableTickets'], $input['sessionType'], $input['startTime'], $input['endTime'])) {
                     $danceTicketID = filter_var($input['danceTicketID'], FILTER_VALIDATE_INT);
-                    $date = $input['date'];
-                    $location = $input['location'];
+                    $date = HandleDataCheck::filterEmptyStringAPI($input['date']);
+                    $location = HandleDataCheck::filterEmptyStringAPI($input['location']);
                     $price = $input['price'];
-                    $singer = $input['singer'];
+                    $singer = HandleDataCheck::filterEmptyStringAPI($input['singer']);
                     $maxAvailableTickets = $input['maxAvailableTickets'];
                     $sessionType = $input['sessionType'];
                     $startTime = $input['startTime'];

@@ -966,8 +966,7 @@ body {
     height: 5%;
 }
 
-/* Remove the border from the last item */
-.practical-info-item:last-child {
+.practical-info-item:nth-last-child(2) {
     border-bottom: none;
 }
 

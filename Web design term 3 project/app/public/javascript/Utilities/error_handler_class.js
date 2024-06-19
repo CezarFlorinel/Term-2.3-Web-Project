@@ -36,6 +36,27 @@ class ErrorHandler {
         };
         Swal.fire(defaultOptions);
     }
+
+    showAlertWithPromise(message, options = {}) {
+        const defaultOptions = {
+            title: 'Error',
+            text: message,
+            icon: 'error',
+            background: '#fff',
+            color: '#000',
+            confirmButtonColor: '#000',
+            confirmButtonText: 'OK',
+            buttonsStyling: true,
+            customClass: {
+                popup: 'custom-swal-popup',
+                title: 'custom-swal-title',
+                content: 'custom-swal-content',
+                confirmButton: 'custom-swal-confirm-button',
+            },
+            ...options, // override the default options with the provided options
+        };
+        return Swal.fire(defaultOptions); // Return the promise
+    }
 }
 
 export default ErrorHandler;

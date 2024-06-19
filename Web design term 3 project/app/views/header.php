@@ -6,8 +6,6 @@ $customPages = $customPageService->getAllCustomPages();
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
