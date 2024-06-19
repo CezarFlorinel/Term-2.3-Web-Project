@@ -1,38 +1,5 @@
 <?php
-use App\Services\DanceService;
-use App\Services\TicketsService;
-use App\Services\PaymentService;
-
-$ticketService = new TicketsService();
-$danceService = new DanceService();
-$paymentService = new PaymentService();
-
-$userID = 1; // TODO: get the user id from the session
-$order = $paymentService->getOrderByUserId($userID);
-
-$artistId = $_GET['artistID'];
-$artist = $danceService->getArtistById($artistId);
-$careerHighlights = $danceService->getCareerHighlightsByArtistID($artistId);
-$spotifyLinks = $danceService->getArtistSpotifyLinks($artistId);
-
-$displayMore = true;
-
-$concertsAll = $danceService->getConcertsByArtistName($artist->name);
-$concertsWithTripleArtist = [];
-$simpleConcert = [];
-
-foreach ($concertsAll as $concert) {
-    if ($concert->sessionType == "Triple Artist") {
-        $concertsWithTripleArtist[] = $concert;
-    } else {
-        $simpleConcert[] = $concert;
-    }
-}
-
-if (count($concertsWithTripleArtist) > 0 && count($simpleConcert) >= 2) {
-    $displayMore = false;
-}
-
+require __DIR__ . '/../../components/festival/dance_event/artist_page/getData.php';
 ?>
 
 <html>
@@ -49,8 +16,6 @@ if (count($concertsWithTripleArtist) > 0 && count($simpleConcert) >= 2) {
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </link>
     <link rel="stylesheet" href="CSS_files/yummy_event.css">

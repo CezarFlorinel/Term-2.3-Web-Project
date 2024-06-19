@@ -5,6 +5,7 @@ namespace App\Api\Controllers;
 use App\Services\CustomPageService;
 use App\Utilities\ImageEditor;
 use App\Utilities\ErrorHandlerMethod;
+use App\Utilities\HandleDataCheck;
 use Exception;
 
 class CustomPagesController
@@ -26,8 +27,8 @@ class CustomPagesController
                 if (isset($input['id'], $input['content'], $input['title'])) {
 
                     $id = filter_var($input['id'], FILTER_VALIDATE_INT);
-                    $content = $input['content'];
-                    $title = $input['title'];
+                    $content = HandleDataCheck::filterEmptyStringAPI($input['content']);
+                    $title = HandleDataCheck::filterEmptyStringAPI($input['title']);
 
                     $this->service->updateCustomPage($id, $content, $title);
 

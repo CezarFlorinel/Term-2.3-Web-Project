@@ -96,36 +96,36 @@ class DanceService
     }
     // -----------++++++++++++++ update methods ++++++++++++++----------------
 
-    public function updateArtistName($id, $name): void
+    public function updateArtistName(int $id, string $name): void
     {
         $this->danceRepository->updateArtistName($id, $name);
     }
-    public function updateImageHomePage($id, $imagePath): void
+    public function updateImageHomePage(int $id, $imagePath): void
     {
         $this->danceRepository->updateImageHomePage($id, $imagePath);
     }
-    public function updateClubLocation($id, $name, $location, $currentName): void
+    public function updateClubLocation(int $id, $name, $location, $currentName): void
     {
         $this->danceRepository->updateClubLocation($id, $name, $location, $currentName);
     }
 
-    public function updateClubLocationImage($id, $imagePath): void
+    public function updateClubLocationImage(int $id, $imagePath): void
     {
         $this->danceRepository->updateClubLocationImage($id, $imagePath);
     }
 
 
-    public function updateImageArtist($id, $column, $imagePath): void
+    public function updateImageArtist(int $id, $column, $imagePath): void
     {
         $this->danceRepository->updateImageArtist($id, $column, $imagePath);
     }
 
-    public function updateCareerHighlights($id, $titleYearPeriod, $text): void
+    public function updateCareerHighlights(int $id, $titleYearPeriod, $text): void
     {
         $this->danceRepository->updateCareerHighlights($id, $titleYearPeriod, $text);
     }
 
-    public function updateCareerHighlightsImage($id, $imagePath): void
+    public function updateCareerHighlightsImage(int $id, $imagePath): void
     {
         $this->danceRepository->updateCareerHighlightsImage($id, $imagePath);
     }

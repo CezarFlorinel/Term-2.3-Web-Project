@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 data.append("ticketID", ticketID);
                 data.append("quantity", defaultQuantity);
 
+                if (!checkNumber(defaultQuantity)) {
+                    return;
+                }
+
 
                 fetch('/api/danceManageTickets/orderTicket', {
                     method: 'POST',
@@ -34,7 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     })
                     .catch(error => {
-                        errorHandler.showError("An error occurred: " + error.message);
+                        errorHandler.logError(error, 'orderTicket', 'order_tickets_dance_artist.js');
+                        errorHandler.showError("An error occurred while ordering the ticket, please try again later.");
                     });
             } else {
                 errorHandler.showError("Please select a ticket to purchase.");
