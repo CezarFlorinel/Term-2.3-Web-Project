@@ -1,1 +1,3 @@
 2024-05-31 15:53:43 - SQLSTATE[21S01]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]There are fewer columns in the INSERT statement than values specified in the VALUES clause. The number of values in the VALUES clause must match the number of columns specified in the INSERT statement.
+2024-06-02 20:51:38 - Invalid address:  (to): 
+2024-06-02 20:51:50 - Invalid address:  (to): 
