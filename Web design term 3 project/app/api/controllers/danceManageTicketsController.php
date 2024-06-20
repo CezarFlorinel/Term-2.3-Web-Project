@@ -30,10 +30,10 @@ class DanceManageTicketsController
                     $danceTicketID = filter_var($input['danceTicketID'], FILTER_VALIDATE_INT);
                     $date = HandleDataCheck::filterEmptyStringAPI($input['date']);
                     $location = HandleDataCheck::filterEmptyStringAPI($input['location']);
-                    $price = $input['price'];
+                    $price = filter_var($input['price'], FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                     $singer = HandleDataCheck::filterEmptyStringAPI($input['singer']);
-                    $maxAvailableTickets = $input['maxAvailableTickets'];
-                    $sessionType = $input['sessionType'];
+                    $maxAvailableTickets = filter_var($input['maxAvailableTickets'], FILTER_VALIDATE_INT);
+                    $sessionType = HandleDataCheck::filterEmptyStringAPI($input['sessionType']);
                     $startTime = $input['startTime'];
                     $endTime = $input['endTime'];
 
@@ -89,11 +89,11 @@ class DanceManageTicketsController
 
                 if (isset($_POST['date'], $_POST['location'], $_POST['price'], $_POST['singer'], $_POST['availableTickets'], $_POST['sessionType'], $_POST['startTime'], $_POST['endTime'])) {
                     $date = $_POST['date'];
-                    $location = $_POST['location'];
-                    $price = $_POST['price'];
-                    $singer = $_POST['singer'];
-                    $maxAvailableTickets = $_POST['availableTickets'];
-                    $sessionType = $_POST['sessionType'];
+                    $location = HandleDataCheck::filterEmptyStringAPI($_POST['location']);
+                    $price = filter_var($_POST['price'], FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                    $singer = HandleDataCheck::filterEmptyStringAPI($_POST['singer']);
+                    $maxAvailableTickets = filter_var($_POST['availableTickets'], FILTER_VALIDATE_INT);
+                    $sessionType = HandleDataCheck::filterEmptyStringAPI($_POST['sessionType']);
                     $startTime = $_POST['startTime'];
                     $endTime = $_POST['endTime'];
 
@@ -148,9 +148,9 @@ class DanceManageTicketsController
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if (isset($_POST['price'], $_POST['date'], $_POST['maxPasses'])) {
-                    $price = $_POST['price'];
+                    $price = filter_var($_POST['price'], FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                     $date = $_POST['date'];
-                    $maxPasses = $_POST['maxPasses'];
+                    $maxPasses = filter_var($_POST['maxPasses'], FILTER_VALIDATE_INT);
 
                     $this->ticketsService->addDancePasses($price, $date, false, $maxPasses);
 
@@ -178,9 +178,9 @@ class DanceManageTicketsController
 
                 if (isset($input['dancePassID'], $input['price'], $input['date'], $input['maxPasses'])) {
                     $dancePassID = filter_var($input['dancePassID'], FILTER_VALIDATE_INT);
-                    $price = $input['price'];
+                    $price = filter_var($input['price'], FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                     $date = $input['date'];
-                    $maxPasses = $input['maxPasses'];
+                    $maxPasses = filter_var($input['maxPasses'], FILTER_VALIDATE_INT);
 
                     $this->ticketsService->editDancePasses($dancePassID, $price, $date, false, $maxPasses, null);
 
@@ -208,8 +208,8 @@ class DanceManageTicketsController
 
                 if (isset($input['dancePassID'], $input['price'], $input['maxPasses'])) {
                     $dancePassID = filter_var($input['dancePassID'], FILTER_VALIDATE_INT);
-                    $price = $input['price'];
-                    $maxPasses = $input['maxPasses'];
+                    $price = filter_var($input['price'], FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                    $maxPasses = filter_var($input['maxPasses'], FILTER_VALIDATE_INT);
 
                     $this->ticketsService->editDancePasses($dancePassID, $price, null, true, null, $maxPasses);
 

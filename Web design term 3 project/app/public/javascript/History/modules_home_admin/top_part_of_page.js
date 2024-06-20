@@ -3,9 +3,9 @@ import ErrorHandler from "../../Utilities/error_handler_class.js";
 const errorHandler = new ErrorHandler();
 
 function deleteImageFromCarousel() {
-    document.querySelectorAll('.grid .relative button').forEach(button => {  // change this to an id or something
+    document.querySelectorAll('.js_image-container .js_delete-button').forEach(button => {  // change this to an id or something
         button.addEventListener('click', function () {
-            const container = this.closest('.relative');
+            const container = this.closest('.js_image-container');
             // Decode the URL-encoded src path
             const imagePath = decodeURIComponent(container.querySelector('img').src).split('/').slice(-3).join('/');
             const id = document.getElementById("getTheIdForTopPart").getAttribute('data-id');

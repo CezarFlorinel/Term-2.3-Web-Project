@@ -175,7 +175,7 @@ class ArtistAdminManagementController
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (isset($_POST['artistID'], $_POST['titleAndYearPeriod'], $_POST['text']) && isset($_FILES['image'])) {
                     $artistID = filter_var($_POST['artistID'], FILTER_VALIDATE_INT);
-                    $titleAndYearPeriod = $_POST['titleAndYearPeriod'];
+                    $titleAndYearPeriod = HandleDataCheck::filterEmptyStringAPI($_POST['titleAndYearPeriod']);
                     $text = HandleDataCheck::filterEmptyStringAPI($_POST['text']);
                     $image = $_FILES['image'];
 
@@ -210,7 +210,7 @@ class ArtistAdminManagementController
 
                 if (isset($input['id'], $input['titleYearPeriod'], $input['text'])) {
                     $id = filter_var($input['id'], FILTER_VALIDATE_INT);
-                    $titleYearPeriod = $input['titleYearPeriod'];
+                    $titleYearPeriod = HandleDataCheck::filterEmptyStringAPI($input['titleYearPeriod']);
                     $text = HandleDataCheck::filterEmptyStringAPI($input['text']);
 
 
