@@ -62,4 +62,13 @@ class HandleDataCheck
         return $value;
     }
 
+    public static function checkNumberAPI($number)
+    {
+        if ($number < 0 || $number == null) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Please enter a valid number']);
+            exit();
+        }
+    }
+
 }

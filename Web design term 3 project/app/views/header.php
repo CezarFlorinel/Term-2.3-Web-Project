@@ -10,8 +10,10 @@ $customPages = $customPageService->getAllCustomPages();
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Festival Project</title>
-    <link rel="icon" type="image/png" href="assets/images/logos/H.png">
+    <link rel="icon" type="image/png" href="/assets/images/Logos/H.png">
     <link rel="stylesheet" href="CSS_files/header.css">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:500|Zen+Antique|Allerta+Stencil&display=swap"
         rel="stylesheet">
@@ -19,49 +21,52 @@ $customPages = $customPageService->getAllCustomPages();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" type="text/css" href="/CSS_files/js_custome_alert.css">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:500|Zen+Antique|Allerta+Stencil&display=swap"
-        rel="stylesheet">
+    <style>
+        /* Add this CSS class for removing border-radius */
+        .header-square {
+            border-radius: 0 !important;
+        }
+    </style>
 </head>
 
-<?php include "../components/general/modalSet.php" ?>
+<?php include_once "../components/general/modalSet.php"; ?>
 
 <body>
 
-    <?php include "../components/general/modalBoxCreate.php" ?>
+    <?php include_once "../components/general/modalBoxCreate.php"; ?>
 
     <main>
-        <header class="header">
+        <header class="header flex justify-between items-center px-4 py-2 bg-white shadow-md">
             <a href="/" class="logoLink">
                 <img class="logo" src="assets/images/Logos/Logo-Festival.png" alt="Logo">
             </a>
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <input type="checkbox" id="menu-toggle" class="menu-toggle hidden">
             <label for="menu-toggle" class="menu-icon" id="menu-icon">
                 <img src="assets/images/elements/hamburger_Icon.jpg" alt="Menu">
             </label>
-            <nav class="navigation">
-                <a href="/" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/')
-                    echo 'active'; ?>">Home</a>
-                <a href="/yummyevent" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/yummyevent')
-                    echo 'active'; ?>">Yummy</a>
-                <a href="/danceevent" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/danceevent')
-                    echo 'active'; ?>">Dance</a>
-                <a href="/historyevent" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/historyevent')
-                    echo 'active'; ?>">Stroll
+            <nav class="navigation flex-grow hidden lg:flex justify-end">
+                <a href="/" class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/') ? 'active' : ''; ?>">Home</a>
+                <a href="/yummyevent"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/yummyevent') ? 'active' : ''; ?>">Yummy</a>
+                <a href="/danceevent"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/danceevent') ? 'active' : ''; ?>">Dance</a>
+                <a href="/historyevent"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/historyevent') ? 'active' : ''; ?>">Stroll
                     Through History</a>
-                <a href="/mainpageadmin" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/mainpageadmin')
-                    echo 'active'; ?>">Admin</a>
+                <a href="/mainpageadmin"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/mainpageadmin') ? 'active' : ''; ?>">Admin</a>
                 <div class="relative dropdown">
                     <button id="dropdownButton" class="nav-link">More</button>
                     <div id="dropdownContent" class="dropdown-content">
                         <?php foreach ($customPages as $customPage): ?>
                             <a href="/CustomPages?id=<?php echo htmlspecialchars($customPage->customPageID); ?>">
-                                <?php echo $customPage->title; ?>
+                                <?php echo htmlspecialchars($customPage->title); ?>
                             </a>
                         <?php endforeach; ?>
                     </div>
                 </div>
             </nav>
-            <div class="icons">
+            <div class="icons flex space-x-4">
                 <a href="/personalProgramAgendaView">
                     <img class="icon" src="assets/images/elements/Shopping cart.png" alt="Shopping Cart">
                 </a>
@@ -81,6 +86,17 @@ $customPages = $customPageService->getAllCustomPages();
                 dropdownContent.style.display = 'block';
             } else {
                 dropdownContent.style.display = 'none';
+            }
+        });
+
+        document.getElementById('menu-toggle').addEventListener('change', function () {
+            var header = document.querySelector('.header');
+            if (window.innerWidth <= 768) { // Assuming 768px is the breakpoint for small devices
+                if (this.checked) {
+                    header.classList.add('header-square');
+                } else {
+                    header.classList.remove('header-square');
+                }
             }
         });
 

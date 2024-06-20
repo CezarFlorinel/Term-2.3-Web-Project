@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 enum UserRole : string
 {
     case Member = "Member";

@@ -8,4 +8,5 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" type="text/css" href="/CSS_files/js_custome_alert.css">
+    <link rel="icon" type="image/png" href="/assets/images/Logos/H.png">
 </head>
