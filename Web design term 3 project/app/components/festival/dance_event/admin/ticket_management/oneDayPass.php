@@ -20,7 +20,7 @@
                     class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Enter price" name="price"
                     value="<?php echo number_format((float) $price, 2, '.', ''); ?>">
 
-                <p>Number of Available Passes</p>
+                <p>Number of Maximum Available Passes</p>
                 <input id="js_passOneDayMaxPassesAvailable_<?php echo $id; ?>" type="number"
                     class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Available Tickets"
                     value="<?php echo $maxPasses; ?>">
@@ -43,7 +43,7 @@
                 <p>Price</p>
                 <input type="number" name="price" class="w-full rounded-lg py-2 px-3 mb-2 border"
                     placeholder="Enter price" step="0.01">
-                <p>Number of Available Passes</p>
+                <p>Number of Maximum Available Passes</p>
                 <input type="number" name="maxPasses" class="w-full rounded-lg py-2 px-3 mb-2 border"
                     placeholder="Max Passes">
                 <button type="submit" id="js_buttonAddOneDayPass"

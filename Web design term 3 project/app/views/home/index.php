@@ -22,7 +22,7 @@ foreach ($events as $event) {
 }
 
 $isAdmin = false;
-$userID = 2; // hardcoded for now
+$userID = 2; //TODO: hardcoded for now
 $user = $userService->getById($userID);
 
 if ($user !== null && $user['Role'] === 'Admin') {
