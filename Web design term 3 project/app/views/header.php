@@ -13,7 +13,7 @@ $customPages = $customPageService->getAllCustomPages();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Festival Project</title>
-    <link rel="icon" type="image/png" href="assets/images/logos/H.png">
+    <link rel="icon" type="image/png" href="/assets/images/Logos/H.png">
     <link rel="stylesheet" href="CSS_files/header.css">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:500|Zen+Antique|Allerta+Stencil&display=swap"
         rel="stylesheet">
