@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const headers = document.querySelectorAll("#userTable th");
   headers.forEach((header, index) => {
-    header.addEventListener("click", function() {
+    header.addEventListener("click", function () {
       sortTable(index);
     });
   });
@@ -107,15 +107,15 @@ document.addEventListener("DOMContentLoaded", function () {
           .getDate()
           .toString()
           .padStart(2, "0")}-${(registrationDate.getMonth() + 1)
-          .toString()
-          .padStart(2, "0")}-${registrationDate.getFullYear()}`;
+            .toString()
+            .padStart(2, "0")}-${registrationDate.getFullYear()}`;
         const row = tableBody.insertRow();
 
         row.innerHTML = `
                 <tr data-userid="${DOMPurify.sanitize(
-                  user.UserID
-                )}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          user.UserID
+        )}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                     ${DOMPurify.sanitize(user.UserID)}
                 </th>
                 <td class="px-6 py-4">
@@ -131,14 +131,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     ${DOMPurify.sanitize(formattedRegistrationDate)}
                 </td>
                 <td class="px-6 py-4 d-flex justify-content-center">
-                    <a href="/userEditAdmin/index?id=${
-                      user.UserID
-                    }"><button update-userid="${
-          user.UserID
-        }" type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Edit</button></a>
-                    <button delete-userid="${
-                      user.UserID
-                    }" type="button" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Delete</button>
+                    <a href="/userEditAdmin/index?id=${user.UserID
+          }"><button update-userid="${user.UserID
+          }" type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Edit</button></a>
+                    <button delete-userid="${user.UserID
+          }" type="button" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">Delete</button>
                 </td>
             </tr>
         `;
