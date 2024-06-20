@@ -5,6 +5,7 @@ namespace App\Api\Controllers;
 use App\Services\HistoryService;
 use App\Utilities\ImageEditor;
 use App\Utilities\ErrorHandlerMethod;
+use App\Utilities\HandleDataCheck;
 use App\Services\TicketsService;
 use App\Services\PaymentService;
 use DateTime;
@@ -33,10 +34,16 @@ class HistoryAdminController
                 if (isset($input['tourId'], $input['quantity'], $input['typeOfTicket'], $input['orderID'], $input['language'], $input['date'])) {
                     $tourID = filter_var($input['tourId'], FILTER_VALIDATE_INT);
                     $quantity = filter_var($input['quantity'], FILTER_VALIDATE_INT);
-                    $typeOfTicket = $input['typeOfTicket'];
+                    $typeOfTicket = HandleDataCheck::filterEmptyStringAPI($input['typeOfTicket']);
                     $orderID = filter_var($input['orderID'], FILTER_VALIDATE_INT);
-                    $language = $input['language'];
+                    $language = HandleDataCheck::filterEmptyStringAPI($input['language']);
                     $date = $input['date'];
+
+                    if ($quantity <= 0) {
+                        http_response_code(400);
+                        echo json_encode(['success' => false, 'error' => 'Quantity must be greater than 0']);
+                        return;
+                    }
 
                     $tour = $this->historyService->getHistoryTourById($tourID);
 
@@ -143,8 +150,8 @@ class HistoryAdminController
 
                 if (isset($input['informationID'], $input['subheader'], $input['description'])) {
                     $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
-                    $subheader = $input['subheader'];
-                    $description = $input['description'];
+                    $subheader = HandleDataCheck::filterEmptyStringAPI($input['subheader']);
+                    $description = HandleDataCheck::filterEmptyStringAPI($input['description']);
 
                     $this->historyService->editHistoryTopPart($id, $subheader, $description);
 
@@ -198,8 +205,8 @@ class HistoryAdminController
 
                 if (isset($input['informationID'], $input['locationName'], $input['locationDescription'], $input['wheelchairSupport'])) {
                     $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
-                    $locationName = $input['locationName'];
-                    $locationDescription = $input['locationDescription'];
+                    $locationName = HandleDataCheck::filterEmptyStringAPI($input['locationName']);
+                    $locationDescription = HandleDataCheck::filterEmptyStringAPI($input['locationDescription']);
                     $wheelchairSupport = filter_var($input['wheelchairSupport'], FILTER_VALIDATE_BOOLEAN);  // MAY CAUSE AN ERROR
 
                     $this->historyService->editHistoryRoute($id, $locationName, $locationDescription, $wheelchairSupport);
@@ -222,9 +229,9 @@ class HistoryAdminController
 
                 if (isset($input['informationID'], $input['type'], $input['price'], $input['description'])) {
                     $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
-                    $ticketType = $input['type'];
+                    $ticketType = HandleDataCheck::filterEmptyStringAPI($input['type']);
                     $price = filter_var($input['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-                    $description = $input['description'];
+                    $description = HandleDataCheck::filterEmptyStringAPI($input['description']);
 
                     $this->historyService->editHistoryTicketPrices($id, $ticketType, $price, $description);
 
@@ -323,7 +330,7 @@ class HistoryAdminController
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
                 $image = $_FILES['image'];
                 $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
-                $columnName = $_POST['columnName'];
+                $columnName = HandleDataCheck::filterEmptyStringAPI($_POST['columnName']);
                 $currentImage = $this->historyService->getCurrentImagePathTourStartingPoint($id, $columnName);
                 $imageUrl = ImageEditor::saveImage("/app/public/assets/images/history_event/starting_point", $image);
 
@@ -355,7 +362,7 @@ class HistoryAdminController
 
                 if (isset($input['informationID'], $input['description'])) {
                     $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
-                    $description = $input['description'];
+                    $description = HandleDataCheck::filterEmptyStringAPI($input['description']);
 
                     $this->historyService->editHistoryTourStartingPoint($id, $description);
 
@@ -378,8 +385,8 @@ class HistoryAdminController
 
                 if (isset($input['informationID'], $input['question'], $input['answer'])) {
                     $id = filter_var($input['informationID'], FILTER_VALIDATE_INT);
-                    $question = $input['question'];
-                    $answer = $input['answer'];
+                    $question = HandleDataCheck::filterEmptyStringAPI($input['question']);
+                    $answer = HandleDataCheck::filterEmptyStringAPI($input['answer']);
 
                     $this->historyService->editHistoryPracticalInformation($id, $question, $answer);
 
@@ -401,8 +408,8 @@ class HistoryAdminController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['question'], $input['answer'])) {
-                    $question = $input['question'];
-                    $answer = $input['answer'];
+                    $question = HandleDataCheck::filterEmptyStringAPI($input['question']);
+                    $answer = HandleDataCheck::filterEmptyStringAPI($input['answer']);
 
                     $this->historyService->addHistoryPracticalInformation($question, $answer);
 

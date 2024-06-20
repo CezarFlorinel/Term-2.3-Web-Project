@@ -26,11 +26,11 @@ $customPages = $customPageService->getAllCustomPages();
             <div class="flex flex-wrap">
 
                 <?php foreach ($customPages as $customPage): ?>
-                    <div class="w-1/3 p-6">
+                    <div class="w-full sm:w-1/2 md:w-1/3 p-6">
                         <div class="bg-white rounded-lg shadow-md">
                             <div class="p-4">
                                 <h3 class="text-2xl font-bold text-center"><?php echo $customPage->title; ?></h3>
-                                <div class="flex justify-center">
+                                <div class="flex justify-center space-x-2">
                                     <a href="/CustomPages?id=<?php echo htmlspecialchars($customPage->customPageID); ?>"
                                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a>
                                     <a href="/MainPageAdmin/deleteCustomPage?id=<?php echo htmlspecialchars($customPage->customPageID); ?>"
@@ -40,6 +40,7 @@ $customPages = $customPageService->getAllCustomPages();
                         </div>
                     </div>
                 <?php endforeach; ?>
+
 
             </div>
 

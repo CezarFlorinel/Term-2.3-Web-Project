@@ -1,6 +1,12 @@
+import { handleApiResponse, checkText, checkImageSizeAndFileType } from '../Utilities/handle_data_checks.js';
+import { uploadImage, deleteImage } from './modules/manage_images.js';
+import ErrorHandler from '../Utilities/error_handler_class.js';
+const errorHandler = new ErrorHandler();
+
+
 document.addEventListener('DOMContentLoaded', (event) => {
 
-    if (isAdmin) {
+    if (isAdmin) { // is admin is taken from the main php file
         $('#summernote').summernote({
             height: 300,
             toolbar: [
@@ -35,63 +41,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
-function uploadImage(image) {
-    let formData = new FormData();
-    formData.append('image', image);
-    formData.append('customPageId', customPageId);
-
-    fetch('/api/CustomPages/addImageToCustomPage', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const imgNode = document.createElement('img');
-                imgNode.src = data.imageUrl;
-                imgNode.setAttribute('data-image-id', data.imageId); // Store image ID as data attribute
-                $('#summernote').summernote('insertNode', imgNode);
-                let content = $('#summernote').val();
-                let title = document.getElementById('title').value;
-                saveContent(content, title);
-            } else {
-                alert('Failed to upload image.');
-            }
-        })
-        .catch(error => {
-            console.error('Error uploading image:', error);
-        });
-}
-
-function deleteImage(imageID) {
-    fetch('/api/CustomPages/deleteImageFromCustomPage', {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            id: imageID
-        })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log('Image deleted');
-                let content = $('#summernote').val();
-                let title = document.getElementById('title').value;
-                saveContent(content, title);
-            } else {
-                alert('Failed to delete image.');
-            }
-        })
-        .catch(error => {
-            console.error('Error deleting image:', error);
-        });
-}
 
 function saveContent(content, title) {
-    console.log('title:', title);
-    console.log('content:', content);
+
+    if (!checkText({ content, title })) {
+        return;
+    }
+
     fetch('/api/CustomPages/updateCustomPage', {
         method: 'PUT',
         headers: {
@@ -103,15 +59,9 @@ function saveContent(content, title) {
             id: customPageId
         })
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Content saved successfully');
-            } else {
-                alert('Failed to save content.');
-            }
-        })
+        .then(handleApiResponse)
         .catch(error => {
-            console.error('Error saving content:', error);
+            errorHandler.logError(error, "saveContent", "custom_page.js");
+            errorHandler.showError("An error occurred while saving the content. Please try again later.");
         });
 }

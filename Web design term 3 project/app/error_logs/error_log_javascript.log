@@ -43,20 +43,6 @@
 2024-05-31 21:30:48 - reservation.js - createNewReservation - Missing required fields
 2024-05-31 21:34:50 - reservation.js - createNewReservation - Missing required fields
 2024-05-31 21:35:02 - reservation.js - createNewReservation - Missing required fields
-2024-06-02 20:51:38 - userPersonalInformation.js - passwordForm - Unexpected token '<', "
-<!DOCTYPE "... is not valid JSON
-2024-06-02 20:51:50 - userPersonalInformation.js - passwordForm - Unexpected token '<', "
-<!DOCTYPE "... is not valid JSON
-2024-06-20 14:18:09 - userPersonalInformation.js - modifyPassword - Network response was not ok
-2024-06-20 14:18:51 - userPersonalInformation.js - modifyPassword - Network response was not ok
-2024-06-20 14:22:58 - userPersonalInformation.js - modifyPassword - Network response was not ok
-2024-06-20 14:24:49 - userPersonalInformation.js - modifyPassword - Network response was not ok
-2024-06-20 14:25:58 - userPersonalInformation.js - modifyPassword - Network response was not ok
-2024-06-20 14:33:19 - userPersonalInformation.js - editUserForm - Network response was not ok
-2024-06-20 14:38:55 - userPersonalInformation.js - modifyPassword - Network response was not ok
-2024-06-20 14:41:14 - userPersonalInformation.js - modifyPassword - Network response was not ok
-2024-06-20 14:41:29 - userPersonalInformation.js - modifyPassword - Network response was not ok
-2024-06-20 14:56:18 - userPersonalInformation.js - editUserForm - Unexpected non-whitespace character after JSON at position 221 (line 1 column 222)
-2024-06-20 14:56:46 - userPersonalInformation.js - editUserForm - Unexpected non-whitespace character after JSON at position 221 (line 1 column 222)
-2024-06-20 14:57:25 - userPersonalInformation.js - editUserForm - Unexpected non-whitespace character after JSON at position 221 (line 1 column 222)
-2024-06-20 14:57:32 - userPersonalInformation.js - editUserForm - Unexpected non-whitespace character after JSON at position 221 (line 1 column 222)
+2024-06-19 11:30:16 - user.js - editUserForm - Unexpected end of JSON input
+2024-06-19 13:04:41 - dance_home_admin.js - addArtist - Missing required fields or file
+2024-06-19 13:29:02 - club_location.js - createClubLocation - The string is empty

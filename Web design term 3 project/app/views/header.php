@@ -13,9 +13,10 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Festival Project</title>
-    <link rel="icon" type="image/png" href="assets/images/logos/H.png">
+    <link rel="icon" type="image/png" href="/assets/images/Logos/H.png">
     <link rel="stylesheet" href="CSS_files/header.css">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:500|Zen+Antique|Allerta+Stencil&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:500|Zen+Antique|Allerta+Stencil&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/dompurify@2/dist/purify.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -45,15 +46,20 @@ session_start();
             </label>
             <nav class="navigation flex-grow hidden lg:flex justify-end">
                 <a href="/" class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/') ? 'active' : ''; ?>">Home</a>
-                <a href="/yummyevent" class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/yummyevent') ? 'active' : ''; ?>">Yummy</a>
-                <a href="/danceevent" class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/danceevent') ? 'active' : ''; ?>">Dance</a>
-                <a href="/historyevent" class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/historyevent') ? 'active' : ''; ?>">Stroll Through History</a>
-                <a href="/mainpageadmin" class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/mainpageadmin') ? 'active' : ''; ?>">Admin</a>
+                <a href="/yummyevent"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/yummyevent') ? 'active' : ''; ?>">Yummy</a>
+                <a href="/danceevent"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/danceevent') ? 'active' : ''; ?>">Dance</a>
+                <a href="/historyevent"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/historyevent') ? 'active' : ''; ?>">Stroll
+                    Through History</a>
+                <a href="/mainpageadmin"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/mainpageadmin') ? 'active' : ''; ?>">Admin</a>
                 <div class="relative dropdown">
                     <button id="dropdownButton" class="nav-link">More</button>
-                    <div id="dropdownContent" class="dropdown-content hidden absolute bg-white shadow-md rounded-lg mt-2">
-                        <?php foreach ($customPages as $customPage) : ?>
-                            <a href="/CustomPages?id=<?php echo htmlspecialchars($customPage->customPageID); ?>" class="block px-4 py-2">
+                    <div id="dropdownContent" class="dropdown-content">
+                        <?php foreach ($customPages as $customPage): ?>
+                            <a href="/CustomPages?id=<?php echo htmlspecialchars($customPage->customPageID); ?>">
                                 <?php echo htmlspecialchars($customPage->title); ?>
                             </a>
                         <?php endforeach; ?>
@@ -83,7 +89,16 @@ session_start();
         </header>
     </main>
     <script>
-        document.getElementById('menu-toggle').addEventListener('change', function() {
+        document.getElementById('dropdownButton').addEventListener('click', function () {
+            var dropdownContent = document.getElementById('dropdownContent');
+            if (dropdownContent.style.display === 'none' || dropdownContent.style.display === '') {
+                dropdownContent.style.display = 'block';
+            } else {
+                dropdownContent.style.display = 'none';
+            }
+        });
+
+        document.getElementById('menu-toggle').addEventListener('change', function () {
             var header = document.querySelector('.header');
             if (window.innerWidth <= 768) { // Assuming 768px is the breakpoint for small devices
                 if (this.checked) {
@@ -94,18 +109,16 @@ session_start();
             }
         });
 
-        document.getElementById('dropdownButton').addEventListener('click', function() {
-            var dropdownContent = document.getElementById('dropdownContent');
-            dropdownContent.classList.toggle('hidden');
-        });
-
         // Close the dropdown if the user clicks outside of it
-        window.addEventListener('click', function(event) {
+        window.addEventListener('click', function (event) {
             if (!event.target.matches('#dropdownButton')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");
-                Array.prototype.forEach.call(dropdowns, function(openDropdown) {
-                    openDropdown.classList.add('hidden');
-                });
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === 'block') {
+                        openDropdown.style.display = 'none';
+                    }
+                }
             }
         });
     </script>

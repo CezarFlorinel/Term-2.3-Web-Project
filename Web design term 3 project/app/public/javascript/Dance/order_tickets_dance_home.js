@@ -1,4 +1,4 @@
-import { handleApiResponse, checkText, checkNumber, checkReviewStarNumber } from '../Utilities/handle_data_checks.js';
+import { checkNumber } from '../Utilities/handle_data_checks.js';
 import ErrorHandler from '../Utilities/error_handler_class.js';
 const errorHandler = new ErrorHandler();
 
@@ -41,7 +41,7 @@ function addEventListenerForQuantityChange(decreaseButton, increaseButton, quant
 
         addEventListenerForOrderTicketButton(addTicketButton, quantityDisplay);
     } else {
-        console.error('One or more elements not found in ticket container:', container);
+        errorHandler.showError("Failed to find all required elements in the ticket container");
     }
 }
 
@@ -57,6 +57,10 @@ function addEventListenerForOrderTicketButton(addTicketButton, quantityDisplay) 
         data.append("ticketID", ticketID);
         data.append("quantity", quantity);
 
+        if (!checkNumber(quantity)) {
+            return;
+        }
+
         fetch('/api/danceManageTickets/orderTicket', {
             method: 'POST',
             body: data
@@ -70,7 +74,8 @@ function addEventListenerForOrderTicketButton(addTicketButton, quantityDisplay) 
                 }
             })
             .catch(error => {
-                errorHandler.showError("An error occurred: " + error.message);
+                errorHandler.logError(error, 'addEventListenerForOrderTicketButton', 'order_ticket_dance_home.js');
+                errorHandler.showAlert('An error occurred while ordering the ticket, please try again later!');
             });
     });
 }

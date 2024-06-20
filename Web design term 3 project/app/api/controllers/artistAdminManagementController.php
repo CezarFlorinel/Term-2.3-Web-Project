@@ -5,6 +5,7 @@ namespace App\Api\Controllers;
 use App\Services\DanceService;
 use App\Utilities\ImageEditor;
 use App\Utilities\ErrorHandlerMethod;
+use App\Utilities\HandleDataCheck;
 use Exception;
 
 class ArtistAdminManagementController
@@ -26,8 +27,8 @@ class ArtistAdminManagementController
                 $input = json_decode(file_get_contents('php://input'), true);
 
                 if (isset($input['name'], $input['id'])) {
-                    $name = $input['name'];
-                    $id = $input['id'];
+                    $name = HandleDataCheck::filterEmptyStringAPI($input['name']);
+                    $id = filter_var($input['id'], FILTER_VALIDATE_INT);
 
                     $this->danceService->updateArtistName($id, $name);
 
@@ -52,7 +53,7 @@ class ArtistAdminManagementController
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
                 $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
                 $image = $_FILES['image'];
-                $column = $_POST['columnName'];
+                $column = HandleDataCheck::filterEmptyStringAPI($_POST['columnName']);
                 $imageURL = ImageEditor::saveImage('/app/public/assets/images/dance_event/artists', $image);
                 $artist = $this->danceService->getArtistById($id);
 
@@ -174,8 +175,8 @@ class ArtistAdminManagementController
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (isset($_POST['artistID'], $_POST['titleAndYearPeriod'], $_POST['text']) && isset($_FILES['image'])) {
                     $artistID = filter_var($_POST['artistID'], FILTER_VALIDATE_INT);
-                    $titleAndYearPeriod = $_POST['titleAndYearPeriod'];
-                    $text = $_POST['text'];
+                    $titleAndYearPeriod = HandleDataCheck::filterEmptyStringAPI($_POST['titleAndYearPeriod']);
+                    $text = HandleDataCheck::filterEmptyStringAPI($_POST['text']);
                     $image = $_FILES['image'];
 
                     $imageURL = ImageEditor::saveImage('/app/public/assets/images/dance_event/artist_career_highlights', $image);
@@ -209,8 +210,8 @@ class ArtistAdminManagementController
 
                 if (isset($input['id'], $input['titleYearPeriod'], $input['text'])) {
                     $id = filter_var($input['id'], FILTER_VALIDATE_INT);
-                    $titleYearPeriod = $input['titleYearPeriod'];
-                    $text = $input['text'];
+                    $titleYearPeriod = HandleDataCheck::filterEmptyStringAPI($input['titleYearPeriod']);
+                    $text = HandleDataCheck::filterEmptyStringAPI($input['text']);
 
 
                     $this->danceService->updateCareerHighlights($id, $titleYearPeriod, $text);
@@ -307,11 +308,8 @@ class ArtistAdminManagementController
 
             $imagePaths[] = $artist->imageTopPath;
             $imagePaths[] = $artist->imageArtistLineupPath;
-            error_log(print_r("\n all artist iamges nr:" . count($imagePaths), true), 3, __DIR__ . '/../../file_with_errors_logs.log'); // Log the input data
 
             foreach ($imagePaths as $imagePath) {
-                error_log(print_r("\n $imagePath", true), 3, __DIR__ . '/../../file_with_errors_logs.log'); // Log the input data
-
                 if ($imagePath) {
                     ImageEditor::deleteImage($imagePath);
                 }

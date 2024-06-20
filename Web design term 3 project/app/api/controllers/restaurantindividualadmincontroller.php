@@ -5,6 +5,7 @@ namespace App\Api\Controllers;
 use App\Services\YummyService;
 use App\Utilities\ImageEditor;
 use App\Utilities\ErrorHandlerMethod;
+use App\Utilities\HandleDataCheck;
 
 class RestaurantIndividualAdminController
 {
@@ -59,13 +60,19 @@ class RestaurantIndividualAdminController
 
                 if (isset($input['restaurantID'], $input['name'], $input['location'], $input['numberOfSeats'], $input['descriptionTopPart'], $input['descriptionSideOne'], $input['descriptionSideTwo'], $input['rating'])) {
                     $id = filter_var($input['restaurantID'], FILTER_VALIDATE_INT);
-                    $name = $input['name'];
-                    $location = $input['location'];
+                    $name = HandleDataCheck::filterEmptyStringAPI($input['name']);
+                    $location = HandleDataCheck::filterEmptyStringAPI($input['location']);
                     $numberOfSeats = filter_var($input['numberOfSeats'], FILTER_VALIDATE_INT);
-                    $descriptionTopPart = $input['descriptionTopPart'];
-                    $descriptionSideOne = $input['descriptionSideOne'];
-                    $descriptionSideTwo = $input['descriptionSideTwo'];
+                    $descriptionTopPart = HandleDataCheck::filterEmptyStringAPI($input['descriptionTopPart']);
+                    $descriptionSideOne = HandleDataCheck::filterEmptyStringAPI($input['descriptionSideOne']);
+                    $descriptionSideTwo = HandleDataCheck::filterEmptyStringAPI($input['descriptionSideTwo']);
                     $rating = filter_var($input['rating'], FILTER_VALIDATE_INT);
+
+                    if ($rating < 0 || $rating > 5) {
+                        http_response_code(400);
+                        echo json_encode(['success' => false, 'error' => 'Rating must be between 0 and 5']);
+                        exit();
+                    }
 
                     $this->yummyService->editRestaurant($id, $name, $location, $numberOfSeats, $rating, $descriptionTopPart, $descriptionSideOne, $descriptionSideTwo);
 
@@ -115,7 +122,7 @@ class RestaurantIndividualAdminController
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'], $_POST['id'], $_POST['columnName'])) {
                 $image = $_FILES['image'];
                 $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
-                $columnName = $_POST['columnName'];
+                $columnName = HandleDataCheck::filterEmptyStringAPI($_POST['columnName']);
                 $currentImage = $this->yummyService->getCurrentRestaurantImagePath($id, $columnName);
                 $imageUrl = ImageEditor::saveImage('/app/public/assets/images/yummy_event/individual_resturant', $image);
 
@@ -258,7 +265,7 @@ class RestaurantIndividualAdminController
 
                 if (isset($input['restaurantID'], $input['reviewText'], $input['rating'])) {
                     $restaurantID = filter_var($input['restaurantID'], FILTER_VALIDATE_INT);
-                    $review = $input['reviewText'];
+                    $review = HandleDataCheck::filterEmptyStringAPI($input['reviewText']);
                     $rating = filter_var($input['rating'], FILTER_VALIDATE_INT);
 
                     $this->yummyService->addRestaurantReview($restaurantID, $rating, $review);

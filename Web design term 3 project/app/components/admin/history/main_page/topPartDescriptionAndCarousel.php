@@ -18,11 +18,11 @@
             class="edit-top-part-btn py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-150">Edit</button>
     </div>
 
-    <div id="carouselImages" class="grid grid-cols-3 gap-4">
+    <div id="carouselImages" class="js_carousel_container grid grid-cols-3 gap-4">
         <?php foreach ($arrayWithImagePathsCarousel as $path): ?>
-            <div class="relative">
+            <div class="relative js_image-container">
                 <img src="<?php echo htmlspecialchars($path); ?>" alt="Image" class="w-full h-auto">
-                <button class="absolute top-0 right-0 bg-red-500 text-white px-2 py-1">Delete</button>
+                <button class="js_delete-button absolute top-0 right-0 bg-red-500 text-white px-2 py-1">Delete</button>
             </div>
         <?php endforeach; ?>
         <div class="add-image-container">

@@ -44,9 +44,9 @@ class YummyService
         return $this->yummyRepository->getRestaurantById($id);
     }
 
-    public function getAllRestaurantIDs($id): array
+    public function getAllRestaurantIDs(): array // this is not used ?? 
     {
-        return $this->yummyRepository->getAllRestaurantIDs($id);
+        return $this->yummyRepository->getAllRestaurantIDs();
     }
 
     public function getRestaurantReviews($id): array
