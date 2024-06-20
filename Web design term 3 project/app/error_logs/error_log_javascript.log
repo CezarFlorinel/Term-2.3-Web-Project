@@ -47,3 +47,12 @@
 <!DOCTYPE "... is not valid JSON
 2024-06-02 20:51:50 - userPersonalInformation.js - passwordForm - Unexpected token '<', "
 <!DOCTYPE "... is not valid JSON
+2024-06-20 14:18:09 - userPersonalInformation.js - modifyPassword - Network response was not ok
+2024-06-20 14:18:51 - userPersonalInformation.js - modifyPassword - Network response was not ok
+2024-06-20 14:22:58 - userPersonalInformation.js - modifyPassword - Network response was not ok
+2024-06-20 14:24:49 - userPersonalInformation.js - modifyPassword - Network response was not ok
+2024-06-20 14:25:58 - userPersonalInformation.js - modifyPassword - Network response was not ok
+2024-06-20 14:33:19 - userPersonalInformation.js - editUserForm - Network response was not ok
+2024-06-20 14:38:55 - userPersonalInformation.js - modifyPassword - Network response was not ok
+2024-06-20 14:41:14 - userPersonalInformation.js - modifyPassword - Network response was not ok
+2024-06-20 14:41:29 - userPersonalInformation.js - modifyPassword - Network response was not ok

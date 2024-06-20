@@ -85,6 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //createInputFields();
     saveButton.style.display = "block";
     editProfileButton.style.display = "none";
+
     saveButton.addEventListener("click", function (event) {
       event.preventDefault();
 
@@ -188,43 +189,36 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      try {
-        const verifyResponse = await fetch('/api/user/verifyPassword', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            inputPassword: oldPassword
-          })
-        });
-
-        const verifyResult = await verifyResponse.json();
-        if (!verifyResponse.ok) {
-          throw new Error(verifyResult.message);
-        }
-        console.log("the verify password worked");
-        // Change to new password
-        const changePasswordResponse = await fetch('/api/user/changePassword', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            newPassword: newPassword
-          })
-        });
-
-        const changePasswordResult = await changePasswordResponse.json();
-        if (!changePasswordResponse.ok) {
-          throw new Error(changePasswordResult.message);
-        }
-
-        alert('Password changed successfully');
-        window.location.href = "/userAccount";
-      } catch (error) {
-        errorHandler.showAlert(error.message);
+      const updatePassword = {
+        oldPassword: oldPassword,
+        newPassword: newPassword
       }
+
+      fetch('/api/user/changePassword', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatePassword)
+      })
+      .then(handleApiResponse)
+      .then((data) => {
+        if(data.success) {
+          alert('Password changed successfully');
+          window.location.href = "/userAccount";
+        } else {
+          errorHandler.logError("Error updating user's password: ", data.message);
+        }
+      })
+      .catch((error) => {
+        errorHandler.logError(
+          error,
+          "editUserForm",
+          "userPersonalInformation.js"
+        );
+        errorHandler.showAlert("An error occurred while trying to edit your password. Please try again later!");
+      });
+
     });
   });
 });
