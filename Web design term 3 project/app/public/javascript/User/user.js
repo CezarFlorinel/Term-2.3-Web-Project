@@ -1,4 +1,4 @@
-import {handleApiResponse} from "../Utilities/handle_data_checks.js";
+import { handleApiResponse } from "../Utilities/handle_data_checks.js";
 import ErrorHandler from "../Utilities/error_handler_class.js";
 const errorHandler = new ErrorHandler();
 
@@ -11,7 +11,7 @@ function searchFunction() {
   tr = tbody.getElementsByTagName("tr");
 
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
+    td = tr[i].getElementsByTagName("td")[3]; // Adjusted to column index for Name
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -23,22 +23,86 @@ function searchFunction() {
   }
 }
 
-//Filling the table with users
-document.addEventListener("DOMContentLoaded", function () {
-   // Attach the search function to the keyup event
-   document.getElementById("search").addEventListener("keyup", searchFunction);
+function sortTable(n) {
+  const table = document.getElementById("userTable");
+  const tbody = table.querySelector("tbody");
+  const rowsArray = Array.from(tbody.rows);
+  let dir = "asc";
 
-  //Filling the table with users
+  if (table.dataset.sortColumn == n && table.dataset.sortDirection == "asc") {
+    dir = "desc";
+  }
+
+  rowsArray.sort((a, b) => {
+    let x = a.cells[n].innerText || a.cells[n].textContent;
+    let y = b.cells[n].innerText || b.cells[n].textContent;
+
+    // Detect if the column being sorted is a date
+    if (n === 4) { // Assuming the date column index is 4
+      x = parseDate(x);
+      y = parseDate(y);
+    } else if (!isNaN(x) && !isNaN(y)) { // Number comparison
+      x = parseFloat(x);
+      y = parseFloat(y);
+    } else { // String comparison
+      x = x.toLowerCase();
+      y = y.toLowerCase();
+    }
+
+    if (dir == "asc") {
+      return x > y ? 1 : -1;
+    } else {
+      return x < y ? 1 : -1;
+    }
+  });
+
+  // Append sorted rows back to the tbody
+  rowsArray.forEach(row => tbody.appendChild(row));
+
+  table.dataset.sortColumn = n;
+  table.dataset.sortDirection = dir;
+
+  updateSortIndicator(n, dir);
+}
+
+function parseDate(dateString) {
+  const parts = dateString.split("-");
+  const day = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10) - 1; // Months are zero-based in JavaScript Date
+  const year = parseInt(parts[2], 10);
+  return new Date(year, month, day);
+}
+
+function updateSortIndicator(n, dir) {
+  const headers = document.querySelectorAll("#userTable th");
+  headers.forEach((header, index) => {
+    const indicator = header.querySelector(".sort-indicator");
+    if (index === n) {
+      indicator.innerHTML = dir === "asc" ? "&#9650;" : "&#9660;";
+    } else {
+      indicator.innerHTML = "&#9650;";
+    }
+  });
+}
+
+// Filling the table with users
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("search").addEventListener("keyup", searchFunction);
+
+  const headers = document.querySelectorAll("#userTable th");
+  headers.forEach((header, index) => {
+    header.addEventListener("click", function() {
+      sortTable(index);
+    });
+  });
+
   fetch("/api/user")
     .then(handleApiResponse)
     .then((data) => {
       const tableBody = document.querySelector("#userTable tbody");
 
       data.data.forEach((user) => {
-        // Parse the registration date string into a Date object
         const registrationDate = new Date(user.RegistrationDate);
-
-        // Format the date
         const formattedRegistrationDate = `${registrationDate
           .getDate()
           .toString()
@@ -78,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 </td>
             </tr>
         `;
-        // searchFunction();
       });
 
       const deleteButtons = document.querySelectorAll(
@@ -93,7 +156,6 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch((error) => {
       errorHandler.logError(error, "button[delete-userid]", "user.js");
-      //why this error is thrown for edit user??
       errorHandler.showAlert(
         "An error occurred while trying to fetch the data."
       );
@@ -124,5 +186,4 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       });
   }
-  // document.getElementById("search").addEventListener("input", searchFunction);
 });
