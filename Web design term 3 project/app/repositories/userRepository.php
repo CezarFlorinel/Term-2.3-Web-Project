@@ -29,7 +29,12 @@ class UserRepository extends Repository
             $stmt->execute();
 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result ? $result : null;
+            if ($result) {
+                $resultArray = $this->convertKeysToCamelCase($result);
+                return $resultArray;
+            } else {
+                return null;
+            }
         } catch (PDOException $e) {
             error_log('Error: ' . $e->getMessage());
             throw $e;

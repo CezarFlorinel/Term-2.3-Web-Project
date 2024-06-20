@@ -56,3 +56,7 @@
 2024-06-20 14:38:55 - userPersonalInformation.js - modifyPassword - Network response was not ok
 2024-06-20 14:41:14 - userPersonalInformation.js - modifyPassword - Network response was not ok
 2024-06-20 14:41:29 - userPersonalInformation.js - modifyPassword - Network response was not ok
+2024-06-20 14:56:18 - userPersonalInformation.js - editUserForm - Unexpected non-whitespace character after JSON at position 221 (line 1 column 222)
+2024-06-20 14:56:46 - userPersonalInformation.js - editUserForm - Unexpected non-whitespace character after JSON at position 221 (line 1 column 222)
+2024-06-20 14:57:25 - userPersonalInformation.js - editUserForm - Unexpected non-whitespace character after JSON at position 221 (line 1 column 222)
+2024-06-20 14:57:32 - userPersonalInformation.js - editUserForm - Unexpected non-whitespace character after JSON at position 221 (line 1 column 222)
