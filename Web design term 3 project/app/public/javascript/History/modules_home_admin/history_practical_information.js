@@ -33,7 +33,7 @@ function addNewQuestionAndAnswer() {
     document.getElementById("submitNewInfo").addEventListener("click", function () {
         const question = document.getElementById("newQuestion").value;
         const answer = document.getElementById("newAnswer").value;
-        if (!checkText({ question, answer })) {
+        if (checkText({ question, answer })) {
             addHistoryPracticalInformation(question, answer);
         }
     });

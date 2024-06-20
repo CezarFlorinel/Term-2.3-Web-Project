@@ -19,7 +19,6 @@ session_start();
 <head>
     <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
     <link rel="stylesheet" href="CSS_files/yummy_event.css">
-    <link rel="stylesheet" href="CSS_files/ratings_reviews.css">
 </head>
 
 <body>

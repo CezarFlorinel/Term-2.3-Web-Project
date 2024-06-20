@@ -1,4 +1,4 @@
-import { handleApiResponse, checkText, checkImageSizeAndFileType } from '../Utilities/handle_data_checks.js';
+import { handleApiResponse, checkText } from '../Utilities/handle_data_checks.js';
 import { uploadImage, deleteImage } from './modules/manage_images.js';
 import ErrorHandler from '../Utilities/error_handler_class.js';
 const errorHandler = new ErrorHandler();
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['table', ['table']],
                 ['insert', ['link', 'picture']],
-                ['view', ['fullscreen', 'codeview', 'help']]
+                ['view', ['codeview', 'help']]
             ],
             callbacks: {
                 onImageUpload: function (files) {
