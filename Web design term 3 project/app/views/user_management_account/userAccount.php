@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (isset($_SESSION['userEmail']) && isset($_SESSION['userName'])) {
+    $email = $_SESSION['userEmail'];
+    $name = $_SESSION['userName'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,8 +20,8 @@
     <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
 
     <div class="max-w-6xl mx-auto px-4 py-8">
-        <h1 class="text-3xl text-center mb-6">Personal information</h1>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <h1 id="title" class="text-3xl text-center mb-6">Personal information</h1>
+        <div id="personalInformation" class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
             <!-- User Profile -->
 
@@ -23,18 +32,14 @@
 
                     <img src="user.jpg" alt="User" class="w-12 h-12 rounded-full">
                 </div>
+                <div>
+                    <button type="button" id="changePicture"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Change
+                        Picture</button>
+                </div>
             </div>
 
             <!-- Personal information -->
-
-            <?php
-            session_start();
-
-            if (isset($_SESSION['userEmail']) && isset($_SESSION['userName'])) {
-                $email = $_SESSION['userEmail'];
-                $name = $_SESSION['userName'];
-            }
-            ?>
 
             <div class="md:col-span-2 bg-white shadow-md rounded-lg p-4">
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -81,5 +86,6 @@
 </html>
 <script>
     var userId = <?php echo json_encode($_SESSION['userId']); ?>;
+    var password = <?php echo json_encode($user . $password); ?>;
 </script>
 <script type="module" src="javascript/User/userPersonalInformation.js"></script>

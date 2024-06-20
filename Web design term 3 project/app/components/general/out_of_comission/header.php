@@ -3,7 +3,7 @@ use App\Services\CustomPageService;
 
 $customPageService = new CustomPageService();
 $customPages = $customPageService->getAllCustomPages();
-
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -73,9 +73,18 @@ $customPages = $customPageService->getAllCustomPages();
                 <a href="/personalProgramListView">
                     <img class="icon" src="assets/images/elements/Wishlist.png" alt="Wishlist">
                 </a>
-                <a href="/login">
+                <?php
+                if (isset($_SESSION['userName'])) {
+                    echo '<a href="/login" class="nav-link">Hello, ' . $_SESSION['userName'] . '</a>';
+                } else {
+                    echo '<a href="/login">
+                            <img class="icon" src="assets/images/elements/login.png" alt="Login">
+                          </a>';
+                }
+                ?>
+                <!-- <a href="/login">
                     <img class="icon" src="assets/images/elements/login.png" alt="Login">
-                </a>
+                </a> -->
             </div>
         </header>
     </main>
