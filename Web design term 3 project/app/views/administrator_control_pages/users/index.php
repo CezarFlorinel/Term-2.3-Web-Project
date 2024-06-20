@@ -28,20 +28,20 @@
                         id="userTable">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    Id
+                                <th scope="col" class="px-6 py-3 cursor-pointer" onclick="sortTable(0)">
+                                    Id <span class="sort-indicator">&#9650;</span>
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Email
+                                <th scope="col" class="px-6 py-3 cursor-pointer" onclick="sortTable(1)">
+                                    Email <span class="sort-indicator">&#9650;</span>
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Role
+                                <th scope="col" class="px-6 py-3 cursor-pointer" onclick="sortTable(2)">
+                                    Role <span class="sort-indicator">&#9650;</span>
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Name
+                                <th scope="col" class="px-6 py-3 cursor-pointer" onclick="sortTable(3)">
+                                    Name <span class="sort-indicator">&#9650;</span>
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Registration date
+                                <th scope="col" class="px-6 py-3 cursor-pointer" onclick="sortTable(4)">
+                                    Registration date <span class="sort-indicator">&#9650;</span>
                                 </th>
                             </tr>
                         </thead>

@@ -204,7 +204,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(handleApiResponse)
       .then((data) => {
         if(data.success) {
-          alert('Password changed successfully');
           window.location.href = "/userAccount";
         } else {
           errorHandler.logError("Error updating user's password: ", data.message);
