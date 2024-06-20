@@ -34,4 +34,9 @@ employee account:
 email:burlacuelena130@gmail.com
 password: 12345678
 
+hashed password: $2y$10$0CIfNrhVIfarTsWZ1rZiBuc6icBdQ3CCFbS3TSZXk3dHHlNHtG3u
+
+$2y$10$0CIfNrhVIfarTsWZ1rZiBuc6icBd.Q3CCFbS3TSZXk3dHHlNHtG3u
+
+
 ```
