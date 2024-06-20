@@ -1,22 +1,15 @@
 <?php require __DIR__ . '/../../components/general/getHistoryData.php'; ?>
 
-<?php
-include __DIR__ . '/../header.php';
-?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>History Event</title>
-    <!-- move some of this in the header -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
+    <?php require __DIR__ . '/../../components/general/headerDataNoTailwind.php'; ?>
     <link rel="stylesheet" href="CSS_files/history_event.css">
 </head>
 
 <body>
+    <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
 
     <?php include __DIR__ . '/../../components/festival/history_event/topDescriptionAndCarousel.php'; ?>
     <?php include __DIR__ . '/../../components/festival/history_event/route.php'; ?>
@@ -40,15 +33,13 @@ include __DIR__ . '/../header.php';
     <script> // image array for carousel
         const images = [
             <?php foreach ($arrayWithImagePathsCarousel as $imagePath): ?>
-                '<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>',
+                                        '<?php echo htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>',
             <?php endforeach; ?>
         ];
     </script>
 
+    <?php require __DIR__ . '/../../components/general/footer.php'; ?>
+
 </body>
 
 </html>
-
-<?php
-include __DIR__ . '/../footer.php';
-?>

@@ -11,20 +11,13 @@ if (isset($_SESSION['userEmail']) && isset($_SESSION['userName'])) {
 <html lang="en">
 
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haarlem Festival</title>
-    <link
-        href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
-        rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
 </head>
 
 
 <body>
 
-    <?php include __DIR__ . '/../header.php'; ?>
+    <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
 
     <div class="max-w-6xl mx-auto px-4 py-8">
         <h1 id="title" class="text-3xl text-center mb-6">Personal information</h1>
@@ -86,13 +79,13 @@ if (isset($_SESSION['userEmail']) && isset($_SESSION['userName'])) {
             class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
             Logout</button>
     </div>
-    <?php include __DIR__ . '/../footer.php'; ?>
+
+    <?php include __DIR__ . '/../../components/general/footer.php'; ?>
 </body>
 
 </html>
 <script>
     var userId = <?php echo json_encode($_SESSION['userId']); ?>;
-    var password = <?php echo json_encode($user.$password); ?>;
+    var password = <?php echo json_encode($user . $password); ?>;
 </script>
 <script type="module" src="javascript/User/userPersonalInformation.js"></script>
-

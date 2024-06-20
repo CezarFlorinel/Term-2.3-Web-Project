@@ -10,13 +10,9 @@ $ticketsService = new TicketsService();
 $historyService = new HistoryService();
 
 $customerData = $_SESSION['customerData'];
-$userID = 1;  // get this from the sesssion as well after login has been done
-
-
+$userID = 2;  //TODO: get this from the sesssion as well after login has been done
 
 $order = $paymentService->getOrderByUserId($userID);
-
-
 
 if (isset($_SESSION['orderItemIDs'])) {
     $orderItems = [];
@@ -26,9 +22,6 @@ if (isset($_SESSION['orderItemIDs'])) {
 } else {
     $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
 }
-
-
-
 
 $entireTotal = 0;
 $itemsTotal = 0;
@@ -45,15 +38,13 @@ $whatTicketCantBeReserved = "";
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
     <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
 
 <body class="bg-black text-white">
 
-    <?php include __DIR__ . '/../header.php'; ?>
+    <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
 
     <div class="flex justify-center items-center min-h-screen">
         <div class="w-full max-w-4xl mx-auto p-8">
@@ -149,7 +140,7 @@ $whatTicketCantBeReserved = "";
         </div>
     </div>
 
-    <?php include __DIR__ . '/../footer.php'; ?>
+    <?php include __DIR__ . '/../../components/general/footer.php'; ?>
 
 </body>
 

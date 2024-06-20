@@ -3,8 +3,6 @@
 <title>Festival Project</title>
 <link rel="icon" type="image/png" href="/assets/images/Logos/H.png">
 <link rel="stylesheet" href="CSS_files/header.css">
-<link href="https://fonts.googleapis.com/css?family=Playfair+Display:500|Zen+Antique|Allerta+Stencil&display=swap"
-    rel="stylesheet">
 <link
     href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
     rel="stylesheet">

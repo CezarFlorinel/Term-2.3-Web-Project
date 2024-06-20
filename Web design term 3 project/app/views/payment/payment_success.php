@@ -6,16 +6,13 @@ $customerEmail = $customerData['email'];
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase Success</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
     <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
 
 <body class="flex flex-col min-h-screen bg-black text-black">
     <div class="flex-grow">
-        <?php include __DIR__ . '/../header.php'; ?>
+        <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
         <div class="flex-grow flex justify-center items-center mt-8 mb-6">
             <!-- Adjust the mt- and mb- values as needed -->
             <div class="w-full max-w-lg p-10 bg-white border border-gray-700 rounded-lg text-center">
@@ -34,7 +31,7 @@ $customerEmail = $customerData['email'];
                 </a>
             </div>
         </div>
-        <?php include __DIR__ . '/../footer.php'; ?>
+        <?php include __DIR__ . '/../../components/general/footer.php'; ?>
 </body>
 
 </html>

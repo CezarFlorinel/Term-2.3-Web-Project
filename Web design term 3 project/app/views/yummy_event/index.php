@@ -14,12 +14,6 @@ session_start();
 <head>
     <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
     <link rel="stylesheet" href="CSS_files/yummy_event.css">
-    <style>
-        .rating-star {
-            color: #ffd700;
-            /* gold color */
-        }
-    </style>
 </head>
 
 <body>
@@ -33,8 +27,8 @@ session_start();
     include __DIR__ . '/../../components/festival/yummy_event/home_page/mapWithLocations.php';
     ?>
 
+    <?php include __DIR__ . '/../../components/general/footer.php'; ?>
+
 </body>
 
 </html>
-
-<?php include __DIR__ . '/../../components/general/footer.php'; ?>
