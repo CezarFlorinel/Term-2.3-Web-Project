@@ -39,7 +39,7 @@
     background-position: center;
     height: 300px;
     width: 100%;
-    
+
 }
 
 .event-info-text-container {
@@ -72,7 +72,7 @@
     width: 100%;
 }
 
-.participating-restaurant{
+.participating-restaurant {
     color: white;
     font-family: 'Playfair Display', serif;
     /* margin-top: 200px; */
@@ -95,7 +95,7 @@
 
 .info-h {
     color: white;
-    font-family:'Playfair Display', serif;
+    font-family: 'Playfair Display', serif;
     margin-top: 50px;
     margin-left: -55px;
     text-align: left;
@@ -129,7 +129,7 @@
 
 .info-prices {
     color: white;
-    font-family:'Playfair Display', serif;
+    font-family: 'Playfair Display', serif;
     margin-top: 50px;
     text-align: left;
     font-size: 30px;
@@ -137,8 +137,14 @@
 }
 
 .festival-menus {
-    font-size: large; /* Adjust as needed, or use specific units like px, em, etc. */
+    font-size: large;
+    /* Adjust as needed, or use specific units like px, em, etc. */
     text-align: center;
     color: white;
     font-family: 'Playfair Display', serif;
+}
+
+.rating-star {
+    color: #ffd700;
+    /* gold color */
 }

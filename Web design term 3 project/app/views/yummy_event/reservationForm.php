@@ -1,18 +1,12 @@
-<?php include __DIR__ . '/../header.php'; ?>
-
 <?php
-
+use App\Services\YummyService;
 
 if (!isset($_GET['restaurantID'])) {
     header('Location: /');
     exit;
 }
 $restaurantID = $_GET['restaurantID'];
-
-use App\Services\YummyService;
-
 $yummyService = new YummyService();
-
 $sessions = $yummyService->getRestaurantSession($restaurantID);
 ?>
 
@@ -20,20 +14,13 @@ $sessions = $yummyService->getRestaurantSession($restaurantID);
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservation Form</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-        }
-    </style>
+    <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
 </head>
 
 <body>
+
+    <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
+
     <main class="bg-gray-800 flex justify-center items-center min-h-screen px-4 py-2 sm:px-6 lg:px-8"
         style="font-family: 'Playfair Display', serif;">
         <div class="bg-white p-10 rounded-lg shadow-lg mx-auto">
@@ -68,7 +55,7 @@ $sessions = $yummyService->getRestaurantSession($restaurantID);
                 <div class="flex gap-4">
                     <div class="w-full">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="session">*Select Session:</label>
-                        <select name="session" id="session" class="bg-blue-200 rounded py-2 px-4">
+                        <select name="session" id="session" class="bg-blue-900 rounded py-2 px-4">
                             <?php $count = 1;
                             foreach ($sessions as $session): ?>
                                 <option value="<?= $session->sessionID ?>"><?php echo $count;
@@ -78,7 +65,7 @@ $sessions = $yummyService->getRestaurantSession($restaurantID);
                     </div>
                     <div class="w-full">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="date">*Select date:</label>
-                        <select name="date" id="date" class="bg-blue-200 rounded py-2 px-4">
+                        <select name="date" id="date" class="bg-blue-900 rounded py-2 px-4">
                             <!-- Make them dynamic ?? -->
                             <option value="2024-07-26">26-07</option>
                             <option value="2024-07-27">27-07</option>
@@ -118,8 +105,9 @@ $sessions = $yummyService->getRestaurantSession($restaurantID);
             </form>
         </div>
     </main>
+
+    <?php include __DIR__ . '/../../components/general/footer.php'; ?>
+
 </body>
 
 </html>
-
-<?php include __DIR__ . '/../footer.php'; ?>

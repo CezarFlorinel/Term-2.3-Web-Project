@@ -6,14 +6,12 @@ require __DIR__ . '/../../components/personal_program/getListViewData.php';
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout Summary</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
 </head>
 
 <body class="bg-black text-white flex flex-col min-h-screen">
-    <?php include __DIR__ . '/../header.php'; ?>
+    <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
+
     <div class="flex flex-col flex-grow">
         <div class="flex justify-center items-center">
             <div class="w-full max-w-4xl mx-auto p-8">
@@ -43,7 +41,7 @@ require __DIR__ . '/../../components/personal_program/getListViewData.php';
 
             </div>
         </div>
-        <?php include __DIR__ . '/../footer.php'; ?>
+        <?php include __DIR__ . '/../../components/general/footer.php'; ?>
     </div>
 
     <script type="module" src="javascript/Personal_Program/personal_program_listview.js"></script>
