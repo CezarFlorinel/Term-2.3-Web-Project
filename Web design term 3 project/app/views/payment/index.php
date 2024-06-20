@@ -1,33 +1,23 @@
 <?php
-
 $customerData = null;
-
 if (isset($_SESSION['customerData'])) {
     $customerData = $_SESSION['customerData'];
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-include __DIR__ . '/../header.php';
-?>
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Information</title>
-    <!-- Tailwind CSS -->
+    <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
 
 <body class="payment-info-page">
+
+    <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
 
     <div class="scale-container">
         <!-- Form Title -->
@@ -123,9 +113,8 @@ include __DIR__ . '/../header.php';
             <button type="submit" class="button-next">NEXT STEP &rarr;</button>
         </div>
     </form>
+    <?php include __DIR__ . '/../../components/general/footer.php'; ?>
 </body>
-<?php
-include __DIR__ . '/../footer.php';
-?>
+
 
 </html>

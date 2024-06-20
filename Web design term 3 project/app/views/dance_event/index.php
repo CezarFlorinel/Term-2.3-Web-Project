@@ -1,37 +1,19 @@
 <?php
 require __DIR__ . '/../../components/festival/dance_event/home_page/getData.php';
 ?>
-<?php include __DIR__ . '/../header.php'; ?>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haarlem Festival</title>
-    <link
-        href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Imprima&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
     <link rel="stylesheet" href="CSS_files/dance_event.css">
-
-
-    <style>
-        .rating-star {
-            color: #ffd700;
-            /* gold color */
-        }
-
-        body {
-            font-family: 'Playfair Display', serif;
-        }
-    </style>
 </head>
 
 <body>
+
+    <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
+
     <main>
         <div class="start-image-container"
             style="background-image: url('../<?php echo htmlspecialchars($imagePathTop) ?>'); background-size: cover; background-position: center; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between;">
@@ -74,8 +56,8 @@ require __DIR__ . '/../../components/festival/dance_event/home_page/getData.php'
     <script type="module" src="javascript/Dance/festival_general_page.js"></script>
     <script type="module" src="javascript/Dance/order_tickets_dance_home.js"></script>
 
+    <?php include __DIR__ . '/../../components/general/footer.php'; ?>
+
 </body>
 
 </html>
-
-<?php include __DIR__ . '/../footer.php'; ?>

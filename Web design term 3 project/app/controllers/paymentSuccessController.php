@@ -34,7 +34,7 @@ class PaymentSuccessController
     private $sessionManager;
 
 
-    private $userId = 1; // to be changed for login
+    private $userId = 2; //TODO:// to be changed for login
     public function __construct()
     {
         $this->sessionManager = new SessionManager();

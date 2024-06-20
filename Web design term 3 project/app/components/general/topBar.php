@@ -3,12 +3,9 @@ use App\Services\CustomPageService;
 
 $customPageService = new CustomPageService();
 $customPages = $customPageService->getAllCustomPages();
-
 ?>
 
 <?php include_once "../components/general/modalSet.php"; ?>
-
-
 <?php include_once "../components/general/modalBoxCreate.php"; ?>
 
 <main>

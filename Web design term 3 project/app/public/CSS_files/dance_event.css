@@ -118,13 +118,19 @@
     /* Optional: Adds shadow for better visibility */
 }
 
-.ratatouille-image-container {
-    background-image: url('../assets/images/yummy_event/ratatouille.png');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 400px;
-    width: 100%;
+.rating-star {
+    color: #ffd700;
+    /* gold color */
+}
+
+body {
+    font-family: 'Playfair Display', serif;
+}
+
+.day {
+    background-color: black;
+}
+
+.event {
+    background-color: #4C4C4C;
 }

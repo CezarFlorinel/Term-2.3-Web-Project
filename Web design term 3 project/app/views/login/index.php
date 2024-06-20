@@ -2,18 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haarlem Festival</title>
-    <link
-        href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,900|Zen+Antique|Allerta+Stencil&display=swap"
-        rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
 </head>
 
 <body>
 
-    <?php include __DIR__ . '/../header.php'; ?>
+    <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
 
 
     <section class="flex justify-center items-center h-screen bg-black">
@@ -74,8 +68,8 @@
     </section>
 
     <script type="module" src="javascript/User/log_in.js"></script>
+    <?php include __DIR__ . '/../../components/general/footer.php'; ?>
 </body>
 
 
 </html>
-<?php include __DIR__ . '/../footer.php'; ?>
