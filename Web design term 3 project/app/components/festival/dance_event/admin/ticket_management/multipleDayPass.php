@@ -15,7 +15,7 @@
                     class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Enter price" name="price"
                     value="<?php echo number_format((float) $price, 2, '.', ''); ?>">
 
-                <p>Number of Available Passes</p>
+                <p>Number of Maximum Available Passes</p>
                 <input id="js_multipleDaysPassMaxAvailable_<?php echo $id; ?>" type="number"
                     class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Available Tickets"
                     value="<?php echo $maxPasses; ?>">

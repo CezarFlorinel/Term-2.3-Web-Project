@@ -35,7 +35,7 @@
                 <p>Singer/s</p>
                 <input id="js_singer_<?php echo $id; ?>" type=" text" class="w-full rounded-lg py-2 px-3 mb-2 border"
                     placeholder="Singer" value="<?php echo $singer; ?>">
-                <p>Number of Available Tickets</p>
+                <p>Number of Maximum Available Tickets</p>
                 <input id="js_maxTickets_<?php echo $id; ?>" type="number" class="w-full rounded-lg py-2 px-3 mb-2 border"
                     placeholder="Available Tickets" value="<?php echo $availableTickets; ?>">
                 <p>Session Type</p>
@@ -81,7 +81,7 @@
                 <input type="text" name="singer" class="w-full rounded-lg py-2 px-3 mb-2 border" placeholder="Singer"
                     required>
 
-                <p>Number of Available Tickets</p>
+                <p>Number of Maximum Available Tickets</p>
                 <input type="number" name="availableTickets" class="w-full rounded-lg py-2 px-3 mb-2 border"
                     placeholder="Available Tickets" required>
 

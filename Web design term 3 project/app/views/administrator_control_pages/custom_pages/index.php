@@ -7,17 +7,16 @@ $customPageService = new CustomPageService();
 
 
 $isAdmin = false;
-$userID = 2; // hardcoded for now
+$userID = 2; // TODO:hardcoded for now
 $user = $userService->getById($userID);
 
-if ($user !== null && $user['Role'] === 'Admin') {
+if ($user !== null && $user['role'] === 'Admin') {
     $isAdmin = true;
 }
 
+
 $customPageId = $_GET['id'];
-
 $customPage = $customPageService->getCustomPageByID($customPageId);
-
 $contentOfCustomPage = $customPage->content;
 $titleOfCustomPage = $customPage->title;
 ?>
@@ -32,6 +31,7 @@ $titleOfCustomPage = $customPage->title;
         crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <?php require __DIR__ . '/../../../components/general/commonDataHeaderTailwind.php'; ?>
     <style>
         #saveContent {
             display: inline-block;
@@ -77,7 +77,7 @@ $titleOfCustomPage = $customPage->title;
 </head>
 
 <body>
-    <?php include __DIR__ . '/../../header.php'; ?>
+    <?php require __DIR__ . '/../../../components/general/topBar.php'; ?>
 
 
     <?php if ($isAdmin): ?>
@@ -95,7 +95,7 @@ $titleOfCustomPage = $customPage->title;
     <?php endif; ?>
 
 
-    <?php include __DIR__ . '/../../footer.php'; ?>
+    <?php include __DIR__ . '/../../../components/general/footer.php'; ?>
 
     <script type="text/javascript">
         const isAdmin = <?php echo json_encode($isAdmin); ?>;
