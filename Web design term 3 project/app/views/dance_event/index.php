@@ -51,6 +51,7 @@ require __DIR__ . '/../../components/festival/dance_event/home_page/getData.php'
         const clubLocations = <?php echo json_encode($clubLocations); ?>;
         const artists = <?php echo json_encode($artists); ?>;
         const danceTickets = <?php echo json_encode($danceTickets); ?>;
+        const order = <?php echo json_encode($order); ?>;
     </script>
 
     <script type="module" src="javascript/Dance/festival_general_page.js"></script>

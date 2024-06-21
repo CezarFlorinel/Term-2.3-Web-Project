@@ -35,10 +35,16 @@ $orders = $paymentService->getAllInvoices();
                 </div>
                 <div class="mb-4">
                     <button id="searchButton"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Search</button>
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Search
+                    </button>
                     <button id="exportButtonSearch"
                         class="bg-green-500 hover:bg-green-700 ml-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Export
-                        Order</button>
+                        Order
+                    </button>
+                </div>
+                <div id="orderList" class="hidden">
+                    <h4 class="text-xl text-left py-2">Select an Order</h4>
+                    <ul id="orderListContainer" class="list-disc list-inside"></ul>
                 </div>
                 <div id="orderDetails" class="hidden">
                     <h4 class="text-xl text-left py-2">Order Details</h4>

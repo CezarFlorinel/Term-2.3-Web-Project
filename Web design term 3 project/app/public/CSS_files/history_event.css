@@ -543,6 +543,7 @@ body {
         display: flex;
         margin-top: -10px;
         align-items: center;
+        margin-bottom: -15px;
     }
 
     .timetable-booking-image {

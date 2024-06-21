@@ -120,11 +120,6 @@ function fetchUpdateHistoryRouteInformation(id, locationName, locationDescriptio
         }),
     })
         .then(handleApiResponse)
-        .then(data => {
-            if (data.message) {
-                alert(data.message);
-            }
-        })
         .catch(error => {
             errorHandler.logError(error, 'fetchUpdateHistoryRouteInformation', 'history_tour.js');
             errorHandler.showError('An error occurred while updating the tour place.');
