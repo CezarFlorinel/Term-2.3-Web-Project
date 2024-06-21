@@ -53,8 +53,6 @@ document.getElementById('exportButton').addEventListener('click', function () {
     document.body.removeChild(link);
 });
 
-
-
 document.getElementById('searchButton').addEventListener('click', function () {
     const searchTerm = document.getElementById('searchOrder').value.toLowerCase();
 
@@ -63,21 +61,27 @@ document.getElementById('searchButton').addEventListener('click', function () {
         return;
     }
 
-    const foundOrder = orders.find(order => order.clientName.toLowerCase().includes(searchTerm));
-    console.log(foundOrder);
+    const foundOrders = orders.filter(order => order.clientName.toLowerCase().includes(searchTerm));
+    const orderListContainer = document.getElementById('orderListContainer');
+    orderListContainer.innerHTML = '';
 
-    if (foundOrder) {
-        document.getElementById('js_orderID').textContent = `Order ID: ${foundOrder.orderId}`;
-        document.getElementById('js_paymentDate').textContent = `Payment Date: ${foundOrder.paymentDate}`;
-        document.getElementById('js_customerName').textContent = `Customer Name: ${foundOrder.clientName}`;
-        document.getElementById('js_phoneNumber').textContent = `Phone Number: ${foundOrder.phoneNumber}`;
-        document.getElementById('js_Address').textContent = `Address: ${foundOrder.address}`;
-        document.getElementById('js_Email').textContent = `Email: ${foundOrder.email}`;
-        document.getElementById('js_VAT').textContent = `VAT: ${foundOrder.VATamount.toFixed(2)}`;
-        document.getElementById('js_TotalAmount').textContent = `Total Amount: ${foundOrder.totalAmount.toFixed(2)}`;
-        document.getElementById('orderDetails').classList.remove('hidden');
+    if (foundOrders.length > 0) {
+        document.getElementById('orderList').classList.remove('hidden');
+        document.getElementById('orderDetails').classList.add('hidden');
+
+        foundOrders.forEach((order, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${order.clientName} - ${order.orderId}`;
+            listItem.dataset.index = index;
+            listItem.classList.add('cursor-pointer', 'text-blue-500', 'hover:underline');
+            listItem.addEventListener('click', function () {
+                displayOrderDetails(foundOrders[this.dataset.index]);
+            });
+            orderListContainer.appendChild(listItem);
+        });
     } else {
         errorHandler.showAlert('No orders found for the given customer name.');
+        document.getElementById('orderList').classList.add('hidden');
         document.getElementById('orderDetails').classList.add('hidden');
     }
 });
@@ -85,32 +89,34 @@ document.getElementById('searchButton').addEventListener('click', function () {
 document.getElementById('exportButtonSearch').addEventListener('click', function () {
     const searchTerm = document.getElementById('searchOrder').value.toLowerCase();
 
-    const foundOrder = orders.find(order => order.clientName.toLowerCase().includes(searchTerm));
+    const foundOrders = orders.filter(order => order.clientName.toLowerCase().includes(searchTerm));
 
     if (searchTerm === '') {
         errorHandler.showAlert('Please enter a customer name to search for.');
         return;
     }
 
-    if (foundOrder) {
+    if (foundOrders.length > 0) {
         const columns = ['orderId', 'paymentDate', 'clientName', 'phoneNumber', 'address', 'email', 'VATamount', 'totalAmount'];
         let csvContent = 'data:text/csv;charset=utf-8,';
         csvContent += columns.join(',') + '\n';
 
-        let row = [];
-        columns.forEach(column => {
-            let cellText = foundOrder[column].toString().trim();
-            if (cellText.includes(',') || cellText.includes('"')) {
-                cellText = '"' + cellText.replace(/"/g, '""') + '"';
-            }
-            row.push(cellText);
+        foundOrders.forEach(order => {
+            let row = [];
+            columns.forEach(column => {
+                let cellText = order[column].toString().trim();
+                if (cellText.includes(',') || cellText.includes('"')) {
+                    cellText = '"' + cellText.replace(/"/g, '""') + '"';
+                }
+                row.push(cellText);
+            });
+            csvContent += row.join(',') + '\n';
         });
-        csvContent += row.join(',') + '\n';
 
         let encodedUri = encodeURI(csvContent);
         let link = document.createElement('a');
         link.setAttribute('href', encodedUri);
-        link.setAttribute('download', 'order.csv');
+        link.setAttribute('download', 'orders.csv');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -118,3 +124,15 @@ document.getElementById('exportButtonSearch').addEventListener('click', function
         errorHandler.showAlert('No orders found for the given customer name.');
     }
 });
+
+function displayOrderDetails(order) {
+    document.getElementById('js_orderID').textContent = `Order ID: ${order.orderId}`;
+    document.getElementById('js_paymentDate').textContent = `Payment Date: ${order.paymentDate}`;
+    document.getElementById('js_customerName').textContent = `Customer Name: ${order.clientName}`;
+    document.getElementById('js_phoneNumber').textContent = `Phone Number: ${order.phoneNumber}`;
+    document.getElementById('js_Address').textContent = `Address: ${order.address}`;
+    document.getElementById('js_Email').textContent = `Email: ${order.email}`;
+    document.getElementById('js_VAT').textContent = `VAT: ${order.VATamount.toFixed(2)}`;
+    document.getElementById('js_TotalAmount').textContent = `Total Amount: ${order.totalAmount.toFixed(2)}`;
+    document.getElementById('orderDetails').classList.remove('hidden');
+}

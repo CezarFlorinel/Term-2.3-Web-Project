@@ -47,3 +47,7 @@
 2024-06-19 13:04:41 - dance_home_admin.js - addArtist - Missing required fields or file
 2024-06-19 13:29:02 - club_location.js - createClubLocation - The string is empty
 2024-06-20 17:47:01 - history_practical_information.js - addHistoryPracticalInformation - The string is empty
+2024-06-21 19:31:07 - order_ticket_dance_home.js - addEventListenerForOrderTicketButton - errorHandler.showError is not a function
+2024-06-21 19:31:59 - order_ticket_dance_home.js - addEventListenerForOrderTicketButton - errorHandler.showError is not a function
+2024-06-21 19:37:59 - order_ticket_dance_home.js - addEventListenerForOrderTicketButton - errorHandler.showError is not a function
+2024-06-21 19:42:51 - order_ticket_dance_home.js - addEventListenerForOrderTicketButton - errorHandler.showError is not a function

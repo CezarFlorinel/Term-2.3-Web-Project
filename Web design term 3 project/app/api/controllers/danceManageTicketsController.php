@@ -197,7 +197,6 @@ class DanceManageTicketsController
         } catch (Exception $e) {
             ErrorHandlerMethod::handleErrorApiController($e);
         }
-
     }
 
     public function updateMultipleDaysDancePassInformation()
