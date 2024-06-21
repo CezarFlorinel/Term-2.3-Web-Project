@@ -82,4 +82,9 @@ class PaymentService
     {
         $this->repository->createNewOrderItem($quantity, $typeOfFestival, $orderFK, $passFK, $danceTicketFK, $historyTicketFK);
     }
+
+    public function createNewOrderInDBbyUserID($userID): void
+    {
+        $this->repository->createNewOrder($userID);
+    }
 }

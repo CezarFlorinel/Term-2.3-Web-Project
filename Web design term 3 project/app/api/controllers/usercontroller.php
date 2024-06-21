@@ -12,6 +12,7 @@ class UserController
     private $userService;
     private $emailService;
 
+
     private $filters = [
         'email' => FILTER_SANITIZE_EMAIL,
         'name' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
