@@ -3,12 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use App\Services\PaymentService;
 
 use PDO;
 use PDOException;
 
 class UserRepository extends Repository
 {
+
     function getAllUsers()
     {
         try {
@@ -82,6 +84,8 @@ class UserRepository extends Repository
     function createUser($user)
     {
         try {
+
+            $paymentService = new PaymentService();
             //add validation
             $stmt = $this->connection->prepare("INSERT INTO [USER] (Email, Password, Role, Name) VALUES (:email, :password, :role, :name)");
 
@@ -91,6 +95,8 @@ class UserRepository extends Repository
             $stmt->bindValue(':role', $user->getUserRole());
 
             $stmt->execute();
+
+            $paymentService->createNewOrderInDBbyUserID($this->connection->lastInsertId()); // for making a new order for the user
 
         } catch (PDOException $e) {
             error_log('Error: ' . $e->getMessage());

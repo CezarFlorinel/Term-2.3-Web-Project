@@ -28,6 +28,7 @@ if (isset($_SESSION['customerData'])) {
                 Payment Information</h2>
         </div>
         <p class="form-subtitle mt-[-20px] ml-20 text-red-500">*All fields are mandatory to complete a purchase</p>
+        <p class="ml-36 text-red-400">You can put a line for the fields not necessary to fill</p>
     </div>
 
 
@@ -106,7 +107,7 @@ if (isset($_SESSION['customerData'])) {
         </div>
 
         <!-- Navigation Buttons -->
-        <div class="flex justify-between mt-6">
+        <div class="flex justify-between mt-6 py-2">
             <a href="/personalProgramListView">
                 <button type="button" class="button-back">&larr; Back to Shopping Cart</button>
             </a>
