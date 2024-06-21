@@ -33,6 +33,11 @@ class PaymentService
         return $this->repository->getPaidOrdersByUserId($userId);
     }
 
+    public function getAllInvoices(): array
+    {
+        return $this->repository->getAllInvoices();
+    }
+
     public function updateOrderStatus($orderID, $paymentStatus, $paymentMethod, $totalAmount)
     {
         $this->repository->updateOrderStatus($orderID, $paymentStatus, $paymentMethod, $totalAmount);

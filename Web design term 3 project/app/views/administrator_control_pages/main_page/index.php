@@ -1,9 +1,11 @@
 <?php
 use App\Services\CustomPageService;
+use App\Services\PaymentService;
 
 $customPageService = new CustomPageService();
-
+$paymentService = new PaymentService();
 $customPages = $customPageService->getAllCustomPages();
+$orders = $paymentService->getAllInvoices();
 
 ?>
 
@@ -21,46 +23,53 @@ $customPages = $customPageService->getAllCustomPages();
         <div class="flex-grow p-6 ml-36">
             <h1 class="text-3xl text-center py-5">Welcome to the admin control panel</h1>
 
-            <h2 class="text-2xl text-center py-5">Custom Pages Section</h2>
+            <?php require __DIR__ . '/../../../components/admin/main_page/customPagesSection.php'; ?>
 
-            <div class="flex flex-wrap">
+            <h2 class="text-2xl text-center py-5">Orders Section</h2>
 
-                <?php foreach ($customPages as $customPage): ?>
-                    <div class="w-full sm:w-1/2 md:w-1/3 p-6">
-                        <div class="bg-white rounded-lg shadow-md">
-                            <div class="p-4">
-                                <h3 class="text-2xl font-bold text-center"><?php echo $customPage->title; ?></h3>
-                                <div class="flex justify-center space-x-2">
-                                    <a href="/CustomPages?id=<?php echo htmlspecialchars($customPage->customPageID); ?>"
-                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a>
-                                    <a href="/MainPageAdmin/deleteCustomPage?id=<?php echo htmlspecialchars($customPage->customPageID); ?>"
-                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</a>
-                                </div>
-                            </div>
-                        </div>
+            <div class="bg-white p-6 rounded-lg shadow-md w-full">
+                <h3 class="text-2xl text-left py-5">Search Order By Customer Name</h3>
+                <div class="flex justify-center mb-4">
+                    <input type="text" id="searchOrder" placeholder="Search Order By Customer Name"
+                        class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white">
+                </div>
+                <div class="mb-4">
+                    <button id="searchButton"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Search</button>
+                    <button id="exportButtonSearch"
+                        class="bg-green-500 hover:bg-green-700 ml-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Export
+                        Order</button>
+                </div>
+                <div id="orderDetails" class="hidden">
+                    <h4 class="text-xl text-left py-2">Order Details</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <span id="js_orderID"></span>
+                        <span id="js_paymentDate"></span>
+                        <span id="js_customerName"></span>
+                        <span id="js_phoneNumber"></span>
+                        <span id="js_Address"></span>
+                        <span id="js_Email"></span>
+                        <span id="js_VAT"></span>
+                        <span id="js_TotalAmount"></span>
                     </div>
-                <?php endforeach; ?>
-
-
+                </div>
             </div>
+            <br>
 
-            <div>
-                <form action="/MainPageAdmin/createCustomPage" method="POST"
-                    class="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
-                    <div class="mb-4">
-                        <label for="title" class="block text-gray-700 font-bold mb-2">Title</label>
-                        <input type="text" id="title" name="title" placeholder="Enter the title"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            required>
-                    </div>
-                    <button type="submit"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create
-                        custom page</button>
-                </form>
-            </div>
+
+            <?php require __DIR__ . '/../../../components/admin/main_page/createTableWithOrders.php'; ?>
+
+
 
         </div>
     </div>
+
+    <script type="text/javascript">
+        const orders = <?php echo json_encode($orders); ?>;
+    </script>
+
+    <script type="module" src="javascript/Orders/orders_export.js"></script>
+
 </body>
 
 </html>
