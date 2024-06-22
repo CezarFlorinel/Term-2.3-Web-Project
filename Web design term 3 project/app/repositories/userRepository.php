@@ -72,6 +72,19 @@ class UserRepository extends Repository
         return $camelCaseArray;
     }
 
+    public function updateProfilePicture($userId, $stringPath)
+    {
+        try {
+            $stmt = $this->connection->prepare("UPDATE [USER] SET UserProfilePicture = :path WHERE UserID = :id");
+            $stmt->bindValue(':path', $stringPath);
+            $stmt->bindValue(':id', $userId);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            error_log('Error: ' . $e->getMessage());
+            throw $e;
+        }
+    }
+
     public function checkIfEmailExists($email): bool
     {
         $stmt = $this->connection->prepare("SELECT COUNT(*) as count_users FROM [USER] WHERE Email = :email");

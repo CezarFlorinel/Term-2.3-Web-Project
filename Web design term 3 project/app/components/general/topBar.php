@@ -3,6 +3,7 @@ use App\Services\CustomPageService;
 
 $customPageService = new CustomPageService();
 $customPages = $customPageService->getAllCustomPages();
+//session_start();
 ?>
 
 <?php include_once "../components/general/modalSet.php"; ?>

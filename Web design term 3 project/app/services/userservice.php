@@ -34,6 +34,11 @@ class UserService
         return $this->userRepository->createUser($user);
     }
 
+    public function updateProfilePicture($userId, $profilePicture)
+    {
+        return $this->userRepository->updateProfilePicture($userId, $profilePicture);
+    }
+
     public function update($user)
     {
         return $this->userRepository->update($user);
