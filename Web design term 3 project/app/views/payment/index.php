@@ -1,33 +1,23 @@
 <?php
-
 $customerData = null;
-
 if (isset($_SESSION['customerData'])) {
     $customerData = $_SESSION['customerData'];
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-include __DIR__ . '/../header.php';
-?>
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Information</title>
-    <!-- Tailwind CSS -->
+    <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="CSS_files/payment.css">
 </head>
 
 <body class="payment-info-page">
+
+    <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
 
     <div class="scale-container">
         <!-- Form Title -->
@@ -38,13 +28,14 @@ include __DIR__ . '/../header.php';
                 Payment Information</h2>
         </div>
         <p class="form-subtitle mt-[-20px] ml-20 text-red-500">*All fields are mandatory to complete a purchase</p>
+        <p class="ml-36 text-red-400">You can put a line for the fields not necessary to fill</p>
     </div>
 
 
     <form action="/payment/storeCustomerData" method="POST" class="space-y-5">
         <!-- Country/Region Input -->
         <div>
-            <label class="block form-label">Country/Region:</label>
+            <label class="block form-label">Country/Region*:</label>
             <input type="text" name="country" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['country'])) {
                 echo htmlspecialchars($customerData['country']);
             } ?>">
@@ -52,7 +43,7 @@ include __DIR__ . '/../header.php';
 
         <!-- Full Name Input -->
         <div>
-            <label class="block form-label">Full Name (First & Last name):</label>
+            <label class="block form-label">Full Name (First & Last name)*:</label>
             <input type="text" name="name" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['name'])) {
                 echo htmlspecialchars($customerData['name']);
             } ?>">
@@ -60,7 +51,7 @@ include __DIR__ . '/../header.php';
 
         <!-- Phone Number Input -->
         <div>
-            <label class="block form-label">Phone Number:</label>
+            <label class="block form-label">Phone Number*:</label>
             <input type="tel" name="phoneNumber" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['phoneNumber'])) {
                 echo htmlspecialchars($customerData['phoneNumber']);
             } ?>">
@@ -70,7 +61,7 @@ include __DIR__ . '/../header.php';
 
         <!-- Email Address Input -->
         <div>
-            <label class="block form-label">Email Address:</label>
+            <label class="block form-label">Email Address*:</label>
             <input type="email" name="email" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['email'])) {
                 echo htmlspecialchars($customerData['email']);
             } ?>">
@@ -116,16 +107,15 @@ include __DIR__ . '/../header.php';
         </div>
 
         <!-- Navigation Buttons -->
-        <div class="flex justify-between mt-6">
+        <div class="flex justify-between mt-6 py-2">
             <a href="/personalProgramListView">
                 <button type="button" class="button-back">&larr; Back to Shopping Cart</button>
             </a>
             <button type="submit" class="button-next">NEXT STEP &rarr;</button>
         </div>
     </form>
+    <?php include __DIR__ . '/../../components/general/footer.php'; ?>
 </body>
-<?php
-include __DIR__ . '/../footer.php';
-?>
+
 
 </html>

@@ -33,8 +33,7 @@ class PaymentSuccessController
     private $projectRoot;
     private $sessionManager;
 
-
-    private $userId = 1; // to be changed for login
+    private $userId = null;
     public function __construct()
     {
         $this->sessionManager = new SessionManager();
@@ -44,6 +43,7 @@ class PaymentSuccessController
         $this->pdf = new TCPDF();
         $this->pdfWithTickets = new TCPDF();
         session_start();
+        $this->userId = $_SESSION['userId']; // will this workkk ???????
         $this->getPaymentMethod();
         $this->updateOrderStatus();
         $this->makeTickets();
@@ -100,7 +100,6 @@ class PaymentSuccessController
             ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
         }
     }
-
     private function addInvoiceInDB()
     {
         try {
@@ -143,7 +142,6 @@ class PaymentSuccessController
 
         }
     }
-
     private function setPDFSettings($pdf)
     {
         $pdf->SetCreator('Haarlem Festival Website');
@@ -153,7 +151,6 @@ class PaymentSuccessController
         $pdf->SetKeywords('Invoice, PDF, Tickets');
         $pdf->AddPage();
     }
-
     private function setHtmlContentForInvoice($invoice, $orderItems, $quantity, $htmlContent)
     {
         $this->htmlContent = '<h1>Invoice for Tickets</h1>';
@@ -188,7 +185,6 @@ class PaymentSuccessController
         $this->htmlContent .= '<h1>Thank you for your purchase!</h1>';
         $this->htmlContent .= '<p>You should receive the tickets in a short time, if you have questions, please contact us.</p>';
     }
-
     private function fillForTicketHistoryInvoice($ticket, $orderItem): void
     {
         $this->htmlContent .= '<h2>History ' . $ticket->language . 'Tour</h2>';
@@ -216,7 +212,6 @@ class PaymentSuccessController
         $this->htmlContent .= '<p>Subtotal: ' . $formattedSubtotal . '€<p>';
 
     }
-
     private function fillForTicketDanceInvoice($ticket, $orderItem): void
     {
         $this->htmlContent .= '<h2>' . $ticket->singer . 'Concert</h2>';
@@ -241,7 +236,6 @@ class PaymentSuccessController
         $this->htmlContent .= '<p>Subtotal: ' . $formattedSubtotal . '€<p>';
 
     }
-
     private function fillForPassInvoice($ticket, $orderItem): void
     {
         $this->htmlContent .= '<h2>Dance Pass</h2>';
@@ -260,7 +254,6 @@ class PaymentSuccessController
         $formattedSubtotal = number_format($subtotal, 2, '.', '');
         $this->htmlContent .= '<p>Subtotal: ' . $formattedSubtotal . '€</p>';
     }
-
     private function sendEmail($pdfFilePath, $email, $name, $typeOfMailTickets)
     {
         // Initialize PHPMailer
@@ -314,7 +307,6 @@ class PaymentSuccessController
         unlink($pdfFilePath);
 
     }
-
     private function setEmailBody($boolTicketsSet)
     {
         $name = $this->clientName;
@@ -348,7 +340,6 @@ class PaymentSuccessController
 
 
     }
-
     private function setMailAltBody($boolTicketsSet)
     {
         $name = $this->clientName;
@@ -372,13 +363,20 @@ class PaymentSuccessController
 
         return $altBody;
     }
-
     private function makeTickets()
     {
         $this->addTicketToDB();
         $this->generateQRCodeTicket();
+        $this->createNewOrderInDB();
     }
-
+    private function createNewOrderInDB()
+    {
+        try {
+            $this->paymentService->createNewOrderInDBbyUserID($this->userId);
+        } catch (\Exception $e) {
+            ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
+        }
+    }
     private function addTicketToDB()
     {
         try {
@@ -395,7 +393,6 @@ class PaymentSuccessController
 
         }
     }
-
     private function generateQRCodeTicket()
     {
         try {
@@ -441,7 +438,6 @@ class PaymentSuccessController
 
         }
     }
-
     private function setPdfForTickets()
     {
         $this->pdfWithTickets->SetCreator('Haarlem Festival Website');
@@ -453,7 +449,6 @@ class PaymentSuccessController
         $this->pdfWithTickets->AddPage();
         $this->htmlContent = ''; // to fill with the right content
     }
-
     private function fillHtmlContentForTicketPdf($ticketType)
     {
         try {
@@ -477,7 +472,6 @@ class PaymentSuccessController
             ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
         }
     }
-
     private function generateHTMLForTicketDance($eventName, $dateAndTime, $startTime, $endTime, $location)
     {
         $htmlContent = "<div style='border: 1px solid black; padding: 10px; margin-bottom: 10px;'>
@@ -511,10 +505,4 @@ class PaymentSuccessController
 
         return $htmlContent;
     }
-
-
-
-
-
-
 }

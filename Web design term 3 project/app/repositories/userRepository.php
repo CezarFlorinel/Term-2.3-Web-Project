@@ -3,12 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use App\Services\PaymentService;
 
 use PDO;
 use PDOException;
 
 class UserRepository extends Repository
 {
+
     function getAllUsers()
     {
         try {
@@ -29,7 +31,12 @@ class UserRepository extends Repository
             $stmt->execute();
 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result ? $result : null;
+            if ($result) {
+                $resultArray = $this->convertKeysToCamelCase($result);
+                return $resultArray;
+            } else {
+                return null;
+            }
         } catch (PDOException $e) {
             error_log('Error: ' . $e->getMessage());
             throw $e;
@@ -65,6 +72,19 @@ class UserRepository extends Repository
         return $camelCaseArray;
     }
 
+    public function updateProfilePicture($userId, $stringPath)
+    {
+        try {
+            $stmt = $this->connection->prepare("UPDATE [USER] SET UserProfilePicture = :path WHERE UserID = :id");
+            $stmt->bindValue(':path', $stringPath);
+            $stmt->bindValue(':id', $userId);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            error_log('Error: ' . $e->getMessage());
+            throw $e;
+        }
+    }
+
     public function checkIfEmailExists($email): bool
     {
         $stmt = $this->connection->prepare("SELECT COUNT(*) as count_users FROM [USER] WHERE Email = :email");
@@ -77,6 +97,8 @@ class UserRepository extends Repository
     function createUser($user)
     {
         try {
+
+            $paymentService = new PaymentService();
             //add validation
             $stmt = $this->connection->prepare("INSERT INTO [USER] (Email, Password, Role, Name) VALUES (:email, :password, :role, :name)");
 
@@ -86,6 +108,8 @@ class UserRepository extends Repository
             $stmt->bindValue(':role', $user->getUserRole());
 
             $stmt->execute();
+
+            $paymentService->createNewOrderInDBbyUserID($this->connection->lastInsertId()); // for making a new order for the user
 
         } catch (PDOException $e) {
             error_log('Error: ' . $e->getMessage());

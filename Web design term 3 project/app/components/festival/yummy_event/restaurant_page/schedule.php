@@ -3,15 +3,65 @@
     <?php
     // Fetch session prices for the current restaurant
     $restaurantSessionPrices = $yummyService->getRestaurantSession($yummyDetailPageData->restaurantID);
+
+    $arrayPricesAdults = [];
+    $arrayPricesChildren = [];
+    $displayOnePriceAdults = true;
+    $displayOnePriceChildren = true;
+
+    foreach ($restaurantSessionPrices as $session) {
+        if ($session->pricesForAdults !== $restaurantSessionPrices[0]->pricesForAdults) {
+            $displayOnePriceAdults = false;
+        }
+    }
+    foreach ($restaurantSessionPrices as $session) {
+        if ($session->pricesForChildren !== $restaurantSessionPrices[0]->pricesForChildren) {
+            $displayOnePriceChildren = false;
+        }
+    }
+    foreach ($restaurantSessionPrices as $session) {
+        $arrayPricesAdults[] = $session->pricesForAdults;
+    }
+
+    foreach ($restaurantSessionPrices as $session) {
+        $arrayPricesChildren[] = $session->pricesForChildren;
+    }
     ?>
-    <p class="text-2xl mb-6">This restaurant has <span
-            class="font-bold underline"><?= count($restaurantSessionPrices) ?>
-            sessions</span>, each session has a <span class="font-bold underline">duration of 2 hours</span>.
-        Each session has a <span class="font-bold text-yellow-400">price of
-            <?= number_format($restaurantSessionPrices[0]->pricesForAdults, 2, '.', '') ?>€</span>, children
-        <span class="font-bold text-yellow-400">under 12 years old</span> have a price of <span
-            class="font-bold text-yellow-400"><?= number_format($restaurantSessionPrices[0]->pricesForChildren, 2, '.', '') ?>€</span>.
-    </p>
+
+
+    <?php if ($displayOnePriceAdults && $displayOnePriceChildren): ?>
+        <p class="text-2xl mb-6">This restaurant has <span
+                class="font-bold underline"><?= count($restaurantSessionPrices) ?>
+                sessions</span>, each session has a <span class="font-bold underline">duration of 2 hours</span>.
+            Each session has a <span class="font-bold text-yellow-400">price of
+                <?= number_format($restaurantSessionPrices[0]->pricesForAdults, 2, '.', '') ?>€</span>, children
+            <span class="font-bold text-yellow-400">under 12 years old</span> have a price of <span
+                class="font-bold text-yellow-400"><?= number_format($restaurantSessionPrices[0]->pricesForChildren, 2, '.', '') ?>€</span>.
+        </p>
+    <?php else: ?>
+        <p class="text-2xl mb-6">This restaurant has <span
+                class="font-bold underline"><?= count($restaurantSessionPrices) ?>
+                sessions</span>, each session has a <span class="font-bold underline">duration of 2 hours</span>.
+            Each session has a <span class="font-bold text-yellow-400">price of
+
+                <?php
+                if ($displayOnePriceAdults) {
+                    echo number_format($restaurantSessionPrices[0]->pricesForAdults, 2, '.', '');
+                } else {
+                    echo min($arrayPricesAdults) . '€ - ' . max($arrayPricesAdults) . '€';
+                } ?>€</span>, children
+            <span class="font-bold text-yellow-400">under 12 years old</span> have a price of <span
+                class="font-bold text-yellow-400"><?php
+                if ($displayOnePriceChildren) {
+                    echo number_format($restaurantSessionPrices[0]->pricesForChildren, 2, '.', '');
+                } else {
+                    echo min($arrayPricesChildren) . '€ - ' . max($arrayPricesChildren) . '€';
+                } ?>€</span>.
+        </p>
+    <?php endif; ?>
+
+
+
     <div class="bg-white text-black p-6 rounded-lg inline-flex justify-between items-center relative"
         style="width: 400px; min-height: 200px;">
         <div>

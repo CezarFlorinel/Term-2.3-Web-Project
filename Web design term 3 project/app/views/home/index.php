@@ -1,7 +1,9 @@
 <?php
 use App\Services\HomeService;
 use App\Services\UserService;
+use App\Models\User\UserRole;
 
+session_start();
 $homeService = new HomeService();
 $userService = new UserService();
 
@@ -22,10 +24,10 @@ foreach ($events as $event) {
 }
 
 $isAdmin = false;
-$userID = 2; // hardcoded for now
+$userID = $_SESSION['userId'];
 $user = $userService->getById($userID);
 
-if ($user !== null && $user['Role'] === 'Admin') {
+if (isset($_SESSION['userRole']) && $_SESSION['userRole'] === UserRole::Admin->value) {
   $isAdmin = true;
 }
 
@@ -35,7 +37,6 @@ if ($user !== null && $user['Role'] === 'Admin') {
 <html lang="en">
 
 <head>
-
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>
@@ -43,9 +44,8 @@ if ($user !== null && $user['Role'] === 'Admin') {
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 
+  <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Vampiro+One&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="/assets/images/Logos/H.png">
@@ -53,7 +53,7 @@ if ($user !== null && $user['Role'] === 'Admin') {
 </head>
 
 <body class="antialiased font-'Open Sans'">
-  <?php include __DIR__ . '/../header.php'; ?>
+  <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
 
   <?php if ($isAdmin): ?>
     <?php include __DIR__ . '/../../components/home/for_admin_editor/topPart.php'; ?>
@@ -73,7 +73,7 @@ if ($user !== null && $user['Role'] === 'Admin') {
 
 
   <div style="height: 40px;"></div>
-  <?php include __DIR__ . '/../footer.php'; ?>
+  <?php include __DIR__ . '/../../components/general/footer.php'; ?>
   </div>
 
   <script type="module" src="javascript/Home/home_management.js"></script>

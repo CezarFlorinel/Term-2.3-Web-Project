@@ -33,6 +33,11 @@ class PaymentService
         return $this->repository->getPaidOrdersByUserId($userId);
     }
 
+    public function getAllInvoices(): array
+    {
+        return $this->repository->getAllInvoices();
+    }
+
     public function updateOrderStatus($orderID, $paymentStatus, $paymentMethod, $totalAmount)
     {
         $this->repository->updateOrderStatus($orderID, $paymentStatus, $paymentMethod, $totalAmount);
@@ -76,5 +81,10 @@ class PaymentService
     public function createNewOrderItem($quantity, $typeOfFestival, $orderFK, $passFK = null, $danceTicketFK = null, $historyTicketFK = null): void
     {
         $this->repository->createNewOrderItem($quantity, $typeOfFestival, $orderFK, $passFK, $danceTicketFK, $historyTicketFK);
+    }
+
+    public function createNewOrderInDBbyUserID($userID): void
+    {
+        $this->repository->createNewOrder($userID);
     }
 }

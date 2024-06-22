@@ -144,6 +144,29 @@ class PaymentRepository extends Repository
         );
     }
 
+    public function getAllInvoices(): array
+    {
+        $stmt = $this->connection->prepare('SELECT * FROM INVOICE');
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(function ($result) {
+            return new Invoice(
+                $result['InvoiceID'],
+                $result['OrderID'],
+                $result['InvoiceDate'],
+                $result['ClientName'],
+                $result['Address'],
+                $result['PhoneNumber'],
+                $result['Email'],
+                $result['VATAmount'],
+                $result['TotalAmount'],
+                $result['PaymentDate']
+            );
+        }, $results);
+    }
+
+
     public function getOrderItemByID($orderItemID): OrderItem
     {
         $stmt = $this->connection->prepare('SELECT * FROM ORDER_ITEM WHERE OrderItemID = :order_item_id');
@@ -228,5 +251,7 @@ class PaymentRepository extends Repository
         $stmt->execute();
 
     }
+
+
 
 }

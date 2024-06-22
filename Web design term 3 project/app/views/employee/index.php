@@ -1,17 +1,31 @@
 <?php
-include __DIR__ . '/../header.php';
+use App\Models\User\UserRole;
+
+session_start();
+
+$role = null;
+if (isset($_SESSION['userRole'])) {
+    $role = $_SESSION['userRole'];
+    if ($role !== UserRole::Employee->value) {
+        header('Location: /');
+    }
+} else {
+    header('Location: /login');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <?php require __DIR__ . '/../../components/general/commonDataHeaderTailwind.php'; ?>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-black text-white">
+
+    <?php require __DIR__ . '/../../components/general/topBar.php'; ?>
+
     <section class="flex flex-col items-center justify-center min-h-screen mt-12">
         <h1 class="text-center text-white text-3xl font-bold mb-2">Scan your QR code below!</h1>
         <div class="container mx-auto flex flex-col items-center justify-center">
@@ -47,6 +61,8 @@ include __DIR__ . '/../header.php';
         <script type="module" src="/../javascript/Employee/employee_view.js"></script>
         <script src="https://unpkg.com/@zxing/library@latest"></script>
     </section>
+
+    <?php include __DIR__ . '/../../components/general/footer.php'; ?>
 </body>
 
 </html>

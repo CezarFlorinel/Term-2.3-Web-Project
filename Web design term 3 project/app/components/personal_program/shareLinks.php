@@ -25,6 +25,9 @@
         <a target="_blank">
             <img src="assets\images\Logos\H.png" alt="Haarlem" class="mr-2">
         </a>
+        <a href="">
+            <p>download</p>
+        </a>
         <!-- Additional social media icons here -->
     </div>
 </div>
