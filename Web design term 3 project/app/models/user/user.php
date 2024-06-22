@@ -11,7 +11,7 @@ class User
     private string $password;
     private UserRole $role;
     private string $name;
-    //private ?string $profilePicture;
+    private ?string $profilePicture;
     private ?\DateTime $registrationDate;
 
     public function __construct(array $userData)
@@ -22,17 +22,17 @@ class User
         $this->setPassword($userData['password'] ?? '');
         $this->setUserRole($userData['role'] ?? '');
         $this->registrationDate = new \DateTime($userData['registrationDate'] ?? 'now');
-        // $this->setProfilePicture($userData['user_profile_picture'] ?? '');
+        $this->setProfilePicture($userData['userProfilePicture'] ?? '');
     }
     public function toArray(): array
     {
         return [
-
             'email' => $this->email,
             'name' => $this->name,
             'password' => $this->password,
             'role' => $this->role,
             'registrationDate' => $this->registrationDate->format('Y-m-d'),
+            'userProfilePicture' => $this->profilePicture
         ];
     }
 
@@ -93,14 +93,14 @@ class User
         return $this->registrationDate;
     }
 
-    //     public function getProfilePicture(): string
-//     {
-//         return $this->profilePicture;
-//     }
-//     public function setProfilePicture(string $profilePicture): self
-//     {
-//         $this->profilePicture = $profilePicture;
+    public function getProfilePicture(): string
+    {
+        return $this->profilePicture;
+    }
+    public function setProfilePicture(string $profilePicture): self
+    {
+        $this->profilePicture = $profilePicture;
 
-    //         return $this;
-//     }
+        return $this;
+    }
 }

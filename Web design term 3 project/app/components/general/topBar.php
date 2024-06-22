@@ -1,8 +1,24 @@
 <?php
 use App\Services\CustomPageService;
+use App\Models\User\UserRole;
 
 $customPageService = new CustomPageService();
 $customPages = $customPageService->getAllCustomPages();
+session_start();
+
+$profilePicture = null;
+$role = null;
+
+if (isset($_SESSION['userProfilePicture'])) {
+    $profilePicture = $_SESSION['userProfilePicture'];
+} else if (isset($_SESSION['userRole'], $_SESSION['userId'])) {
+    $profilePicture = 'assets/images/user_profile_picture/default.webp';
+}
+
+if (isset($_SESSION['userRole'])) {
+    $role = $_SESSION['userRole'];
+}
+
 ?>
 
 <?php include_once "../components/general/modalSet.php"; ?>
@@ -26,8 +42,10 @@ $customPages = $customPageService->getAllCustomPages();
             <a href="/historyevent"
                 class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/historyevent') ? 'active' : ''; ?>">Stroll
                 Through History</a>
-            <a href="/mainpageadmin"
-                class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/mainpageadmin') ? 'active' : ''; ?>">Admin</a>
+            <?php if ($role === UserRole::Admin->value): ?>
+                <a href="/mainpageadmin"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/mainpageadmin') ? 'active' : ''; ?>">Admin</a>
+            <?php endif; ?>
             <div class="relative dropdown">
                 <button id="dropdownButton" class="nav-link">More</button>
                 <div id="dropdownContent" class="dropdown-content">
@@ -40,14 +58,20 @@ $customPages = $customPageService->getAllCustomPages();
             </div>
         </nav>
         <div class="icons flex space-x-4">
-            <a href="/personalProgramAgendaView">
-                <img class="icon" src="assets/images/elements/Shopping cart.png" alt="Shopping Cart">
-            </a>
-            <a href="/personalProgramListView">
-                <img class="icon" src="assets/images/elements/Wishlist.png" alt="Wishlist">
-            </a>
+            <?php if ($role): ?>
+                <a href="/personalProgramAgendaView">
+                    <img class="icon" src="assets/images/elements/Shopping cart.png" alt="Shopping Cart">
+                </a>
+                <a href="/personalProgramListView">
+                    <img class="icon" src="assets/images/elements/Wishlist.png" alt="Wishlist">
+                </a>
+            <?php endif; ?>
             <a href="/login">
-                <img class="icon" src="assets/images/elements/login.png" alt="Login">
+                <?php if ($profilePicture): ?>
+                    <img class="rounded-image" src="<?php echo $profilePicture; ?>" alt="Profile Picture">
+                <?php else: ?>
+                    <img class="icon" src="assets/images/elements/login.png" alt="Login">
+                <?php endif; ?>
             </a>
         </div>
     </div>

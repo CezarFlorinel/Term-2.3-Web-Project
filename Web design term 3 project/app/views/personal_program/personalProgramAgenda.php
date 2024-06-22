@@ -40,13 +40,9 @@ require __DIR__ . '/../../components/personal_program/getAgendaData.php';
 
     <script type="text/javascript">
         const reservations = <?php echo json_encode($reservationData); ?>;
-        console.log(reservations);
         const danceTicketsForAgenda = <?php echo json_encode($danceTicketsForAgenda); ?>;
-        console.log(danceTicketsForAgenda);
         const historyTicketsForAgenda = <?php echo json_encode($historyTicketsForAgenda); ?>;
-        console.log(historyTicketsForAgenda);
         const historyFirstRoute = <?php echo json_encode($historyFirstRoute); ?>;
-        console.log(historyFirstRoute);
     </script>
 
     <script type="module" src="javascript/Personal_Program/personal_program_agenda_view.js"></script>

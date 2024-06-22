@@ -78,8 +78,11 @@ require __DIR__ . '/../../components/festival/dance_event/artist_page/getData.ph
             ?>
         </div>
     </section>
+    <br>
 
-    <?php include __DIR__ . '/../../components/festival/dance_event/artist_page/appearencesInFestival.php'; ?>
+    <?php if ($allowOrder): ?>
+        <?php include __DIR__ . '/../../components/festival/dance_event/artist_page/appearencesInFestival.php'; ?>
+    <?php endif; ?>
 
     <script type="module" src="javascript/Dance/order_tickets_dance_artist.js"></script>
 
