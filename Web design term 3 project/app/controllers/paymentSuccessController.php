@@ -33,8 +33,7 @@ class PaymentSuccessController
     private $projectRoot;
     private $sessionManager;
 
-
-    private $userId = 2; //TODO:// to be changed for login
+    private $userId = null;
     public function __construct()
     {
         $this->sessionManager = new SessionManager();
@@ -48,6 +47,7 @@ class PaymentSuccessController
         $this->updateOrderStatus();
         $this->makeTickets();
         $this->projectRoot = realpath(__DIR__ . '/../../..');
+        $this->userId = $_SESSION['userId']; // will this workkk ???????
     }
 
     public function index()

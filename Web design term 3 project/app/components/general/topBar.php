@@ -68,7 +68,7 @@ if (isset($_SESSION['userRole'])) {
             <?php endif; ?>
             <a href="/login">
                 <?php if ($profilePicture): ?>
-                    <img class="w-12 h-12 rounded-full" src="<?php echo $profilePicture; ?>" alt="Profile Picture">
+                    <img class="rounded-image" src="<?php echo $profilePicture; ?>" alt="Profile Picture">
                 <?php else: ?>
                     <img class="icon" src="assets/images/elements/login.png" alt="Login">
                 <?php endif; ?>

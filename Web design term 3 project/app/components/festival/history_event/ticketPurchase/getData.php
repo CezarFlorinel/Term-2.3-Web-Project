@@ -6,17 +6,17 @@ use App\Services\PaymentService;
 $historyService = new HistoryService();
 $paymentService = new PaymentService();
 
+session_start();
 
 $usedID = null;
+$orderID = null;
 
 if (isset($_SESSION['userId'])) {
     $usedID = $_SESSION['userId'];
+    $orderID = $paymentService->getOrderByUserId($usedID)->orderID;
 } else {
-    header('Location: /');
+    header('Location: /login');
 }
-
-
-$orderID = $paymentService->getOrderByUserId($usedID)->orderID;
 
 $historyTickets = $historyService->getHistoryTicketPrices();
 $firstHistoryTicket = $historyTickets[0];

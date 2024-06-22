@@ -10,6 +10,14 @@
     border-radius: 0px 0px 15px 15px;
 }
 
+.rounded-image {
+    width: 3rem;
+    /* 12 * 0.25rem = 3rem */
+    height: 3rem;
+    /* 12 * 0.25rem = 3rem */
+    border-radius: 50%;
+}
+
 #dropdownButton {
     background-color: white;
     border: none;

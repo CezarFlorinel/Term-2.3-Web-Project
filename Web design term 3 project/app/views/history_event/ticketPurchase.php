@@ -2,7 +2,6 @@
 require __DIR__ . '/../../components/festival/history_event/ticketPurchase/getData.php';
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
