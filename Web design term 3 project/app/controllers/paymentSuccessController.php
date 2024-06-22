@@ -43,7 +43,7 @@ class PaymentSuccessController
         $this->pdf = new TCPDF();
         $this->pdfWithTickets = new TCPDF();
         session_start();
-        $this->userId = $_SESSION['userId']; // will this workkk ???????
+        $this->userId = $_SESSION['userId'];
         $this->getPaymentMethod();
         $this->updateOrderStatus();
         $this->makeTickets();

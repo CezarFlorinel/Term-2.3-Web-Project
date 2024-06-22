@@ -8,7 +8,21 @@ document.addEventListener('DOMContentLoaded', function () {
     storeSelectedOrderItemsInSession();
     configureDeleteIcon();
     setIncrementAndDecrementButtons();
+    setAgendaLink();
 });
+
+function setAgendaLink() {
+    document.getElementById('js_copyLink').addEventListener('click', function (event) {
+        event.preventDefault();
+        const link = `http://localhost/PersonalProgramAgendaView?userID=${userID}`;
+
+        navigator.clipboard.writeText(link).then(function () {
+            errorHandler.showAlert('Link copied to clipboard!', { icon: 'success', title: 'Success' });
+        }, function (err) {
+            errorHandler.showAlert('Failed to copy the link to clipboard!');
+        });
+    });
+}
 
 function storeSelectedOrderItemsInSession() {
     const purchaseSelectedTicketsButton = document.getElementById('js_purchase-selected-tickets');

@@ -21,6 +21,11 @@ class UserService
         return $this->userRepository->getById($userId);
     }
 
+    public function getUserNameByID($userID)
+    {
+        return $this->userRepository->getUserNameByID($userID);
+    }
+
     function getByEmail($email)
     {
         return $this->userRepository->getByEmail($email);
