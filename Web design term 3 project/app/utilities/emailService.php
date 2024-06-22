@@ -17,7 +17,6 @@ class EmailService
     {
         $this->userService = new UserService();
         $this->sessionManager = new SessionManager();
-        //session_start();
     }
     private static function configureMailer()
     {
