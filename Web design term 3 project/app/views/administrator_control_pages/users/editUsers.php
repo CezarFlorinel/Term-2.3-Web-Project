@@ -6,11 +6,6 @@ $userId = isset($_GET['id']) ? $_GET['id'] : null;
 
 ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-
 <body class="bg-gray-200">
     <div class="flex min-h-screen overflow-hidden">
         <?php require __DIR__ . '/../../../components/admin/sidebar.php'; ?>
