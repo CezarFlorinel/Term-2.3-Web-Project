@@ -43,11 +43,11 @@ class PaymentSuccessController
         $this->pdf = new TCPDF();
         $this->pdfWithTickets = new TCPDF();
         session_start();
+        $this->userId = $_SESSION['userId']; // will this workkk ???????
         $this->getPaymentMethod();
         $this->updateOrderStatus();
         $this->makeTickets();
         $this->projectRoot = realpath(__DIR__ . '/../../..');
-        $this->userId = $_SESSION['userId']; // will this workkk ???????
     }
 
     public function index()
