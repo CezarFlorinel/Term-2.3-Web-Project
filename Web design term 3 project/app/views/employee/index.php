@@ -1,3 +1,19 @@
+<?php
+use App\Models\User\UserRole;
+
+session_start();
+
+$role = null;
+if (isset($_SESSION['userRole'])) {
+    $role = $_SESSION['userRole'];
+    if ($role !== UserRole::Employee->value) {
+        header('Location: /');
+    }
+} else {
+    header('Location: /login');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 

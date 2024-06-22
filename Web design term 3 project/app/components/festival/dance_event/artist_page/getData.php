@@ -3,12 +3,21 @@ use App\Services\DanceService;
 use App\Services\TicketsService;
 use App\Services\PaymentService;
 
+session_start();
+
 $ticketService = new TicketsService();
 $danceService = new DanceService();
 $paymentService = new PaymentService();
 
-$userID = 2; // TODO: get the user id from the session
-$order = $paymentService->getOrderByUserId($userID);
+$userID = null;
+$allowOrder = false;
+$order = null;
+
+if (isset($_SESSION['userId'])) {
+    $userID = $_SESSION['userId'];
+    $allowOrder = true;
+    $order = $paymentService->getOrderByUserId($userID);
+}
 
 $artistId = $_GET['artistID'];
 $artist = $danceService->getArtistById($artistId);
