@@ -46,6 +46,11 @@ if (isset($_SESSION['userRole'])) {
                 <a href="/mainpageadmin"
                     class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/mainpageadmin') ? 'active' : ''; ?>">Admin</a>
             <?php endif; ?>
+            <?php if ($role === UserRole::Employee->value): ?>
+                <a href="/employee"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/employee') ? 'active' : ''; ?>">Scan
+                    Tickets</a>
+            <?php endif; ?>
             <div class="relative dropdown">
                 <button id="dropdownButton" class="nav-link">More</button>
                 <div id="dropdownContent" class="dropdown-content">
