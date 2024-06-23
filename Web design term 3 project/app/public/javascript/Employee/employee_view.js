@@ -34,6 +34,7 @@ document.getElementById("startButton").addEventListener("click", () => {
             })
               .then((response) => response.json())
               .then((data) => {
+                console.log(data);
                 let isScanned = data.data.Scanned;
                 let nameOfUser = data.nameOfUser;
 

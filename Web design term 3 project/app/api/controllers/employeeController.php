@@ -36,7 +36,7 @@ class EmployeeController
             $ticket = $this->ticketService->getQrCodeById($ticketID);
             $isScanned = $ticket->scanned;
             $user = $this->userService->getById($ticket->userId);
-            $name = $user['Name'];
+            $name = $user['name'];
             echo json_encode(['success' => true, 'data' => ['Scanned' => $isScanned], 'nameOfUser' => $name]);
         } else {
             http_response_code(404);
