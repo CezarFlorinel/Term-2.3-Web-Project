@@ -44,6 +44,10 @@ require __DIR__ . '/../../components/personal_program/getListViewData.php';
         <?php include __DIR__ . '/../../components/general/footer.php'; ?>
     </div>
 
+    <script type="text/javascript">
+        const userID = <?php echo json_encode($userId); ?>;
+    </script>
+
     <script type="module" src="javascript/Personal_Program/personal_program_listview.js"></script>
 
 </body>

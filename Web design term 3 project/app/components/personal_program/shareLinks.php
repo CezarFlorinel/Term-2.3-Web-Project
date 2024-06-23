@@ -22,12 +22,8 @@
         <a href="https://instagram.com" target="_blank">
             <img src="assets\images\Logos\Instagram-W.png" alt="Instagram" class="mr-2">
         </a>
-        <a target="_blank">
+        <a href="#" id="js_copyLink">
             <img src="assets\images\Logos\H.png" alt="Haarlem" class="mr-2">
         </a>
-        <a href="">
-            <p>download</p>
-        </a>
-        <!-- Additional social media icons here -->
     </div>
 </div>
