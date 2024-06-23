@@ -1,12 +1,6 @@
 <?php
 require __DIR__ . '/../../components/personal_program/getAgendaData.php';
-require __DIR__ . '/../../utilities/pdfService.php';
-$pdfService = new App\Controllers\PdfService();
-$pdfFilePath = $pdfService->generatePersonalProgramPdf();
-echo '<a href="/path/to/public/pdf/' . basename($pdfFilePath) . '">Download your personal program</a>';
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +20,6 @@ echo '<a href="/path/to/public/pdf/' . basename($pdfFilePath) . '">Download your
             <div class="w-full max-w-4xl mx-auto p-8">
 
                 <?php require __DIR__ . '/../../components/personal_program/shareLinks.php'; ?>
-                
 
                 <div id='calendar'></div>
 

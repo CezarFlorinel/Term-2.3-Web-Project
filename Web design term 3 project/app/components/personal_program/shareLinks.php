@@ -28,7 +28,6 @@
         <a href="">
             <p>download</p>
         </a>
-        
         <!-- Additional social media icons here -->
     </div>
 </div>
