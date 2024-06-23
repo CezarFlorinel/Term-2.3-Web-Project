@@ -65,3 +65,14 @@
 2024-06-23 17:03:36 - modules_yummy_home_admin/session.js - displaySession - The string is empty
 2024-06-23 17:18:33 - career_highlights.js - deleteCareerHighlight - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
 2024-06-23 17:44:05 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 17:47:31 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 18:01:50 - career_highlights.js - addCareerHighlight - Missing required fields or file
+2024-06-23 18:28:27 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 18:29:16 - career_highlights.js - addCareerHighlight - Missing required fields or file
+2024-06-23 18:36:01 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 21:10:59 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 21:11:07 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 21:11:20 - image_restaurant.js - deleteImageFunction - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 21:11:25 - image_restaurant.js - deleteImageFunction - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 21:11:27 - image_restaurant.js - deleteImageFunction - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 21:11:30 - image_restaurant.js - deleteImageFunction - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)

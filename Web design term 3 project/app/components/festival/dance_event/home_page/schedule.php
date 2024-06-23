@@ -22,10 +22,23 @@
 
         foreach ($artists as $artist) {
             $artistNameLower = strtolower($artist->name);
-            if (strpos($artistNameLower, $singerNameLower[0]) !== false) {
+            if ($ticket->singer == $artist->name) {
                 $imagePathOfArtist = $artist->imageArtistLineupPath;
+                break;
             }
         }
+
+        if ($imagePathOfArtist == '') {
+            foreach ($artists as $artist) {
+                $artistNameLower = strtolower($artist->name);
+                if (strpos($artistNameLower, $singerNameLower[0]) !== false) {
+                    $imagePathOfArtist = $artist->imageArtistLineupPath;
+                    break;
+                }
+            }
+        }
+
+
 
         ?>
         <div class="artist-container">
