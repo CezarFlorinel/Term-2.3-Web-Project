@@ -2,9 +2,9 @@
 <?php
 $colors = ['red', 'blue', 'yellow']; // Define the colors for the first three events
 $colorClasses = [
-    'red' => 'bg-red-500 hover:bg-red-600 focus:ring-red-500',
-    'blue' => 'bg-blue-500 hover:bg-blue-600 focus:ring-blue-500',
-    'yellow' => 'bg-yellow-500 hover:bg-yellow-600 focus:ring-yellow-500'
+    'red' => 'bg-red-600 hover:bg-red-700 focus:ring-red-500',
+    'blue' => 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500',
+    'yellow' => 'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-500'
 ];
 
 $counter = 0;

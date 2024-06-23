@@ -25,7 +25,7 @@ if (isset($_SESSION['userRole'])) {
 <?php include_once "../components/general/modalBoxCreate.php"; ?>
 
 <main>
-    <div class="header flex justify-between items-center px-4 py-2 bg-white shadow-md">
+    <div id="js_header" class="header flex justify-between items-center px-4 py-2 bg-white shadow-md">
         <a href="/" class="logoLink">
             <img class="logo" src="assets/images/Logos/Logo-Festival.png" alt="Logo">
         </a>
@@ -33,7 +33,7 @@ if (isset($_SESSION['userRole'])) {
         <label for="menu-toggle" class="menu-icon" id="menu-icon">
             <img src="assets/images/elements/hamburger_Icon.jpg" alt="Menu">
         </label>
-        <nav class="navigation flex-grow hidden lg:flex justify-end">
+        <nav class="navigation flex-grow lg:flex justify-end">
             <a href="/" class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/') ? 'active' : ''; ?>">Home</a>
             <a href="/yummyevent"
                 class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/yummyevent') ? 'active' : ''; ?>">Yummy</a>
@@ -88,17 +88,6 @@ if (isset($_SESSION['userRole'])) {
             dropdownContent.style.display = 'block';
         } else {
             dropdownContent.style.display = 'none';
-        }
-    });
-
-    document.getElementById('menu-toggle').addEventListener('change', function () {
-        var header = document.querySelector('.header');
-        if (window.innerWidth <= 768) { // Assuming 768px is the breakpoint for small devices
-            if (this.checked) {
-                header.classList.add('header-square');
-            } else {
-                header.classList.remove('header-square');
-            }
         }
     });
 
