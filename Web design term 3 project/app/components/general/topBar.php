@@ -9,7 +9,7 @@ session_start();
 $profilePicture = null;
 $role = null;
 
-if (isset($_SESSION['userProfilePicture'])) {
+if (isset($_SESSION['userProfilePicture']) && $_SESSION['userProfilePicture'] !== '') {
     $profilePicture = $_SESSION['userProfilePicture'];
 } else if (isset($_SESSION['userRole'], $_SESSION['userId'])) {
     $profilePicture = 'assets/images/user_profile_picture/default.webp';

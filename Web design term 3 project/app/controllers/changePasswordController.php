@@ -12,7 +12,6 @@ class ChangePasswordController
 
     private $sessionManager;
     private $userService;
-
     private $starterLink = 'http://localhost/changePassword';
 
     public function index()
@@ -62,7 +61,6 @@ class ChangePasswordController
 
     public function changePassword()
     {
-
         try {
             ErrorHandlerMethod::serverIsNotPostMethodCheck($this->sessionManager, '/changePassword', $_SERVER['REQUEST_METHOD']);
 
