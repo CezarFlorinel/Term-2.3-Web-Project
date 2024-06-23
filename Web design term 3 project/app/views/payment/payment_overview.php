@@ -10,7 +10,15 @@ $ticketsService = new TicketsService();
 $historyService = new HistoryService();
 
 $customerData = $_SESSION['customerData'];
-$userID = 2;  //TODO: get this from the sesssion as well after login has been done
+
+$userID = null;
+
+if (isset($_SESSION['userId'])) {
+    $userID = $_SESSION['userId'];
+} else {
+    header('Location: /login');
+}
+
 
 $order = $paymentService->getOrderByUserId($userID);
 

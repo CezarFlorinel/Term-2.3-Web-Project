@@ -51,3 +51,14 @@
 2024-06-21 19:31:59 - order_ticket_dance_home.js - addEventListenerForOrderTicketButton - errorHandler.showError is not a function
 2024-06-21 19:37:59 - order_ticket_dance_home.js - addEventListenerForOrderTicketButton - errorHandler.showError is not a function
 2024-06-21 19:42:51 - order_ticket_dance_home.js - addEventListenerForOrderTicketButton - errorHandler.showError is not a function
+2024-06-22 14:31:00 - userPersonalInformation.js - editUserForm - No file uploaded or missing ID.
+2024-06-22 14:31:55 - userPersonalInformation.js - editUserForm - No file uploaded or missing ID.
+2024-06-22 14:36:16 - userPersonalInformation.js - editUserForm - No file uploaded
+2024-06-22 14:36:41 - userPersonalInformation.js - editUserForm - No file uploaded
+2024-06-22 14:38:38 - userPersonalInformation.js - editUserForm - Unexpected token 'C', "Call to pr"... is not valid JSON
+2024-06-22 14:43:10 - userPersonalInformation.js - editUserForm - Unexpected token 'C', "Call to pr"... is not valid JSON
+2024-06-22 14:45:04 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D
+2024-06-22 14:46:46 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D
+2024-06-22 14:48:52 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D
+2024-06-22 14:49:58 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D
+2024-06-22 14:53:02 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D

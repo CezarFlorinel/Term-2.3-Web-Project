@@ -1,19 +1,21 @@
 <?php
 use App\Services\UserService;
 use App\Services\CustomPageService;
+use App\Models\User\UserRole;
 
 $userService = new UserService();
 $customPageService = new CustomPageService();
 
+session_start();
 
 $isAdmin = false;
-$userID = 2; // TODO:hardcoded for now
-$user = $userService->getById($userID);
 
-if ($user !== null && $user['role'] === 'Admin') {
-    $isAdmin = true;
+if (isset($_SESSION['userRole'])) {
+    $role = $_SESSION['userRole'];
+    if ($role === UserRole::Admin->value) {
+        $isAdmin = true;
+    }
 }
-
 
 $customPageId = $_GET['id'];
 $customPage = $customPageService->getCustomPageByID($customPageId);

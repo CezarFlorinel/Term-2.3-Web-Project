@@ -6,8 +6,17 @@ use App\Services\PaymentService;
 $historyService = new HistoryService();
 $paymentService = new PaymentService();
 
-$usedID = 2; //TODO: this is the ID of the user that is currently logged in, to be replaced with the actual ID of the user
-$orderID = $paymentService->getOrderByUserId($usedID)->orderID;
+session_start();
+
+$usedID = null;
+$orderID = null;
+
+if (isset($_SESSION['userId'])) {
+    $usedID = $_SESSION['userId'];
+    $orderID = $paymentService->getOrderByUserId($usedID)->orderID;
+} else {
+    header('Location: /login');
+}
 
 $historyTickets = $historyService->getHistoryTicketPrices();
 $firstHistoryTicket = $historyTickets[0];

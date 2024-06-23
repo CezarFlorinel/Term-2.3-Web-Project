@@ -42,6 +42,21 @@ class UserRepository extends Repository
             throw $e;
         }
     }
+
+    public function getUserNameByID($userID)
+    {
+        try {
+            $stmt = $this->connection->prepare("SELECT Name FROM [USER] WHERE UserID = :id");
+            $stmt->bindValue(':id', $userID, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['Name'];
+        } catch (PDOException $e) {
+            error_log('Error: ' . $e->getMessage());
+            throw $e;
+        }
+    }
     function getByEmail($email)
     {
         try {
@@ -70,6 +85,19 @@ class UserRepository extends Repository
             $camelCaseArray[$camelCaseKey] = $value;
         }
         return $camelCaseArray;
+    }
+
+    public function updateProfilePicture($userId, $stringPath)
+    {
+        try {
+            $stmt = $this->connection->prepare("UPDATE [USER] SET UserProfilePicture = :path WHERE UserID = :id");
+            $stmt->bindValue(':path', $stringPath);
+            $stmt->bindValue(':id', $userId);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            error_log('Error: ' . $e->getMessage());
+            throw $e;
+        }
     }
 
     public function checkIfEmailExists($email): bool

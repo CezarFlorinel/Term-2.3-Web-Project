@@ -33,14 +33,14 @@ require __DIR__ . '/../../components/festival/dance_event/home_page/getData.php'
                     <?php include __DIR__ . '/../../components/festival/dance_event/home_page/clubLocations.php'; ?>
                     <?php include __DIR__ . '/../../components/festival/dance_event/home_page/schedule.php'; ?>
                 </div>
-
-                <?php include __DIR__ . '/../../components/festival/dance_event/home_page/passes.php'; ?>
-
-                <!-- Ticket Section -->
-                <div id="ticket-section" class="flex justify-between items-center mb-2 mt-12">
-                    <h2 class="text-3xl font-bold">Select Your Ticket:</h2>
-                </div>
-                <?php require __DIR__ . '/../../components/festival/dance_event/home_page/tickets.php'; ?>
+                <?php if ($allowOrder): ?>
+                    <?php include __DIR__ . '/../../components/festival/dance_event/home_page/passes.php'; ?>
+                    <!-- Ticket Section -->
+                    <div id="ticket-section" class="flex justify-between items-center mb-2 mt-12">
+                        <h2 class="text-3xl font-bold">Select Your Ticket:</h2>
+                    </div>
+                    <?php require __DIR__ . '/../../components/festival/dance_event/home_page/tickets.php'; ?>
+                <?php endif; ?>
 
             </div>
 

@@ -13,7 +13,13 @@ $yummyService = new YummyService();
 
 $changeViewLink = '/personalProgramAgendaView';
 
-$userId = 2; // TODO: Replace with actual user ID
+
+$userId = $_SESSION['userId'];
+
+if (!$_SESSION['userId']) {
+    header('Location: /');
+}
+
 
 $order = $paymentService->getOrderByUserId($userId);
 $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);

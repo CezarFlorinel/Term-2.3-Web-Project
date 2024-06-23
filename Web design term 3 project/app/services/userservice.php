@@ -21,6 +21,11 @@ class UserService
         return $this->userRepository->getById($userId);
     }
 
+    public function getUserNameByID($userID)
+    {
+        return $this->userRepository->getUserNameByID($userID);
+    }
+
     function getByEmail($email)
     {
         return $this->userRepository->getByEmail($email);
@@ -32,6 +37,11 @@ class UserService
     public function createUser($user)
     {
         return $this->userRepository->createUser($user);
+    }
+
+    public function updateProfilePicture($userId, $profilePicture)
+    {
+        return $this->userRepository->updateProfilePicture($userId, $profilePicture);
     }
 
     public function update($user)

@@ -1,7 +1,9 @@
 <?php
 use App\Services\HomeService;
 use App\Services\UserService;
+use App\Models\User\UserRole;
 
+session_start();
 $homeService = new HomeService();
 $userService = new UserService();
 
@@ -22,10 +24,10 @@ foreach ($events as $event) {
 }
 
 $isAdmin = false;
-$userID = 2; //TODO: hardcoded for now
+$userID = $_SESSION['userId'];
 $user = $userService->getById($userID);
 
-if ($user !== null && $user['Role'] === 'Admin') {
+if (isset($_SESSION['userRole']) && $_SESSION['userRole'] === UserRole::Admin->value) {
   $isAdmin = true;
 }
 

@@ -33,8 +33,7 @@ class PaymentSuccessController
     private $projectRoot;
     private $sessionManager;
 
-
-    private $userId = 2; //TODO:// to be changed for login
+    private $userId = null;
     public function __construct()
     {
         $this->sessionManager = new SessionManager();
@@ -44,6 +43,7 @@ class PaymentSuccessController
         $this->pdf = new TCPDF();
         $this->pdfWithTickets = new TCPDF();
         session_start();
+        $this->userId = $_SESSION['userId'];
         $this->getPaymentMethod();
         $this->updateOrderStatus();
         $this->makeTickets();
