@@ -62,3 +62,6 @@
 2024-06-22 14:48:52 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D
 2024-06-22 14:49:58 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D
 2024-06-22 14:53:02 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D
+2024-06-23 17:03:36 - modules_yummy_home_admin/session.js - displaySession - The string is empty
+2024-06-23 17:18:33 - career_highlights.js - deleteCareerHighlight - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 17:44:05 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)

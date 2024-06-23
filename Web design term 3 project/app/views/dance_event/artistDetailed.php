@@ -71,9 +71,9 @@ require __DIR__ . '/../../components/festival/dance_event/artist_page/getData.ph
     ?>
 
     <section class="flex items-center justify-center pt-8 px-4 lg:px-8">
-        <div class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4 w-full max-w-4xl">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-4xl">
             <?php foreach ($spotifyLinks as $spotifyLink) {
-                echo $spotifyLink->spotifyLink;
+                echo '<div class="spotify-link">' . $spotifyLink->spotifyLink . '</div>';
             }
             ?>
         </div>
