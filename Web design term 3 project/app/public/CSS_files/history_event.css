@@ -10,6 +10,23 @@ body {
     box-sizing: border-box;
 }
 
+
+/* for the top bar */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+    margin-right: -200px;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: right;
+}
+
+
 .overlay-info {
     width: auto;
     /* Adjusting width to auto to avoid overflow */
@@ -543,6 +560,7 @@ body {
         display: flex;
         margin-top: -10px;
         align-items: center;
+        margin-bottom: -15px;
     }
 
     .timetable-booking-image {

@@ -6,11 +6,15 @@ use App\Services\UserService;
 use App\Models\User\User;
 use App\Utilities\EmailService;
 use App\Models\User\UserRole;
+use App\Utilities\ImageEditor;
+use App\Utilities\ErrorHandlerMethod;
+use App\Utilities\HandleDataCheck;
 
 class UserController
 {
     private $userService;
     private $emailService;
+
 
     private $filters = [
         'email' => FILTER_SANITIZE_EMAIL,
@@ -107,13 +111,14 @@ class UserController
                 $_SESSION['userEmail'] = $user->getEmail();
                 $_SESSION['userName'] = $user->getName();
                 $_SESSION['userRole'] = $user->getUserRole();
+                $_SESSION['userProfilePicture'] = $user->getProfilePicture();
 
                 if ($user->getUserRole() == 'Member') {
                     $redirectTo = '/';
                 } else if ($user->getUserRole() == 'Employee') {
                     $redirectTo = '/employee';
                 } else {
-                    $redirectTo = '/admin';
+                    $redirectTo = '/mainpageadmin';
                 }
 
                 echo json_encode(['success' => true, 'message' => 'Logged in successfully', 'redirectTo' => $redirectTo]);
@@ -128,7 +133,44 @@ class UserController
             exit();
         }
     }
+    public function updateProfilePicture()
+    {
+        session_start();
+        try {
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profilePicture'])) {
+                $image = $_FILES['profilePicture'];
+                $userID = $_SESSION['userId'] ?? null;
+                $currentImage = $_SESSION['userProfilePicture'] ?? null;
 
+
+                if ($userID === null) {
+                    http_response_code(401);
+                    echo json_encode(['success' => false, 'error' => 'Unauthorized']);
+                    exit();
+                }
+
+                $imageUrl = ImageEditor::saveImage("assets/images/user_profile_picture/", $image);
+
+                if ($imageUrl !== null) { {
+                        $this->userService->updateProfilePicture($userID, $imageUrl);
+                        $_SESSION['userProfilePicture'] = $imageUrl;
+                        if ($currentImage && $currentImage != $imageUrl) {
+                            ImageEditor::deleteImage($currentImage);
+                        }
+                        echo json_encode(['success' => true, 'message' => "image uploaded successfully"]);
+                    }
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'error' => 'Invalid file or upload error.']);
+                }
+            } else {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'No file uploaded']);
+            }
+        } catch (\Exception $e) {
+            ErrorHandlerMethod::handleErrorApiController($e);
+        }
+    }
     public function Logout()
     {
         session_unset();
@@ -140,14 +182,12 @@ class UserController
         exit();
 
     }
-
     public function getAllUsers()
     {
         //implement some kind of protection for methods that should only be accessed by admins
         $users = $this->userService->getAllUsers();
         echo json_encode(['success' => true, 'data' => $users]);
     }
-
     public function getById($userId)
     {
         $user = $this->userService->getById($userId);
@@ -169,7 +209,6 @@ class UserController
             echo json_encode(['success' => false, 'message' => 'User not found']);
         }
     }
-
     private function checkCaptcha($responseKey)
     {
         include __DIR__ . '/../../config/recaptchaKeys.php';
@@ -187,7 +226,6 @@ class UserController
             return false;
         }
     }
-
     public function create()
     {
         $data = json_decode(file_get_contents('php://input'), true);
@@ -230,7 +268,6 @@ class UserController
             echo json_encode(['success' => false, 'error' => 'Invalid JSON data']);
         }
     }
-
     public function update()
     {
         session_start();
@@ -282,7 +319,6 @@ class UserController
             echo json_encode(['success' => false, 'message' => 'Missing User ID']);
         }
     }
-
     public function delete()
     {
         $userId = $_GET['id'] ?? null;
@@ -305,5 +341,7 @@ class UserController
             echo json_encode(['success' => false, 'message' => 'Missing user ID']);
         }
     }
+
+
 }
 ?>

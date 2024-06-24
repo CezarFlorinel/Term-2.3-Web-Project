@@ -1,6 +1,6 @@
 import {
   handleApiResponse,
-  checkText,
+  checkText, checkImageSizeAndFileType
 } from "../Utilities/handle_data_checks.js";
 import ErrorHandler from "../Utilities/error_handler_class.js";
 const errorHandler = new ErrorHandler();
@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const personalInfoSection = document.getElementById("personalInformation");
   const container = document.querySelector(".max-w-6xl");
   const title = document.getElementById("title");
+  const changePictureButton = document.getElementById("changePicture");
+  const fileInput = document.getElementById("profilePicture");
 
   //Logout
 
@@ -21,6 +23,17 @@ document.addEventListener("DOMContentLoaded", function () {
     document.cookie =
       "PHPSESSID=; expires=Thu, 1 Jan 1970 00:00:00 UTC; path=/;";
     logout();
+  });
+
+  //Change profile picture
+
+
+  changePictureButton.addEventListener("click", function () {
+    fileInput.click(); // Trigger the file input dialog
+  });
+
+  fileInput.addEventListener("change", function () {
+    updateProfilePicture(); // Call the function when a file is selected
   });
 
   //Edit
@@ -201,26 +214,27 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         body: JSON.stringify(updatePassword)
       })
-      .then(handleApiResponse)
-      .then((data) => {
-        if(data.success) {
-          alert('Password changed successfully');
-          window.location.href = "/userAccount";
-        } else {
-          errorHandler.logError("Error updating user's password: ", data.message);
-        }
-      })
-      .catch((error) => {
-        errorHandler.logError(
-          error,
-          "editUserForm",
-          "userPersonalInformation.js"
-        );
-        errorHandler.showAlert("An error occurred while trying to edit your password. Please try again later!");
-      });
+        .then(handleApiResponse)
+        .then((data) => {
+          if (data.success) {
+            window.location.href = "/userAccount";
+          } else {
+            errorHandler.logError("Error updating user's password: ", data.message);
+          }
+        })
+        .catch((error) => {
+          errorHandler.logError(
+            error,
+            "editUserForm",
+            "userPersonalInformation.js"
+          );
+          errorHandler.showAlert("An error occurred while trying to edit your password. Please try again later!");
+        });
 
     });
   });
+
+
 });
 
 function createPasswordInput(label, placeholder) {
@@ -280,5 +294,35 @@ function logout() {
       );
       errorHandler.logError("Cannot log out right now: ", error);
       errorMessageElement.textContent = error.message;
+    });
+}
+
+function updateProfilePicture() {
+  const fileInput = document.getElementById("profilePicture");
+  const file = fileInput.files[0];
+  const formData = new FormData();
+  formData.append("profilePicture", file);
+
+  if (!checkImageSizeAndFileType(file)) {
+    return;
+  }
+
+  fetch("/api/user/updateProfilePicture", {
+    method: "POST",
+    body: formData,
+  })
+    .then(handleApiResponse)
+    .then((data) => {
+      if (data.success) {
+        window.location.href = "/userAccount";
+      }
+    })
+    .catch((error) => {
+      errorHandler.logError(
+        error,
+        "editUserForm",
+        "userPersonalInformation.js"
+      );
+      errorHandler.showAlert("An error occurred while trying to upload your profile picture. Please try again later!");
     });
 }

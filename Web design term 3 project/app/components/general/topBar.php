@@ -1,15 +1,31 @@
 <?php
 use App\Services\CustomPageService;
+use App\Models\User\UserRole;
 
 $customPageService = new CustomPageService();
 $customPages = $customPageService->getAllCustomPages();
+session_start();
+
+$profilePicture = null;
+$role = null;
+
+if (isset($_SESSION['userProfilePicture']) && $_SESSION['userProfilePicture'] !== '') {
+    $profilePicture = $_SESSION['userProfilePicture'];
+} else if (isset($_SESSION['userRole'], $_SESSION['userId'])) {
+    $profilePicture = 'assets/images/user_profile_picture/default.webp';
+}
+
+if (isset($_SESSION['userRole'])) {
+    $role = $_SESSION['userRole'];
+}
+
 ?>
 
 <?php include_once "../components/general/modalSet.php"; ?>
 <?php include_once "../components/general/modalBoxCreate.php"; ?>
 
 <main>
-    <div class="header flex justify-between items-center px-4 py-2 bg-white shadow-md">
+    <div id="js_header" class="header flex justify-between items-center px-4 py-2 bg-white shadow-md">
         <a href="/" class="logoLink">
             <img class="logo" src="assets/images/Logos/Logo-Festival.png" alt="Logo">
         </a>
@@ -17,7 +33,7 @@ $customPages = $customPageService->getAllCustomPages();
         <label for="menu-toggle" class="menu-icon" id="menu-icon">
             <img src="assets/images/elements/hamburger_Icon.jpg" alt="Menu">
         </label>
-        <nav class="navigation flex-grow hidden lg:flex justify-end">
+        <nav class="navigation flex-grow lg:flex justify-end">
             <a href="/" class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/') ? 'active' : ''; ?>">Home</a>
             <a href="/yummyevent"
                 class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/yummyevent') ? 'active' : ''; ?>">Yummy</a>
@@ -26,8 +42,15 @@ $customPages = $customPageService->getAllCustomPages();
             <a href="/historyevent"
                 class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/historyevent') ? 'active' : ''; ?>">Stroll
                 Through History</a>
-            <a href="/mainpageadmin"
-                class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/mainpageadmin') ? 'active' : ''; ?>">Admin</a>
+            <?php if ($role === UserRole::Admin->value): ?>
+                <a href="/mainpageadmin"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/mainpageadmin') ? 'active' : ''; ?>">Admin</a>
+            <?php endif; ?>
+            <?php if ($role === UserRole::Employee->value): ?>
+                <a href="/employee"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/employee') ? 'active' : ''; ?>">Scan
+                    Tickets</a>
+            <?php endif; ?>
             <div class="relative dropdown">
                 <button id="dropdownButton" class="nav-link">More</button>
                 <div id="dropdownContent" class="dropdown-content">
@@ -40,14 +63,20 @@ $customPages = $customPageService->getAllCustomPages();
             </div>
         </nav>
         <div class="icons flex space-x-4">
-            <a href="/personalProgramAgendaView">
-                <img class="icon" src="assets/images/elements/Shopping cart.png" alt="Shopping Cart">
-            </a>
-            <a href="/personalProgramListView">
-                <img class="icon" src="assets/images/elements/Wishlist.png" alt="Wishlist">
-            </a>
+            <?php if ($role): ?>
+                <a href="/personalProgramAgendaView">
+                    <img class="icon" src="assets/images/elements/Shopping cart.png" alt="Shopping Cart">
+                </a>
+                <a href="/personalProgramListView">
+                    <img class="icon" src="assets/images/elements/Wishlist.png" alt="Wishlist">
+                </a>
+            <?php endif; ?>
             <a href="/login">
-                <img class="icon" src="assets/images/elements/login.png" alt="Login">
+                <?php if ($profilePicture): ?>
+                    <img class="rounded-image" src="<?php echo $profilePicture; ?>" alt="Profile Picture">
+                <?php else: ?>
+                    <img class="icon" src="assets/images/elements/login.png" alt="Login">
+                <?php endif; ?>
             </a>
         </div>
     </div>
@@ -59,17 +88,6 @@ $customPages = $customPageService->getAllCustomPages();
             dropdownContent.style.display = 'block';
         } else {
             dropdownContent.style.display = 'none';
-        }
-    });
-
-    document.getElementById('menu-toggle').addEventListener('change', function () {
-        var header = document.querySelector('.header');
-        if (window.innerWidth <= 768) { // Assuming 768px is the breakpoint for small devices
-            if (this.checked) {
-                header.classList.add('header-square');
-            } else {
-                header.classList.remove('header-square');
-            }
         }
     });
 

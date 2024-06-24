@@ -15,3 +15,12 @@
 2024-05-16 20:03:06 - SQLSTATE[22007]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Conversion failed when converting date and/or time from character string.
 2024-05-16 20:11:53 - Invalid date or time format
 2024-05-22 16:46:07 - SQLSTATE[42000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]String or binary data would be truncated in table 'projectwebdev.dbo.HOME_EVENTS', column 'Description'. Truncated value: '<p><u>If you are a music enthusiast , Haarlem is THE PLACE for YOU! With lots of bars and music venu'.
+2024-06-21 19:31:07 - SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK__ORDER_ITE__Order__7814D14C". The conflict occurred in database "projectwebdev", table "dbo.ORDER", column 'OrderID'.
+2024-06-21 19:31:59 - SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK__ORDER_ITE__Order__7814D14C". The conflict occurred in database "projectwebdev", table "dbo.ORDER", column 'OrderID'.
+2024-06-21 19:37:59 - SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK__ORDER_ITE__Order__7814D14C". The conflict occurred in database "projectwebdev", table "dbo.ORDER", column 'OrderID'.
+2024-06-21 19:42:51 - SQLSTATE[23000]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK__ORDER_ITE__Order__7814D14C". The conflict occurred in database "projectwebdev", table "dbo.ORDER", column 'OrderID'.
+2024-06-22 14:45:04 - SQLSTATE[42S22]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'ProfilePicture'.
+2024-06-22 14:46:46 - SQLSTATE[42S22]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'ProfilePicture'.
+2024-06-22 14:48:52 - SQLSTATE[42S22]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'ProfilePicture'.
+2024-06-22 14:49:58 - SQLSTATE[22018]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Conversion failed when converting the nvarchar value 'assets/images/user_profile_picture//1719067798-252271746-robotu.jpg' to data type int.
+2024-06-22 14:53:02 - SQLSTATE[22018]: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Conversion failed when converting the nvarchar value 'assets/images/user_profile_picture//1719067982-1995239623-robotu.jpg' to data type int.

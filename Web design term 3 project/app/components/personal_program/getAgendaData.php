@@ -5,28 +5,48 @@ use App\Services\PaymentService;
 use App\Services\TicketsService;
 use App\Services\HistoryService;
 use App\Services\YummyService;
+use App\Services\UserService;
 
 $paymentService = new PaymentService();
 $ticketsService = new TicketsService();
 $historyService = new HistoryService();
 $yummyService = new YummyService();
+$userService = new UserService();
 
 $changeViewLink = '/personalProgramListView';
-$userId = 2; //TODO: // Replace with actual user ID
-$order = $paymentService->getOrderByUserId($userId);
-$orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
-$allReservations = $yummyService->getReservationsByUserId($userId);
-$reservations = [];
-$displayCheckBoxAndQuantityButtons = false;
-$itemsTotal = 0;
-$totalPrice = 0;
-$arraySelectedTickets = null;
-$paidOrders = $paymentService->getPaidOrdersByUserId($userId);
-$paidOrderItemsAll = [];
-$historyFirstRoute = $historyService->getFirstHistoryRoute()->locationName;
-$danceTicketsForAgenda = [];
-$historyTicketsForAgenda = [];
-$reservationData = []; // Initialize an array to hold the combined data
+
+$userId = $_SESSION['userId'];
+$readOnly = false;
+$userName = null;
+
+if (isset($_GET['userID'])) {
+    $userId = $_GET['userID'];
+    $readOnly = true;
+    $userName = $userService->getUserNameByID($userId);
+
+} else if (!$_SESSION['userId']) {
+    header('Location: /');
+}
+
+try {
+    $order = $paymentService->getOrderByUserId($userId);
+    $orderItems = $paymentService->getOrdersItemsByOrderId($order->orderID);
+    $allReservations = $yummyService->getReservationsByUserId($userId);
+    $reservations = [];
+    $displayCheckBoxAndQuantityButtons = false;
+    $itemsTotal = 0;
+    $totalPrice = 0;
+    $arraySelectedTickets = null;
+    $paidOrders = $paymentService->getPaidOrdersByUserId($userId);
+    $paidOrderItemsAll = [];
+    $historyFirstRoute = $historyService->getFirstHistoryRoute()->locationName;
+    $danceTicketsForAgenda = [];
+    $historyTicketsForAgenda = [];
+    $reservationData = []; // Initialize an array to hold the combined data
+} catch (Exception $e) {
+    header('Location: /');
+    return;
+}
 
 foreach ($allReservations as $reservation) {
     if ($reservation->isActive) {

@@ -28,13 +28,14 @@ if (isset($_SESSION['customerData'])) {
                 Payment Information</h2>
         </div>
         <p class="form-subtitle mt-[-20px] ml-20 text-red-500">*All fields are mandatory to complete a purchase</p>
+        <p class="ml-36 text-red-400">You can put a line for the fields not necessary to fill</p>
     </div>
 
 
     <form action="/payment/storeCustomerData" method="POST" class="space-y-5">
         <!-- Country/Region Input -->
         <div>
-            <label class="block form-label">Country/Region:</label>
+            <label class="block form-label">Country/Region*:</label>
             <input type="text" name="country" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['country'])) {
                 echo htmlspecialchars($customerData['country']);
             } ?>">
@@ -42,7 +43,7 @@ if (isset($_SESSION['customerData'])) {
 
         <!-- Full Name Input -->
         <div>
-            <label class="block form-label">Full Name (First & Last name):</label>
+            <label class="block form-label">Full Name (First & Last name)*:</label>
             <input type="text" name="name" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['name'])) {
                 echo htmlspecialchars($customerData['name']);
             } ?>">
@@ -50,7 +51,7 @@ if (isset($_SESSION['customerData'])) {
 
         <!-- Phone Number Input -->
         <div>
-            <label class="block form-label">Phone Number:</label>
+            <label class="block form-label">Phone Number*:</label>
             <input type="tel" name="phoneNumber" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['phoneNumber'])) {
                 echo htmlspecialchars($customerData['phoneNumber']);
             } ?>">
@@ -60,7 +61,7 @@ if (isset($_SESSION['customerData'])) {
 
         <!-- Email Address Input -->
         <div>
-            <label class="block form-label">Email Address:</label>
+            <label class="block form-label">Email Address*:</label>
             <input type="email" name="email" class="w-full px-3 py-2 rounded-lg form-input" required value="<?php if (isset($customerData['email'])) {
                 echo htmlspecialchars($customerData['email']);
             } ?>">
@@ -106,7 +107,7 @@ if (isset($_SESSION['customerData'])) {
         </div>
 
         <!-- Navigation Buttons -->
-        <div class="flex justify-between mt-6">
+        <div class="flex justify-between mt-6 py-2">
             <a href="/personalProgramListView">
                 <button type="button" class="button-back">&larr; Back to Shopping Cart</button>
             </a>

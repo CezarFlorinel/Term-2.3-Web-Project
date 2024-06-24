@@ -1,4 +1,5 @@
 import ErrorHandler from '../Utilities/error_handler_class.js';
+import { addEventListenersToContainer } from './order_tickets_dance_home.js';
 const errorHandler = new ErrorHandler();
 
 const ticketsContainer = document.getElementById('js_ticketDisplayContainer');
@@ -29,8 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
             // Check if selectedArtist is 'All Artists' or if the ticket's singer string contains the selected artist
             return normalizedSelectedArtist === 'all_artists' || singers.includes(normalizedSelectedArtist);
         });
-
-
 
         generateTickets(filteredTickets);
     });
@@ -72,8 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
         generateTickets(danceTickets);
     });
 
-
-
 });
 
 function generateTickets(filteredTickets) {
@@ -93,7 +90,7 @@ function generateTickets(filteredTickets) {
         const formattedPrice = parseFloat(ticket.price).toFixed(2);
 
         const ticketHTML = `
-                <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex flex-col w-full mx-auto border border-blue-900">
+                <div id="js_ticketDanceContainer_${ticket.D_TicketID}" class="bg-gray-900 p-6 rounded-lg shadow-lg text-white flex flex-col w-full mx-auto border border-blue-900">
                     <div class="flex-1 mb-4">
                         <div class="text-2xl font-bold mb-2 text-center lg:text-left">${ticket.singer}</div>
                         <div class="flex justify-center items-center space-x-4 lg:space-x-10">
@@ -117,14 +114,14 @@ function generateTickets(filteredTickets) {
                         </div>
                     </div>
                     <div class="mt-4 flex justify-end items-center space-x-2">
-                        <button class="bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button class="js_decreaseTicketQuantityButton bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <i class="fas fa-minus text-white text-xs"></i>
                         </button>
-                        <span>1</span>
-                        <button class="bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <span class="js_ticketQuantity">1</span>
+                        <button class="js_increaseTicketQuantityButton bg-gray-700 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <i class="fas fa-plus text-white text-xs"></i>
                         </button>
-                        <button class="bg-blue-500 py-1 px-4 rounded-lg font-bold text-white text-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button data-ticket-id="${ticket.D_TicketID}"  data-order-id="${order.orderID}"  class="js_addTicketToCartButton bg-blue-500 py-1 px-4 rounded-lg font-bold text-white text-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             Add ticket to cart
                         </button>
                     </div>
@@ -132,6 +129,9 @@ function generateTickets(filteredTickets) {
             `;
 
         ticketsContainer.innerHTML += ticketHTML;
+
+        let ticketContainers = document.querySelectorAll("[id^=js_ticketDanceContainer_]");
+        addEventListenersToContainer(ticketContainers);
     });
 }
 
@@ -148,32 +148,33 @@ function updateArtistDisplay(dateFilter) {
 
     // Loop over filtered danceTickets and create HTML for each
     filteredTickets.forEach(ticket => {
-
         let imagePathOfArtist = ''; // Initialize the image path variable
+        const singerNameLower = ticket.singer.toLowerCase();
 
-        danceTickets.forEach(ticket => {
-            const singerNameLower = ticket.singer.toLowerCase();
-            artists.forEach(artist => {
-                const artistNameLower = artist.name.toLowerCase();
-                // Check if the first word of the singer's name is in the artist's name
-                if (artistNameLower.includes(singerNameLower.split(' ')[0])) {
-                    imagePathOfArtist = artist.imageArtistLineupPath;
-                }
-            });
-        });
+        // Find the corresponding artist image path
+        for (let artist of artists) {
+            const artistNameLower = artist.name.toLowerCase();
+            if (ticket.singer === artist.name) {
+                imagePathOfArtist = artist.imageArtistLineupPath;
+                break;
+            } else if (artistNameLower.includes(singerNameLower.split(' ')[0])) {
+                imagePathOfArtist = artist.imageArtistLineupPath;
+                break;
+            }
+        }
 
         const imagePath = imagePathOfArtist;
         const startTime = formatTime(ticket.startTime);
         const endTime = formatTime(ticket.endTime);
 
         const artistHtml = `
-                <div class="artist-container">
-                    <img class="w-full h-48 object-cover rounded" src="${imagePath}" alt="Artist">
-                    <p class="mt-2">${ticket.singer}</p>
-                    <p class="text-xs">${startTime} - ${endTime}</p>
-                    <p class="text-xs">${ticket.location.toUpperCase()}</p>
-                </div>
-            `;
+            <div class="artist-container">
+                <img class="w-full h-48 object-cover rounded" src="${imagePath}" alt="Artist">
+                <p class="mt-2">${ticket.singer}</p>
+                <p class="text-xs">${startTime} - ${endTime}</p>
+                <p class="text-xs">${ticket.location.toUpperCase()}</p>
+            </div>
+        `;
         container.innerHTML += artistHtml; // Append new artist container
     });
 }

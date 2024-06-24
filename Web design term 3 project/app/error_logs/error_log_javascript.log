@@ -47,3 +47,32 @@
 2024-06-19 13:04:41 - dance_home_admin.js - addArtist - Missing required fields or file
 2024-06-19 13:29:02 - club_location.js - createClubLocation - The string is empty
 2024-06-20 17:47:01 - history_practical_information.js - addHistoryPracticalInformation - The string is empty
+2024-06-21 19:31:07 - order_ticket_dance_home.js - addEventListenerForOrderTicketButton - errorHandler.showError is not a function
+2024-06-21 19:31:59 - order_ticket_dance_home.js - addEventListenerForOrderTicketButton - errorHandler.showError is not a function
+2024-06-21 19:37:59 - order_ticket_dance_home.js - addEventListenerForOrderTicketButton - errorHandler.showError is not a function
+2024-06-21 19:42:51 - order_ticket_dance_home.js - addEventListenerForOrderTicketButton - errorHandler.showError is not a function
+2024-06-22 14:31:00 - userPersonalInformation.js - editUserForm - No file uploaded or missing ID.
+2024-06-22 14:31:55 - userPersonalInformation.js - editUserForm - No file uploaded or missing ID.
+2024-06-22 14:36:16 - userPersonalInformation.js - editUserForm - No file uploaded
+2024-06-22 14:36:41 - userPersonalInformation.js - editUserForm - No file uploaded
+2024-06-22 14:38:38 - userPersonalInformation.js - editUserForm - Unexpected token 'C', "Call to pr"... is not valid JSON
+2024-06-22 14:43:10 - userPersonalInformation.js - editUserForm - Unexpected token 'C', "Call to pr"... is not valid JSON
+2024-06-22 14:45:04 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D
+2024-06-22 14:46:46 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D
+2024-06-22 14:48:52 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D
+2024-06-22 14:49:58 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D
+2024-06-22 14:53:02 - userPersonalInformation.js - editUserForm - A fatal error has occurred! Please Try Again Later ;D
+2024-06-23 17:03:36 - modules_yummy_home_admin/session.js - displaySession - The string is empty
+2024-06-23 17:18:33 - career_highlights.js - deleteCareerHighlight - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 17:44:05 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 17:47:31 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 18:01:50 - career_highlights.js - addCareerHighlight - Missing required fields or file
+2024-06-23 18:28:27 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 18:29:16 - career_highlights.js - addCareerHighlight - Missing required fields or file
+2024-06-23 18:36:01 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 21:10:59 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 21:11:07 - update_image.js - setupImageUploadListener - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 21:11:20 - image_restaurant.js - deleteImageFunction - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 21:11:25 - image_restaurant.js - deleteImageFunction - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 21:11:27 - image_restaurant.js - deleteImageFunction - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-23 21:11:30 - image_restaurant.js - deleteImageFunction - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)

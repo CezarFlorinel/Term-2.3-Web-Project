@@ -4,6 +4,7 @@ session_start();
 if (isset($_SESSION['userEmail']) && isset($_SESSION['userName'])) {
     $email = $_SESSION['userEmail'];
     $name = $_SESSION['userName'];
+    $userProfilePicture = $_SESSION['userProfilePicture'];
 }
 ?>
 
@@ -29,10 +30,15 @@ if (isset($_SESSION['userEmail']) && isset($_SESSION['userName'])) {
                 <div class="flex items-center justify-between mb-4">
 
                     <!-- User's picture -->
-
-                    <img src="user.jpg" alt="User" class="w-12 h-12 rounded-full">
+                    <?php if ($userProfilePicture): ?>
+                        <img src="<?php echo $userProfilePicture; ?>" alt="User" class="w-12 h-12 rounded-full">
+                    <?php else: ?>
+                        <img src="assets/images/user_profile_picture/default.webp" alt="User"
+                            class="w-12 h-12 rounded-full">
+                    <?php endif; ?>
                 </div>
                 <div>
+                    <input type="file" id="profilePicture" style="display:none;">
                     <button type="button" id="changePicture"
                         class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Change
                         Picture</button>

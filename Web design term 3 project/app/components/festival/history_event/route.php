@@ -33,6 +33,6 @@
 </div>
 
 <div class="The-button">
-
-    <button type="button" class="btn1">Check Festival Schedule</button>
+    <a href="/personalProgramAgendaView"> <button type="button" class="btn1">Check Festival Schedule</button>
+    </a>
 </div>

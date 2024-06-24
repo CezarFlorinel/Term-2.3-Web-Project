@@ -8,7 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
     addEventListenersToContainer(ticketContainers);
 });
 
-function addEventListenersToContainer(ticketContainers) {
+
+
+export function addEventListenersToContainer(ticketContainers) {
     ticketContainers.forEach(container => {
         // Find the relevant elements within the container
         const decreaseButton = container.querySelector(".js_decreaseTicketQuantityButton");
@@ -60,6 +62,8 @@ function addEventListenerForOrderTicketButton(addTicketButton, quantityDisplay) 
         if (!checkNumber(quantity)) {
             return;
         }
+
+        console.log("orderID: ", orderID, "ticketID: ", ticketID, "quantity: ", quantity);
 
         fetch('/api/danceManageTickets/orderTicket', {
             method: 'POST',
