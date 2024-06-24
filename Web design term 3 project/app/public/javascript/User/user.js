@@ -11,7 +11,7 @@ function searchFunction() {
   tr = tbody.getElementsByTagName("tr");
 
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[3]; // Adjusted to column index for Name
+    td = tr[i].getElementsByTagName("td")[2]; 
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -38,7 +38,7 @@ function sortTable(n) {
     let y = b.cells[n].innerText || b.cells[n].textContent;
 
     // Detect if the column being sorted is a date
-    if (n === 4) { // Assuming the date column index is 4
+    if (n === 4) { 
       x = parseDate(x);
       y = parseDate(y);
     } else if (!isNaN(x) && !isNaN(y)) { // Number comparison
