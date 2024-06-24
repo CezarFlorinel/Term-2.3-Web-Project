@@ -49,12 +49,10 @@ class PaymentSuccessController
         $this->makeTickets();
         $this->projectRoot = realpath(__DIR__ . '/../../..');
     }
-
     public function index()
     {
         require __DIR__ . '/../views/payment/payment_success.php';
     }
-
     private function getPaymentMethod()
     {
         try {
@@ -115,7 +113,6 @@ class PaymentSuccessController
             ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
         }
     }
-
     private function generatePDFInvoice()
     {
         try {
