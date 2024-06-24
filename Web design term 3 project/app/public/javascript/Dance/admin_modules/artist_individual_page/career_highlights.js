@@ -54,12 +54,6 @@ function updateCareerHighlight(id) {
         body: JSON.stringify(data)
     })
         .then(handleApiResponse)
-        .then(data => {
-            if (data.success) {
-                alert('Career highlight updated successfully!');
-            }
-
-        })
         .catch(error => {
             errorHandler.logError(error, 'updateCareerHighlight', 'career_highlights.js');
             errorHandler.showAlert('An error occurred while updating the career highlight, please try again later!');

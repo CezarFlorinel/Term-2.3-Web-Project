@@ -4,7 +4,8 @@
     <?php foreach ($careerHighlights as $careerHighlight):
         $id = htmlspecialchars($careerHighlight->careerHighlightsID);
         ?>
-        <div id="js_carrerHighlightContainer_<?php echo $id ?>" class="bg-white shadow-lg rounded-lg p-6">
+        <div id="js_carrerHighlightContainer_<?php echo $id ?>" data-id="<?php echo $id ?>"
+            class="bg-white shadow-lg rounded-lg p-6">
             <!-- Title -->
             <input id="js_careerHighlightTitleInput_<?php echo $id ?>" type="text"
                 class="text-2xl font-bold mb-4 p-2 w-full border-2 border-gray-300 rounded" placeholder="Enter title here"
@@ -22,7 +23,8 @@
                     style="width: auto; height: 200px;">
                 <input type="file" id="js_imageArtistCarrerInput_<?php echo $id ?>" class="hidden" accept="image/*">
                 <button onclick="document.getElementById('js_imageArtistCarrerInput_<?php echo $id ?>').click();"
-                    class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-700 transition duration-150 mt-2">Change
+                    id="js-chagneImageCareerHighlightButton_<?php echo $id ?>"
+                    class="js_changeImageCarrerHighlightButton py-2 px-4 bg-green-500 text-white rounded hover:bg-green-700 transition duration-150 mt-2">Change
                     Image</button>
             </div>
 

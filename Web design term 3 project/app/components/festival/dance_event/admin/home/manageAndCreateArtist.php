@@ -28,7 +28,8 @@
                 class="w-full rounded-lg py-2 px-3 mb-2 border">
 
             <div>
-                <label for="text" class="block text-sm font-medium text-gray-700">Image Top</label>
+
+                <label for="text" class="block text-sm font-medium text-gray-700">Image Lineup</label>
                 <img id="js_imagePreviewTopArtist" src="#" alt="Top" class="mt-2 hidden"
                     style="width: auto; height: 200px;"> <!-- Initially hidden -->
                 <input type="file" id="js_imageTopArtistInput" class="hidden" accept="image/*"
@@ -39,7 +40,7 @@
             </div>
 
             <div>
-                <label for="text" class="block text-sm font-medium text-gray-700">Image Lineup</label>
+                <label for="text" class="block text-sm font-medium text-gray-700">Image Top</label>
                 <img id="js_imagePreviewLineup" src="#" alt="Lineup" class="mt-2 hidden"
                     style="width: auto; height: 200px;"> <!-- Initially hidden -->
                 <input type="file" id="js_imageLineupInput" class="hidden" accept="image/*"

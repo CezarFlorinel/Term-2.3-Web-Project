@@ -8,6 +8,7 @@ const imageArtistApiUrl = "/api/artistAdminManagement/updateArtistImage";
 const containerForArtistImageID = "js_artistInfoIdContainer";
 const imageTopColumnName = "ImageTop";
 const imageArtistLineupColumnName = "ImageArtistLineupHome";
+const imageCarrerHighLightUrl = "/api/artistAdminManagement/updateCareerHighlightImage";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -47,6 +48,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const id = this.id.split('_')[1];
             deleteCareerHighlight(id);
         });
+    });
+
+    document.querySelectorAll('.js_changeImageCarrerHighlightButton').forEach(button => {
+        button.addEventListener('click', function () {
+            const id = this.id.split('_')[1];
+            setupImageUploadListener(`js_imageArtistCarrerInput_${id}`, imageCarrerHighLightUrl, `js_carrerHighlightContainer_${id}`, `js_imageArtistCarrerHighlight_${id}`);
+        });
+
     });
 
     document.querySelectorAll('.js_updateCareerHighlightButton').forEach(button => {

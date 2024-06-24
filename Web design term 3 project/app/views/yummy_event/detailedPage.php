@@ -30,8 +30,8 @@ session_start();
     include __DIR__ . '/../../components/festival/yummy_event/restaurant_page/restaurantDescription.php';
     include __DIR__ . '/../../components/festival/yummy_event/restaurant_page/restaurantGallery.php';
     include __DIR__ . '/../../components/festival/yummy_event/restaurant_page/restaurantReviews.php';
-    include __DIR__ . '/../../components/festival/yummy_event/restaurant_page/restaurantLocation.php';
     include __DIR__ . '/../../components/festival/yummy_event/restaurant_page/schedule.php';
+    include __DIR__ . '/../../components/festival/yummy_event/restaurant_page/restaurantLocation.php';
     include __DIR__ . '/../../components/festival/yummy_event/restaurant_page/buttons.php';
     ?>
 

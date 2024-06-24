@@ -9,7 +9,7 @@ session_start();
 $profilePicture = null;
 $role = null;
 
-if (isset($_SESSION['userProfilePicture'])) {
+if (isset($_SESSION['userProfilePicture']) && $_SESSION['userProfilePicture'] !== '') {
     $profilePicture = $_SESSION['userProfilePicture'];
 } else if (isset($_SESSION['userRole'], $_SESSION['userId'])) {
     $profilePicture = 'assets/images/user_profile_picture/default.webp';
@@ -25,7 +25,7 @@ if (isset($_SESSION['userRole'])) {
 <?php include_once "../components/general/modalBoxCreate.php"; ?>
 
 <main>
-    <div class="header flex justify-between items-center px-4 py-2 bg-white shadow-md">
+    <div id="js_header" class="header flex justify-between items-center px-4 py-2 bg-white shadow-md">
         <a href="/" class="logoLink">
             <img class="logo" src="assets/images/Logos/Logo-Festival.png" alt="Logo">
         </a>
@@ -33,7 +33,7 @@ if (isset($_SESSION['userRole'])) {
         <label for="menu-toggle" class="menu-icon" id="menu-icon">
             <img src="assets/images/elements/hamburger_Icon.jpg" alt="Menu">
         </label>
-        <nav class="navigation flex-grow hidden lg:flex justify-end">
+        <nav class="navigation flex-grow lg:flex justify-end">
             <a href="/" class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/') ? 'active' : ''; ?>">Home</a>
             <a href="/yummyevent"
                 class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/yummyevent') ? 'active' : ''; ?>">Yummy</a>
@@ -45,6 +45,11 @@ if (isset($_SESSION['userRole'])) {
             <?php if ($role === UserRole::Admin->value): ?>
                 <a href="/mainpageadmin"
                     class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/mainpageadmin') ? 'active' : ''; ?>">Admin</a>
+            <?php endif; ?>
+            <?php if ($role === UserRole::Employee->value): ?>
+                <a href="/employee"
+                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/employee') ? 'active' : ''; ?>">Scan
+                    Tickets</a>
             <?php endif; ?>
             <div class="relative dropdown">
                 <button id="dropdownButton" class="nav-link">More</button>
@@ -83,17 +88,6 @@ if (isset($_SESSION['userRole'])) {
             dropdownContent.style.display = 'block';
         } else {
             dropdownContent.style.display = 'none';
-        }
-    });
-
-    document.getElementById('menu-toggle').addEventListener('change', function () {
-        var header = document.querySelector('.header');
-        if (window.innerWidth <= 768) { // Assuming 768px is the breakpoint for small devices
-            if (this.checked) {
-                header.classList.add('header-square');
-            } else {
-                header.classList.remove('header-square');
-            }
         }
     });
 

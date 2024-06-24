@@ -49,12 +49,10 @@ class PaymentSuccessController
         $this->makeTickets();
         $this->projectRoot = realpath(__DIR__ . '/../../..');
     }
-
     public function index()
     {
         require __DIR__ . '/../views/payment/payment_success.php';
     }
-
     private function getPaymentMethod()
     {
         try {
@@ -115,7 +113,6 @@ class PaymentSuccessController
             ErrorHandlerMethod::handleErrorController($e, $this->sessionManager, '/Payment');
         }
     }
-
     private function generatePDFInvoice()
     {
         try {
@@ -166,6 +163,7 @@ class PaymentSuccessController
         $this->htmlContent .= '<h2>Client email: ' . $invoice->email . '</h2>';
         $this->htmlContent .= '<br>';
         $this->htmlContent = '<h1>Products Prices </h1>';
+
         foreach ($orderItems as $orderItem) {
             $ticket = $this->ticketService->returnTypeOfTicket($orderItem);
             if (get_class($ticket) == 'App\Models\Tickets\HistoryTicket') {
@@ -176,6 +174,7 @@ class PaymentSuccessController
                 $this->fillForPassInvoice($ticket, $orderItem);
             }
         }
+
         $this->htmlContent .= '<h2>Number of products: ' . $quantity . '</h2>';
         $formattedVAT = number_format($invoice->VATamount, 2, '.', '');
         $this->htmlContent .= '<h2>VAT amount: ' . $formattedVAT . '€</h2>';

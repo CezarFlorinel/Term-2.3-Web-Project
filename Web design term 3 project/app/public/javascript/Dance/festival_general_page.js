@@ -148,32 +148,33 @@ function updateArtistDisplay(dateFilter) {
 
     // Loop over filtered danceTickets and create HTML for each
     filteredTickets.forEach(ticket => {
-
         let imagePathOfArtist = ''; // Initialize the image path variable
+        const singerNameLower = ticket.singer.toLowerCase();
 
-        danceTickets.forEach(ticket => {
-            const singerNameLower = ticket.singer.toLowerCase();
-            artists.forEach(artist => {
-                const artistNameLower = artist.name.toLowerCase();
-                // Check if the first word of the singer's name is in the artist's name
-                if (artistNameLower.includes(singerNameLower.split(' ')[0])) {
-                    imagePathOfArtist = artist.imageArtistLineupPath;
-                }
-            });
-        });
+        // Find the corresponding artist image path
+        for (let artist of artists) {
+            const artistNameLower = artist.name.toLowerCase();
+            if (ticket.singer === artist.name) {
+                imagePathOfArtist = artist.imageArtistLineupPath;
+                break;
+            } else if (artistNameLower.includes(singerNameLower.split(' ')[0])) {
+                imagePathOfArtist = artist.imageArtistLineupPath;
+                break;
+            }
+        }
 
         const imagePath = imagePathOfArtist;
         const startTime = formatTime(ticket.startTime);
         const endTime = formatTime(ticket.endTime);
 
         const artistHtml = `
-                <div class="artist-container">
-                    <img class="w-full h-48 object-cover rounded" src="${imagePath}" alt="Artist">
-                    <p class="mt-2">${ticket.singer}</p>
-                    <p class="text-xs">${startTime} - ${endTime}</p>
-                    <p class="text-xs">${ticket.location.toUpperCase()}</p>
-                </div>
-            `;
+            <div class="artist-container">
+                <img class="w-full h-48 object-cover rounded" src="${imagePath}" alt="Artist">
+                <p class="mt-2">${ticket.singer}</p>
+                <p class="text-xs">${startTime} - ${endTime}</p>
+                <p class="text-xs">${ticket.location.toUpperCase()}</p>
+            </div>
+        `;
         container.innerHTML += artistHtml; // Append new artist container
     });
 }

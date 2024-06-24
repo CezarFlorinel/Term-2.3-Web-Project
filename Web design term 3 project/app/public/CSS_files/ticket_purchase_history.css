@@ -1,3 +1,11 @@
+/* for the top bar */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+    margin-right: -200px;
+}
+
 .all_container {
     font-family: Arial, sans-serif;
     margin: 0;
