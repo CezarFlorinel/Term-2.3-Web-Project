@@ -76,3 +76,6 @@
 2024-06-23 21:11:25 - image_restaurant.js - deleteImageFunction - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
 2024-06-23 21:11:27 - image_restaurant.js - deleteImageFunction - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
 2024-06-23 21:11:30 - image_restaurant.js - deleteImageFunction - Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+2024-06-24 13:52:05 - manage_images.js - uploadImage - saveContent is not a function
+2024-06-24 13:52:26 - manage_images.js - uploadImage - saveContent is not a function
+2024-06-24 13:53:01 - manage_images.js - deleteImage - saveContent is not a function
